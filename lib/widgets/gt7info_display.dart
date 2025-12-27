@@ -3,7 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:provider/provider.dart';
 import '../models/gt7info_data.dart';
 import '../services/gt7info_service.dart';
-import 'car_list_item.dart';
+import 'car_grid_item.dart';
 
 class GT7InfoDisplay extends StatefulWidget {
   const GT7InfoDisplay({super.key});
@@ -174,11 +174,46 @@ class _GT7InfoDisplayState extends State<GT7InfoDisplay> with SingleTickerProvid
           ),
         ),
         Expanded(
-          child: ListView.builder(
-            padding: const EdgeInsets.only(bottom: 16),
-            itemCount: cars.length,
-            itemBuilder: (context, index) {
-              return CarListItem(car: cars[index]);
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              int crossAxisCount;
+              double itemWidth = 300.0; // Approximate width for each item
+
+              // For used car dealership, return 4-6 items per row depending on screen size
+              if (title.contains('Used Cars')) {
+                if (constraints.maxWidth < 600) {
+                  crossAxisCount = 1; // 1 item per row on small screens
+                } else if (constraints.maxWidth < 800) {
+                  crossAxisCount = 2; // 2 items per row on medium screens
+                } else if (constraints.maxWidth < 1200) {
+                  crossAxisCount = 4; // 4 items per row on larger screens
+                } else {
+                  crossAxisCount = 6; // 6 items per row on very large screens
+                }
+              } else {
+                // For legendary cars, use a consistent grid
+                if (constraints.maxWidth < 600) {
+                  crossAxisCount = 1; // 1 item per row on small screens
+                } else if (constraints.maxWidth < 800) {
+                  crossAxisCount = 2; // 2 items per row on medium screens
+                } else {
+                  crossAxisCount = 3; // 3 items per row on larger screens
+                }
+              }
+
+              return GridView.builder(
+                padding: const EdgeInsets.only(bottom: 16),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: crossAxisCount,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                  childAspectRatio: 1.5, // Adjust aspect ratio as needed
+                ),
+                itemCount: cars.length,
+                itemBuilder: (context, index) {
+                  return CarGridItem(car: cars[index]);
+                },
+              );
             },
           ),
         ),
@@ -189,4 +224,5 @@ class _GT7InfoDisplayState extends State<GT7InfoDisplay> with SingleTickerProvid
   String _formatDateTime(DateTime dateTime) {
     return '${dateTime.day}/${dateTime.month}/${dateTime.year} ${dateTime.hour}:${dateTime.minute.toString().padLeft(2, '0')}';
   }
+
 }

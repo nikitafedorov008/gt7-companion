@@ -59,6 +59,9 @@ dependencies:
   extended_image: ^10.0.1
   flutter_avif: ^3.1.0
 
+  # For GraphQL API
+  graphql: ^5.2.0
+
 
 dev_dependencies:
   flutter_test:

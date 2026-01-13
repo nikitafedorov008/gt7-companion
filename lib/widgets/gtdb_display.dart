@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/gtdb_data.dart';
+import '../models/used_car.dart';
+import '../models/legendary_car.dart';
 import '../models/gt7info_data.dart'; // Needed for CarData compatibility
 import '../services/gtdb_service.dart';
 import '../widgets/car_grid_item.dart';
@@ -69,7 +70,7 @@ class _GTDBDisplayState extends State<GTDBDisplay> with SingleTickerProviderStat
           );
         }
 
-        if (service.data == null) {
+        if (service.usedCars.isEmpty && service.legendaryCars.isEmpty) {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -85,7 +86,6 @@ class _GTDBDisplayState extends State<GTDBDisplay> with SingleTickerProviderStat
           );
         }
 
-        final data = service.data!;
         final lastUpdated = service.lastUpdated;
 
         return Column(
@@ -143,10 +143,10 @@ class _GTDBDisplayState extends State<GTDBDisplay> with SingleTickerProviderStat
                 controller: _tabController,
                 children: [
                   // Used cars tab
-                  _buildCarListView(data.usedCars, 'GTDB Used Cars'),
+                  _buildCarListView(service.usedCars, 'GTDB Used Cars'),
 
                   // Legendary cars tab
-                  _buildCarListView(data.legendCars, 'GTDB Legendary Cars'),
+                  _buildCarListView(service.legendaryCars, 'GTDB Legendary Cars'),
                 ],
               ),
             ),
@@ -156,7 +156,7 @@ class _GTDBDisplayState extends State<GTDBDisplay> with SingleTickerProviderStat
     );
   }
 
-  Widget _buildCarListView(List<GTDBCar> cars, String title) {
+  Widget _buildCarListView<T>(List<T> cars, String title) {
     return Column(
       children: [
         Padding(
@@ -174,7 +174,7 @@ class _GTDBDisplayState extends State<GTDBDisplay> with SingleTickerProviderStat
             builder: (context, constraints) {
               int crossAxisCount;
               double itemWidth = 300.0; // Approximate width for each item
-              
+
               // For used car dealership, return 4-6 items per row depending on screen size
               if (title.contains('Used Cars')) {
                 if (constraints.maxWidth < 600) {
@@ -196,7 +196,7 @@ class _GTDBDisplayState extends State<GTDBDisplay> with SingleTickerProviderStat
                   crossAxisCount = 3; // 3 items per row on larger screens
                 }
               }
-              
+
               return GridView.builder(
                 padding: const EdgeInsets.only(bottom: 16),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -207,7 +207,14 @@ class _GTDBDisplayState extends State<GTDBDisplay> with SingleTickerProviderStat
                 ),
                 itemCount: cars.length,
                 itemBuilder: (context, index) {
-                  return CarGridItem(car: _convertToCarData(cars[index])); // Convert GTDBCar to CarData for compatibility
+                  if (cars[index] is UsedCar) {
+                    return CarGridItem(car: _convertUsedCarToCarData(cars[index] as UsedCar));
+                  } else if (cars[index] is LegendaryCar) {
+                    return CarGridItem(car: _convertLegendaryCarToCarData(cars[index] as LegendaryCar));
+                  } else {
+                    // Fallback for unexpected types
+                    return Container();
+                  }
                 },
               );
             },
@@ -217,9 +224,42 @@ class _GTDBDisplayState extends State<GTDBDisplay> with SingleTickerProviderStat
     );
   }
 
-  // Convert GTDBCar to CarData for compatibility with CarGridItem widget
-  CarData _convertToCarData(GTDBCar gtdbCar) {
-    return gtdbCar.toCarData();
+  // Convert UsedCar to CarData for compatibility with CarGridItem widget
+  CarData _convertUsedCarToCarData(UsedCar usedCar) {
+    return CarData(
+      carId: 'car${usedCar.carIdFromDetails ?? usedCar.id}',
+      manufacturer: usedCar.manufacturerName ?? 'Unknown',
+      region: 'xx',
+      name: usedCar.name ?? 'Unknown Car',
+      credits: usedCar.price ?? 0,
+      state: usedCar.state ?? 'normal',
+      estimateDays: 0,
+      maxEstimateDays: 0,
+      isNew: usedCar.state == 'new',
+      rewardCar: null,
+      engineSwap: null,
+      lotteryCar: null,
+      trophyCar: null,
+    );
+  }
+
+  // Convert LegendaryCar to CarData for compatibility with CarGridItem widget
+  CarData _convertLegendaryCarToCarData(LegendaryCar legendaryCar) {
+    return CarData(
+      carId: 'car${legendaryCar.id}',
+      manufacturer: legendaryCar.manufacturerName ?? 'Unknown',
+      region: 'xx',
+      name: legendaryCar.name ?? 'Unknown Car',
+      credits: legendaryCar.price ?? 0,
+      state: legendaryCar.state ?? 'normal',
+      estimateDays: 0,
+      maxEstimateDays: 0,
+      isNew: legendaryCar.state == 'new',
+      rewardCar: null,
+      engineSwap: null,
+      lotteryCar: null,
+      trophyCar: null,
+    );
   }
 
   String _formatDateTime(DateTime dateTime) {

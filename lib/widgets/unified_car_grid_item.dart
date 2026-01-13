@@ -43,8 +43,8 @@ class UnifiedCarCardItem extends StatelessWidget {
                   widthFactor: 0.8,
                   child: _buildImageWidget(
                     carImageUrl,
-                    width: 100,
-                    height: 100,
+                    width: 120,
+                    height: 120,
                     fit: BoxFit.contain,
                   ),
                 ),
@@ -184,14 +184,7 @@ class UnifiedCarCardItem extends StatelessWidget {
     );
   }
 
-  String _getCarImageUrl() {
-    if (car.source?.contains('gtdb_used') ?? false && car.imageId?.isNotEmpty == true) {
-      return 'https://imagedelivery.net/nkaANmEhdg2ZZ4vhQHp4TQ/${car.imageId}/public';
-    } else if (car.source?.contains('gtdb_legend') ?? false && car.frontImageId?.isNotEmpty == true) {
-      return 'https://imagedelivery.net/nkaANmEhdg2ZZ4vhQHp4TQ/${car.frontImageId}/public';
-    }
-    return 'https://www.gran-turismo.com/common/dist/gt7/carlist/car_thumbnails/car${car.id}.png';
-  }
+  String _getCarImageUrl() => car.carImageUrl;
 
   Widget _buildImageWidget(String imageUrl, {double? width, double? height, BoxFit fit = BoxFit.cover}) {
     Widget placeholder = Container(

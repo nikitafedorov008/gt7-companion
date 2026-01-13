@@ -42,6 +42,7 @@ class GTDBCar {
   final int? price;
   final String? image;
   final String? frontImage;
+  final String? carIdFromDetails; // ID из details.id в формате "#CAR{id}"
   final String? updatedAt;
   final Map<String, dynamic>? details; // For used cars
   final int? sort; // For legend cars
@@ -56,6 +57,7 @@ class GTDBCar {
     this.price,
     this.image,
     this.frontImage,
+    this.carIdFromDetails,
     this.updatedAt,
     this.details,
     this.sort,
@@ -66,6 +68,15 @@ class GTDBCar {
     final details = json['details'] as Map<String, dynamic>?;
     final manufacturer = json['manufacturer'] as Map<String, dynamic>?;
 
+    // Extract the car ID from details.id in format "#CAR{id}"
+    String? carIdFromDetails;
+    if (details?['id'] != null) {
+      final detailsId = details!['id'].toString();
+      if (detailsId.startsWith('#CAR')) {
+        carIdFromDetails = detailsId.substring(4); // Remove "#CAR" prefix to get the numeric ID
+      }
+    }
+
     return GTDBCar(
       id: json['id'] ?? 0,
       name: json['name'] ?? '',
@@ -74,10 +85,13 @@ class GTDBCar {
       manufacturerName: manufacturer?['name'] ?? '',
       state: details?['used_state'], // Used car specific
       price: details?['used_price'] ?? details?['price'], // Use used_price if available, otherwise price
-      image: details?['thumbnail_image_id'] != null 
-          ? 'https://www.gran-turismo.com/common/dist/gt7/carlist/car_thumbnails/car${details?['thumbnail_image_id']}.png'
-          : null,
-      frontImage: null, // Not typically available for used cars
+      image: details?['used_car_image_id'] != null
+          ? details!['used_car_image_id'] // Use the main image ID for image
+          : details?['thumbnail_image_id'], // Fallback to thumbnail if main image is not available
+      frontImage: details?['thumbnail_image_id'] != null
+          ? details!['thumbnail_image_id'] // Use the thumbnail ID for front image
+          : details?['used_car_image_id'], // Fallback to main image if thumbnail is not available
+      carIdFromDetails: carIdFromDetails,
       updatedAt: json['updated_at'] ?? '',
       details: details,
       sort: null, // Not applicable for used cars
@@ -96,12 +110,9 @@ class GTDBCar {
       manufacturerName: manufacturer?['name'] ?? '',
       state: json['state'],
       price: json['price'],
-      image: json['image'] != null
-          ? 'https://www.gran-turismo.com/common/dist/gt7/carlist/car_thumbnails/car${json['image']}.png'
-          : null,
-      frontImage: json['frontImage'] != null
-          ? 'https://www.gran-turismo.com/common/dist/gt7/carlist/car_thumbnails/car${json['frontImage']}.png'
-          : null,
+      image: json['image'], // Store the raw ID, not the full URL
+      frontImage: json['frontImage'], // Store the raw ID, not the full URL
+      carIdFromDetails: null, // Legend cars don't have details.id
       updatedAt: json['updated_at'] ?? '',
       details: null, // Not applicable for legend cars
       sort: json['sort'],
@@ -110,13 +121,13 @@ class GTDBCar {
 
   // Helper getters for common properties
   String get displayName => name ?? shortName ?? 'Unknown Car';
-  
+
   String get displayPrice => 'Cr. ${_formatCredits(price ?? 0)}';
-  
+
   bool get isSoldOut => state == 'soldout';
   bool get isLimitedStock => state == 'limited';
   bool get isNew => state == 'new';
-  
+
   String get statusText {
     if (isSoldOut) return 'SOLD OUT';
     if (isLimitedStock) return 'LIMITED';
@@ -124,7 +135,14 @@ class GTDBCar {
     return 'AVAILABLE';
   }
 
-  String get carId => 'car$id'; // Format car ID for image URLs
+  String get carId {
+    // For used cars, use the carIdFromDetails if available (to match GT7Info IDs)
+    if (carIdFromDetails != null) {
+      return 'car$carIdFromDetails';
+    }
+    // For legend cars or if carIdFromDetails is not available, use the default format
+    return 'car$id';
+  }
 
   String _formatCredits(int credits) {
     if (credits == 0) return '0';

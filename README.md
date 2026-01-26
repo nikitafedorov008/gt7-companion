@@ -1,4 +1,4 @@
-# GT7 Telemetry Flutter
+# GT7 Companion
 
 A Flutter application that displays real-time telemetry data from Gran Turismo 7 (GT7).
 

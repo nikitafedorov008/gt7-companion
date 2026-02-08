@@ -2,6 +2,8 @@
 
 A Flutter application that displays real-time telemetry data from Gran Turismo 7 (GT7).
 
+![macos scrrenshot](./docs/images/macos_screenshot.png)
+
 ## Features
 
 - Real-time display of GT7 telemetry data including:

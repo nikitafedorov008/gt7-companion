@@ -11,31 +11,31 @@
 part of 'app_router.dart';
 
 /// generated route for
-/// [EmptyScreen]
-class EmptyScreenRoute extends PageRouteInfo<EmptyScreenRouteArgs> {
-  EmptyScreenRoute({
+/// [EmptyPage]
+class EmptyPageRoute extends PageRouteInfo<EmptyPageRouteArgs> {
+  EmptyPageRoute({
     Key? key,
     required String title,
     List<PageRouteInfo>? children,
   }) : super(
-         EmptyScreenRoute.name,
-         args: EmptyScreenRouteArgs(key: key, title: title),
+         EmptyPageRoute.name,
+         args: EmptyPageRouteArgs(key: key, title: title),
          initialChildren: children,
        );
 
-  static const String name = 'EmptyScreenRoute';
+  static const String name = 'EmptyPageRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<EmptyScreenRouteArgs>();
-      return EmptyScreen(key: args.key, title: args.title);
+      final args = data.argsAs<EmptyPageRouteArgs>();
+      return EmptyPage(key: args.key, title: args.title);
     },
   );
 }
 
-class EmptyScreenRouteArgs {
-  const EmptyScreenRouteArgs({this.key, required this.title});
+class EmptyPageRouteArgs {
+  const EmptyPageRouteArgs({this.key, required this.title});
 
   final Key? key;
 
@@ -43,13 +43,13 @@ class EmptyScreenRouteArgs {
 
   @override
   String toString() {
-    return 'EmptyScreenRouteArgs{key: $key, title: $title}';
+    return 'EmptyPageRouteArgs{key: $key, title: $title}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    if (other is! EmptyScreenRouteArgs) return false;
+    if (other is! EmptyPageRouteArgs) return false;
     return key == other.key && title == other.title;
   }
 

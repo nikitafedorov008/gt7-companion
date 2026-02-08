@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart'
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'window_navigation_safe_area.dart';
 import '../router/app_router.dart';
 
 /// Adaptive navigation bar used across the app.
@@ -11,10 +12,26 @@ import '../router/app_router.dart';
 class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
   const AdaptiveNavBar({super.key});
 
+  static const double _kMobileBarHeight = 80.0;
+  static const double _kDesktopBarHeight = 72.0;
+  // Matches macos_ui toolbar height (keeps navbar visually aligned with Macos
+  // toolbar). If macos_ui exposes a public constant in future, prefer that.
+  static const double _kMacosToolbarHeight =
+      56.0; // TODO: replace with macos_ui constant
+
   bool get _isMobile {
     if (kIsWeb) return false;
     final p = defaultTargetPlatform;
     return p == TargetPlatform.iOS || p == TargetPlatform.android;
+  }
+
+  double _effectiveHeightForPlatform() {
+    if (kIsWeb) return _kDesktopBarHeight;
+    final p = defaultTargetPlatform;
+    if (p == TargetPlatform.macOS) return _kMacosToolbarHeight;
+    if (p == TargetPlatform.iOS || p == TargetPlatform.android)
+      return _kMobileBarHeight;
+    return _kDesktopBarHeight;
   }
 
   void _goHome(BuildContext context) {
@@ -90,7 +107,7 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
       final active = tabs?.activeIndex ?? -1;
 
       return SizedBox(
-        height: 80,
+        height: _kMobileBarHeight,
         child: Stack(
           alignment: Alignment.center,
           children: [
@@ -213,171 +230,187 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
           ],
         ),
       ),
-      child: Container(
-        height: preferredSize.height,
-        padding: const EdgeInsets.symmetric(horizontal: 18),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface.withOpacity(0.04),
-          border: Border(
-            bottom: BorderSide(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.04),
+      child: WindowNavigationSafeArea(
+        child: Container(
+          height: _effectiveHeightForPlatform(),
+          padding: const EdgeInsets.symmetric(horizontal: 18.0),
+          decoration: BoxDecoration(
+            color: Theme.of(
+              context,
+            ).colorScheme.surface.withValues(alpha: 0.04),
+            border: Border(
+              bottom: BorderSide(
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withValues(alpha: 0.04),
+              ),
             ),
           ),
-        ),
-        child: Row(
-          children: [
-            // circular home button on the left
-            InkWell(
-              onTap: () => _goHome(context),
-              borderRadius: BorderRadius.circular(999),
-              child: Container(
-                padding: const EdgeInsets.all(3.2),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomRight,
-                    colors: [Colors.white70, Colors.grey],
-                  ),
-                  // color: active == 0
-                  //     ? primary.withOpacity(0.12)
-                  //     : primary.withOpacity(0.04),
-                ),
-                child: ShaderMask(
-                  blendMode: BlendMode.srcIn,
-                  shaderCallback: (bounds) {
-                    return LinearGradient(
-                      colors: [Colors.black38, Colors.black],
-                      begin: Alignment.topLeft,
+          child: Row(
+            children: [
+              // circular home button on the left
+              InkWell(
+                onTap: () => _goHome(context),
+                borderRadius: BorderRadius.circular(999),
+                child: Container(
+                  padding: const EdgeInsets.all(3.2),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
                       end: Alignment.bottomRight,
-                    ).createShader(bounds);
-                  },
-                  child: SvgPicture.asset(
-                    'assets/images/gran_turismo_logotype.svg',
-                    colorFilter: ColorFilter.mode(
-                      Colors.black.withValues(alpha: 0.6),
-                      BlendMode.srcIn,
+                      colors: [Colors.white70, Colors.grey],
                     ),
-                    // colorFilter: ColorFilter.mode(
-                    //   active == 0 ? primary : Theme.of(context).iconTheme.color!,
-                    //   BlendMode.srcIn,
-                    // ),
-                    height: 36,
-                    width: 36,
+                    // color: active == 0
+                    //     ? primary.withOpacity(0.12)
+                    //     : primary.withOpacity(0.04),
+                  ),
+                  child: ShaderMask(
+                    blendMode: BlendMode.srcIn,
+                    shaderCallback: (bounds) {
+                      return LinearGradient(
+                        colors: [Colors.black38, Colors.black],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ).createShader(bounds);
+                    },
+                    child: SvgPicture.asset(
+                      'assets/images/gran_turismo_logotype.svg',
+                      colorFilter: ColorFilter.mode(
+                        Colors.black.withValues(alpha: 0.6),
+                        BlendMode.srcIn,
+                      ),
+                      // colorFilter: ColorFilter.mode(
+                      //   active == 0 ? primary : Theme.of(context).iconTheme.color!,
+                      //   BlendMode.srcIn,
+                      // ),
+                      height: 36,
+                      width: 36,
+                    ),
                   ),
                 ),
               ),
-            ),
 
-            const SizedBox(width: 6),
+              const SizedBox(width: 6),
 
-            VerticalDivider(indent: 12, endIndent: 12, thickness: 0.4),
+              VerticalDivider(indent: 12, endIndent: 12, thickness: 0.4),
 
-            const SizedBox(width: 6),
-            // app title / spacer
-            Text(
-              'Gran Turismo 7 Companion',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            const Spacer(),
-
-            VerticalDivider(indent: 12, endIndent: 12, thickness: 0.4),
-
-            const SizedBox(width: 6),
-
-            // two action buttons on the right (map to tabs when available)
-            TextButton.icon(
-              onPressed: () => _openPlaceholder(context, 'Wishlist'),
-              icon: Icon(
-                Icons.flag_outlined,
-                color: active == 1
-                    ? Colors.pinkAccent
-                    : Theme.of(context).colorScheme.onSurface.withOpacity(0.9),
+              const SizedBox(width: 6),
+              // app title / spacer
+              Text(
+                'Gran Turismo 7 Companion',
+                style: Theme.of(context).textTheme.titleMedium,
               ),
-              label: const Text('Wishlist'),
-              style: TextButton.styleFrom(
-                foregroundColor: Theme.of(context).colorScheme.onSurface,
+              const Spacer(),
+
+              VerticalDivider(indent: 12, endIndent: 12, thickness: 0.4),
+
+              const SizedBox(width: 6),
+
+              // two action buttons on the right (map to tabs when available)
+              TextButton.icon(
+                onPressed: () => _openPlaceholder(context, 'Wishlist'),
+                icon: Icon(
+                  Icons.flag_outlined,
+                  color: active == 1
+                      ? Colors.pinkAccent
+                      : Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withOpacity(0.9),
+                ),
+                label: const Text('Wishlist'),
+                style: TextButton.styleFrom(
+                  foregroundColor: Theme.of(context).colorScheme.onSurface,
+                ),
               ),
-            ),
-            const SizedBox(width: 6),
+              const SizedBox(width: 6),
 
-            VerticalDivider(indent: 12, endIndent: 12, thickness: 0.4),
+              VerticalDivider(indent: 12, endIndent: 12, thickness: 0.4),
 
-            const SizedBox(width: 6),
+              const SizedBox(width: 6),
 
-            TextButton.icon(
-              onPressed: () => _openPlaceholder(context, 'Profile'),
-              icon: Icon(
-                Icons.person_outline,
-                color: active == 2
-                    ? Theme.of(context).colorScheme.primary
-                    : Theme.of(context).colorScheme.onSurface.withOpacity(0.9),
+              TextButton.icon(
+                onPressed: () => _openPlaceholder(context, 'Profile'),
+                icon: Icon(
+                  Icons.person_outline,
+                  color: active == 2
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withOpacity(0.9),
+                ),
+                label: const Text('Profile'),
+                style: TextButton.styleFrom(
+                  foregroundColor: Theme.of(context).colorScheme.onSurface,
+                ),
               ),
-              label: const Text('Profile'),
-              style: TextButton.styleFrom(
-                foregroundColor: Theme.of(context).colorScheme.onSurface,
-              ),
-            ),
 
-            const SizedBox(width: 6),
+              const SizedBox(width: 6),
 
-            VerticalDivider(indent: 12, endIndent: 12, thickness: 0.4),
+              VerticalDivider(indent: 12, endIndent: 12, thickness: 0.4),
 
-            const SizedBox(width: 6),
+              const SizedBox(width: 6),
 
-            // Live clock: HH:mm on top, "D Mon" (Russian short month) below
-            StreamBuilder<DateTime>(
-              stream: Stream<DateTime>.periodic(
-                const Duration(minutes: 1),
-                (_) => DateTime.now(),
-              ),
-              initialData: DateTime.now(),
-              builder: (context, snapshot) {
-                final now = snapshot.data ?? DateTime.now();
-                String two(int v) => v.toString().padLeft(2, '0');
-                const rusMonths = [
-                  'Янв',
-                  'Фев',
-                  'Мар',
-                  'Апр',
-                  'Май',
-                  'Июн',
-                  'Июл',
-                  'Авг',
-                  'Сен',
-                  'Окт',
-                  'Ноя',
-                  'Дек',
-                ];
-                final time = '${two(now.hour)}:${two(now.minute)}';
-                final date = '${now.day} ${rusMonths[now.month - 1]}';
+              // Live clock: HH:mm on top, "D Mon" (Russian short month) below
+              StreamBuilder<DateTime>(
+                stream: Stream<DateTime>.periodic(
+                  const Duration(minutes: 1),
+                  (_) => DateTime.now(),
+                ),
+                initialData: DateTime.now(),
+                builder: (context, snapshot) {
+                  final now = snapshot.data ?? DateTime.now();
+                  String two(int v) => v.toString().padLeft(2, '0');
+                  const rusMonths = [
+                    'Янв',
+                    'Фев',
+                    'Мар',
+                    'Апр',
+                    'Май',
+                    'Июн',
+                    'Июл',
+                    'Авг',
+                    'Сен',
+                    'Окт',
+                    'Ноя',
+                    'Дек',
+                  ];
+                  final time = '${two(now.hour)}:${two(now.minute)}';
+                  final date = '${now.day} ${rusMonths[now.month - 1]}';
 
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      time,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        time,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    Text(
-                      date,
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                  ],
-                );
-              },
-            ),
-          ],
-        ),
+                      Text(date, style: Theme.of(context).textTheme.bodySmall),
+                    ],
+                  );
+                },
+              ),
+              // end StreamBuilder
+            ],
+          ), // Row
+        ), // Container
       ),
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(72);
+  Size get preferredSize {
+    if (kIsWeb) return const Size.fromHeight(_kDesktopBarHeight);
+    final p = defaultTargetPlatform;
+    if (p == TargetPlatform.macOS)
+      return const Size.fromHeight(_kMacosToolbarHeight);
+    if (p == TargetPlatform.iOS || p == TargetPlatform.android)
+      return const Size.fromHeight(_kMobileBarHeight);
+    return const Size.fromHeight(_kDesktopBarHeight);
+  }
 }

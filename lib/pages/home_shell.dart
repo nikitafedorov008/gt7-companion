@@ -14,11 +14,6 @@ class HomeShell extends StatelessWidget {
     // This shell intentionally does not render the global navigation chrome;
     // it's responsible only for providing the inner navigator for home-related
     // screens.
-    return Scaffold(
-      // keep the area safe; top-level shell (`NestedWidget`) provides the
-      // AdaptiveNavBar and global chrome.
-      appBar: null,
-      body: const SafeArea(child: AutoRouter()),
-    );
+    return const SafeArea(child: AutoRouter());
   }
 }

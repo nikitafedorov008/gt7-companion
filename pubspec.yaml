@@ -41,6 +41,7 @@ dependencies:
 
   # macos platform ui kit
   macos_ui: ^2.2.2
+  macos_window_utils: ^1.9.1
 
   # fluid background
   fluid_background: ^1.0.5

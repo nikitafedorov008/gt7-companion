@@ -13,10 +13,12 @@ A Flutter application that displays real-time telemetry data from Gran Turismo 7
 - UDP communication with GT7 game
 - Salsa20 decryption for secure data transmission
 - Heartbeat mechanism to maintain connection with GT7
+- Dealerships (legendary & used car marketplace cards)
+- GT Auto (coming soon)
 - Responsive UI layout for all screen sizes
 - Cross-platform support (iOS, Android, macOS, Windows, Linux)
 
-## Requirements
+## Dev Requirements
 
 - Flutter SDK
 - Gran Turismo 7 game with telemetry enabled

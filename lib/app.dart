@@ -6,6 +6,7 @@ import 'repositories/unified_car_repository.dart';
 import 'services/telemetry_service.dart';
 import 'services/gt7info_service.dart';
 import 'services/gtdb_service.dart';
+import 'services/dg_edge_service.dart';
 
 // AutoRoute router
 import 'router/app_router.dart';
@@ -22,6 +23,7 @@ class App extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => TelemetryService()),
         ChangeNotifierProvider(create: (context) => GT7InfoService()),
         ChangeNotifierProvider(create: (context) => GTDBService()),
+        ChangeNotifierProvider(create: (context) => DgEdgeService()),
         ChangeNotifierProxyProvider2<
           GT7InfoService,
           GTDBService,

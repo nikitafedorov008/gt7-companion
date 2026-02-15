@@ -1,6 +1,7 @@
 import 'package:fluid_background/fluid_background.dart';
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +12,7 @@ import '../widgets/legendary_car_display.dart';
 import '../widgets/playstation_scanner_dialog.dart';
 import '../widgets/telemetry_display.dart';
 import '../widgets/used_car_display.dart';
+import '../widgets/daily_races_display.dart';
 
 @RoutePage()
 class HomePage extends StatefulWidget {
@@ -293,7 +295,9 @@ class _HomePageState extends State<HomePage> {
                         if (width > 600) crossAxisCount = 3;
                         if (width > 900) crossAxisCount = 4;
 
-                        double childAspectRatio = crossAxisCount == 2 ? 1.65 : (crossAxisCount == 4 ? 1.25 : 1.55);
+                        double childAspectRatio = crossAxisCount == 2
+                            ? 1.65
+                            : (crossAxisCount == 4 ? 1.25 : 1.55);
 
                         return GridView.count(
                           shrinkWrap: true,
@@ -423,6 +427,8 @@ class _HomePageState extends State<HomePage> {
                         );
                       },
                     ),
+                    const SizedBox(height: 24),
+                    const DailyRacesDisplay(),
                   ],
                 ),
               ),

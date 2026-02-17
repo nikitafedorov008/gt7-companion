@@ -2,6 +2,7 @@
 
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:html/dom.dart' as dom;
 
@@ -45,6 +46,51 @@ extension TyreX on Tyre {
         return 'D';
     }
   }
+
+  /// Display colour associated with this tyre type.
+  ///
+  /// - Dirt: beige
+  /// - Wet: blue
+  /// - Intermediate: green
+  /// - Comfort/Sport/Racing compounds: Hard = white, Medium = amber, Soft = red
+  Color get color {
+    switch (this) {
+      // Comfort / Sport / Racing: Hard (H) -> white
+      case Tyre.CH:
+      case Tyre.SH:
+      case Tyre.RH:
+        return Colors.white;
+
+      // Comfort / Sport / Racing: Medium (M) -> amber/yellow
+      case Tyre.CM:
+      case Tyre.SM:
+      case Tyre.RM:
+        return Colors.amber;
+
+      // Comfort / Sport / Racing: Soft (S) -> red
+      case Tyre.CS:
+      case Tyre.SS:
+      case Tyre.RS:
+        return Colors.red;
+
+      // Intermediate (IM) -> green
+      case Tyre.IM:
+        return Colors.green;
+
+      // Heavy-wet / Wet -> blue
+      case Tyre.W:
+        return Colors.blue;
+
+      // Dirt -> beige/tan
+      case Tyre.D:
+        return const Color(0xFFD2B48C);
+    }
+  }
+
+  /// Best contrasting foreground colour for text/icons when rendered on top
+  /// of `color` (white on dark backgrounds, black on light backgrounds).
+  Color get contrastColor =>
+      color.computeLuminance() > 0.5 ? Colors.black : Colors.white;
 
   /// Parse a free-form string and return the matching enum.
   ///

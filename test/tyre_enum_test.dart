@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gt7_companion/models/daily_race.dart';
 
@@ -21,5 +22,19 @@ void main() {
     expect(Tyre.W.code, 'W');
     expect(Tyre.D.code, 'D');
     expect(Tyre.RM.code, 'RM');
+  });
+
+  test('TyreX.color mapping (hard/medium/soft + special types)', () {
+    // Dirt -> beige (explicit hex)
+    expect(Tyre.D.color.value, const Color(0xFFD2B48C).value);
+
+    // Wet / Intermediate -> blue / green
+    expect(Tyre.W.color, Colors.blue);
+    expect(Tyre.IM.color, Colors.green);
+
+    // Comfort/Sport/Racing -> H = white, M = amber, S = red
+    expect(Tyre.CH.color, Colors.white);
+    expect(Tyre.CM.color, Colors.amber);
+    expect(Tyre.CS.color, Colors.red);
   });
 }

@@ -170,18 +170,36 @@ class _DailyRacesContentState extends State<_DailyRacesContent> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Daily races (DG‑Edge)', style: theme.textTheme.titleMedium),
               Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
+                  Text('Daily races', style: theme.textTheme.titleMedium),
                   IconButton(onPressed: _load, icon: const Icon(Icons.refresh)),
-                  TextButton(
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  MaterialButton(
                     onPressed: () async {
                       final url = Uri.parse(
                         'https://www.dg-edge.com/events/dailies',
                       );
                       if (await canLaunchUrl(url)) await launchUrl(url);
                     },
-                    child: const Text('Open website'),
+                    //child: const Text('Open website'),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      spacing: 8.0,
+                      children: [
+                        Text('powered by', style: theme.textTheme.titleMedium),
+                        Image.asset(
+                          'assets/images/dg-edge-color-logotype.png',
+                          //height: 74,
+                          width: 80,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -544,14 +562,16 @@ class _DailyRacesContentState extends State<_DailyRacesContent> {
                                 // Compact one-line summary (carType · tyre · laps · pits · tyres)
                                 Row(
                                   children: [
+                                    TyreCategory(tyre: it.tyre),
+                                    CarCategory(carType: it.carType),
                                     Expanded(
                                       child: Builder(
                                         builder: (context) {
                                           final parts = <String>[];
-                                          if (it.carType != null)
-                                            parts.add(it.carType!.code);
-                                          if (it.tyre != null)
-                                            parts.add(it.tyre!.code);
+                                          // if (it.carType != null)
+                                          //   parts.add(it.carType!.code);
+                                          // if (it.tyre != null)
+                                          //   parts.add(it.tyre!.code);
                                           if (it.laps != null)
                                             parts.add('${it.laps} laps');
                                           if (it.pitStops != null)
@@ -571,28 +591,6 @@ class _DailyRacesContentState extends State<_DailyRacesContent> {
                                         },
                                       ),
                                     ),
-
-                                    if (it.status != null)
-                                      Container(
-                                        key: ValueKey('status-${it.id}'),
-                                        margin: const EdgeInsets.only(left: 8),
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 8,
-                                          vertical: 4,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: it.isActive == true
-                                              ? Colors.green.withOpacity(0.12)
-                                              : Colors.grey.withOpacity(0.08),
-                                          borderRadius: BorderRadius.circular(
-                                            6,
-                                          ),
-                                        ),
-                                        child: Text(
-                                          it.status!,
-                                          style: theme.textTheme.bodySmall,
-                                        ),
-                                      ),
                                   ],
                                 ),
 
@@ -660,5 +658,65 @@ class _DailyRacesContentState extends State<_DailyRacesContent> {
         ],
       ),
     );
+  }
+}
+
+class TyreCategory extends StatelessWidget {
+  const TyreCategory({super.key, this.tyre});
+
+  final Tyre? tyre;
+
+  @override
+  Widget build(BuildContext context) {
+    if ((tyre?.code) != null) {
+      return Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(color: tyre!.color, width: 1.0),
+        ),
+        padding: const EdgeInsets.all(6.0),
+        child: Text(
+          tyre!.code,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            fontSize: 10,
+            color: tyre!.color,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      );
+    } else {
+      return const SizedBox.shrink();
+    }
+  }
+}
+
+class CarCategory extends StatelessWidget {
+  const CarCategory({super.key, this.carType});
+
+  final CarType? carType;
+
+  @override
+  Widget build(BuildContext context) {
+    if (carType != null) {
+      return Container(
+        padding: const EdgeInsets.all(4.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: Theme.of(context).textTheme.bodySmall!.color!,
+            width: 2,
+          ),
+        ),
+        child: Text(
+          carType!.code,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            fontSize: 10,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      );
+    } else {
+      return SizedBox.shrink();
+    }
   }
 }

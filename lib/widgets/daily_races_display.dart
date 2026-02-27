@@ -266,16 +266,14 @@ class DailyRaceCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: theme.colorScheme.surfaceVariant.withOpacity(0.3),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: Colors.white24,
-          width: 1.0,
-        ),
+        border: Border.all(color: Colors.white24, width: 1.0),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Flexible(
+            flex: 5,
             child: Stack(
               children: [
                 Container(
@@ -314,7 +312,8 @@ class DailyRaceCard extends StatelessWidget {
                                   width: 64,
                                   height: 64,
                                   fit: BoxFit.contain,
-                                  errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+                                  errorBuilder: (_, __, ___) =>
+                                      const SizedBox.shrink(),
                                 ),
                               ),
                             ),
@@ -329,7 +328,8 @@ class DailyRaceCard extends StatelessWidget {
                                   width: 64,
                                   height: 64,
                                   fit: BoxFit.contain,
-                                  errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+                                  errorBuilder: (_, __, ___) =>
+                                      const SizedBox.shrink(),
                                 ),
                               ),
                             )
@@ -354,312 +354,136 @@ class DailyRaceCard extends StatelessWidget {
             ),
           ),
           Flexible(
+            flex: 4,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0,),
-                  child: Column(
-                    spacing: 8.0,
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (it.trackName != null)
-                        Text(
-                          it.trackName!,
-                          style: theme.textTheme.titleSmall,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      CarCategory(info: it.carType),
-                    ],
-                  ),
-                ),
-
-                Divider(
-                  color: Colors.white24,
-                  thickness: 1.0,
-                  height: 16.0,
-                  indent: 0,
-                  endIndent: 0.0,
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8.0,
-                  ),
-                  child: SizedBox(
-                    child: Row(
-                      spacing: 4.0,
-                      mainAxisAlignment: MainAxisAlignment.start,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 4.0,
+                    ),
+                    child: Column(
+                      spacing: 8.0,
+                      mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (it.laps != null)
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8.0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  'laps',
-                                  style: theme.textTheme.bodySmall,
-                                ),
-                                Text(
-                                  it.laps!.toString(),
-                                  style: theme.textTheme.titleSmall,
-                                ),
-                              ],
-                            ),
+                        if (it.trackName != null)
+                          Text(
+                            it.trackName!,
+                            style: theme.textTheme.titleSmall,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        if (it.tyresAvailable != null)
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8.0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  'tyre intake',
-                                  style: theme.textTheme.bodySmall,
-                                ),
-                                Text(
-                                  it.tyresAvailable!.toString(),
-                                  style: theme.textTheme.titleSmall,
-                                ),
-                              ],
-                            ),
-                          ),
-                        if (it.pitStops != null)
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8.0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  'pit-stops',
-                                  style: theme.textTheme.bodySmall,
-                                ),
-                                Text(
-                                  it.pitStops!.toString(),
-                                  style: theme.textTheme.titleSmall,
-                                ),
-                              ],
-                            ),
-                          ),
-                        if (it.refuels != null)
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8.0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  'fuel intake',
-                                  style: theme.textTheme.bodySmall,
-                                ),
-                                Text(
-                                  it.refuels!.toString(),
-                                  style: theme.textTheme.titleSmall,
-                                ),
-                              ],
-                            ),
-                          ),
-                        const SizedBox(width: 6),
-                        VerticalDivider(
-                          color: Colors.white24,
-                          thickness: 1.0,
-                          width: 16.0,
-                          indent: 12.0,
-                          endIndent: 18.0,
-                        ),
-
-                        Container(
-                          height: 48,
-                          decoration: BoxDecoration(
-                            border: Border(
-                              left: BorderSide(
-                                color: Colors.white24,
-                                width: 1.0,
-                              ),
-                            ),
-                          ),
-                          child: Row(
-                            children: [
-                              const SizedBox(width: 6),
-                              TyreCategory(tyre: it.tyre),
-                            ],
-                          ),
-                        ),
+                        CarCategory(info: it.carType),
                       ],
                     ),
                   ),
-                ),
-              ],
-            ),
+
+                  Divider(
+                    color: Colors.white24,
+                    thickness: 1.0,
+                    height: 1.0,
+                    indent: 0,
+                    endIndent: 0.0,
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: IntrinsicHeight(
+                      child: Row(
+                        spacing: 4.0,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          if (it.laps != null)
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text('laps', style: theme.textTheme.bodySmall),
+                                  Text(
+                                    it.laps!.toString(),
+                                    style: theme.textTheme.titleSmall,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          if (it.tyresAvailable != null)
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'tyre intake',
+                                    style: theme.textTheme.bodySmall,
+                                  ),
+                                  Text(
+                                    it.tyresAvailable!.toString(),
+                                    style: theme.textTheme.titleSmall,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          if (it.pitStops != null)
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'pit-stops',
+                                    style: theme.textTheme.bodySmall,
+                                  ),
+                                  Text(
+                                    it.pitStops!.toString(),
+                                    style: theme.textTheme.titleSmall,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          if (it.refuels != null)
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'fuel intake',
+                                    style: theme.textTheme.bodySmall,
+                                  ),
+                                  Text(
+                                    it.refuels!.toString(),
+                                    style: theme.textTheme.titleSmall,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          const SizedBox(width: 6),
+                          VerticalDivider(
+                            color: Colors.white24,
+                            thickness: 1.0,
+                            width: 16.0,
+                            indent: 0.0,
+                            endIndent: 0.0,
+                          ),
+                          const SizedBox(width: 6),
+                          TyreCategory(tyre: it.tyre),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
           ),
         ],
       ),
     );
   }
 }
-
-// class DailyRaceCard extends StatelessWidget {
-//   const DailyRaceCard({super.key, required this.summary});
-//
-//   final DailyRaceSummary summary;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     final theme = Theme.of(context);
-//     final it = summary;
-//
-//     return Container(
-//       decoration: BoxDecoration(
-//         color: Colors.black26,
-//         borderRadius: BorderRadius.circular(12),
-//         border: Border.all(
-//           color: Colors.white24,
-//           width: 1.0,
-//         ),
-//       ),
-//       child: Column(
-//         mainAxisSize: MainAxisSize.min,
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Flexible(
-//             child: Stack(
-//               children: [
-//                 Container(
-//                   width: 300,
-//                   padding: const EdgeInsets.all(12),
-//                   decoration: BoxDecoration(
-//                     color: Theme.of(
-//                       context,
-//                     ).colorScheme.surface.withValues(alpha: 0.04),
-//                     borderRadius: BorderRadius.only(
-//                       topLeft: Radius.circular(12),
-//                       topRight: Radius.circular(12),
-//                     ),
-//                     image: DecorationImage(
-//                       image: NetworkImage(it.trackBackgroundImage!),
-//                       colorFilter: ColorFilter.mode(
-//                         Colors.black38,
-//                         BlendMode.srcATop,
-//                       ),
-//                       fit: BoxFit.cover,
-//                     ),
-//                   ),
-//                   child: Column(
-//                     children: [
-//                       Stack(
-//                         alignment: Alignment.center,
-//                         children: [
-//                           if (it.trackLogotype != null)
-//                             Align(
-//                               alignment: Alignment.bottomLeft,
-//                               child: ClipRRect(
-//                                 borderRadius: BorderRadius.circular(8),
-//                                 child: Image.network(
-//                                   it.trackLogotype!,
-//                                   key: ValueKey('thumb-${it.id}'),
-//                                   width: 64,
-//                                   height: 64,
-//                                   fit: BoxFit.contain,
-//                                   errorBuilder: (_, __, ___) => const SizedBox.shrink(),
-//                                 ),
-//                               ),
-//                             ),
-//                           if (it.trackImage != null)
-//                             Align(
-//                               alignment: Alignment.center,
-//                               child: ClipRRect(
-//                                 borderRadius: BorderRadius.circular(8),
-//                                 child: Image.network(
-//                                   it.trackImage!,
-//                                   key: ValueKey('track-${it.id}'),
-//                                   width: 64,
-//                                   height: 64,
-//                                   fit: BoxFit.contain,
-//                                   errorBuilder: (_, __, ___) => const SizedBox.shrink(),
-//                                 ),
-//                               ),
-//                             )
-//                           else
-//                             Container(
-//                               width: 64,
-//                               height: 64,
-//                               decoration: BoxDecoration(
-//                                 color: Theme.of(
-//                                   context,
-//                                 ).colorScheme.primary.withOpacity(0.12),
-//                                 borderRadius: BorderRadius.circular(8),
-//                               ),
-//                               child: const Icon(Icons.flag),
-//                             ),
-//                         ],
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//           Flexible(
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               mainAxisAlignment: MainAxisAlignment.center,
-//               children: [
-//                 if (it.trackName != null)
-//                   Text(
-//                   it.trackName!,
-//                   style: theme.textTheme.titleSmall,
-//                   maxLines: 1,
-//                   overflow: TextOverflow.ellipsis,
-//                   ),
-//                 if ((it.carType?.display ?? '').isNotEmpty)
-//                   CarCategory(info: it.carType),
-//                 // Text(
-//                 //   it.eventTime!,
-//                 //   style: theme.textTheme.titleSmall,
-//                 //   maxLines: 1,
-//                 //   overflow: TextOverflow.ellipsis,
-//                 // ),
-//                 Divider(
-//                   color: Colors.redAccent,
-//                   thickness: 2.0,
-//                   height: 2.0,
-//                   indent: 12.0,
-//                   endIndent: 48.0,
-//                 ),
-//                 Row(
-//                   spacing: 4.0,
-//                   mainAxisSize: MainAxisSize.min,
-//                   children: [
-//                     if (it.laps != null)
-//                       Text(
-//                         'laps: ${it.laps!}',
-//                         style: theme.textTheme.titleSmall,
-//                         maxLines: 1,
-//                         overflow: TextOverflow.ellipsis,
-//                       ),
-//                     Text(
-//                       it.shortDescription ?? '',
-//                       style: theme.textTheme.bodySmall?.copyWith(
-//                         fontSize: 12,
-//                       ),
-//                       maxLines: 1,
-//                       overflow: TextOverflow.ellipsis,
-//                     ),
-//                     const SizedBox(height: 6),
-//                     TyreCategory(tyre: it.tyre),
-//                   ],
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
 
 class TyreCategory extends StatelessWidget {
   const TyreCategory({super.key, this.tyre});
@@ -669,18 +493,20 @@ class TyreCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if ((tyre?.code) != null) {
-      return Container(
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(color: tyre!.color, width: 1.0),
-        ),
-        padding: const EdgeInsets.all(6.0),
-        child: Text(
-          tyre!.code,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            fontSize: 10,
-            color: tyre!.color,
-            fontWeight: FontWeight.w700,
+      return Center(
+        child: Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: tyre!.color, width: 1.0),
+          ),
+          padding: const EdgeInsets.all(6.0),
+          child: Text(
+            tyre!.code,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              fontSize: 10,
+              color: tyre!.color,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
       );
@@ -704,9 +530,7 @@ class CarCategory extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.black54,
           borderRadius: BorderRadius.circular(6),
-          border: Border.all(
-            color: Colors.white,
-          )
+          border: Border.all(color: Colors.white),
         ),
         child: Text(
           display,

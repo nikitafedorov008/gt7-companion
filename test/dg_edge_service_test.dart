@@ -34,7 +34,8 @@ void main() {
       expect(list[0].tyreCode, anyOf([null, 'RM', 'RH']));
 
       // new fields from wrapper
-      expect(list[0].carType, CarType.GR4);
+      expect(list[0].carType?.type, CarType.GR4);
+      expect(list[0].carType?.display, 'GR.4');
       expect(list[0].laps, 12);
       expect(list[0].refuels, 1);
       expect(list[0].tyresAvailable, 6);

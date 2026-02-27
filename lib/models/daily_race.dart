@@ -299,6 +299,29 @@ extension CarTypeX on CarType {
   }
 }
 
+/// Combination of a parsed [CarType] and an optional free-form model name.
+///
+/// When the scraper encounters a string that doesn't map cleanly to one of the
+/// enumerated values, we still want to retain the original text so the UI can
+/// display the actual car name.  `type` will be non-null when parsing succeeded,
+/// otherwise `model` holds the raw string.
+@immutable
+class CarTypeInfo {
+  final CarType? type;
+  final String? model;
+
+  const CarTypeInfo({this.type, this.model});
+
+  String? get display => type?.code ?? model;
+
+  factory CarTypeInfo.fromJson(Map<String, dynamic> j) => CarTypeInfo(
+    type: CarTypeX.parse(j['type'] as String?),
+    model: j['model'] as String?,
+  );
+
+  Map<String, dynamic> toJson() => {'type': type?.code, 'model': model};
+}
+
 @immutable
 class DailyRaceSummary {
   final String id; // numeric id or slug from URL (e.g. "505")
@@ -329,7 +352,8 @@ class DailyRaceSummary {
   final String? reward;
 
   // New fields requested
-  final CarType? carType; // parsed car type/category (enum)
+  /// Parsed car type and optional free-form model name when parsing failed.
+  final CarTypeInfo? carType;
   final Tyre? tyre; // tyre enum (e.g. Tyre.RM)
 
   // Metadata attributes from the event wrapper
@@ -406,7 +430,9 @@ class DailyRaceSummary {
     refuels: j['refuels'] as int?,
     tyreCompound: j['tyreCompound'] as String?,
     reward: j['reward'] as String?,
-    carType: CarTypeX.parse(j['carType'] as String?),
+    carType: j['carType'] != null || j['carTypeRaw'] != null
+        ? CarTypeInfo.fromJson({'type': j['carType'], 'model': j['carTypeRaw']})
+        : null,
     tyre: TyreX.parse(j['tyre'] as String?),
     externalId: j['externalId'] as String?,
     rankingId: j['rankingId'] as String?,
@@ -446,7 +472,8 @@ class DailyRaceSummary {
     'refuels': refuels,
     'tyreCompound': tyreCompound,
     'reward': reward,
-    'carType': carType?.code,
+    'carType': carType?.type?.code,
+    'carTypeRaw': carType?.model,
     'tyre': tyre?.code,
     'externalId': externalId,
     'rankingId': rankingId,
@@ -730,7 +757,11 @@ class DailyRaceSummary {
         refuels: refuels,
         tyreCompound: tyreCompound,
         reward: reward,
-        carType: CarTypeX.parse(carTypeVal),
+        carType: CarTypeX.parse(carTypeVal) != null
+            ? CarTypeInfo(type: CarTypeX.parse(carTypeVal))
+            : (carTypeVal != null && carTypeVal.isNotEmpty
+                  ? CarTypeInfo(model: carTypeVal)
+                  : null),
         tyre: TyreX.parse(tyreSpanVal),
         externalId: externalId,
         rankingId: rankingId,

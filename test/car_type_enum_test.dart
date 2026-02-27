@@ -25,4 +25,16 @@ void main() {
     expect(CarType.ROAD_CAR.code, 'Road Car');
     expect(CarType.GT500.code, 'GT500');
   });
+
+  test('CarTypeInfo holds type or raw model', () {
+    final typed = CarTypeInfo(type: CarType.GR4);
+    expect(typed.display, 'GR.4');
+    final raw = CarTypeInfo(model: 'Mazda RX-7');
+    expect(raw.display, 'Mazda RX-7');
+
+    // JSON round-trip
+    final json = raw.toJson();
+    expect(CarTypeInfo.fromJson(json).model, 'Mazda RX-7');
+    expect(CarTypeInfo.fromJson({'type': 'GR.1'}).type, CarType.GR1);
+  });
 }

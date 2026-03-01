@@ -17,8 +17,9 @@ class FakeGtshRankService extends GtshRankService {
 }
 
 void main() {
-  testWidgets('GtshRankDailyRacesDisplay shows up to 3 cards only',
-      (tester) async {
+  testWidgets('GtshRankDailyRacesDisplay shows up to 3 cards only', (
+    tester,
+  ) async {
     final races = List.generate(
       5,
       (i) => GtshRace(

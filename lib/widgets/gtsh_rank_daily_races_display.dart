@@ -17,8 +17,7 @@ class GtshRankDailyRacesDisplay extends StatefulWidget {
       _GtshRankDailyRacesDisplayState();
 }
 
-class _GtshRankDailyRacesDisplayState
-    extends State<GtshRankDailyRacesDisplay> {
+class _GtshRankDailyRacesDisplayState extends State<GtshRankDailyRacesDisplay> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -221,7 +220,10 @@ class _GtshRankDailyRacesContentState
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Daily races (GTSh‑rank)', style: theme.textTheme.titleMedium),
+              Text(
+                'Daily races (GTSh‑rank)',
+                style: theme.textTheme.titleMedium,
+              ),
               IconButton(onPressed: _load, icon: const Icon(Icons.refresh)),
             ],
           ),

@@ -3,48 +3,65 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
 import 'package:gt7_companion/widgets/daily_races_display.dart';
-import 'package:gt7_companion/services/dg_edge_service.dart';
+import 'package:gt7_companion/repositories/sport_repository.dart';
 import 'package:gt7_companion/models/daily_race.dart';
+import 'package:gt7_companion/models/combined_daily_race.dart';
 
-class FakeDgEdgeService extends DgEdgeService {
-  final List<DailyRaceSummary> _items;
-  FakeDgEdgeService(this._items) : super();
+class FakeSportRepository extends ChangeNotifier implements SportRepository {
+  final List<CombinedDailyRace> items;
+  bool _loading = false;
+  String? _error;
+
+  FakeSportRepository(this.items);
 
   @override
-  Future<List<DailyRaceSummary>> fetchDailiesPage(
-    int page, {
-    bool forceRefresh = false,
-  }) async {
-    return _items;
+  List<CombinedDailyRace> get dailyRaces => items;
+  @override
+  bool get isLoading => _loading;
+  @override
+  String? get error => _error;
+
+  @override
+  Future<void> fetchDailyRaces({bool forceRefresh = false}) async {
+    _loading = true;
+    notifyListeners();
+    // simulate small delay
+    await Future.delayed(Duration(milliseconds: 10));
+    _loading = false;
+    notifyListeners();
   }
 }
 
 void main() {
   testWidgets('DailyRacesDisplay shows up to 3 cards only', (tester) async {
-    final fakeItems = List.generate(
-      5,
-      (i) => DailyRaceSummary(
+    // create combined items: we just produce summaries and null gtsh
+    final fakeItems = List.generate(5, (i) {
+      final summary = DailyRaceSummary(
         id: '${i + 1}',
         title: 'Race ${i + 1}',
         url: 'https://www.dg-edge.com/events/dailies/${i + 1}',
-        // images are now derived from `trackId`
+        trackName: 'Track${i + 1}',
         trackId: '${i + 1}',
         pitStops: (i % 3) + 1,
         tyresAvailable: ((i + 1) % 3) + 1,
         tyreCode: i % 2 == 0 ? 'RM' : 'RS',
+        tyre: Tyre.values.firstWhere(
+          (t) => t.name == (i % 2 == 0 ? 'RM' : 'RS'),
+        ),
         className: i == 0 ? 'Gr.3' : null,
         laps: i == 0 ? 5 : null,
         tyreCompound: i == 0 ? 'Hard' : null,
         reward: i == 0 ? '30000 CR' : null,
-      ),
-    );
+      );
+      return CombinedDailyRace(dgEdge: summary, gtsh: null);
+    });
 
-    final fakeSvc = FakeDgEdgeService(fakeItems);
+    final fakeRepo = FakeSportRepository(fakeItems);
 
     await tester.pumpWidget(
       MaterialApp(
-        home: ChangeNotifierProvider<DgEdgeService>.value(
-          value: fakeSvc,
+        home: ChangeNotifierProvider<SportRepository>.value(
+          value: fakeRepo,
           child: const Scaffold(body: DailyRacesDisplay()),
         ),
       ),

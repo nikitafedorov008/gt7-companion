@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gt7_companion/widgets/gtsh_rank_daily_races_display.dart';
 import 'package:provider/provider.dart';
 import '../router/app_router.dart';
 import '../services/telemetry_service.dart';
@@ -11,6 +12,7 @@ import '../widgets/gt_auto_display.dart';
 import '../widgets/legendary_car_display.dart';
 import '../widgets/playstation_scanner_dialog.dart';
 import '../widgets/telemetry_display.dart';
+import '../widgets/unified_daily_races_display.dart';
 import '../widgets/used_car_display.dart';
 import '../widgets/daily_races_display.dart';
 
@@ -427,8 +429,7 @@ class _HomePageState extends State<HomePage> {
                         );
                       },
                     ),
-                    const SizedBox(height: 24),
-                    const DailyRacesDisplay(),
+                    const UnifiedDailyRacesDisplay(),
                   ],
                 ),
               ),

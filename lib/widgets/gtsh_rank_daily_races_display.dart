@@ -257,6 +257,12 @@ class GtshRaceCard extends StatelessWidget {
           Text(race.trackName, style: theme.textTheme.titleMedium),
           const SizedBox(height: 8),
           Text('Tyre: ${race.tyreCode}', style: theme.textTheme.bodyMedium),
+          const SizedBox(height: 8),
+          Text('Wide Fender: ${race.wideFender}', style: theme.textTheme.bodyMedium),
+          const SizedBox(height: 8),
+          Text('BOP: ${race.bop}', style: theme.textTheme.bodyMedium),
+          const SizedBox(height: 8),
+          Text('Damage: ${race.damage}', style: theme.textTheme.bodyMedium),
         ],
       ),
     );

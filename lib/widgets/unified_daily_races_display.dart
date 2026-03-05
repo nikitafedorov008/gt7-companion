@@ -2,33 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../services/dg_edge_service.dart';
+import '../repositories/sport_repository.dart';
+import '../models/unified_daily_race.dart';
 import '../models/daily_race.dart';
 
-class DailyRacesDisplay extends StatefulWidget {
-  const DailyRacesDisplay({super.key});
+/// Widget that combines results from both DG‑Edge and GTSh‑rank by relying on
+/// [SportRepository].  The visual layout is essentially a straight copy of
+/// [DailyRacesDisplay], which previously only showed DG‑Edge data.
+class UnifiedDailyRacesDisplay extends StatefulWidget {
+  const UnifiedDailyRacesDisplay({super.key});
 
   @override
-  State<DailyRacesDisplay> createState() => _DailyRacesDisplayState();
+  State<UnifiedDailyRacesDisplay> createState() =>
+      _UnifiedDailyRacesDisplayState();
 }
 
-class _DailyRacesDisplayState extends State<DailyRacesDisplay> {
-  @override
-  void initState() {
-    super.initState();
-    // Loading is handled by the inner _DailyRacesContent widget (avoids duplicate fetches)
-  }
-
+class _UnifiedDailyRacesDisplayState extends State<UnifiedDailyRacesDisplay> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Consumer<DgEdgeService>(
+    return Consumer<SportRepository>(
       builder: (context, service, _) {
-        // Do not block rendering of the content widget when the service reports
-        // `isLoading` — the inner `_DailyRacesContent` manages its own loading
-        // lifecycle and will call the service when mounted. Only show a service
-        // error here if present.
         if (service.error != null) {
           return Container(
             width: double.infinity,
@@ -44,12 +39,12 @@ class _DailyRacesDisplayState extends State<DailyRacesDisplay> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Daily races (DG‑Edge)',
+                      'Daily races (combined)',
                       style: theme.textTheme.titleMedium,
                     ),
                     IconButton(
                       onPressed: () =>
-                          service.fetchDailiesPage(1, forceRefresh: true),
+                          service.fetchDailyRaces(forceRefresh: true),
                       icon: const Icon(Icons.refresh),
                     ),
                   ],
@@ -64,27 +59,25 @@ class _DailyRacesDisplayState extends State<DailyRacesDisplay> {
           );
         }
 
-        // Delegate fetching/rendering to the stateful content widget
-        return _DailyRacesContent();
+        return _UnifiedDailyRacesContent();
       },
     );
   }
 }
 
-class _DailyRacesContent extends StatefulWidget {
+class _UnifiedDailyRacesContent extends StatefulWidget {
   @override
-  State<_DailyRacesContent> createState() => _DailyRacesContentState();
+  State<_UnifiedDailyRacesContent> createState() =>
+      _UnifiedDailyRacesContentState();
 }
 
-class _DailyRacesContentState extends State<_DailyRacesContent> {
-  List<DailyRaceSummary> _items = [];
+class _UnifiedDailyRacesContentState extends State<_UnifiedDailyRacesContent> {
   bool _loading = true;
   String? _error;
 
   @override
   void initState() {
     super.initState();
-    // Defer load to the next frame to avoid provider notifications during parent build
     WidgetsBinding.instance.addPostFrameCallback((_) => _load());
   }
 
@@ -95,15 +88,9 @@ class _DailyRacesContentState extends State<_DailyRacesContent> {
       _error = null;
     });
     try {
-      final svc = context.read<DgEdgeService>();
-      final page = await svc.fetchDailiesPage(1);
-      if (!mounted) return;
-      final filtered = page
-          .where((s) => s.trackName != null && s.trackName!.isNotEmpty)
-          .toList();
-      setState(() {
-        _items = filtered;
-      });
+      final svc = context.read<SportRepository>();
+      await svc.fetchDailyRaces();
+      // the consumer in build will react when the repo updates
     } catch (e) {
       if (!mounted) return;
       setState(() {
@@ -120,6 +107,10 @@ class _DailyRacesContentState extends State<_DailyRacesContent> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final repo = context.watch<SportRepository>();
+    final items = repo.dailyRaces
+        .where((r) => r.trackName != null && r.trackName!.isNotEmpty)
+        .toList();
 
     if (_loading) {
       return Container(
@@ -137,7 +128,7 @@ class _DailyRacesContentState extends State<_DailyRacesContent> {
       return _buildError(context, _error!);
     }
 
-    if (_items.isEmpty) {
+    if (items.isEmpty) {
       return Container(
         width: double.infinity,
         padding: const EdgeInsets.all(16),
@@ -151,10 +142,7 @@ class _DailyRacesContentState extends State<_DailyRacesContent> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Daily races (DG‑Edge)',
-                  style: theme.textTheme.titleMedium,
-                ),
+                Text('Daily races', style: theme.textTheme.titleMedium),
                 IconButton(onPressed: _load, icon: const Icon(Icons.refresh)),
               ],
             ),
@@ -190,7 +178,6 @@ class _DailyRacesContentState extends State<_DailyRacesContent> {
                       );
                       if (await canLaunchUrl(url)) await launchUrl(url);
                     },
-                    //child: const Text('Open website'),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       spacing: 8.0,
@@ -198,7 +185,6 @@ class _DailyRacesContentState extends State<_DailyRacesContent> {
                         Text('powered by', style: theme.textTheme.titleMedium),
                         Image.asset(
                           'assets/images/dg-edge-color-logotype.png',
-                          //height: 74,
                           width: 80,
                         ),
                       ],
@@ -216,11 +202,11 @@ class _DailyRacesContentState extends State<_DailyRacesContent> {
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 6),
             // Show only the first three cards as requested
-            itemCount: _items.length.clamp(0, 3),
+            itemCount: items.length.clamp(0, 3),
             separatorBuilder: (_, __) => const SizedBox(width: 12),
             itemBuilder: (context, index) {
-              final it = _items[index];
-              return DailyRaceCard(summary: it);
+              final it = items[index];
+              return UnifiedDailyRaceCard(race: it);
             },
           ),
         ),
@@ -243,7 +229,10 @@ class _DailyRacesContentState extends State<_DailyRacesContent> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Daily races (DG‑Edge)', style: theme.textTheme.titleMedium),
+              Text(
+                'Daily races (combined)',
+                style: theme.textTheme.titleMedium,
+              ),
               IconButton(onPressed: _load, icon: const Icon(Icons.refresh)),
             ],
           ),
@@ -255,14 +244,14 @@ class _DailyRacesContentState extends State<_DailyRacesContent> {
   }
 }
 
-class DailyRaceCard extends StatelessWidget {
-  final DailyRaceSummary summary;
-  const DailyRaceCard({super.key, required this.summary});
+class UnifiedDailyRaceCard extends StatelessWidget {
+  final UnifiedDailyRace race;
+  const UnifiedDailyRaceCard({super.key, required this.race});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final it = summary;
+    final it = race; // UnifiedDailyRace
 
     return Container(
       width: 280,
@@ -313,7 +302,7 @@ class DailyRaceCard extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(8),
                                 child: Image.network(
                                   it.trackLogotype!,
-                                  key: ValueKey('thumb-${it.id}'),
+                                  key: ValueKey('thumb-${it.trackName ?? ''}'),
                                   width: 64,
                                   height: 64,
                                   fit: BoxFit.contain,
@@ -329,7 +318,7 @@ class DailyRaceCard extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(8),
                                 child: Image.network(
                                   it.trackImage!,
-                                  key: ValueKey('track-${it.id}'),
+                                  key: ValueKey('track-${it.trackName ?? ''}'),
                                   width: 64,
                                   height: 64,
                                   fit: BoxFit.contain,
@@ -343,9 +332,6 @@ class DailyRaceCard extends StatelessWidget {
                               width: 64,
                               height: 64,
                               decoration: BoxDecoration(
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.primary.withOpacity(0.12),
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: const Icon(Icons.flag),
@@ -397,87 +383,93 @@ class DailyRaceCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: IntrinsicHeight(
-                    child: Row(
-                      spacing: 4.0,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        if (it.laps != null)
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8.0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text('laps', style: theme.textTheme.bodySmall),
-                                Text(
-                                  it.laps!.toString(),
-                                  style: theme.textTheme.titleSmall,
-                                ),
-                              ],
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        spacing: 4.0,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          if (it.laps != null)
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'laps',
+                                    style: theme.textTheme.bodySmall,
+                                  ),
+                                  Text(
+                                    it.laps!.toString(),
+                                    style: theme.textTheme.titleSmall,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        if (it.tyresAvailable != null)
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8.0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  'tyre intake',
-                                  style: theme.textTheme.bodySmall,
-                                ),
-                                Text(
-                                  it.tyresAvailable!.toString(),
-                                  style: theme.textTheme.titleSmall,
-                                ),
-                              ],
+                          if (it.tyresAvailable != null)
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'tyre intake',
+                                    style: theme.textTheme.bodySmall,
+                                  ),
+                                  Text(
+                                    it.tyresAvailable!.toString(),
+                                    style: theme.textTheme.titleSmall,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        if (it.pitStops != null)
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8.0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  'pit-stops',
-                                  style: theme.textTheme.bodySmall,
-                                ),
-                                Text(
-                                  it.pitStops!.toString(),
-                                  style: theme.textTheme.titleSmall,
-                                ),
-                              ],
+                          if (it.pitStops != null)
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'pit-stops',
+                                    style: theme.textTheme.bodySmall,
+                                  ),
+                                  Text(
+                                    it.pitStops!.toString(),
+                                    style: theme.textTheme.titleSmall,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        if (it.refuels != null)
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8.0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  'fuel intake',
-                                  style: theme.textTheme.bodySmall,
-                                ),
-                                Text(
-                                  it.refuels!.toString(),
-                                  style: theme.textTheme.titleSmall,
-                                ),
-                              ],
+                          if (it.refuels != null)
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'fuel intake',
+                                    style: theme.textTheme.bodySmall,
+                                  ),
+                                  Text(
+                                    it.refuels!.toString(),
+                                    style: theme.textTheme.titleSmall,
+                                  ),
+                                ],
+                              ),
                             ),
+                          const SizedBox(width: 6),
+                          VerticalDivider(
+                            color: Colors.white24,
+                            thickness: 1.0,
+                            width: 16.0,
+                            indent: 0.0,
+                            endIndent: 0.0,
                           ),
-                        const SizedBox(width: 6),
-                        VerticalDivider(
-                          color: Colors.white24,
-                          thickness: 1.0,
-                          width: 16.0,
-                          indent: 0.0,
-                          endIndent: 0.0,
-                        ),
-                        const SizedBox(width: 6),
-                        TyreCategory(tyre: it.tyre),
-                      ],
+                          const SizedBox(width: 6),
+                          TyreCategory(tyre: it.tyre),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -490,6 +482,7 @@ class DailyRaceCard extends StatelessWidget {
   }
 }
 
+// reuse CarCategory and TyreCategory widgets from daily_races_display.dart
 class TyreCategory extends StatelessWidget {
   const TyreCategory({super.key, this.tyre});
 

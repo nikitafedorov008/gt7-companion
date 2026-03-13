@@ -115,6 +115,11 @@ class _UpcomingDailyRacesDisplayState extends State<UpcomingDailyRacesDisplay> {
                           'assets/images/dg-edge-color-logotype.png',
                           width: 80,
                         ),
+                        Text('&', style: theme.textTheme.titleMedium),
+                        Image.asset(
+                          'assets/images/gtsh-rank.png',
+                          width: 40,
+                        ),
                       ],
                     ),
                   ),

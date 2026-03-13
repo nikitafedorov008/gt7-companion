@@ -385,6 +385,18 @@ class DailyRaceSummary {
 
   final String url; // full or relative url
 
+  /// Map of special trackId substitutions for image URLs.
+  /// Key: original trackId, Value: display trackId to use in URLs.
+  /// Extend this map when new trackId image mappings are discovered.
+  static const Map<String, String> _trackIdImageMappings = {
+    '391': '280',
+    '367': '360',
+  };
+
+  /// Get the display trackId for image URLs (handles special cases).
+  String _getDisplayTrackId(String trackId) =>
+      _trackIdImageMappings[trackId] ?? trackId;
+
   const DailyRaceSummary({
     required this.id,
     required this.title,
@@ -503,15 +515,15 @@ class DailyRaceSummary {
   };
 
   String? get trackImage => trackId != null
-      ? 'https://data.dg-edge.com/images/tracks/$trackId/thumbs/Track${trackId == '391' ? 280 : trackId}.webp'
+      ? 'https://data.dg-edge.com/images/tracks/$trackId/thumbs/Track${_getDisplayTrackId(trackId!)}.webp'
       : null;
 
   String? get trackBackgroundImage => trackId != null
-      ? 'https://data.dg-edge.com/images/tracks/$trackId/Back${trackId == '391' ? 280 : trackId}.webp'
+      ? 'https://data.dg-edge.com/images/tracks/$trackId/Back${_getDisplayTrackId(trackId!)}.webp'
       : null;
 
   String? get trackLogotype => trackId != null
-      ? 'https://data.dg-edge.com/images/tracks/$trackId/thumbs/Logo${trackId == '391' ? 280 : trackId}.webp'
+      ? 'https://data.dg-edge.com/images/tracks/$trackId/thumbs/Logo${_getDisplayTrackId(trackId!)}.webp'
       : null;
 
   @override

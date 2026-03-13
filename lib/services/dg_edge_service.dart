@@ -126,8 +126,13 @@ class DgEdgeService extends ChangeNotifier {
 
     // Include upcoming/future races (e.g. DG‑Edge cards marked `.event.is-future`) that
     // may not have an active link yet.
+    // Some DG‑Edge pages use different markup variants for future cards:
+    // - `.event.is-future` or `.event.daily.is-future`
+    // - plain `.event.daily` inside bootstrap grid columns (`.col-lg-4`)
+    // Include the common variants so we don't miss unlinked or grid-wrapped
+    // future cards.
     final futureCards = doc.querySelectorAll(
-      '.event.is-future, .event.daily.is-future',
+      '.event.is-future, .event.daily.is-future, .event.daily, .col-lg-4 .event',
     );
     for (final el in futureCards) {
       final summary = DailyRaceSummary.fromListElement(el, baseUrl: baseUrl);

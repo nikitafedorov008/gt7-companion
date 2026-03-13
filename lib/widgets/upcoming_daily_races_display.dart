@@ -54,7 +54,7 @@ class _UpcomingDailyRacesDisplayState extends State<UpcomingDailyRacesDisplay> {
     final repo = context.watch<SportRepository>();
     final items = repo.dailyRaces
         .where((r) => r.trackName != null && r.trackName!.isNotEmpty)
-        .where((r) => r.isUpcoming)
+        .where((r) => !r.isActive)
         .toList();
 
     // Only show this widget if there is content to display

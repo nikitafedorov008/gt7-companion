@@ -5,15 +5,11 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter_avif/flutter_avif.dart';
 import '../models/unified_car_data.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class UsedCarCardItem extends StatelessWidget {
   final UnifiedCarData car;
 
-  const UsedCarCardItem({
-    super.key,
-    required this.car,
-  });
+  const UsedCarCardItem({super.key, required this.car});
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +46,6 @@ class UsedCarCardItem extends StatelessWidget {
                 ),
               ),
             ),
-
 
             // Info Section (Right)
             Expanded(
@@ -105,27 +100,49 @@ class UsedCarCardItem extends StatelessWidget {
 
                         // Status: SOLD OUT / LIMITED STOCK
                         if (car.isSoldOut)
-                          _buildStatusBadge('SOLD OUT', Colors.red[100]!, Colors.red[800]!)
+                          _buildStatusBadge(
+                            'SOLD OUT',
+                            Colors.red[100]!,
+                            Colors.red[800]!,
+                          )
                         else if (car.isLimitedStock)
-                          _buildStatusBadge('LIMITED STOCK', Colors.orange[100]!, Colors.orange[800]!),
+                          _buildStatusBadge(
+                            'LIMITED STOCK',
+                            Colors.orange[100]!,
+                            Colors.orange[800]!,
+                          ),
 
                         const SizedBox(height: 8),
 
                         // PP + Miles
                         Row(
                           children: [
-                            const Icon(Icons.speed, size: 14, color: Colors.grey),
+                            const Icon(
+                              Icons.speed,
+                              size: 14,
+                              color: Colors.grey,
+                            ),
                             const SizedBox(width: 4),
                             Text(
                               '${_formatMiles(car.estimateDays)} mi',
-                              style: const TextStyle(fontSize: 12, color: Colors.grey),
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey,
+                              ),
                             ),
                             const SizedBox(width: 12),
-                            const Icon(Icons.trending_up, size: 14, color: Colors.grey),
+                            const Icon(
+                              Icons.trending_up,
+                              size: 14,
+                              color: Colors.grey,
+                            ),
                             const SizedBox(width: 4),
                             Text(
                               'PP ${car.sort ?? 0}',
-                              style: const TextStyle(fontSize: 12, color: Colors.grey),
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey,
+                              ),
                             ),
                           ],
                         ),
@@ -138,7 +155,9 @@ class UsedCarCardItem extends StatelessWidget {
                             return Icon(
                               Icons.star,
                               size: 14,
-                              color: index < 3 ? Colors.yellow : Colors.grey[300],
+                              color: index < 3
+                                  ? Colors.yellow
+                                  : Colors.grey[300],
                             );
                           }),
                         ),
@@ -186,7 +205,12 @@ class UsedCarCardItem extends StatelessWidget {
 
   String _getCarImageUrl() => car.carImageUrl;
 
-  Widget _buildImageWidget(String imageUrl, {double? width, double? height, BoxFit fit = BoxFit.cover}) {
+  Widget _buildImageWidget(
+    String imageUrl, {
+    double? width,
+    double? height,
+    BoxFit fit = BoxFit.cover,
+  }) {
     Widget placeholder = Container(
       width: width,
       height: height,
@@ -199,13 +223,18 @@ class UsedCarCardItem extends StatelessWidget {
       width: width,
       height: height,
       color: Colors.grey[200],
-      child: const Icon(Icons.image_not_supported_outlined, size: 24, color: Colors.grey),
+      child: const Icon(
+        Icons.image_not_supported_outlined,
+        size: 24,
+        color: Colors.grey,
+      ),
     );
 
     if (imageUrl.contains('imagedelivery.net')) {
       // Для изображений из GTDB показываем стандартное изображение как placeholder,
       // а затем заменяем на изображение из GTDB если оно загрузится
-      String gt7StandardUrl = 'https://www.gran-turismo.com/common/dist/gt7/carlist/car_thumbnails/car${car.id}.png';
+      String gt7StandardUrl =
+          'https://www.gran-turismo.com/common/dist/gt7/carlist/car_thumbnails/car${car.id}.png';
 
       // Сначала загружаем стандартное изображение
       return ExtendedImage.network(
@@ -222,8 +251,11 @@ class UsedCarCardItem extends StatelessWidget {
             // height: height,
             fit: BoxFit.contain,
             loadingBuilder: (context, child, loadingProgress) =>
-              loadingProgress == null ? child : Container(), // Не показываем placeholder для GTDB
-            errorBuilder: (context, error, stackTrace) => Container(), // Не показываем ошибку GTDB
+                loadingProgress == null
+                ? child
+                : Container(), // Не показываем placeholder для GTDB
+            errorBuilder: (context, error, stackTrace) =>
+                Container(), // Не показываем ошибку GTDB
           );
 
           if (standardState.extendedImageLoadState == LoadState.loading) {
@@ -235,7 +267,8 @@ class UsedCarCardItem extends StatelessWidget {
                 gtdbImage, // попутно грузим изображение из GTDB
               ],
             );
-          } else if (standardState.extendedImageLoadState == LoadState.completed) {
+          } else if (standardState.extendedImageLoadState ==
+              LoadState.completed) {
             // Если стандартное изображение загрузилось, показываем его с возможностью замены на GTDB
             return Stack(
               alignment: Alignment.center,

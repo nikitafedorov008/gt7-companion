@@ -26,6 +26,7 @@ void main() {
         label: 'A${i + 1}',
         trackName: 'Track${i + 1}',
         tyreCode: 'T${i + 1}',
+        status: 'running',
         pitStops: '-',
         bop: false,
         damage: '',

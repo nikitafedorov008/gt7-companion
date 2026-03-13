@@ -3,7 +3,6 @@ import 'dart:io';
 import 'dart:async';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:network_discovery/network_discovery.dart';
-import 'package:multicast_dns/multicast_dns.dart';
 
 class PlayStationDevice {
   final String ipAddress;
@@ -78,7 +77,12 @@ class NetworkScanner {
         final updatedDevices = <PlayStationDevice>[];
         final futures = <Future<PlayStationDevice?>>[];
         for (final device in devices) {
-          futures.add(_checkIfPlayStationDeviceWithMac(device.ipAddress, device.macAddress));
+          futures.add(
+            _checkIfPlayStationDeviceWithMac(
+              device.ipAddress,
+              device.macAddress,
+            ),
+          );
         }
         final results = await Future.wait(futures);
         for (final result in results) {
@@ -186,8 +190,9 @@ class NetworkScanner {
       // As a last resort, try to get the hostname for the IP
       // PlayStation devices often register with names starting with "PS4-" or "PS5-"
       final hostname = await _getHostnameForIp(ip);
-      if (hostname != null && (hostname.toUpperCase().startsWith('PS4-') ||
-                               hostname.toUpperCase().startsWith('PS5-'))) {
+      if (hostname != null &&
+          (hostname.toUpperCase().startsWith('PS4-') ||
+              hostname.toUpperCase().startsWith('PS5-'))) {
         print('Device $ip has PlayStation-like hostname: $hostname');
         return PlayStationDevice(
           ipAddress: ip,
@@ -204,7 +209,8 @@ class NetworkScanner {
         macAddress: 'Unknown',
         vendor: 'Active device',
         isLikelyPlayStation: false,
-        confidence: 5, // Very low confidence since we can't verify it's a PlayStation
+        confidence:
+            5, // Very low confidence since we can't verify it's a PlayStation
       );
     } catch (e) {
       print('Error checking device $ip: $e');
@@ -232,14 +238,15 @@ class NetworkScanner {
     try {
       print('Checking Remote Play port 987 for $ip');
       // Try to connect to port 987 (PlayStation Remote Play)
-      final socket = await Socket.connect(
-        ip,
-        987,
-        timeout: const Duration(milliseconds: 800),
-      ).timeout(
-        const Duration(milliseconds: 1000),
-        onTimeout: () => throw TimeoutException('Connection timeout'),
-      );
+      final socket =
+          await Socket.connect(
+            ip,
+            987,
+            timeout: const Duration(milliseconds: 800),
+          ).timeout(
+            const Duration(milliseconds: 1000),
+            onTimeout: () => throw TimeoutException('Connection timeout'),
+          );
 
       socket.destroy();
       print('Device $ip responds on Remote Play port 987');
@@ -285,7 +292,9 @@ class NetworkScanner {
             final response = String.fromCharCodes(datagram.data);
             responses.add(response);
             ipAddresses.add(datagram.address.address);
-            print('Received UDP response from ${datagram.address.address}: $response');
+            print(
+              'Received UDP response from ${datagram.address.address}: $response',
+            );
           }
         }
       });
@@ -309,13 +318,15 @@ class NetworkScanner {
             response.toUpperCase().contains('PS4') ||
             response.toUpperCase().contains('PS5')) {
           print('Found PlayStation via UDP broadcast: $ip');
-          devices.add(PlayStationDevice(
-            ipAddress: ip,
-            macAddress: 'Unknown',
-            vendor: 'PlayStation (UDP broadcast discovery)',
-            isLikelyPlayStation: true,
-            confidence: 90, // High confidence for UDP broadcast discovery
-          ));
+          devices.add(
+            PlayStationDevice(
+              ipAddress: ip,
+              macAddress: 'Unknown',
+              vendor: 'PlayStation (UDP broadcast discovery)',
+              isLikelyPlayStation: true,
+              confidence: 90, // High confidence for UDP broadcast discovery
+            ),
+          );
         }
       }
     } catch (e) {
@@ -335,7 +346,7 @@ class NetworkScanner {
         'urn:schemas-upnp-org:device:MediaRenderer:1',
         'urn:schemas-upnp-org:device:MediaServer:1',
         'ssdp:all',
-        'upnp:rootdevice'
+        'upnp:rootdevice',
       ];
 
       for (final st in searchTypes) {
@@ -348,15 +359,23 @@ class NetworkScanner {
           'MAN: "ssdp:discover"',
           'MX: 3',
           'ST: $st',
-          '', ''
+          '',
+          '',
         ].join('\r\n');
 
         // Create UDP socket for SSDP
-        final socket = await RawDatagramSocket.bind(InternetAddress.anyIPv4, 1901); // Use different port to avoid conflicts
+        final socket = await RawDatagramSocket.bind(
+          InternetAddress.anyIPv4,
+          1901,
+        ); // Use different port to avoid conflicts
         socket.broadcastEnabled = true;
 
         // Send SSDP discovery request
-        socket.send(utf8.encode(request), InternetAddress('239.255.255.250'), 1900);
+        socket.send(
+          utf8.encode(request),
+          InternetAddress('239.255.255.250'),
+          1900,
+        );
 
         // Wait for responses (up to 3 seconds per search)
         final responses = <String>[];
@@ -387,18 +406,22 @@ class NetworkScanner {
               response.toUpperCase().contains('SONY') ||
               response.contains('urn:schemas-sce-com:device:PlayStation')) {
             // Extract IP address from response
-            final locationMatch = RegExp(r'LOCATION: http://([\d\.]+):\d+').firstMatch(response);
+            final locationMatch = RegExp(
+              r'LOCATION: http://([\d\.]+):\d+',
+            ).firstMatch(response);
             if (locationMatch != null) {
               final ip = locationMatch.group(1);
               if (ip != null) {
                 print('Found PlayStation via SSDP: $ip');
-                devices.add(PlayStationDevice(
-                  ipAddress: ip,
-                  macAddress: 'Unknown',
-                  vendor: 'PlayStation (SSDP discovery)',
-                  isLikelyPlayStation: true,
-                  confidence: 95, // Very high confidence for SSDP discovery
-                ));
+                devices.add(
+                  PlayStationDevice(
+                    ipAddress: ip,
+                    macAddress: 'Unknown',
+                    vendor: 'PlayStation (SSDP discovery)',
+                    isLikelyPlayStation: true,
+                    confidence: 95, // Very high confidence for SSDP discovery
+                  ),
+                );
               }
             }
           }
@@ -432,10 +455,17 @@ class NetworkScanner {
       // If not responding to Remote Play port, try the original heartbeat approach
       // First, verify that we can send UDP heartbeat to the send port (33739)
       // This is typically how PlayStation receives activation signal
-      final sendSocket = await RawDatagramSocket.bind(InternetAddress.anyIPv4, gt7ReceivePort + 100); // Bind to a different port to avoid conflicts
+      final sendSocket = await RawDatagramSocket.bind(
+        InternetAddress.anyIPv4,
+        gt7ReceivePort + 100,
+      ); // Bind to a different port to avoid conflicts
 
       // Send heartbeat to trigger telemetry
-      final bytesSent = sendSocket.send([65], InternetAddress(ip), gt7SendPort); // Send 'A' as heartbeat
+      final bytesSent = sendSocket.send(
+        [65],
+        InternetAddress(ip),
+        gt7SendPort,
+      ); // Send 'A' as heartbeat
       print('Sent heartbeat to $ip:$gt7SendPort ($bytesSent bytes)');
 
       // Close the sending socket
@@ -444,14 +474,15 @@ class NetworkScanner {
       // If we successfully sent the heartbeat, this is a positive sign
       // Now check if the device responds differently to connection attempts on receive port
       try {
-        final verifySocket = await Socket.connect(
-          ip,
-          gt7ReceivePort,
-          timeout: const Duration(milliseconds: 1000),
-        ).timeout(
-          const Duration(milliseconds: 1500),
-          onTimeout: () => throw TimeoutException('Connection timeout'),
-        );
+        final verifySocket =
+            await Socket.connect(
+              ip,
+              gt7ReceivePort,
+              timeout: const Duration(milliseconds: 1000),
+            ).timeout(
+              const Duration(milliseconds: 1500),
+              onTimeout: () => throw TimeoutException('Connection timeout'),
+            );
 
         verifySocket.destroy();
 
@@ -461,7 +492,8 @@ class NetworkScanner {
           macAddress: 'Unknown',
           vendor: 'PlayStation (telemetry activated by heartbeat)',
           isLikelyPlayStation: true,
-          confidence: 70, // High confidence if telemetry was activated by heartbeat
+          confidence:
+              70, // High confidence if telemetry was activated by heartbeat
         );
       } catch (e) {
         // If we can't connect, check the type of error
@@ -469,21 +501,28 @@ class NetworkScanner {
           // PlayStation typically responds with "Connection refused" to TCP connections
           // on port 33740 when telemetry is not active, rather than "Connection timed out"
           // This is a key distinguishing feature
-          if (e.osError?.errorCode == 111) { // Connection refused
+          if (e.osError?.errorCode == 111) {
+            // Connection refused
             // This behavior (accepts UDP heartbeat but refuses TCP connection) is common
             // for many devices, not just PlayStation. We'll mark it as potentially
             // a PlayStation but with low confidence
-            print('Received connection refused for GT7 receive port after heartbeat for $ip - marked with low confidence');
+            print(
+              'Received connection refused for GT7 receive port after heartbeat for $ip - marked with low confidence',
+            );
             return PlayStationDevice(
               ipAddress: ip,
               macAddress: 'Unknown',
               vendor: 'Device with GT7-like port behavior',
-              isLikelyPlayStation: false, // Mark as not likely PlayStation to avoid false positives
+              isLikelyPlayStation:
+                  false, // Mark as not likely PlayStation to avoid false positives
               confidence: 15, // Low confidence
             );
-          } else if (e.osError?.errorCode == 110) { // Connection timed out
+          } else if (e.osError?.errorCode == 110) {
+            // Connection timed out
             // This means the port is not reachable, likely not a PlayStation
-            print('Connection timed out for GT7 receive port after heartbeat for $ip - not a PlayStation');
+            print(
+              'Connection timed out for GT7 receive port after heartbeat for $ip - not a PlayStation',
+            );
             return null;
           }
         }
@@ -499,7 +538,10 @@ class NetworkScanner {
 
   /// Check if a device with known MAC address is likely a PlayStation
   /// This method updates the device information based on both MAC address and port check
-  static Future<PlayStationDevice?> _checkIfPlayStationDeviceWithMac(String ip, String macAddress) async {
+  static Future<PlayStationDevice?> _checkIfPlayStationDeviceWithMac(
+    String ip,
+    String macAddress,
+  ) async {
     try {
       // Check if MAC address indicates PlayStation
       final vendor = _identifyVendor(macAddress);
@@ -515,7 +557,8 @@ class NetworkScanner {
           ipAddress: ip,
           macAddress: macAddress,
           vendor: vendor,
-          isLikelyPlayStation: true, // If responding on GT7 port, consider it a PlayStation
+          isLikelyPlayStation:
+              true, // If responding on GT7 port, consider it a PlayStation
           confidence: confidence,
         );
       }
@@ -577,10 +620,7 @@ class NetworkScanner {
       }
 
       // Wait for all probes with timeout
-      final results = await Future.wait(
-        futures,
-        eagerError: false,
-      );
+      final results = await Future.wait(futures, eagerError: false);
 
       // Collect successful probes
       for (final device in results) {
@@ -599,14 +639,15 @@ class NetworkScanner {
   static Future<PlayStationDevice?> _probeGT7Port(String ip) async {
     try {
       // Try to connect to GT7 receive port (33740)
-      final socket = await Socket.connect(
-        ip,
-        gt7ReceivePort,
-        timeout: const Duration(milliseconds: 1000),
-      ).timeout(
-        const Duration(milliseconds: 1500),
-        onTimeout: () => throw TimeoutException('Connection timeout'),
-      );
+      final socket =
+          await Socket.connect(
+            ip,
+            gt7ReceivePort,
+            timeout: const Duration(milliseconds: 1000),
+          ).timeout(
+            const Duration(milliseconds: 1500),
+            onTimeout: () => throw TimeoutException('Connection timeout'),
+          );
 
       // If we successfully connected, this might be a PlayStation
       socket.destroy();
@@ -663,13 +704,15 @@ class NetworkScanner {
             final isPlayStation = _isPlayStationMac(mac);
 
             final confidence = isPlayStation ? 95 : 20;
-            devices.add(PlayStationDevice(
-              ipAddress: ip,
-              macAddress: mac,
-              vendor: vendor,
-              isLikelyPlayStation: isPlayStation,
-              confidence: confidence,
-            ));
+            devices.add(
+              PlayStationDevice(
+                ipAddress: ip,
+                macAddress: mac,
+                vendor: vendor,
+                isLikelyPlayStation: isPlayStation,
+                confidence: confidence,
+              ),
+            );
           }
         }
       }
@@ -723,13 +766,15 @@ class NetworkScanner {
             final isPlayStation = _isPlayStationMac(mac);
             final confidence = isPlayStation ? 95 : 20;
 
-            devices.add(PlayStationDevice(
-              ipAddress: ip,
-              macAddress: mac,
-              vendor: vendor,
-              isLikelyPlayStation: isPlayStation,
-              confidence: confidence,
-            ));
+            devices.add(
+              PlayStationDevice(
+                ipAddress: ip,
+                macAddress: mac,
+                vendor: vendor,
+                isLikelyPlayStation: isPlayStation,
+                confidence: confidence,
+              ),
+            );
           }
         }
       }
@@ -750,8 +795,8 @@ class NetworkScanner {
   /// Check if MAC address belongs to PlayStation
   static bool _isPlayStationMac(String mac) {
     final prefix = mac.substring(0, 8); // First 3 bytes (XX:XX:XX)
-    return _playstationVendorPrefixes.any((p) => 
-      prefix.toUpperCase().startsWith(p.toUpperCase())
+    return _playstationVendorPrefixes.any(
+      (p) => prefix.toUpperCase().startsWith(p.toUpperCase()),
     );
   }
 
@@ -802,7 +847,11 @@ class NetworkScanner {
         // Try to get the WiFi IP address using a different approach
         // First, try to connect to a remote host to determine the local IP
         try {
-          final socket = await Socket.connect('8.8.8.8', 53, timeout: Duration(seconds: 5));
+          final socket = await Socket.connect(
+            '8.8.8.8',
+            53,
+            timeout: Duration(seconds: 5),
+          );
           final localAddress = socket.address.address;
           socket.destroy();
 
@@ -813,9 +862,9 @@ class NetworkScanner {
             if (localAddress.startsWith('192.168.') ||
                 localAddress.startsWith('10.') ||
                 (localAddress.startsWith('172.') &&
-                 int.tryParse(localAddress.split('.')[1]) != null &&
-                 int.tryParse(localAddress.split('.')[1])! >= 16 &&
-                 int.tryParse(localAddress.split('.')[1])! <= 31)) {
+                    int.tryParse(localAddress.split('.')[1]) != null &&
+                    int.tryParse(localAddress.split('.')[1])! >= 16 &&
+                    int.tryParse(localAddress.split('.')[1])! <= 31)) {
               return '${parts[0]}.${parts[1]}.${parts[2]}';
             }
           }
@@ -840,9 +889,9 @@ class NetworkScanner {
                   if (addr.address.startsWith('192.168.') ||
                       addr.address.startsWith('10.') ||
                       (addr.address.startsWith('172.') &&
-                       int.tryParse(addr.address.split('.')[1]) != null &&
-                       int.tryParse(addr.address.split('.')[1])! >= 16 &&
-                       int.tryParse(addr.address.split('.')[1])! <= 31)) {
+                          int.tryParse(addr.address.split('.')[1]) != null &&
+                          int.tryParse(addr.address.split('.')[1])! >= 16 &&
+                          int.tryParse(addr.address.split('.')[1])! <= 31)) {
                     return '${parts[0]}.${parts[1]}.${parts[2]}';
                   }
                 }
@@ -856,7 +905,8 @@ class NetworkScanner {
 
         for (final interface in interfaces) {
           // Look for active interfaces (not loopback)
-          if (interface.name.startsWith('en') || interface.name.startsWith('eth')) {
+          if (interface.name.startsWith('en') ||
+              interface.name.startsWith('eth')) {
             for (final addr in interface.addresses) {
               if (addr.type == InternetAddressType.IPv4 && !addr.isLoopback) {
                 // Extract subnet (e.g., 192.168.0.x -> 192.168.0)
@@ -866,9 +916,9 @@ class NetworkScanner {
                   if (addr.address.startsWith('192.168.') ||
                       addr.address.startsWith('10.') ||
                       (addr.address.startsWith('172.') &&
-                       int.tryParse(addr.address.split('.')[1]) != null &&
-                       int.tryParse(addr.address.split('.')[1])! >= 16 &&
-                       int.tryParse(addr.address.split('.')[1])! <= 31)) {
+                          int.tryParse(addr.address.split('.')[1]) != null &&
+                          int.tryParse(addr.address.split('.')[1])! >= 16 &&
+                          int.tryParse(addr.address.split('.')[1])! <= 31)) {
                     return '${parts[0]}.${parts[1]}.${parts[2]}';
                   }
                 }
@@ -917,7 +967,12 @@ class NetworkScanner {
         final updatedDevices = <PlayStationDevice>[];
         final futures = <Future<PlayStationDevice?>>[];
         for (final device in devices) {
-          futures.add(_checkIfPlayStationDeviceWithMac(device.ipAddress, device.macAddress));
+          futures.add(
+            _checkIfPlayStationDeviceWithMac(
+              device.ipAddress,
+              device.macAddress,
+            ),
+          );
         }
         final results = await Future.wait(futures);
         for (final result in results) {
@@ -999,10 +1054,13 @@ class NetworkScanner {
     }
 
     try {
-      await Process.run(
-        'ping',
-        ['-c', '1', '-W', '1', ip],
-      ).timeout(const Duration(seconds: 2));
+      await Process.run('ping', [
+        '-c',
+        '1',
+        '-W',
+        '1',
+        ip,
+      ]).timeout(const Duration(seconds: 2));
     } catch (e) {
       // Ignore errors
     }
@@ -1030,10 +1088,13 @@ class NetworkScanner {
     }
 
     try {
-      await Process.run(
-        'ping',
-        ['-n', '1', '-w', '1000', ip],
-      ).timeout(const Duration(seconds: 2));
+      await Process.run('ping', [
+        '-n',
+        '1',
+        '-w',
+        '1000',
+        ip,
+      ]).timeout(const Duration(seconds: 2));
     } catch (e) {
       // Ignore errors
     }

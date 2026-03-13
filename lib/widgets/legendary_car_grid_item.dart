@@ -10,10 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 class LegendaryCarCardItem extends StatelessWidget {
   final UnifiedCarData car;
 
-  const LegendaryCarCardItem({
-    super.key,
-    required this.car,
-  });
+  const LegendaryCarCardItem({super.key, required this.car});
 
   @override
   Widget build(BuildContext context) {
@@ -27,16 +24,13 @@ class LegendaryCarCardItem extends StatelessWidget {
         //   borderRadius: BorderRadius.circular(2.0),
         //   border: Border.all(color: Colors.grey[300]!, width: 1),
         // ),
-        decoration: CustomDecoration(
-          frameSFactor: .06,
-          gap: 0,
-        ),
+        decoration: CustomDecoration(frameSFactor: .06, gap: 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Align(
-              alignment: Alignment.topCenter.add(AlignmentDirectional(0.6, 0),),
+              alignment: Alignment.topCenter.add(AlignmentDirectional(0.6, 0)),
               child: SvgPicture.asset(
                 'assets/images/legend_hagerty_icon.svg',
                 height: 32,
@@ -139,7 +133,6 @@ class LegendaryCarCardItem extends StatelessWidget {
               radius: BorderRadius.circular(24),
             ),
 
-
             // Info Section (Bottom)
             Expanded(
               child: Padding(
@@ -166,7 +159,10 @@ class LegendaryCarCardItem extends StatelessWidget {
                         // Miles
                         Text(
                           '${_formatMiles(car.estimateDays)} miles',
-                          style: const TextStyle(fontSize: 12, color: Colors.grey),
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey,
+                          ),
                         ),
                       ],
                     ),
@@ -179,7 +175,11 @@ class LegendaryCarCardItem extends StatelessWidget {
             if (car.isSoldOut)
               _buildStatusBadge('SOLD OUT', Colors.red[100]!, Colors.red[800]!)
             else if (car.isLimitedStock)
-              _buildStatusBadge('LIMITED STOCK', Colors.orange[100]!, Colors.orange[800]!),
+              _buildStatusBadge(
+                'LIMITED STOCK',
+                Colors.orange[100]!,
+                Colors.orange[800]!,
+              ),
 
             const SizedBox(height: 8),
           ],
@@ -208,7 +208,12 @@ class LegendaryCarCardItem extends StatelessWidget {
 
   String _getCarImageUrl() => car.carImageUrl;
 
-  Widget _buildImageWidget(String imageUrl, {double? width, double? height, BoxFit fit = BoxFit.cover}) {
+  Widget _buildImageWidget(
+    String imageUrl, {
+    double? width,
+    double? height,
+    BoxFit fit = BoxFit.cover,
+  }) {
     Widget placeholder = Container(
       width: width,
       height: height,
@@ -221,13 +226,18 @@ class LegendaryCarCardItem extends StatelessWidget {
       width: width,
       height: height,
       color: Colors.grey[200],
-      child: const Icon(Icons.image_not_supported_outlined, size: 24, color: Colors.grey),
+      child: const Icon(
+        Icons.image_not_supported_outlined,
+        size: 24,
+        color: Colors.grey,
+      ),
     );
 
     if (imageUrl.contains('imagedelivery.net')) {
       // Для изображений из GTDB показываем стандартное изображение как placeholder,
       // а затем заменяем на изображение из GTDB если оно загрузится
-      String gt7StandardUrl = 'https://www.gran-turismo.com/common/dist/gt7/carlist/car_thumbnails/car${car.id}.png';
+      String gt7StandardUrl =
+          'https://www.gran-turismo.com/common/dist/gt7/carlist/car_thumbnails/car${car.id}.png';
 
       // Сначала загружаем стандартное изображение
       return ExtendedImage.network(
@@ -244,8 +254,11 @@ class LegendaryCarCardItem extends StatelessWidget {
             // height: height,
             fit: BoxFit.contain,
             loadingBuilder: (context, child, loadingProgress) =>
-              loadingProgress == null ? child : Container(), // Не показываем placeholder для GTDB
-            errorBuilder: (context, error, stackTrace) => Container(), // Не показываем ошибку GTDB
+                loadingProgress == null
+                ? child
+                : Container(), // Не показываем placeholder для GTDB
+            errorBuilder: (context, error, stackTrace) =>
+                Container(), // Не показываем ошибку GTDB
           );
 
           if (standardState.extendedImageLoadState == LoadState.loading) {
@@ -257,7 +270,8 @@ class LegendaryCarCardItem extends StatelessWidget {
                 gtdbImage, // попутно грузим изображение из GTDB
               ],
             );
-          } else if (standardState.extendedImageLoadState == LoadState.completed) {
+          } else if (standardState.extendedImageLoadState ==
+              LoadState.completed) {
             // Если стандартное изображение загрузилось, показываем его с возможностью замены на GTDB
             return Stack(
               alignment: Alignment.center,
@@ -312,15 +326,13 @@ class LegendaryCarCardItem extends StatelessWidget {
   }
 }
 
-
-
 class CustomDecoration extends Decoration {
   final Color? backgroundColor;
   final double frameSFactor;
   //defalut padding _Need to check
   final double gap;
 
-  CustomDecoration({
+  const CustomDecoration({
     this.backgroundColor = Colors.transparent,
     required this.frameSFactor,
     required this.gap,
@@ -328,9 +340,10 @@ class CustomDecoration extends Decoration {
   @override
   BoxPainter createBoxPainter([VoidCallback? onChanged]) {
     return CustomDecorationPainter(
-        backgroundColor: backgroundColor!,
-        frameSFactor: frameSFactor,
-        padding: gap);
+      backgroundColor: backgroundColor!,
+      frameSFactor: frameSFactor,
+      padding: gap,
+    );
   }
 }
 
@@ -360,11 +373,9 @@ class CustomDecorationPainter extends BoxPainter {
 
     /// background
     canvas.drawRRect(
-        RRect.fromRectAndRadius(
-          bounds,
-          Radius.circular(0.8),
-        ),
-        paint..color);
+      RRect.fromRectAndRadius(bounds, Radius.circular(0.8)),
+      paint..color,
+    );
 
     paint.color = Colors.grey;
 
@@ -385,41 +396,53 @@ class CustomDecorationPainter extends BoxPainter {
     //top Right
     canvas.drawLine(
       Offset(bounds.topRight.dx - padding, bounds.topRight.dy + padding),
-      Offset(bounds.topRight.dx - padding - frameHWidth,
-          bounds.topRight.dy + padding),
+      Offset(
+        bounds.topRight.dx - padding - frameHWidth,
+        bounds.topRight.dy + padding,
+      ),
       paint,
     );
     canvas.drawLine(
       Offset(bounds.topRight.dx - padding, bounds.topRight.dy + padding),
-      Offset(bounds.topRight.dx - padding,
-          bounds.topRight.dy + padding + frameHWidth),
+      Offset(
+        bounds.topRight.dx - padding,
+        bounds.topRight.dy + padding + frameHWidth,
+      ),
       paint..color,
     );
 
     //bottom Right
     canvas.drawLine(
       Offset(bounds.bottomRight.dx - padding, bounds.bottomRight.dy - padding),
-      Offset(bounds.bottomRight.dx - padding,
-          bounds.bottomRight.dy - padding - frameHWidth),
+      Offset(
+        bounds.bottomRight.dx - padding,
+        bounds.bottomRight.dy - padding - frameHWidth,
+      ),
       paint,
     );
     canvas.drawLine(
       Offset(bounds.bottomRight.dx - padding, bounds.bottomRight.dy - padding),
-      Offset(bounds.bottomRight.dx - padding - frameHWidth,
-          bounds.bottomRight.dy - padding),
+      Offset(
+        bounds.bottomRight.dx - padding - frameHWidth,
+        bounds.bottomRight.dy - padding,
+      ),
       paint,
     );
-//bottom Left
+    //bottom Left
     canvas.drawLine(
       Offset(bounds.bottomLeft.dx + padding, bounds.bottomLeft.dy - padding),
-      Offset(bounds.bottomLeft.dx + padding,
-          bounds.bottomLeft.dy - padding - frameHWidth),
+      Offset(
+        bounds.bottomLeft.dx + padding,
+        bounds.bottomLeft.dy - padding - frameHWidth,
+      ),
       paint,
     );
     canvas.drawLine(
       Offset(bounds.bottomLeft.dx + padding, bounds.bottomLeft.dy - padding),
-      Offset(bounds.bottomLeft.dx + padding + frameHWidth,
-          bounds.bottomLeft.dy - padding),
+      Offset(
+        bounds.bottomLeft.dx + padding + frameHWidth,
+        bounds.bottomLeft.dy - padding,
+      ),
       paint,
     );
   }

@@ -30,10 +30,15 @@ class GtshRankService extends ChangeNotifier {
   GtshRankService({http.Client? httpClient})
     : _http = httpClient ?? http.Client();
 
-  /// Fetch daily page and return list of running cards.
-  Future<List<GtshRace>> fetchRunningCards({
-    bool forceRefresh = false,
-  }) async {
+  /// Fetch daily page and return list of race cards.
+  ///
+  /// Previously this method only returned cards that were actively running
+  /// (`.status.running`).  Future/"next week" events were omitted, which
+  /// meant those races never made it into the unified display.  The upstream
+  /// page starts by listing upcoming cards followed by the running ones, so to
+  /// keep the repository in sync we now return both running and next-week
+  /// entries.  Consumers can still filter by whatever status they prefer.
+  Future<List<GtshRace>> fetchRunningCards({bool forceRefresh = false}) async {
     _setLoading(true);
     try {
       final uri = Uri.parse('$_base/daily/');
@@ -56,13 +61,21 @@ class GtshRankService extends ChangeNotifier {
 
   /// Parse a document into a list of `GtshRaceCard` items.
   ///
-  /// Only `.race-card` elements containing a `.status.running` child are
-  /// returned; other cards (next week, ended, etc) are ignored.
+  /// Historically only entries marked `.status.running` were returned; the
+  /// caller was named `fetchRunningCards` for that reason.  That meant cards
+  /// labelled "next week" or similar never surfaced in the UI, even though
+  /// the upstream site includes them at the top of the page.  Switch to a more
+  /// permissive rule so that upcoming races appear alongside ongoing ones.
+  ///
+  /// The returned list preserves the order of the page, so clients can still
+  /// show running events first if desired.
   List<GtshRace> parsePage(dom.Document doc) {
     final cards = <GtshRace>[];
     for (final el in doc.querySelectorAll('.race-card')) {
-      // skip non-running entries early
-      if (el.querySelector('.status.running') == null) continue;
+      // include entries that are either running or scheduled for next week
+      final statusEl = el.querySelector('.status');
+      final classes = statusEl?.classes ?? const <String>[];
+      if (!(classes.contains('running') || classes.contains('next'))) continue;
       cards.add(GtshRace.fromElement(el));
     }
     return cards;

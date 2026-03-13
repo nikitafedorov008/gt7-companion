@@ -41,7 +41,7 @@ class TelemetryService extends ChangeNotifier {
     _packetCount++;
 
     try {
-      print('Received packet #${_packetCount}, ${data.length} bytes');
+      print('Received packet #$_packetCount, ${data.length} bytes');
 
       // Decrypt the data using Salsa20
       final decryptedData = CryptoUtils.decryptSalsa20(data);
@@ -63,7 +63,9 @@ class TelemetryService extends ChangeNotifier {
 
       // Parse the telemetry data
       final newTelemetry = TelemetryData.fromBytes(decryptedData);
-      print('Parsed telemetry data - Packet ID: ${newTelemetry.packetId}, Speed: ${newTelemetry.speed} kph, RPM: ${newTelemetry.rpm}');
+      print(
+        'Parsed telemetry data - Packet ID: ${newTelemetry.packetId}, Speed: ${newTelemetry.speed} kph, RPM: ${newTelemetry.rpm}',
+      );
 
       // Only update if packet ID is greater than previous (to match Python behavior)
       if (newTelemetry.packetId > (_currentTelemetry?.packetId ?? 0)) {
@@ -89,9 +91,10 @@ class TelemetryService extends ChangeNotifier {
         _errorMessage = null;
         notifyListeners();
       } else {
-        print('Packet ID ${newTelemetry.packetId} not greater than previous ${_currentTelemetry?.packetId ?? 0}, skipping update');
+        print(
+          'Packet ID ${newTelemetry.packetId} not greater than previous ${_currentTelemetry?.packetId ?? 0}, skipping update',
+        );
       }
-
     } catch (e) {
       _onError('Error processing packet: $e');
     }
@@ -102,9 +105,9 @@ class TelemetryService extends ChangeNotifier {
       throw ArgumentError('Not enough bytes for integer conversion');
     }
     return (bytes[offset] & 0xFF) |
-           ((bytes[offset + 1] & 0xFF) << 8) |
-           ((bytes[offset + 2] & 0xFF) << 16) |
-           ((bytes[offset + 3] & 0xFF) << 24);
+        ((bytes[offset + 1] & 0xFF) << 8) |
+        ((bytes[offset + 2] & 0xFF) << 16) |
+        ((bytes[offset + 3] & 0xFF) << 24);
   }
 
   void _onError(String error) {

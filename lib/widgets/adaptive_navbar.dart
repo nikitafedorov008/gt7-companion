@@ -29,8 +29,9 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
     if (kIsWeb) return _kDesktopBarHeight;
     final p = defaultTargetPlatform;
     if (p == TargetPlatform.macOS) return _kMacosToolbarHeight;
-    if (p == TargetPlatform.iOS || p == TargetPlatform.android)
+    if (p == TargetPlatform.iOS || p == TargetPlatform.android) {
       return _kMobileBarHeight;
+    }
     return _kDesktopBarHeight;
   }
 
@@ -407,10 +408,12 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize {
     if (kIsWeb) return const Size.fromHeight(_kDesktopBarHeight);
     final p = defaultTargetPlatform;
-    if (p == TargetPlatform.macOS)
+    if (p == TargetPlatform.macOS) {
       return const Size.fromHeight(_kMacosToolbarHeight);
-    if (p == TargetPlatform.iOS || p == TargetPlatform.android)
+    }
+    if (p == TargetPlatform.iOS || p == TargetPlatform.android) {
       return const Size.fromHeight(_kMobileBarHeight);
+    }
     return const Size.fromHeight(_kDesktopBarHeight);
   }
 }

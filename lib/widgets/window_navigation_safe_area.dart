@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/widgets.dart';
-import 'package:flutter/animation.dart';
 
 import '../utils/platform_utils.dart';
 

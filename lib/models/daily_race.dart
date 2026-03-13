@@ -139,8 +139,9 @@ extension TyreX on Tyre {
     if (lower.contains('intermediate')) return Tyre.IM;
     if (lower.contains('heavy') ||
         lower.contains('heavy-wet') ||
-        lower.contains('heavy wet'))
+        lower.contains('heavy wet')) {
       return Tyre.W;
+    }
     if (lower.contains('wet') &&
         lower.contains('heavy') == false &&
         lower.contains('intermediate') == false) {
@@ -148,8 +149,9 @@ extension TyreX on Tyre {
       return Tyre.W;
     }
     if (lower.contains('dirt') ||
-        lower.contains('off') && lower.contains('road'))
+        lower.contains('off') && lower.contains('road')) {
       return Tyre.D;
+    }
 
     return null;
   }
@@ -248,50 +250,62 @@ extension CarTypeX on CarType {
 
     // categories
     if (RegExp(r'gr\.?1', caseSensitive: false).hasMatch(s) ||
-        lower.contains('group 1'))
+        lower.contains('group 1')) {
       return CarType.GR1;
+    }
     if (RegExp(r'gr\.?2', caseSensitive: false).hasMatch(s) ||
-        lower.contains('group 2'))
+        lower.contains('group 2')) {
       return CarType.GR2;
+    }
     if (RegExp(r'gr\.?3', caseSensitive: false).hasMatch(s) ||
-        lower.contains('group 3'))
+        lower.contains('group 3')) {
       return CarType.GR3;
+    }
     if (RegExp(r'gr\.?4', caseSensitive: false).hasMatch(s) ||
-        lower.contains('group 4'))
+        lower.contains('group 4')) {
       return CarType.GR4;
+    }
     if (RegExp(r'gr\.?b', caseSensitive: false).hasMatch(s) ||
-        lower.contains('group b'))
+        lower.contains('group b')) {
       return CarType.GRB;
+    }
 
     // common car types / tags
     if (lower.contains('road')) return CarType.ROAD_CAR;
     if (lower.contains('racing') ||
         lower.contains('race car') ||
-        lower.contains('racing car'))
+        lower.contains('racing car')) {
       return CarType.RACING_CAR;
-    if (lower.contains('profession') || lower.contains('tuned'))
+    }
+    if (lower.contains('profession') || lower.contains('tuned')) {
       return CarType.PROFESSIONALLY_TUNED;
+    }
     if (lower.contains('hypercar')) return CarType.HYPERCAR;
-    if (lower.contains('vision') || lower.contains('vgt'))
+    if (lower.contains('vision') || lower.contains('vgt')) {
       return CarType.VISION_GRAN_TURISMO;
+    }
     if (lower.contains('concept')) return CarType.CONCEPT_CAR;
     if (lower.contains('safety')) return CarType.SAFETY_CAR;
     if (lower.contains('kei')) return CarType.KEI_CAR;
     if (lower.contains('electric')) return CarType.ELECTRIC_CAR;
     if (lower.contains('hybrid')) return CarType.HYBRID;
-    if (lower.contains('gran turismo award') || lower.contains('sema'))
+    if (lower.contains('gran turismo award') || lower.contains('sema')) {
       return CarType.GRAN_TURISMO_AWARD;
+    }
     if (lower.contains('gt500')) return CarType.GT500;
-    if (lower.contains('le mans') || lower.contains('lemans'))
+    if (lower.contains('le mans') || lower.contains('lemans')) {
       return CarType.LE_MANS;
+    }
     if (lower.contains('nurb') ||
         lower.contains('nürburgring') ||
-        lower.contains('nurburgring'))
+        lower.contains('nurburgring')) {
       return CarType.NURBURGRING_24H;
+    }
     if (lower.contains('wrc')) return CarType.WRC;
     if (lower.contains('kart')) return CarType.KART;
-    if (lower.contains('pikes') || lower.contains('pike'))
+    if (lower.contains('pikes') || lower.contains('pike')) {
       return CarType.PIKES_PEAK;
+    }
     if (lower.contains('midship')) return CarType.MIDSHIP;
     if (lower.contains('pickup')) return CarType.PICKUP_TRUCK;
 
@@ -489,15 +503,15 @@ class DailyRaceSummary {
   };
 
   String? get trackImage => trackId != null
-      ? 'https://data.dg-edge.com/images/tracks/$trackId/thumbs/Track$trackId.webp'
+      ? 'https://data.dg-edge.com/images/tracks/$trackId/thumbs/Track${trackId == '391' ? 280 : trackId}.webp'
       : null;
 
   String? get trackBackgroundImage => trackId != null
-      ? 'https://data.dg-edge.com/images/tracks/$trackId/Back$trackId.webp'
+      ? 'https://data.dg-edge.com/images/tracks/$trackId/Back${trackId == '391' ? 280 : trackId}.webp'
       : null;
 
   String? get trackLogotype => trackId != null
-      ? 'https://data.dg-edge.com/images/tracks/$trackId/thumbs/Logo$trackId.webp'
+      ? 'https://data.dg-edge.com/images/tracks/$trackId/thumbs/Logo${trackId == '391' ? 280 : trackId}.webp'
       : null;
 
   @override
@@ -515,13 +529,37 @@ class DailyRaceSummary {
         'DailyRaceSummary.fromListElement: parsing element <${el.localName}> classes=${el.classes}',
       );
 
-      // Find anchor pointing to the detail
+      // Find anchor pointing to the detail; some "future" cards are not yet
+      // linked, so fall back to the wrapper element.
       final anchor = el.querySelector('a[href*="/events/dailies/"]') ?? el;
       final href = anchor.attributes['href'] ?? '';
       debugPrint('  anchor href="$href"');
-      final uri = href.startsWith('http') ? href : (baseUrl + href);
+
+      // Prefer IDs from the URL when available (most cards are linked).
+      String? id;
       final idMatch = RegExp(r'/events/dailies/([\w-]+)').firstMatch(href);
-      final id = idMatch?.group(1) ?? uri;
+      if (idMatch != null) {
+        id = idMatch.group(1);
+      }
+
+      // If the card is not linked (future events), try to use the externalid
+      // metadata attribute that DG‑Edge embeds on the wrapper.
+      dom.Node? cur2 = el;
+      while (cur2 is dom.Element) {
+        final externalId = cur2.attributes['externalid'];
+        if (externalId != null && externalId.isNotEmpty) {
+          if (id == null || id.isEmpty) id = externalId;
+          break;
+        }
+        cur2 = cur2.parent;
+      }
+
+      // Fallback to base url if we still don't have an ID
+      id ??= baseUrl;
+
+      final uri = href.startsWith('http')
+          ? href
+          : (href.isNotEmpty ? baseUrl + href : '$baseUrl/events/dailies/$id');
 
       // Title: try heading tags then alt or text
       final titleEl =
@@ -547,7 +585,11 @@ class DailyRaceSummary {
       final eventTimeEl =
           anchor.querySelector('.event-time.mb-0') ??
           el.querySelector('.event-time');
-      final trackNameEl = anchor.querySelector('h4') ?? el.querySelector('h4');
+      final trackNameEl =
+          anchor.querySelector('h4') ??
+          anchor.querySelector('h5') ??
+          el.querySelector('h4') ??
+          el.querySelector('h5');
       final eventName = eventNameEl?.text.trim();
       final eventTime = eventTimeEl?.text.trim();
       final trackName = trackNameEl?.text.trim();
@@ -593,14 +635,16 @@ class DailyRaceSummary {
           r"Tyres?:?\s*[x×]?\s*(\d+)",
           caseSensitive: false,
         ).firstMatch(t);
-        if (tyreCountMatch != null)
+        if (tyreCountMatch != null) {
           tyresAvailable ??= int.tryParse(tyreCountMatch.group(1)!);
+        }
         // Tyre code (RM, RS, SO etc.)
         final tyreCodeMatch = RegExp(r"\b([A-Z]{1,3})\b").firstMatch(t);
         if (tyreCodeMatch != null && tyreCode == null) {
           final candidate = tyreCodeMatch.group(1)!;
-          if (candidate.length <= 3 && RegExp(r"[A-Z]").hasMatch(candidate))
+          if (candidate.length <= 3 && RegExp(r"[A-Z]").hasMatch(candidate)) {
             tyreCode = candidate;
+          }
         }
 
         // summary-level extraction
@@ -618,14 +662,16 @@ class DailyRaceSummary {
           r"Refuels?:?\s*[x×]?\s*(\d+)",
           caseSensitive: false,
         ).firstMatch(t);
-        if (refuelMatch != null)
+        if (refuelMatch != null) {
           refuels ??= int.tryParse(refuelMatch.group(1)!);
+        }
         final tyreCompoundMatch = RegExp(
           r"(Hard|Medium|Soft)",
           caseSensitive: false,
         ).firstMatch(t);
-        if (tyreCompoundMatch != null)
+        if (tyreCompoundMatch != null) {
           tyreCompound ??= tyreCompoundMatch.group(1)!.trim();
+        }
         final rewardMatch = RegExp(
           r"Reward:\s*([^\n]+)",
           caseSensitive: false,
@@ -634,10 +680,12 @@ class DailyRaceSummary {
       }
 
       // Fallback: try to find inline annotations like data-* attributes on the anchor
-      if (pitStops == null && anchor.attributes['data-pits'] != null)
+      if (pitStops == null && anchor.attributes['data-pits'] != null) {
         pitStops = int.tryParse(anchor.attributes['data-pits']!);
-      if (tyresAvailable == null && anchor.attributes['data-tyres'] != null)
+      }
+      if (tyresAvailable == null && anchor.attributes['data-tyres'] != null) {
         tyresAvailable = int.tryParse(anchor.attributes['data-tyres']!);
+      }
       tyreCode ??= anchor.attributes['data-tyre-code'];
 
       // populate summary-level fallback fields from parsed metadata if present
@@ -690,8 +738,9 @@ class DailyRaceSummary {
         final lu = wrapper.attributes['lastupdate'];
         final lus = wrapper.attributes['lastupdatestart'];
         if (lu != null && lu.isNotEmpty) lastUpdateAttr = DateTime.tryParse(lu);
-        if (lus != null && lus.isNotEmpty)
+        if (lus != null && lus.isNotEmpty) {
           lastUpdateStartAttr = DateTime.tryParse(lus);
+        }
 
         // Icon-based extraction (flag/gas/tire svg with adjacent text)
         final flagSvg =
@@ -879,13 +928,14 @@ class DailyRaceDetail {
       for (final c in playersContainers) {
         for (final tr in c.querySelectorAll('tr')) {
           final cols = tr.querySelectorAll('td');
-          if (cols.isNotEmpty)
+          if (cols.isNotEmpty) {
             players.add(
               cols
                   .map((e) => e.text.trim())
                   .whereNot((s) => s.isEmpty)
                   .join(' — '),
             );
+          }
         }
         for (final li in c.querySelectorAll('li')) {
           final t = li.text.trim();
@@ -926,7 +976,7 @@ class DailyRaceDetail {
       String? tyreCompound;
       String? reward;
 
-      String _cap(String s) =>
+      String cap(String s) =>
           s.isEmpty ? s : (s[0].toUpperCase() + s.substring(1).toLowerCase());
 
       void extractFromText(String source) {
@@ -963,13 +1013,13 @@ class DailyRaceDetail {
                 caseSensitive: false,
               ).firstMatch(v);
               if (compMatch != null) {
-                tyreCompound = _cap(compMatch.group(1)!);
+                tyreCompound = cap(compMatch.group(1)!);
               } else {
                 tyreType = v;
               }
             } else {
               tyreType = parts.first;
-              tyreCompound = _cap(parts.last);
+              tyreCompound = cap(parts.last);
             }
           }
           if (lk.contains('fuel') && fuelAllowed == null) {
@@ -988,8 +1038,9 @@ class DailyRaceDetail {
           RegExp(r'<br\s*/?>', caseSensitive: false),
           '\n',
         );
-        if (!raw.contains(':'))
+        if (!raw.contains(':')) {
           continue; // skip ordinary paragraphs (avoids matching times like 1:34.567)
+        }
         final text = raw.replaceAll(RegExp(r'<[^>]+>'), '');
         extractFromText(text);
       }

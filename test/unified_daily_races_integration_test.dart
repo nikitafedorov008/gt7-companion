@@ -8,7 +8,6 @@ import 'package:gt7_companion/services/dg_edge_service.dart';
 import 'package:gt7_companion/services/gtsh_rank_service.dart';
 import 'package:gt7_companion/models/daily_race.dart';
 import 'package:gt7_companion/models/gtsh_race.dart';
-import 'package:gt7_companion/models/unified_daily_race.dart';
 
 class FakeDgEdgeService extends DgEdgeService {
   final List<DailyRaceSummary> items;
@@ -55,6 +54,7 @@ void main() {
         label: 'A',
         trackName: 'TrackX',
         tyreCode: 'SS',
+        status: 'running',
         pitStops: '-',
         bop: true,
         damage: 'Light',
@@ -66,6 +66,7 @@ void main() {
         label: 'C',
         trackName: 'SoloGTSh',
         tyreCode: 'RH',
+        status: 'running',
         pitStops: '-',
         bop: false,
         damage: 'None',

@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gt7_companion/models/daily_race.dart';
 import 'package:gt7_companion/models/gtsh_race.dart';
-import 'package:gt7_companion/models/unified_daily_race.dart';
 import 'package:gt7_companion/services/dg_edge_service.dart';
 import 'package:gt7_companion/services/gtsh_rank_service.dart';
 import 'package:gt7_companion/repositories/sport_repository.dart';
@@ -45,6 +44,8 @@ void main() {
         label: 'A',
         trackName: 'TrackX',
         tyreCode: 'SS',
+        status: 'running',
+        carImage: 'https://gtsh-rank.com/images/car/123.png',
         pitStops: '-',
         bop: true,
         damage: 'Light',
@@ -64,6 +65,7 @@ void main() {
         label: 'C',
         trackName: 'SoloGTSh',
         tyreCode: 'RH',
+        status: 'running',
         pitStops: '-',
         bop: false,
         damage: 'None',
@@ -98,10 +100,63 @@ void main() {
       expect(list[0].dgEdge, equals(dg1));
       expect(list[0].gtsh, equals(card1));
       expect(list[0].label, equals('A'));
+      expect(list[0].carImage, contains('123.png'));
 
       // second pair should be dg2/card2
       expect(list[1].dgEdge, equals(dg2));
       expect(list[1].gtsh, equals(card2));
+    });
+
+    test('upcoming races are placed before current ones by _merge', () async {
+      final futureSummary = DailyRaceSummary(
+        id: 'f',
+        title: 'Future',
+        url: 'u',
+        trackName: 'Later',
+        isActive: false,
+        isEnded: false,
+      );
+      final currentSummary = DailyRaceSummary(
+        id: 'c',
+        title: 'Current',
+        url: 'u',
+        trackName: 'Now',
+        isActive: true,
+        isEnded: false,
+      );
+      final nextCard = GtshRace(
+        label: 'A',
+        trackName: 'Next',
+        tyreCode: 'SM',
+        status: 'next',
+        pitStops: '-',
+        bop: false,
+        damage: '',
+        startType: '',
+        carSettings: false,
+        wideFender: '',
+      );
+      final runningCard = GtshRace(
+        label: 'B',
+        trackName: 'Now',
+        tyreCode: 'RH',
+        status: 'running',
+        pitStops: '-',
+        bop: false,
+        damage: '',
+        startType: '',
+        carSettings: false,
+        wideFender: '',
+      );
+
+      final sport = SportRepositoryImpl(
+        FakeDgEdgeService([currentSummary, futureSummary]),
+        FakeGtshRankService([runningCard, nextCard]),
+      );
+
+      await sport.fetchDailyRaces();
+      final list = sport.dailyRaces;
+      expect(list.first.isUpcoming, isTrue);
     });
 
     // remove previous sorting test

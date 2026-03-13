@@ -48,8 +48,9 @@ class DgEdgeService extends ChangeNotifier {
       debugPrint(
         'DgEdgeService.fetchDailiesPage: HTTP ${resp.statusCode}, parsed ${list.length} items',
       );
-      if (list.isNotEmpty)
+      if (list.isNotEmpty) {
         debugPrint('  first item: ${list.first.id} - ${list.first.title}');
+      }
       _error = null;
       return list;
     } catch (e) {
@@ -119,6 +120,16 @@ class DgEdgeService extends ChangeNotifier {
           break;
         }
       }
+      final summary = DailyRaceSummary.fromListElement(el, baseUrl: baseUrl);
+      if (summary != null && seen.add(summary.id)) items.add(summary);
+    }
+
+    // Include upcoming/future races (e.g. DG‑Edge cards marked `.event.is-future`) that
+    // may not have an active link yet.
+    final futureCards = doc.querySelectorAll(
+      '.event.is-future, .event.daily.is-future',
+    );
+    for (final el in futureCards) {
       final summary = DailyRaceSummary.fromListElement(el, baseUrl: baseUrl);
       if (summary != null && seen.add(summary.id)) items.add(summary);
     }

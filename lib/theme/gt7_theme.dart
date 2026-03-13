@@ -18,8 +18,6 @@ final ColorScheme _gt7ColorScheme = ColorScheme(
   onPrimaryContainer: _gt7Accent,
   secondary: _gt7Secondary,
   onSecondary: _gt7Surface,
-  background: _gt7Background,
-  onBackground: Color(0xFFE6EEF2),
   surface: _gt7Surface,
   onSurface: Color(0xFFE6EEF2),
   error: _gt7Error,
@@ -33,7 +31,7 @@ ThemeData gt7Theme() => ThemeData(
   appBarTheme: AppBarTheme(
     backgroundColor: Colors.transparent,
     surfaceTintColor: Colors.transparent,
-    foregroundColor: _gt7ColorScheme.onBackground,
+    foregroundColor: _gt7ColorScheme.onSurface,
     elevation: 0,
     centerTitle: false,
   ),
@@ -67,35 +65,28 @@ ThemeData gt7Theme() => ThemeData(
     ),
   ),
   textButtonTheme: TextButtonThemeData(
-    style: TextButton.styleFrom(foregroundColor: _gt7ColorScheme.onBackground),
+    style: TextButton.styleFrom(foregroundColor: _gt7ColorScheme.onSurface),
   ),
   cardColor: _gt7Surface,
-  dialogBackgroundColor: _gt7Surface,
-  iconTheme: IconThemeData(
-    color: _gt7ColorScheme.onBackground.withOpacity(0.9),
-  ),
+  iconTheme: IconThemeData(color: _gt7ColorScheme.onSurface.withOpacity(0.9)),
   textTheme: TextTheme(
-    displayLarge: TextStyle(color: _gt7ColorScheme.onBackground),
+    displayLarge: TextStyle(color: _gt7ColorScheme.onSurface),
     displayMedium: TextStyle(
-      color: _gt7ColorScheme.onBackground.withOpacity(0.95),
+      color: _gt7ColorScheme.onSurface.withOpacity(0.95),
     ),
-    displaySmall: TextStyle(
-      color: _gt7ColorScheme.onBackground.withOpacity(0.9),
-    ),
+    displaySmall: TextStyle(color: _gt7ColorScheme.onSurface.withOpacity(0.9)),
     headlineSmall: TextStyle(
-      color: _gt7ColorScheme.onBackground,
+      color: _gt7ColorScheme.onSurface,
       fontWeight: FontWeight.w700,
     ),
     titleLarge: TextStyle(
-      color: _gt7ColorScheme.onBackground,
+      color: _gt7ColorScheme.onSurface,
       fontWeight: FontWeight.w700,
     ),
-    titleMedium: TextStyle(
-      color: _gt7ColorScheme.onBackground.withOpacity(0.9),
-    ),
-    bodyLarge: TextStyle(color: _gt7ColorScheme.onBackground),
-    bodyMedium: TextStyle(color: _gt7ColorScheme.onBackground.withOpacity(0.9)),
-    bodySmall: TextStyle(color: _gt7ColorScheme.onBackground.withOpacity(0.75)),
+    titleMedium: TextStyle(color: _gt7ColorScheme.onSurface.withOpacity(0.9)),
+    bodyLarge: TextStyle(color: _gt7ColorScheme.onSurface),
+    bodyMedium: TextStyle(color: _gt7ColorScheme.onSurface.withOpacity(0.9)),
+    bodySmall: TextStyle(color: _gt7ColorScheme.onSurface.withOpacity(0.75)),
   ),
   extensions: <ThemeExtension<dynamic>>[
     GT7GraphColors(
@@ -108,6 +99,7 @@ ThemeData gt7Theme() => ThemeData(
       trackShadow: _gt7Surface.withOpacity(0.9),
     ),
   ],
+  dialogTheme: DialogThemeData(backgroundColor: _gt7Surface),
 );
 
 // ThemeExtension for telemetry/graph-specific colors

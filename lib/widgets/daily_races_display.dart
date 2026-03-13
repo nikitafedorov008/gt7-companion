@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../services/dg_edge_service.dart';
+import '../repositories/sport_repository.dart';
+import '../models/unified_daily_race.dart';
 import '../models/daily_race.dart';
 
 class DailyRacesDisplay extends StatefulWidget {
@@ -23,13 +24,11 @@ class _DailyRacesDisplayState extends State<DailyRacesDisplay> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Consumer<DgEdgeService>(
-      builder: (context, service, _) {
-        // Do not block rendering of the content widget when the service reports
-        // `isLoading` — the inner `_DailyRacesContent` manages its own loading
-        // lifecycle and will call the service when mounted. Only show a service
-        // error here if present.
-        if (service.error != null) {
+    return Consumer<SportRepository>(
+      builder: (context, repo, _) {
+        // Only show repository-level errors; the inner content widget handles
+        // loading + refresh behavior.
+        if (repo.error != null) {
           return Container(
             width: double.infinity,
             padding: const EdgeInsets.all(16),
@@ -43,20 +42,16 @@ class _DailyRacesDisplayState extends State<DailyRacesDisplay> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'Daily races (DG‑Edge)',
-                      style: theme.textTheme.titleMedium,
-                    ),
+                    Text('Daily races', style: theme.textTheme.titleMedium),
                     IconButton(
-                      onPressed: () =>
-                          service.fetchDailiesPage(1, forceRefresh: true),
+                      onPressed: () => repo.fetchDailyRaces(forceRefresh: true),
                       icon: const Icon(Icons.refresh),
                     ),
                   ],
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  service.error!,
+                  repo.error!,
                   style: TextStyle(color: theme.colorScheme.error),
                 ),
               ],
@@ -77,7 +72,7 @@ class _DailyRacesContent extends StatefulWidget {
 }
 
 class _DailyRacesContentState extends State<_DailyRacesContent> {
-  List<DailyRaceSummary> _items = [];
+  List<UnifiedDailyRace> _items = [];
   bool _loading = true;
   String? _error;
 
@@ -95,14 +90,17 @@ class _DailyRacesContentState extends State<_DailyRacesContent> {
       _error = null;
     });
     try {
-      final svc = context.read<DgEdgeService>();
-      final page = await svc.fetchDailiesPage(1);
+      final repo = context.read<SportRepository>();
+      await repo.fetchDailyRaces();
       if (!mounted) return;
-      final filtered = page
-          .where((s) => s.trackName != null && s.trackName!.isNotEmpty)
-          .toList();
       setState(() {
-        _items = filtered;
+        // Only show currently active races in the main Daily Races section.
+        // Upcoming races are handled separately by UpcomingDailyRacesDisplay.
+        _items = repo.dailyRaces
+            .where((r) => r.trackName != null && r.trackName!.isNotEmpty)
+            .where((r) => r.isActive)
+            .toList();
+        _error = repo.error;
       });
     } catch (e) {
       if (!mounted) return;
@@ -243,7 +241,7 @@ class _DailyRacesContentState extends State<_DailyRacesContent> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Daily races (DG‑Edge)', style: theme.textTheme.titleMedium),
+              Text('Daily races', style: theme.textTheme.titleMedium),
               IconButton(onPressed: _load, icon: const Icon(Icons.refresh)),
             ],
           ),
@@ -256,18 +254,19 @@ class _DailyRacesContentState extends State<_DailyRacesContent> {
 }
 
 class DailyRaceCard extends StatelessWidget {
-  final DailyRaceSummary summary;
+  final UnifiedDailyRace summary;
   const DailyRaceCard({super.key, required this.summary});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final it = summary;
+    final id = it.id ?? it.trackName ?? '';
 
     return Container(
       width: 280,
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceVariant.withOpacity(0.3),
+        color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.3),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.white24, width: 1.0),
       ),
@@ -313,7 +312,7 @@ class DailyRaceCard extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(8),
                                 child: Image.network(
                                   it.trackLogotype!,
-                                  key: ValueKey('thumb-${it.id}'),
+                                  key: ValueKey('thumb-$id'),
                                   width: 64,
                                   height: 64,
                                   fit: BoxFit.contain,
@@ -329,7 +328,7 @@ class DailyRaceCard extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(8),
                                 child: Image.network(
                                   it.trackImage!,
-                                  key: ValueKey('track-${it.id}'),
+                                  key: ValueKey('track-$id'),
                                   width: 64,
                                   height: 64,
                                   fit: BoxFit.contain,

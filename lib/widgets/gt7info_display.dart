@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:provider/provider.dart';
 import '../models/gt7info_data.dart';
 import '../services/gt7info_service.dart';
@@ -12,20 +11,21 @@ class GT7InfoDisplay extends StatefulWidget {
   State<GT7InfoDisplay> createState() => _GT7InfoDisplayState();
 }
 
-class _GT7InfoDisplayState extends State<GT7InfoDisplay> with SingleTickerProviderStateMixin {
+class _GT7InfoDisplayState extends State<GT7InfoDisplay>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  
+
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-    
+
     // Fetch GT7Info data when widget initializes
     Future.microtask(() {
       context.read<GT7InfoService>().fetchGT7InfoData();
     });
   }
-  
+
   @override
   void dispose() {
     _tabController.dispose();
@@ -37,9 +37,7 @@ class _GT7InfoDisplayState extends State<GT7InfoDisplay> with SingleTickerProvid
     return Consumer<GT7InfoService>(
       builder: (context, service, child) {
         if (service.isLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const Center(child: CircularProgressIndicator());
         }
 
         if (service.errorMessage != null) {
@@ -54,10 +52,7 @@ class _GT7InfoDisplayState extends State<GT7InfoDisplay> with SingleTickerProvid
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(height: 8),
-                Text(
-                  service.errorMessage!,
-                  textAlign: TextAlign.center,
-                ),
+                Text(service.errorMessage!, textAlign: TextAlign.center),
                 const SizedBox(height: 24),
                 ElevatedButton.icon(
                   onPressed: () => service.fetchGT7InfoData(forceRefresh: true),
@@ -116,7 +111,10 @@ class _GT7InfoDisplayState extends State<GT7InfoDisplay> with SingleTickerProvid
                             if (lastUpdated != null)
                               Text(
                                 'Last refreshed: ${_formatDateTime(lastUpdated)}',
-                                style: const TextStyle(color: Colors.grey, fontSize: 12),
+                                style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 12,
+                                ),
                               ),
                           ],
                         ),
@@ -124,7 +122,8 @@ class _GT7InfoDisplayState extends State<GT7InfoDisplay> with SingleTickerProvid
                       IconButton(
                         icon: const Icon(Icons.refresh),
                         tooltip: 'Refresh data',
-                        onPressed: () => service.fetchGT7InfoData(forceRefresh: true),
+                        onPressed: () =>
+                            service.fetchGT7InfoData(forceRefresh: true),
                       ),
                     ],
                   ),
@@ -148,9 +147,12 @@ class _GT7InfoDisplayState extends State<GT7InfoDisplay> with SingleTickerProvid
                 children: [
                   // Used cars tab
                   _buildCarListView(data.used.cars, 'Auto+: Used Cars'),
-                  
+
                   // Legendary cars tab
-                  _buildCarListView(data.legend.cars, 'Hagerty Collection: Legendary Cars'),
+                  _buildCarListView(
+                    data.legend.cars,
+                    'Hagerty Collection: Legendary Cars',
+                  ),
                 ],
               ),
             ),
@@ -167,10 +169,7 @@ class _GT7InfoDisplayState extends State<GT7InfoDisplay> with SingleTickerProvid
           padding: const EdgeInsets.all(16.0),
           child: Text(
             title,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
         ),
         Expanded(
@@ -224,5 +223,4 @@ class _GT7InfoDisplayState extends State<GT7InfoDisplay> with SingleTickerProvid
   String _formatDateTime(DateTime dateTime) {
     return '${dateTime.day}/${dateTime.month}/${dateTime.year} ${dateTime.hour}:${dateTime.minute.toString().padLeft(2, '0')}';
   }
-
 }

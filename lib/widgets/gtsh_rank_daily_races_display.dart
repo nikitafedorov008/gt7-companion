@@ -246,7 +246,7 @@ class GtshRaceCard extends StatelessWidget {
       width: 240,
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceVariant.withOpacity(0.3),
+        color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.3),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -258,7 +258,10 @@ class GtshRaceCard extends StatelessWidget {
           const SizedBox(height: 8),
           Text('Tyre: ${race.tyreCode}', style: theme.textTheme.bodyMedium),
           const SizedBox(height: 8),
-          Text('Wide Fender: ${race.wideFender}', style: theme.textTheme.bodyMedium),
+          Text(
+            'Wide Fender: ${race.wideFender}',
+            style: theme.textTheme.bodyMedium,
+          ),
           const SizedBox(height: 8),
           Text('BOP: ${race.bop}', style: theme.textTheme.bodyMedium),
           const SizedBox(height: 8),

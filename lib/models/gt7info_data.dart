@@ -22,19 +22,13 @@ class UsedCarData {
   final String date;
   final List<CarData> cars;
 
-  UsedCarData({
-    required this.date,
-    required this.cars,
-  });
+  UsedCarData({required this.date, required this.cars});
 
   factory UsedCarData.fromJson(Map<String, dynamic> json) {
     final List<dynamic> carsJson = json['cars'] ?? [];
     final cars = carsJson.map((car) => CarData.fromJson(car)).toList();
 
-    return UsedCarData(
-      date: json['date'] ?? '',
-      cars: cars,
-    );
+    return UsedCarData(date: json['date'] ?? '', cars: cars);
   }
 }
 
@@ -42,19 +36,13 @@ class LegendCarData {
   final String date;
   final List<CarData> cars;
 
-  LegendCarData({
-    required this.date,
-    required this.cars,
-  });
+  LegendCarData({required this.date, required this.cars});
 
   factory LegendCarData.fromJson(Map<String, dynamic> json) {
     final List<dynamic> carsJson = json['cars'] ?? [];
     final cars = carsJson.map((car) => CarData.fromJson(car)).toList();
 
-    return LegendCarData(
-      date: json['date'] ?? '',
-      cars: cars,
-    );
+    return LegendCarData(date: json['date'] ?? '', cars: cars);
   }
 }
 
@@ -100,30 +88,38 @@ class CarData {
       estimateDays: json['estimatedays'] ?? 0,
       maxEstimateDays: json['maxestimatedays'] ?? 0,
       isNew: json['new'] ?? false,
-      rewardCar: json['rewardcar'] != null ? RewardCarData.fromJson(json['rewardcar']) : null,
-      engineSwap: json['engineswap'] != null ? EngineSwapData.fromJson(json['engineswap']) : null,
+      rewardCar: json['rewardcar'] != null
+          ? RewardCarData.fromJson(json['rewardcar'])
+          : null,
+      engineSwap: json['engineswap'] != null
+          ? EngineSwapData.fromJson(json['engineswap'])
+          : null,
       lotteryCar: json['lotterycar'],
       trophyCar: json['trophycar'],
     );
   }
 
   String get flagUrl => 'https://flagcdn.com/h24/$region.png';
-  
+
   bool get isSoldOut => state == 'soldout';
   bool get isLimitedStock => state == 'limited';
-  
+
   String get statusText {
     if (isSoldOut) return 'SOLD OUT';
     if (isLimitedStock) {
       return estimateDays <= 1
           ? 'Limited Stock Last Day Available'
-          : 'Limited Stock Available For ${estimateDays} More Day${estimateDays > 1 ? 's' : ''}';
+          : 'Limited Stock Available For $estimateDays More Day${estimateDays > 1 ? 's' : ''}';
     }
-    return 'Available For ${estimateDays} More Day${estimateDays > 1 ? 's' : ''}';
+    return 'Available For $estimateDays More Day${estimateDays > 1 ? 's' : ''}';
   }
-  
-  bool get hasSpecialAttributes => 
-      isNew || rewardCar != null || engineSwap != null || lotteryCar != null || trophyCar != null;
+
+  bool get hasSpecialAttributes =>
+      isNew ||
+      rewardCar != null ||
+      engineSwap != null ||
+      lotteryCar != null ||
+      trophyCar != null;
 }
 
 class RewardCarData {
@@ -131,11 +127,7 @@ class RewardCarData {
   final String name;
   final String? requirement;
 
-  RewardCarData({
-    required this.type,
-    required this.name,
-    this.requirement,
-  });
+  RewardCarData({required this.type, required this.name, this.requirement});
 
   factory RewardCarData.fromJson(Map<String, dynamic> json) {
     return RewardCarData(
@@ -144,7 +136,7 @@ class RewardCarData {
       requirement: json['requirement'],
     );
   }
-  
+
   String get rewardText {
     if (type == 'menubook') {
       return 'Reward from Menu Book $name';
@@ -183,7 +175,7 @@ class EngineSwapData {
       engineName: json['enginename'] ?? '',
     );
   }
-  
+
   String get swapInfoText {
     return 'Supports engine swap: $engineName from $name';
   }

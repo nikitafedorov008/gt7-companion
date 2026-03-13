@@ -256,7 +256,7 @@ class UnifiedDailyRaceCard extends StatelessWidget {
     return Container(
       width: 280,
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceVariant.withOpacity(0.3),
+        color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.3),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.white24, width: 1.0),
       ),
@@ -371,7 +371,6 @@ class UnifiedDailyRaceCard extends StatelessWidget {
                     ],
                   ),
                 ),
-
                 Divider(
                   color: Colors.white24,
                   thickness: 1.0,

@@ -66,5 +66,25 @@ void main() {
       expect(detail.fuelAllowed, isTrue);
       expect(detail.reward, contains('30000'));
     });
+
+    test('parses future events without a link', () {
+      const html = '''
+        <div class="event is-future daily" externalid="123" status="PENDING" isactive="false" isended="false">
+          <a>
+            <div class="event-name"><div>Daily A</div></div>
+            <h4>Example Track</h4>
+          </a>
+        </div>
+      ''';
+      final doc = html_parser.parse(html);
+      final list = svc.parseListPage(doc, baseUrl: 'https://www.dg-edge.com');
+
+      expect(list, isNotEmpty);
+      expect(list.first.id, '123');
+      expect(list.first.trackName, 'Example Track');
+      expect(list.first.status, 'PENDING');
+      expect(list.first.isActive, isFalse);
+      expect(list.first.isEnded, isFalse);
+    });
   });
 }

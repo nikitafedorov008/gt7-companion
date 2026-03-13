@@ -13,6 +13,8 @@ import '../widgets/legendary_car_display.dart';
 import '../widgets/playstation_scanner_dialog.dart';
 import '../widgets/telemetry_display.dart';
 import '../widgets/unified_daily_races_display.dart';
+import '../widgets/upcoming_daily_races_display.dart';
+import '../widgets/past_daily_races_display.dart';
 import '../widgets/used_car_display.dart';
 import '../widgets/daily_races_display.dart';
 
@@ -69,15 +71,15 @@ class _HomePageState extends State<HomePage> {
               Expanded(
                 child: TextFormField(
                   controller: _ipController,
-                  style: TextStyle(color: theme.colorScheme.onBackground),
+                  style: TextStyle(color: theme.colorScheme.onSurface),
                   decoration: InputDecoration(
                     labelText: 'PlayStation IP',
                     labelStyle: TextStyle(
-                      color: theme.colorScheme.onBackground.withOpacity(0.7),
+                      color: theme.colorScheme.onSurface.withOpacity(0.7),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: theme.colorScheme.onBackground.withOpacity(0.12),
+                        color: theme.colorScheme.onSurface.withOpacity(0.12),
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
@@ -177,7 +179,7 @@ class _HomePageState extends State<HomePage> {
                     Text(
                       'Status: Connected',
                       style: TextStyle(
-                        color: theme.colorScheme.onBackground,
+                        color: theme.colorScheme.onSurface,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -185,11 +187,11 @@ class _HomePageState extends State<HomePage> {
                       onPressed: () => _openTelemetry(context),
                       icon: Icon(
                         Icons.open_in_new,
-                        color: theme.colorScheme.onBackground,
+                        color: theme.colorScheme.onSurface,
                       ),
                       label: Text(
                         'Open Dashboard',
-                        style: TextStyle(color: theme.colorScheme.onBackground),
+                        style: TextStyle(color: theme.colorScheme.onSurface),
                       ),
                     ),
                   ],
@@ -236,7 +238,7 @@ class _HomePageState extends State<HomePage> {
                 colors: [
                   theme.colorScheme.surface.withOpacity(0.22),
                   theme.colorScheme.surface.withOpacity(0.06),
-                  theme.colorScheme.background,
+                  theme.colorScheme.surface,
                 ],
                 // смещаем середину чуть выше для более явного перехода
                 stops: const [0.0, 0.45, 1.0],
@@ -342,7 +344,7 @@ class _HomePageState extends State<HomePage> {
                                 Text(
                                   'Used car dealer',
                                   style: theme.textTheme.bodyMedium?.copyWith(
-                                    color: theme.colorScheme.onBackground,
+                                    color: theme.colorScheme.onSurface,
                                   ),
                                 ),
                               ],
@@ -389,7 +391,7 @@ class _HomePageState extends State<HomePage> {
                                 Text(
                                   'Legendary car dealer',
                                   style: theme.textTheme.bodyMedium?.copyWith(
-                                    color: theme.colorScheme.onBackground,
+                                    color: theme.colorScheme.onSurface,
                                   ),
                                 ),
                               ],
@@ -420,7 +422,7 @@ class _HomePageState extends State<HomePage> {
                                 Text(
                                   'GT Auto',
                                   style: theme.textTheme.bodyMedium?.copyWith(
-                                    color: theme.colorScheme.onBackground,
+                                    color: theme.colorScheme.onSurface,
                                   ),
                                 ),
                               ],
@@ -429,7 +431,9 @@ class _HomePageState extends State<HomePage> {
                         );
                       },
                     ),
+                    const UpcomingDailyRacesDisplay(),
                     const UnifiedDailyRacesDisplay(),
+                    const PastDailyRacesDisplay(),
                   ],
                 ),
               ),
@@ -480,7 +484,7 @@ class _AppTile extends StatelessWidget {
             child: DefaultTextStyle(
               style:
                   theme.textTheme.bodyMedium?.copyWith(
-                    color: theme.colorScheme.onBackground,
+                    color: theme.colorScheme.onSurface,
                   ) ??
                   const TextStyle(color: Colors.white),
               child: child,

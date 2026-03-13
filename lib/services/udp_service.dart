@@ -28,26 +28,30 @@ class UdpService {
       // Create socket - bind to 0.0.0.0 on the receivePort, just like Python
       // This is critical: we use the SAME socket for both sending and receiving
       _socket = await RawDatagramSocket.bind(
-        InternetAddress.anyIPv4, 
+        InternetAddress.anyIPv4,
         receivePort,
-        reuseAddress: true,  // Allow address reuse
+        reuseAddress: true, // Allow address reuse
         reusePort: false,
       );
       _socket!.broadcastEnabled = false;
-      
+
       _isListening = true;
-      
-      print('UDP socket bound to port $receivePort, listening for data from GT7...');
+
+      print(
+        'UDP socket bound to port $receivePort, listening for data from GT7...',
+      );
 
       // Listen for incoming data
       _socket!.listen((RawSocketEvent event) {
         if (event == RawSocketEvent.read) {
           Datagram? datagram = _socket!.receive();
-          if (datagram != null && datagram.data.length > 0) {
+          if (datagram != null && datagram.data.isNotEmpty) {
             _packetsSinceHeartbeat++;
-            print('Received UDP packet #$_packetsSinceHeartbeat: ${datagram.data.length} bytes from ${datagram.address}:${datagram.port}');
+            print(
+              'Received UDP packet #$_packetsSinceHeartbeat: ${datagram.data.length} bytes from ${datagram.address}:${datagram.port}',
+            );
             onDataReceived?.call(datagram.data);
-            
+
             // Send heartbeat every 100 packets (like Python does)
             if (_packetsSinceHeartbeat > 100) {
               _sendHeartbeat();
@@ -60,7 +64,7 @@ class UdpService {
       // Wait a bit for socket to be fully ready, then send initial heartbeat
       await Future.delayed(Duration(milliseconds: 100));
       _sendHeartbeat();
-      
+
       // Also send periodic heartbeats via timer as backup (every 10 seconds)
       _startHeartbeatTimer();
     } catch (e) {
@@ -84,8 +88,8 @@ class UdpService {
         // GT7 will send data back to the IP:port it received the heartbeat from
         final int bytesSent = _socket!.send(
           Uint8List.fromList([65]), // 'A' in ASCII
-          InternetAddress(_ipAddress!), 
-          sendPort
+          InternetAddress(_ipAddress!),
+          sendPort,
         );
         print('Sent heartbeat to $_ipAddress:$sendPort ($bytesSent bytes)');
       } catch (e) {

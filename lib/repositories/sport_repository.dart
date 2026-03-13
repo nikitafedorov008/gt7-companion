@@ -79,24 +79,47 @@ class SportRepositoryImpl extends SportRepository {
     List<DailyRaceSummary> dg,
     List<GtshRace> gtsh,
   ) {
-    // take up to first three entries from each source and pair them by index
-    // (A/A, B/B, C/C).  Extra items beyond the third are ignored; entries
-    // without a valid track name are filtered out.
-    final topDg = dg.take(3).toList();
-    final topGtsh = gtsh.take(3).toList();
-
+    // Merge the upstream sources by pairing entries by index.  We intentionally
+    // keep the complete list from each source so widgets that show "past" or
+    // "upcoming" races have enough data to work with.
     final out = <UnifiedDailyRace>[];
-    final maxLen = topDg.length > topGtsh.length
-        ? topDg.length
-        : topGtsh.length;
+    final maxLen = dg.length > gtsh.length ? dg.length : gtsh.length;
+
     for (var i = 0; i < maxLen; i++) {
-      final dgItem = i < topDg.length ? topDg[i] : null;
-      final gtshItem = i < topGtsh.length ? topGtsh[i] : null;
+      final dgItem = i < dg.length ? dg[i] : null;
+      final gtshItem = i < gtsh.length ? gtsh[i] : null;
       final unified = UnifiedDailyRace.fromPair(dgItem, gtshItem);
       if (unified.trackName != null && unified.trackName!.isNotEmpty) {
         out.add(unified);
       }
     }
+
+    // ensure upcoming/future races come first, then running/current, then past
+    // (stable ordering keeps the upstream page order for items with the same
+    // 'weight', preventing shuffling between future and current races).
+    final weighted = out
+        .asMap()
+        .entries
+        .map((e) => MapEntry(e.key, e.value))
+        .toList();
+
+    weighted.sort((a, b) {
+      int weight(UnifiedDailyRace r) {
+        if (r.isUpcoming) return 0;
+        if (r.isActive) return 1;
+        if (r.isPast) return 2;
+        return 1;
+      }
+
+      final wa = weight(a.value);
+      final wb = weight(b.value);
+      if (wa != wb) return wa - wb;
+      // preserve original order for items with the same weight
+      return a.key - b.key;
+    });
+
+    return weighted.map((e) => e.value).toList();
+
     return out;
   }
 }

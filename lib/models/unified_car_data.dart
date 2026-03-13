@@ -45,7 +45,7 @@ class UnifiedCarData {
     this.imageUrl, // NEW
   });
 
-  String get flagUrl => 'https://flagcdn.com/h24/${region}.png';
+  String get flagUrl => 'https://flagcdn.com/h24/$region.png';
 
   bool get isSoldOut => state == 'soldout';
   bool get isLimitedStock => state == 'limited';
@@ -61,7 +61,11 @@ class UnifiedCarData {
   }
 
   bool get hasSpecialAttributes =>
-      isNew || rewardCar != null || engineSwap != null || lotteryCar != null || trophyCar != null;
+      isNew ||
+      rewardCar != null ||
+      engineSwap != null ||
+      lotteryCar != null ||
+      trophyCar != null;
 
   String get displayPrice => 'Cr. ${_formatCredits(credits)}';
 
@@ -77,27 +81,27 @@ class UnifiedCarData {
         if (frontImageId!.startsWith('http')) {
           return frontImageId!;
         } else {
-          return 'https://imagedelivery.net/nkaANmEhdg2ZZ4vhQHp4TQ/${frontImageId}/public';
+          return 'https://imagedelivery.net/nkaANmEhdg2ZZ4vhQHp4TQ/$frontImageId/public';
         }
       } else if (imageId != null && imageId!.isNotEmpty) {
         // Fallback to imageId if frontImageId is not available
         if (imageId!.startsWith('http')) {
           return imageId!;
         } else {
-          return 'https://imagedelivery.net/nkaANmEhdg2ZZ4vhQHp4TQ/${imageId}/public';
+          return 'https://imagedelivery.net/nkaANmEhdg2ZZ4vhQHp4TQ/$imageId/public';
         }
       }
     }
 
     // Fallback to GT7Info format
-    return 'https://www.gran-turismo.com/common/dist/gt7/carlist/car_thumbnails/car${id}.png';
+    return 'https://www.gran-turismo.com/common/dist/gt7/carlist/car_thumbnails/car$id.png';
   }
 
   String _formatCredits(int credits) {
     if (credits == 0) return '0';
     return credits.toString().replaceAllMapped(
-        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-            (match) => '${match[1]},'
+      RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+      (match) => '${match[1]},',
     );
   }
 }

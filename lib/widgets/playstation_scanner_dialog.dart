@@ -12,7 +12,7 @@ class PlayStationScannerDialog extends StatefulWidget {
 class _PlayStationScannerDialogState extends State<PlayStationScannerDialog> {
   List<PlayStationDevice> _devices = [];
   bool _isScanning = false;
-  bool _isDeepScanning = false;
+  final bool _isDeepScanning = false;
   String? _errorMessage;
 
   @override

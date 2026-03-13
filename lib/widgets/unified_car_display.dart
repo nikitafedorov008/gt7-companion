@@ -1,7 +1,6 @@
 // unified_car_display.dart
 
 import 'package:flutter/material.dart';
-import 'package:flutter_avif/flutter_avif.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import '../models/unified_car_data.dart';
@@ -15,7 +14,8 @@ class UnifiedCarDisplay extends StatefulWidget {
   State<UnifiedCarDisplay> createState() => _UnifiedCarDisplayState();
 }
 
-class _UnifiedCarDisplayState extends State<UnifiedCarDisplay> with SingleTickerProviderStateMixin {
+class _UnifiedCarDisplayState extends State<UnifiedCarDisplay>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -49,7 +49,10 @@ class _UnifiedCarDisplayState extends State<UnifiedCarDisplay> with SingleTicker
               children: [
                 const Icon(Icons.error_outline, color: Colors.red, size: 48),
                 const SizedBox(height: 16),
-                Text('Error Loading Unified Car Data', style: Theme.of(context).textTheme.titleLarge),
+                Text(
+                  'Error Loading Unified Car Data',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
                 const SizedBox(height: 8),
                 Text(repository.errorMessage!, textAlign: TextAlign.center),
                 const SizedBox(height: 24),
@@ -71,7 +74,11 @@ class _UnifiedCarDisplayState extends State<UnifiedCarDisplay> with SingleTicker
           children: [
             // Header: AUTO-H | USED CAR DEALERSHIP
             Padding(
-              padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
+              padding: const EdgeInsets.only(
+                left: 16.0,
+                right: 16.0,
+                top: 16.0,
+              ),
               child: IntrinsicHeight(
                 child: Row(
                   children: [
@@ -80,10 +87,7 @@ class _UnifiedCarDisplayState extends State<UnifiedCarDisplay> with SingleTicker
                       width: 80,
                       height: 24,
                     ),
-                    VerticalDivider(
-                      thickness: 2,
-                      color: Colors.black87,
-                    ),
+                    VerticalDivider(thickness: 2, color: Colors.black87),
                     const Text(
                       'USED CAR DEALERSHIP',
                       style: TextStyle(
@@ -158,7 +162,8 @@ class _UnifiedCarDisplayState extends State<UnifiedCarDisplay> with SingleTicker
               childAspectRatio: 2.8, // подходит для горизонтальных карточек
             ),
             itemCount: cars.length,
-            itemBuilder: (context, index) => UnifiedCarCardItem(car: cars[index]),
+            itemBuilder: (context, index) =>
+                UnifiedCarCardItem(car: cars[index]),
           );
         },
       );

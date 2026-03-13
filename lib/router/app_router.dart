@@ -10,7 +10,6 @@ import '../pages/home_shell.dart';
 import '../pages/profile_page.dart';
 import '../pages/wishlist_page.dart';
 import '../pages/empty_page.dart';
-import '../widgets/telemetry_display.dart';
 
 part 'app_router.gr.dart';
 

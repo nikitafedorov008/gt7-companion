@@ -6,8 +6,7 @@ class TelemetryDisplay extends StatelessWidget {
   final TelemetryData? telemetry;
   final String? errorMessage;
 
-  const TelemetryDisplay({Key? key, this.telemetry, this.errorMessage})
-    : super(key: key);
+  const TelemetryDisplay({super.key, this.telemetry, this.errorMessage});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,9 @@ class TelemetryDisplay extends StatelessWidget {
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(isDesktop ? 16.0 : 8.0),
-        constraints: BoxConstraints(maxWidth: isDesktop ? 1200 : double.infinity),
+        constraints: BoxConstraints(
+          maxWidth: isDesktop ? 1200 : double.infinity,
+        ),
         child: errorMessage != null
             ? Center(
                 child: Text(
@@ -32,7 +33,7 @@ class TelemetryDisplay extends StatelessWidget {
                 child: Text(
                   'Waiting for telemetry data...',
                   style: TextStyle(
-                    color: Theme.of(context).colorScheme.onBackground,
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontSize: 16,
                   ),
                 ),
@@ -192,12 +193,18 @@ class TelemetryDisplay extends StatelessWidget {
                                             context,
                                             'Velocity (m/s)',
                                           ),
-                                          _buildVelocityData(context, isDesktop),
+                                          _buildVelocityData(
+                                            context,
+                                            isDesktop,
+                                          ),
                                           _buildSectionHeader(
                                             context,
                                             'Rotation',
                                           ),
-                                          _buildRotationData(context, isDesktop),
+                                          _buildRotationData(
+                                            context,
+                                            isDesktop,
+                                          ),
                                         ],
                                       ),
                               ],
@@ -243,6 +250,10 @@ class TelemetryDisplay extends StatelessWidget {
     return Container(
       height: isDesktop ? 240 : 160,
       padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface.withOpacity(0.02),
+        borderRadius: BorderRadius.circular(12),
+      ),
       child: StatefulBuilder(
         builder: (context, setState) {
           // ephemeral toggle for visual highlights (works until parent rebuild)
@@ -474,10 +485,6 @@ class TelemetryDisplay extends StatelessWidget {
             ],
           );
         },
-      ),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface.withOpacity(0.02),
-        borderRadius: BorderRadius.circular(12),
       ),
     );
   }
@@ -754,8 +761,7 @@ class TelemetryDisplay extends StatelessWidget {
                           children: [
                             const TextSpan(text: 'RPM: '),
                             TextSpan(
-                              text:
-                                  '${(telemetry?.rpm ?? 0).toStringAsFixed(0)}',
+                              text: (telemetry?.rpm ?? 0).toStringAsFixed(0),
                               style: TextStyle(
                                 color: Theme.of(
                                   context,
@@ -776,8 +782,7 @@ class TelemetryDisplay extends StatelessWidget {
                           children: [
                             const TextSpan(text: 'Speed: '),
                             TextSpan(
-                              text:
-                                  '${(telemetry?.speed ?? 0).toStringAsFixed(1)}',
+                              text: (telemetry?.speed ?? 0).toStringAsFixed(1),
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.primary,
                                 fontWeight: FontWeight.w800,
@@ -822,8 +827,9 @@ class TelemetryDisplay extends StatelessWidget {
                               children: [
                                 const TextSpan(text: 'RPM: '),
                                 TextSpan(
-                                  text:
-                                      '${(telemetry?.rpm ?? 0).toStringAsFixed(0)}',
+                                  text: (telemetry?.rpm ?? 0).toStringAsFixed(
+                                    0,
+                                  ),
                                   style: TextStyle(
                                     color: Theme.of(
                                       context,
@@ -843,8 +849,9 @@ class TelemetryDisplay extends StatelessWidget {
                               children: [
                                 const TextSpan(text: 'Speed: '),
                                 TextSpan(
-                                  text:
-                                      '${(telemetry?.speed ?? 0).toStringAsFixed(1)}',
+                                  text: (telemetry?.speed ?? 0).toStringAsFixed(
+                                    1,
+                                  ),
                                   style: TextStyle(
                                     color: Theme.of(
                                       context,
@@ -965,8 +972,7 @@ class TelemetryDisplay extends StatelessWidget {
                     children: [
                       const TextSpan(text: 'Est. Speed: '),
                       TextSpan(
-                        text:
-                            '${(telemetry?.estTopSpeed ?? 0).toStringAsFixed(0)}',
+                        text: (telemetry?.estTopSpeed ?? 0).toStringAsFixed(0),
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.secondary,
                           fontWeight: FontWeight.w800,
@@ -1083,7 +1089,7 @@ class TelemetryDisplay extends StatelessWidget {
                     ),
                     Expanded(
                       flex: 1,
-                      child: Text('${telemetry?.tireSlipRatioFL ?? '0'}'),
+                      child: Text(telemetry?.tireSlipRatioFL ?? '0'),
                     ),
                   ],
                 )
@@ -1191,7 +1197,7 @@ class TelemetryDisplay extends StatelessWidget {
                     ),
                     Expanded(
                       flex: 1,
-                      child: Text('${telemetry?.tireSlipRatioRL ?? '0'}'),
+                      child: Text(telemetry?.tireSlipRatioRL ?? '0'),
                     ),
                   ],
                 )

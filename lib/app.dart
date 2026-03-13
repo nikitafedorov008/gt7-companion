@@ -18,13 +18,13 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _appRouter = AppRouter();
+    final appRouter = AppRouter();
 
     return AppScope(
       child: MaterialApp.router(
         title: 'Gran Turismo 7 Companion',
         theme: gt7Theme(),
-        routerConfig: _appRouter.config(),
+        routerConfig: appRouter.config(),
       ),
     );
   }

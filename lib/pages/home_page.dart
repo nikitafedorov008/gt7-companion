@@ -8,6 +8,7 @@ import 'package:gt7_companion/widgets/gtsh_rank_daily_races_display.dart';
 import 'package:provider/provider.dart';
 import '../router/app_router.dart';
 import '../services/telemetry_service.dart';
+import '../widgets/daily_races_display_combined.dart';
 import '../widgets/gt_auto_display.dart';
 import '../widgets/legendary_car_display.dart';
 import '../widgets/playstation_scanner_dialog.dart';
@@ -431,9 +432,9 @@ class _HomePageState extends State<HomePage> {
                         );
                       },
                     ),
-                    const UpcomingDailyRacesDisplay(),
-                    const UnifiedDailyRacesDisplay(),
-                    const PastDailyRacesDisplay(),
+                    const DailyRacesCombinedDisplay(
+                      ifFutureExistsNotShowPast: true,
+                    ),
                   ],
                 ),
               ),

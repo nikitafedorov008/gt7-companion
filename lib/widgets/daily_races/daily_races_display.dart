@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../repositories/sport_repository.dart';
-import '../models/unified_daily_race.dart';
+import '../../models/daily_races/daily_race.dart';
+import '../../repositories/sport_repository.dart';
 import 'daily_race_card.dart';
+
 
 /// Combined widget that displays daily races from all categories (upcoming, current, past)
 /// with configurable visibility for each section.
-class DailyRacesCombinedDisplay extends StatefulWidget {
+class DailyRacesDisplay extends StatefulWidget {
   /// Show upcoming (not yet started) races
   final bool showUpcoming;
 
@@ -22,7 +23,7 @@ class DailyRacesCombinedDisplay extends StatefulWidget {
   /// This flag overrides showCurrent and showPast settings
   final bool ifFutureExistsNotShowPast;
 
-  const DailyRacesCombinedDisplay({
+  const DailyRacesDisplay({
     super.key,
     this.showUpcoming = true,
     this.showCurrent = true,
@@ -31,11 +32,11 @@ class DailyRacesCombinedDisplay extends StatefulWidget {
   });
 
   @override
-  State<DailyRacesCombinedDisplay> createState() =>
-      _DailyRacesCombinedDisplayState();
+  State<DailyRacesDisplay> createState() =>
+      _DailyRacesDisplayState();
 }
 
-class _DailyRacesCombinedDisplayState extends State<DailyRacesCombinedDisplay> {
+class _DailyRacesDisplayState extends State<DailyRacesDisplay> {
   bool _loading = true;
   String? _error;
 
@@ -294,7 +295,7 @@ class _RacesHeader extends StatelessWidget {
 }
 
 class _UpcomingRacesSection extends StatelessWidget {
-  final List<UnifiedDailyRace> items;
+  final List<DailyRace> items;
 
   const _UpcomingRacesSection({required this.items});
 
@@ -311,7 +312,7 @@ class _UpcomingRacesSection extends StatelessWidget {
             itemCount: items.length.clamp(0, 3),
             separatorBuilder: (_, __) => const SizedBox(width: 12),
             itemBuilder: (context, index) {
-              return UnifiedDailyRaceCard(
+              return DailyRaceCard(
                 race: items[index],
                 raceType: 'upcoming',
               );
@@ -325,7 +326,7 @@ class _UpcomingRacesSection extends StatelessWidget {
 }
 
 class _CurrentRacesSection extends StatelessWidget {
-  final List<UnifiedDailyRace> items;
+  final List<DailyRace> items;
 
   const _CurrentRacesSection({required this.items});
 
@@ -342,7 +343,7 @@ class _CurrentRacesSection extends StatelessWidget {
             itemCount: items.length.clamp(0, 3),
             separatorBuilder: (_, __) => const SizedBox(width: 12),
             itemBuilder: (context, index) {
-              return UnifiedDailyRaceCard(
+              return DailyRaceCard(
                 race: items[index],
                 raceType: 'current',
               );
@@ -356,7 +357,7 @@ class _CurrentRacesSection extends StatelessWidget {
 }
 
 class _PastRacesSection extends StatelessWidget {
-  final List<UnifiedDailyRace> items;
+  final List<DailyRace> items;
 
   const _PastRacesSection({required this.items});
 
@@ -373,7 +374,7 @@ class _PastRacesSection extends StatelessWidget {
             itemCount: items.length.clamp(0, 3),
             separatorBuilder: (_, __) => const SizedBox(width: 12),
             itemBuilder: (context, index) {
-              return UnifiedDailyRaceCard(
+              return DailyRaceCard(
                 race: items[index],
                 raceType: 'past',
               );

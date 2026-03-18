@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 
-import '../models/unified_daily_race.dart';
-import '../models/daily_race.dart';
-import '../models/gtsh_race.dart';
+import '../models/daily_races/daily_race.dart';
+import '../models/dg_edge/dg_edge_daily_race.dart';
+import '../models/gtsh_rank/gtsh_daily_race.dart';
 import '../services/dg_edge_service.dart';
 import '../services/gtsh_rank_service.dart';
 
@@ -10,7 +10,7 @@ import '../services/gtsh_rank_service.dart';
 /// implementations (network merge, cached, test stub, etc.).
 abstract class SportRepository extends ChangeNotifier {
   /// Unified list of races combining both providers.
-  List<UnifiedDailyRace> get dailyRaces;
+  List<DailyRace> get dailyRaces;
   bool get isLoading;
   String? get error;
 
@@ -23,14 +23,14 @@ class SportRepositoryImpl extends SportRepository {
   final DgEdgeService _dgEdge;
   final GtshRankService _gtsh;
 
-  List<UnifiedDailyRace> _dailyRaces = [];
+  List<DailyRace> _dailyRaces = [];
   bool _isLoading = false;
   String? _error;
 
   SportRepositoryImpl(this._dgEdge, this._gtsh);
 
   @override
-  List<UnifiedDailyRace> get dailyRaces => _dailyRaces;
+  List<DailyRace> get dailyRaces => _dailyRaces;
   @override
   bool get isLoading => _isLoading;
   @override
@@ -56,8 +56,8 @@ class SportRepositoryImpl extends SportRepository {
         _gtsh.fetchRunningCards(forceRefresh: forceRefresh),
       ]);
 
-      final dgItems = results[0] as List<DailyRaceSummary>;
-      final gtshItems = results[1] as List<GtshRace>;
+      final dgItems = results[0] as List<DgEdgeDailyRace>;
+      final gtshItems = results[1] as List<GtshDailyRace>;
       debugPrint(
         'SportRepository: dg returned ${dgItems.length} items (page 1 only)',
       );
@@ -75,20 +75,20 @@ class SportRepositoryImpl extends SportRepository {
     }
   }
 
-  List<UnifiedDailyRace> _merge(
-    List<DailyRaceSummary> dg,
-    List<GtshRace> gtsh,
+  List<DailyRace> _merge(
+    List<DgEdgeDailyRace> dg,
+    List<GtshDailyRace> gtsh,
   ) {
     // Merge the upstream sources by pairing entries by index.  We intentionally
     // keep the complete list from each source so widgets that show "past" or
     // "upcoming" races have enough data to work with.
-    final out = <UnifiedDailyRace>[];
+    final out = <DailyRace>[];
     final maxLen = dg.length > gtsh.length ? dg.length : gtsh.length;
 
     for (var i = 0; i < maxLen; i++) {
       final dgItem = i < dg.length ? dg[i] : null;
       final gtshItem = i < gtsh.length ? gtsh[i] : null;
-      final unified = UnifiedDailyRace.fromPair(dgItem, gtshItem);
+      final unified = DailyRace.fromPair(dgItem, gtshItem);
       if (unified.trackName != null && unified.trackName!.isNotEmpty) {
         out.add(unified);
       }
@@ -104,7 +104,7 @@ class SportRepositoryImpl extends SportRepository {
         .toList();
 
     weighted.sort((a, b) {
-      int weight(UnifiedDailyRace r) {
+      int weight(DailyRace r) {
         if (r.isUpcoming) return 0;
         if (r.isActive) return 1;
         if (r.isPast) return 2;

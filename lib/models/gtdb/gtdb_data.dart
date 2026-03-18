@@ -1,4 +1,4 @@
-import 'gt7info_data.dart'; // For CarData compatibility
+import '../gt7info/gt7info_data.dart'; // For CarData compatibility
 
 class GTDBData {
   final List<GTDBCar> usedCars;

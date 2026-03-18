@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:html/parser.dart' as html_parser;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gt7_companion/services/dg_edge_service.dart';
-import 'package:gt7_companion/models/daily_race.dart';
+import 'package:gt7_companion/models/dg_edge/dg_edge_daily_race.dart';
 
 void main() {
   group('DgEdgeService parsing', () {

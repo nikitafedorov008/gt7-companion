@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../services/network_scanner.dart';
+import '../../services/network_scanner.dart';
 
 class PlayStationScannerDialog extends StatefulWidget {
   const PlayStationScannerDialog({super.key});

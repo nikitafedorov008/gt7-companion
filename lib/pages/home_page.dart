@@ -1,23 +1,14 @@
-import 'package:fluid_background/fluid_background.dart';
-import 'package:auto_route/annotations.dart';
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:gt7_companion/widgets/gtsh_rank_daily_races_display.dart';
 import 'package:provider/provider.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluid_background/fluid_background.dart';
+
 import '../router/app_router.dart';
 import '../services/telemetry_service.dart';
-import '../widgets/daily_races_display_combined.dart';
-import '../widgets/gt_auto_display.dart';
-import '../widgets/legendary_car_display.dart';
-import '../widgets/playstation_scanner_dialog.dart';
-import '../widgets/telemetry_display.dart';
-import '../widgets/unified_daily_races_display.dart';
-import '../widgets/upcoming_daily_races_display.dart';
-import '../widgets/past_daily_races_display.dart';
-import '../widgets/used_car_display.dart';
-import '../widgets/daily_races_display.dart';
+import '../widgets/daily_races/daily_races_display.dart';
+import '../widgets/telemetry/playstation_scanner_dialog.dart';
+import '../widgets/telemetry/telemetry_display.dart';
 
 @RoutePage()
 class HomePage extends StatefulWidget {
@@ -432,7 +423,7 @@ class _HomePageState extends State<HomePage> {
                         );
                       },
                     ),
-                    const DailyRacesCombinedDisplay(
+                    const DailyRacesDisplay(
                       ifFutureExistsNotShowPast: true,
                     ),
                   ],

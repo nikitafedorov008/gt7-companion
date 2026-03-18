@@ -1,6 +1,6 @@
-// unified_car_data.dart
+// car.dart
 
-class UnifiedCarData {
+class Car {
   final String id;
   final String name;
   final String shortName;
@@ -23,7 +23,7 @@ class UnifiedCarData {
   // NEW: URL for the car image
   final String? imageUrl;
 
-  UnifiedCarData({
+  Car({
     required this.id,
     required this.name,
     required this.shortName,

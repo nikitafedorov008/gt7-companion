@@ -337,7 +337,7 @@ class CarTypeInfo {
 }
 
 @immutable
-class DailyRaceSummary {
+class DgEdgeDailyRace {
   final String id; // numeric id or slug from URL (e.g. "505")
   final String title;
   final String? thumbnailUrl; // small thumbnail shown in list
@@ -397,7 +397,7 @@ class DailyRaceSummary {
   String _getDisplayTrackId(String trackId) =>
       _trackIdImageMappings[trackId] ?? trackId;
 
-  const DailyRaceSummary({
+  const DgEdgeDailyRace({
     required this.id,
     required this.title,
     required this.url,
@@ -433,7 +433,7 @@ class DailyRaceSummary {
     this.metaDescription,
   });
 
-  factory DailyRaceSummary.fromJson(Map<String, dynamic> j) => DailyRaceSummary(
+  factory DgEdgeDailyRace.fromJson(Map<String, dynamic> j) => DgEdgeDailyRace(
     id: j['id'] as String,
     title: j['title'] as String,
     url: j['url'] as String,
@@ -527,18 +527,18 @@ class DailyRaceSummary {
       : null;
 
   @override
-  String toString() => 'DailyRaceSummary($id, $title)';
+  String toString() => 'DgEdgeDailyRace($id, $title)';
 
   // Conservative, best-effort HTML element parsing from a listing/card element.
   // The selector strategy in the service tries to locate an <a> that links to /events/dailies/{id}
-  static DailyRaceSummary? fromListElement(
+  static DgEdgeDailyRace? fromListElement(
     dom.Element el, {
     required String baseUrl,
   }) {
     try {
       // Diagnostic: log the element we're attempting to parse (short form)
       debugPrint(
-        'DailyRaceSummary.fromListElement: parsing element <${el.localName}> classes=${el.classes}',
+        'DgEdgeDailyRace.fromListElement: parsing element <${el.localName}> classes=${el.classes}',
       );
 
       // Find anchor pointing to the detail; some "future" cards are not yet
@@ -797,7 +797,7 @@ class DailyRaceSummary {
         // no timezone or date — leave null or attempt today
       }
 
-      return DailyRaceSummary(
+      return DgEdgeDailyRace(
         id: id,
         title: title.isEmpty ? '(no title)' : title,
         url: uri,
@@ -839,7 +839,7 @@ class DailyRaceSummary {
       );
     } catch (e, st) {
       debugPrint(
-        'DailyRaceSummary.fromListElement: parse failed for element — error: $e\n$st',
+        'DgEdgeDailyRace.fromListElement: parse failed for element — error: $e\n$st',
       );
       return null;
     }

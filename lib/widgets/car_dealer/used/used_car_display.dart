@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/annotations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import '../models/unified_car_data.dart';
-import '../repositories/unified_car_repository.dart';
-import '../widgets/used_car_grid_item.dart';
+import '../../../models/car_dealer/car.dart';
+import '../../../repositories/car_repository.dart';
+import 'used_car_grid_item.dart';
 
 @RoutePage()
 class UsedCarDisplay extends StatefulWidget {
@@ -22,7 +22,7 @@ class _UsedCarDisplayState extends State<UsedCarDisplay> {
     super.initState();
 
     Future.microtask(() {
-      context.read<UnifiedCarRepository>().fetchAllCars();
+      context.read<CarRepository>().fetchAllCars();
     });
   }
 
@@ -35,7 +35,7 @@ class _UsedCarDisplayState extends State<UsedCarDisplay> {
       backgroundColor: Colors.white.withAlpha(240),
       appBar: null,
       bottomNavigationBar: null,
-      body: Consumer<UnifiedCarRepository>(
+      body: Consumer<CarRepository>(
         builder: (context, repository, child) {
           if (repository.isLoading) {
             return const Center(child: CircularProgressIndicator());
@@ -120,7 +120,7 @@ class _UsedCarDisplayState extends State<UsedCarDisplay> {
     );
   }
 
-  Widget _buildCarListOrGrid(List<UnifiedCarData> cars, String title) {
+  Widget _buildCarListOrGrid(List<Car> cars, String title) {
     final screenWidth = MediaQuery.of(context).size.width;
 
     if (screenWidth < 600) {

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:gt7_companion/models/daily_race.dart';
+import 'package:gt7_companion/models/dg_edge/dg_edge_daily_race.dart';
 
 void main() {
   test('CarType.parse recognizes GR groups and variants', () {

@@ -1,16 +1,16 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:gt7_companion/models/daily_race.dart';
-import 'package:gt7_companion/models/gtsh_race.dart';
+import 'package:gt7_companion/models/dg_edge/dg_edge_daily_race.dart';
+import 'package:gt7_companion/models/gtsh_rank/gtsh_daily_race.dart';
 import 'package:gt7_companion/services/dg_edge_service.dart';
 import 'package:gt7_companion/services/gtsh_rank_service.dart';
 import 'package:gt7_companion/repositories/sport_repository.dart';
 
 class FakeDgEdgeService extends DgEdgeService {
-  final List<DailyRaceSummary> items;
+  final List<DgEdgeDailyRace> items;
   FakeDgEdgeService(this.items) : super();
 
   @override
-  Future<List<DailyRaceSummary>> fetchDailiesPage(
+  Future<List<DgEdgeDailyRace>> fetchDailiesPage(
     int page, {
     bool forceRefresh = false,
   }) async {
@@ -21,11 +21,11 @@ class FakeDgEdgeService extends DgEdgeService {
 }
 
 class FakeGtshRankService extends GtshRankService {
-  final List<GtshRace> cards;
+  final List<GtshDailyRace> cards;
   FakeGtshRankService(this.cards) : super();
 
   @override
-  Future<List<GtshRace>> fetchRunningCards({bool forceRefresh = false}) async {
+  Future<List<GtshDailyRace>> fetchRunningCards({bool forceRefresh = false}) async {
     return cards;
   }
 }
@@ -34,13 +34,13 @@ void main() {
   group('SportRepository', () {
     test('merges items from both providers correctly', () async {
       // create matching summary & card
-      final dg1 = DailyRaceSummary(
+      final dg1 = DgEdgeDailyRace(
         id: '1',
         title: 'Daily A',
         url: 'url',
         trackName: 'TrackX',
       );
-      final card1 = GtshRace(
+      final card1 = GtshDailyRace(
         label: 'A',
         trackName: 'TrackX',
         tyreCode: 'SS',
@@ -55,13 +55,13 @@ void main() {
       );
 
       // dg only and gtsh only items
-      final dg2 = DailyRaceSummary(
+      final dg2 = DgEdgeDailyRace(
         id: '2',
         title: 'Daily B',
         url: 'url',
         trackName: 'SoloDG',
       );
-      final card2 = GtshRace(
+      final card2 = GtshDailyRace(
         label: 'C',
         trackName: 'SoloGTSh',
         tyreCode: 'RH',
@@ -75,7 +75,7 @@ void main() {
       );
 
       // item lacking any track information should be ignored later
-      final dgNull = DailyRaceSummary(
+      final dgNull = DgEdgeDailyRace(
         id: 'nil',
         title:
             'Daily ?'
@@ -108,7 +108,7 @@ void main() {
     });
 
     test('upcoming races are placed before current ones by _merge', () async {
-      final futureSummary = DailyRaceSummary(
+      final futureSummary = DgEdgeDailyRace(
         id: 'f',
         title: 'Future',
         url: 'u',
@@ -116,7 +116,7 @@ void main() {
         isActive: false,
         isEnded: false,
       );
-      final currentSummary = DailyRaceSummary(
+      final currentSummary = DgEdgeDailyRace(
         id: 'c',
         title: 'Current',
         url: 'u',
@@ -124,7 +124,7 @@ void main() {
         isActive: true,
         isEnded: false,
       );
-      final nextCard = GtshRace(
+      final nextCard = GtshDailyRace(
         label: 'A',
         trackName: 'Next',
         tyreCode: 'SM',
@@ -136,7 +136,7 @@ void main() {
         carSettings: false,
         wideFender: '',
       );
-      final runningCard = GtshRace(
+      final runningCard = GtshDailyRace(
         label: 'B',
         trackName: 'Now',
         tyreCode: 'RH',

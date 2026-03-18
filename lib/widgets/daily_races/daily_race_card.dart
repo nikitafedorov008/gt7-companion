@@ -1,264 +1,39 @@
+// Reused card component
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-import '../repositories/sport_repository.dart';
-import '../models/unified_daily_race.dart';
-import '../models/daily_race.dart';
+import '../../models/dg_edge/dg_edge_daily_race.dart';
+import '../../models/daily_races/daily_race.dart';
 
-/// Widget that combines results from both DG‑Edge and GTSh‑rank by relying on
-/// [SportRepository].  The visual layout is essentially a straight copy of
-/// [DailyRacesDisplay], which previously only showed DG‑Edge data.
-class UnifiedDailyRacesDisplay extends StatefulWidget {
-  const UnifiedDailyRacesDisplay({super.key});
-
-  @override
-  State<UnifiedDailyRacesDisplay> createState() =>
-      _UnifiedDailyRacesDisplayState();
-}
-
-class _UnifiedDailyRacesDisplayState extends State<UnifiedDailyRacesDisplay> {
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Consumer<SportRepository>(
-      builder: (context, service, _) {
-        if (service.error != null) {
-          return Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: theme.colorScheme.surface.withOpacity(0.02),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Daily races (combined)',
-                      style: theme.textTheme.titleMedium,
-                    ),
-                    IconButton(
-                      onPressed: () =>
-                          service.fetchDailyRaces(forceRefresh: true),
-                      icon: const Icon(Icons.refresh),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  service.error!,
-                  style: TextStyle(color: theme.colorScheme.error),
-                ),
-              ],
-            ),
-          );
-        }
-
-        return _UnifiedDailyRacesContent();
-      },
-    );
-  }
-}
-
-class _UnifiedDailyRacesContent extends StatefulWidget {
-  @override
-  State<_UnifiedDailyRacesContent> createState() =>
-      _UnifiedDailyRacesContentState();
-}
-
-class _UnifiedDailyRacesContentState extends State<_UnifiedDailyRacesContent> {
-  bool _loading = true;
-  String? _error;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _load());
-  }
-
-  Future<void> _load() async {
-    if (!mounted) return;
-    setState(() {
-      _loading = true;
-      _error = null;
-    });
-    try {
-      final svc = context.read<SportRepository>();
-      await svc.fetchDailyRaces();
-      // the consumer in build will react when the repo updates
-    } catch (e) {
-      if (!mounted) return;
-      setState(() {
-        _error = e.toString();
-      });
-    } finally {
-      if (!mounted) return;
-      setState(() {
-        _loading = false;
-      });
-    }
-  }
+class DailyRaceCard extends StatelessWidget {
+  final DailyRace race;
+  
+  /// Type of race: 'upcoming', 'current', or 'past'
+  final String raceType;
+  
+  const DailyRaceCard({
+    super.key,
+    required this.race,
+    this.raceType = 'current',
+  });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final repo = context.watch<SportRepository>();
-    final items = repo.dailyRaces
-        .where((r) => r.trackName != null && r.trackName!.isNotEmpty)
-        .toList();
+    final it = race;
 
-    if (_loading) {
-      return Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: theme.colorScheme.surface.withOpacity(0.04),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: const Center(child: CircularProgressIndicator()),
-      );
-    }
-
-    if (_error != null) {
-      return _buildError(context, _error!);
-    }
-
-    if (items.isEmpty) {
-      return Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: theme.colorScheme.surface.withOpacity(0.02),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Daily races', style: theme.textTheme.titleMedium),
-                IconButton(onPressed: _load, icon: const Icon(Icons.refresh)),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Text('No daily races found.', style: theme.textTheme.bodyMedium),
-          ],
-        ),
-      );
-    }
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text('Daily races', style: theme.textTheme.titleMedium),
-                  IconButton(onPressed: _load, icon: const Icon(Icons.refresh)),
-                ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  MaterialButton(
-                    onPressed: () async {
-                      final url = Uri.parse(
-                        'https://www.dg-edge.com/events/dailies',
-                      );
-                      if (await canLaunchUrl(url)) await launchUrl(url);
-                    },
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      spacing: 8.0,
-                      children: [
-                        Text('powered by', style: theme.textTheme.titleMedium),
-                        Image.asset(
-                          'assets/images/dg-edge-color-logotype.png',
-                          width: 80,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-
-        SizedBox(
-          height: 240,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 6),
-            // Show only the first three cards as requested
-            itemCount: items.length.clamp(0, 3),
-            separatorBuilder: (_, __) => const SizedBox(width: 12),
-            itemBuilder: (context, index) {
-              final it = items[index];
-              return UnifiedDailyRaceCard(race: it);
-            },
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildError(BuildContext context, String message) {
-    final theme = Theme.of(context);
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surface.withOpacity(0.02),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Daily races (combined)',
-                style: theme.textTheme.titleMedium,
-              ),
-              IconButton(onPressed: _load, icon: const Icon(Icons.refresh)),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Text(message, style: TextStyle(color: theme.colorScheme.error)),
-        ],
-      ),
-    );
-  }
-}
-
-class UnifiedDailyRaceCard extends StatelessWidget {
-  final UnifiedDailyRace race;
-  const UnifiedDailyRaceCard({super.key, required this.race});
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final it = race; // UnifiedDailyRace
+    // Determine colors and banner text based on race type
+    final (borderColor, bannerColor, bannerText) = switch (raceType) {
+      'upcoming' => (Colors.amber, Colors.amber, 'FUTURE'),
+      'past' => (Colors.grey, Colors.grey, 'PAST'),
+      _ => (Colors.white24, Colors.transparent, ''),
+    };
 
     return Container(
       width: 280,
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.3),
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.white24, width: 1.0),
+        border: Border.all(color: borderColor, width: 1.0),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -272,22 +47,23 @@ class UnifiedDailyRaceCard extends StatelessWidget {
                   width: 300,
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.surface.withValues(alpha: 0.04),
-                    borderRadius: BorderRadius.only(
+                    color: Theme.of(context)
+                        .colorScheme
+                        .surface
+                        .withValues(alpha: 0.04),
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(12),
                       topRight: Radius.circular(12),
                     ),
                     image: it.trackBackgroundImage != null
                         ? DecorationImage(
-                            image: NetworkImage(it.trackBackgroundImage!),
-                            colorFilter: ColorFilter.mode(
-                              Colors.black38,
-                              BlendMode.srcATop,
-                            ),
-                            fit: BoxFit.cover,
-                          )
+                      image: NetworkImage(it.trackBackgroundImage!),
+                      colorFilter: const ColorFilter.mode(
+                        Colors.black38,
+                        BlendMode.srcATop,
+                      ),
+                      fit: BoxFit.cover,
+                    )
                         : null,
                   ),
                   child: Column(
@@ -307,7 +83,7 @@ class UnifiedDailyRaceCard extends StatelessWidget {
                                   height: 64,
                                   fit: BoxFit.contain,
                                   errorBuilder: (_, __, ___) =>
-                                      const SizedBox.shrink(),
+                                  const SizedBox.shrink(),
                                 ),
                               ),
                             ),
@@ -323,7 +99,7 @@ class UnifiedDailyRaceCard extends StatelessWidget {
                                   height: 64,
                                   fit: BoxFit.contain,
                                   errorBuilder: (_, __, ___) =>
-                                      const SizedBox.shrink(),
+                                  const SizedBox.shrink(),
                                 ),
                               ),
                             )
@@ -331,9 +107,8 @@ class UnifiedDailyRaceCard extends StatelessWidget {
                             Container(
                               width: 64,
                               height: 64,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
+                              decoration:
+                              BoxDecoration(borderRadius: BorderRadius.circular(8)),
                               child: const Icon(Icons.flag),
                             ),
                         ],
@@ -341,6 +116,29 @@ class UnifiedDailyRaceCard extends StatelessWidget {
                     ],
                   ),
                 ),
+                // Banner for upcoming/past races
+                if (bannerText.isNotEmpty)
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: bannerColor,
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(8),
+                          topRight: Radius.circular(12),
+                        ),
+                      ),
+                      child: Text(
+                        bannerText,
+                        style: theme.textTheme.labelSmall?.copyWith(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ),
               ],
             ),
           ),
@@ -378,7 +176,6 @@ class UnifiedDailyRaceCard extends StatelessWidget {
                   indent: 0,
                   endIndent: 0.0,
                 ),
-
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: IntrinsicHeight(
@@ -481,7 +278,7 @@ class UnifiedDailyRaceCard extends StatelessWidget {
   }
 }
 
-// reuse CarCategory and TyreCategory widgets from daily_races_display.dart
+
 class TyreCategory extends StatelessWidget {
   const TyreCategory({super.key, this.tyre});
 
@@ -539,7 +336,7 @@ class CarCategory extends StatelessWidget {
         ),
       );
     } else {
-      return SizedBox.shrink();
+      return const SizedBox.shrink();
     }
   }
 }

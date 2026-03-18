@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/gt_auto_display.dart';
+import '../widgets/gt_auto/gt_auto_display.dart';
 import '../pages/home_page.dart';
 import '../widgets/nested_widget.dart';
-import '../widgets/used_car_display.dart';
-import '../widgets/legendary_car_display.dart';
+import '../widgets/car_dealer/used/used_car_display.dart';
+import '../widgets/car_dealer/legendary/legendary_car_display.dart';
 import '../pages/home_shell.dart';
 import '../pages/profile_page.dart';
 import '../pages/wishlist_page.dart';

@@ -4,8 +4,8 @@ import 'package:html/dom.dart' as dom;
 ///
 /// Only cards with a `.status.running` indicator are considered; other
 /// entries such as "next week" or "ended" are ignored by
-/// `GtshRace.fromElement`.
-class GtshRace {
+/// `GtshDailyRace.fromElement`.
+class GtshDailyRace {
   final String label; // A, B, C, etc.
   final String trackName;
   final String tyreCode;
@@ -26,7 +26,7 @@ class GtshRace {
   final bool carSettings;
   final String wideFender;
 
-  GtshRace({
+  GtshDailyRace({
     required this.label,
     required this.trackName,
     required this.tyreCode,
@@ -45,7 +45,7 @@ class GtshRace {
   /// Parses an individual `.race-card` element. Callers should ensure
   /// the element represents a running event (i.e. it contains
   /// `.status.running`); the constructor no longer performs this check.
-  factory GtshRace.fromElement(dom.Element el) {
+  factory GtshDailyRace.fromElement(dom.Element el) {
     String text(dom.Element? e) => e?.text.trim() ?? '';
 
     final label = text(el.querySelector('.daily-label'));
@@ -135,7 +135,7 @@ class GtshRace {
       }
     }
 
-    return GtshRace(
+    return GtshDailyRace(
       label: label,
       trackName: trackName,
       tyreCode: tyreCode,

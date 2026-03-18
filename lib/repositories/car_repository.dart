@@ -1,24 +1,24 @@
 import 'package:flutter/foundation.dart';
-import '../models/unified_car_data.dart';
+import '../models/car_dealer/legendary_car.dart';
+import '../models/car_dealer/car.dart';
 import '../services/gt7info_service.dart';
 import '../services/gtdb_service.dart';
-import '../models/gt7info_data.dart';
-import '../models/used_car.dart';
-import '../models/legendary_car.dart';
+import '../models/gt7info/gt7info_data.dart';
+import '../models/car_dealer/used_car.dart';
 
-class UnifiedCarRepository extends ChangeNotifier {
+class CarRepository extends ChangeNotifier {
   final GT7InfoService _gt7InfoService;
   final GTDBService _gtdbService;
 
-  List<UnifiedCarData> _allCars = [];
+  List<Car> _allCars = [];
   bool _isLoading = false;
   String? _errorMessage;
 
-  List<UnifiedCarData> get allCars => _allCars;
+  List<Car> get allCars => _allCars;
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
 
-  UnifiedCarRepository(this._gt7InfoService, this._gtdbService);
+  CarRepository(this._gt7InfoService, this._gtdbService);
 
   Future<void> fetchAllCars({bool forceRefresh = false}) async {
     if (_isLoading) return;
@@ -37,7 +37,7 @@ class UnifiedCarRepository extends ChangeNotifier {
       final gtdbCars = _extractGTDBCars();
 
       // Combine and deduplicate cars
-      final combinedCars = <String, UnifiedCarData>{};
+      final combinedCars = <String, Car>{};
 
       // Add GT7Info cars
       for (final car in gt7InfoCars) {
@@ -50,7 +50,7 @@ class UnifiedCarRepository extends ChangeNotifier {
         final unifiedId = _generateUnifiedCarId(car.id);
 
         // Проверяем, есть ли уже GT7Info car с тем же именем
-        UnifiedCarData? matchingCarByname = _findMatchingCarByName(car, gt7InfoCars);
+        Car? matchingCarByname = _findMatchingCarByName(car, gt7InfoCars);
 
         // Для легендарных автомобилей из GTDB - добавляем только если есть совпадение в GT7Info
         if (car.source?.contains('gtdb_legend') ?? false) {
@@ -98,8 +98,8 @@ class UnifiedCarRepository extends ChangeNotifier {
     }
   }
 
-  List<UnifiedCarData> _extractGT7InfoCars() {
-    final cars = <UnifiedCarData>[];
+  List<Car> _extractGT7InfoCars() {
+    final cars = <Car>[];
 
     if (_gt7InfoService.data != null) {
       final gt7Data = _gt7InfoService.data!;
@@ -118,8 +118,8 @@ class UnifiedCarRepository extends ChangeNotifier {
     return cars;
   }
 
-  List<UnifiedCarData> _extractGTDBCars() {
-    final cars = <UnifiedCarData>[];
+  List<Car> _extractGTDBCars() {
+    final cars = <Car>[];
 
     // Add used cars
     for (final car in _gtdbService.usedCars) {
@@ -134,8 +134,8 @@ class UnifiedCarRepository extends ChangeNotifier {
     return cars;
   }
 
-  UnifiedCarData _convertGT7InfoCarToUnified(CarData car, String source) {
-    return UnifiedCarData(
+  Car _convertGT7InfoCarToUnified(CarData car, String source) {
+    return Car(
       id: car.carId,
       name: car.name,
       shortName: car.name,
@@ -158,7 +158,7 @@ class UnifiedCarRepository extends ChangeNotifier {
     );
   }
 
-  UnifiedCarData _convertGTDBCarToUnifiedUsedCar(UsedCar car, String source) {
+  Car _convertGTDBCarToUnifiedUsedCar(UsedCar car, String source) {
     String? imageUrl;
     if (car.imageId != null) {
       imageUrl = 'https://imagedelivery.net/nkaANmEhdg2ZZ4vhQHp4TQ/${car.imageId}/public';
@@ -166,7 +166,7 @@ class UnifiedCarRepository extends ChangeNotifier {
       imageUrl = 'https://imagedelivery.net/nkaANmEhdg2ZZ4vhQHp4TQ/${car.thumbnailImageId}/public';
     }
 
-    return UnifiedCarData(
+    return Car(
       id: 'car${car.carIdFromDetails ?? car.id}', // Используем формат ID как в старой модели
       name: car.name ?? 'Unknown Car',
       shortName: car.shortName ?? car.name ?? 'Unknown',
@@ -189,14 +189,14 @@ class UnifiedCarRepository extends ChangeNotifier {
     );
   }
 
-  UnifiedCarData _convertGTDBCarToUnifiedLegendaryCar(LegendaryCar car, String source) {
+  Car _convertGTDBCarToUnifiedLegendaryCar(LegendaryCar car, String source) {
     String? imageUrl;
     if (car.frontImage != null) {
       // Для legendary car всегда используем frontImage, как указано в требованиях
       imageUrl = 'https://imagedelivery.net/nkaANmEhdg2ZZ4vhQHp4TQ/${car.frontImage}/public';
     }
 
-    return UnifiedCarData(
+    return Car(
       id: 'car${car.id}', // Используем формат ID как в старой модели
       name: car.name ?? 'Unknown Car',
       shortName: car.shortName ?? car.name ?? 'Unknown',
@@ -236,7 +236,7 @@ class UnifiedCarRepository extends ChangeNotifier {
     return normalizedId;
   }
 
-  UnifiedCarData _mergeCarData(UnifiedCarData existing, UnifiedCarData newCar) {
+  Car _mergeCarData(Car existing, Car newCar) {
     // При объединении данных мы будем использовать приоритеты:
     // 1. Если у одного из источников более полное имя - используем его
     // 2. Для цены и состояния - используем данные GTDB, если они доступны
@@ -291,7 +291,7 @@ class UnifiedCarRepository extends ChangeNotifier {
     lotteryCar = existing.lotteryCar ?? newCar.lotteryCar;
     trophyCar = existing.trophyCar ?? newCar.trophyCar;
 
-    return UnifiedCarData(
+    return Car(
       id: existing.id,
       name: name,
       shortName: shortName,
@@ -322,7 +322,7 @@ class UnifiedCarRepository extends ChangeNotifier {
 
   /// Finds a matching car from GT7Info cars based on name comparison
   /// Used for legendary cars where IDs might differ but names should match
-  UnifiedCarData? _findMatchingCarByName(UnifiedCarData gtdbCar, List<UnifiedCarData> gt7InfoCars) {
+  Car? _findMatchingCarByName(Car gtdbCar, List<Car> gt7InfoCars) {
     // Проверяем, является ли GTDB автомобиль legendary car
     bool isGTDBLegendary = gtdbCar.source?.contains('gtdb_legend') ?? false;
 
@@ -363,17 +363,17 @@ class UnifiedCarRepository extends ChangeNotifier {
     return null;
   }
 
-  List<UnifiedCarData> getCarsBySource(String source) {
+  List<Car> getCarsBySource(String source) {
     return _allCars.where((car) => car.source?.contains(source) ?? false).toList();
   }
 
-  List<UnifiedCarData> getUsedCars() {
+  List<Car> getUsedCars() {
     return _allCars.where((car) => 
         car.source?.contains('used') ?? false
     ).toList();
   }
 
-  List<UnifiedCarData> getLegendCars() {
+  List<Car> getLegendCars() {
     return _allCars.where((car) => 
         car.source?.contains('legend') ?? false
     ).toList();

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/telemetry_data.dart';
+import '../../models/telemetry/telemetry_data.dart';
 import 'package:gt7_companion/theme/gt7_theme.dart';
 
 class TelemetryDisplay extends StatelessWidget {

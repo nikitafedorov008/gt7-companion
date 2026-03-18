@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:gt7_companion/widgets/daily_races/daily_races_display.dart';
 import 'package:provider/provider.dart';
 
-import 'package:gt7_companion/widgets/daily_races_display.dart';
 import 'package:gt7_companion/repositories/sport_repository.dart';
-import 'package:gt7_companion/models/daily_race.dart';
-import 'package:gt7_companion/models/unified_daily_race.dart';
+import 'package:gt7_companion/models/dg_edge/dg_edge_daily_race.dart';
+import 'package:gt7_companion/models/daily_races/daily_race.dart';
 
 class FakeSportRepository extends ChangeNotifier implements SportRepository {
-  final List<UnifiedDailyRace> _items;
+  final List<DailyRace> _items;
   bool _loading = false;
   String? _error;
 
   FakeSportRepository(this._items);
 
   @override
-  List<UnifiedDailyRace> get dailyRaces => _items;
+  List<DailyRace> get dailyRaces => _items;
 
   @override
   bool get isLoading => _loading;
@@ -38,7 +38,7 @@ void main() {
     final races = List.generate(5, (i) {
       // make the very first element lack a track name
       final summary = i == 0
-          ? DailyRaceSummary(
+          ? DgEdgeDailyRace(
               id: '0',
               title: 'Race ?0',
               url: 'https://www.dg-edge.com/events/dailies/0',
@@ -46,7 +46,7 @@ void main() {
               tyreCode: 'RM',
               tyre: Tyre.RM,
             )
-          : DailyRaceSummary(
+          : DgEdgeDailyRace(
               id: '${i + 1}',
               title: 'Race ${i + 1}',
               url: 'https://www.dg-edge.com/events/dailies/${i + 1}',
@@ -66,7 +66,7 @@ void main() {
             );
 
       // Wrap DG‑Edge result into the unified model.
-      return UnifiedDailyRace.fromPair(summary, null);
+      return DailyRace.fromPair(summary, null);
     });
 
     final fake = FakeSportRepository(races);

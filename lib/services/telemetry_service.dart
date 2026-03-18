@@ -2,7 +2,7 @@ import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import '../services/udp_service.dart';
 import '../utils/crypto_utils.dart';
-import '../models/telemetry_data.dart';
+import '../models/telemetry/telemetry_data.dart';
 
 class TelemetryService extends ChangeNotifier {
   final UdpService _udpService = UdpService();

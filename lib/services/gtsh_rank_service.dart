@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as html_parser;
 import 'package:html/dom.dart' as dom;
 
-import '../models/gtsh_race.dart';
+import '../models/gtsh_rank/gtsh_daily_race.dart';
 
 /// Service responsible for scraping the GTSh-rank daily page and returning
 /// currently-running race cards (the rows labelled A/B/C).
@@ -38,7 +38,7 @@ class GtshRankService extends ChangeNotifier {
   /// page starts by listing upcoming cards followed by the running ones, so to
   /// keep the repository in sync we now return both running and next-week
   /// entries.  Consumers can still filter by whatever status they prefer.
-  Future<List<GtshRace>> fetchRunningCards({bool forceRefresh = false}) async {
+  Future<List<GtshDailyRace>> fetchRunningCards({bool forceRefresh = false}) async {
     _setLoading(true);
     try {
       final uri = Uri.parse('$_base/daily/');
@@ -69,14 +69,14 @@ class GtshRankService extends ChangeNotifier {
   ///
   /// The returned list preserves the order of the page, so clients can still
   /// show running events first if desired.
-  List<GtshRace> parsePage(dom.Document doc) {
-    final cards = <GtshRace>[];
+  List<GtshDailyRace> parsePage(dom.Document doc) {
+    final cards = <GtshDailyRace>[];
     for (final el in doc.querySelectorAll('.race-card')) {
       // include entries that are either running or scheduled for next week
       final statusEl = el.querySelector('.status');
       final classes = statusEl?.classes ?? const <String>[];
       if (!(classes.contains('running') || classes.contains('next'))) continue;
-      cards.add(GtshRace.fromElement(el));
+      cards.add(GtshDailyRace.fromElement(el));
     }
     return cards;
   }

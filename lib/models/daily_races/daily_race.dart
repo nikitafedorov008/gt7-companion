@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
-import 'daily_race.dart';
-import 'gtsh_race.dart';
+import '../dg_edge/dg_edge_daily_race.dart';
+import '../gtsh_rank/gtsh_daily_race.dart';
 
 /// A single "unified" representation of a daily race, combining the two
 /// upstream data sources (DG‑Edge summary page and GTSh‑rank cards) into a
@@ -9,10 +9,10 @@ import 'gtsh_race.dart';
 /// (DG‑Edge takes precedence when both exist) so consumers do not need to
 /// look at two separate models.
 @immutable
-class UnifiedDailyRace {
+class DailyRace {
   // optional references to the original objects for debugging / future use
-  final DailyRaceSummary? dgEdge;
-  final GtshRace? gtsh;
+  final DgEdgeDailyRace? dgEdge;
+  final GtshDailyRace? gtsh;
 
   // common identifiers
   final String? id;
@@ -46,7 +46,7 @@ class UnifiedDailyRace {
   final bool? carSettings;
   final String? wideFender;
 
-  const UnifiedDailyRace({
+  const DailyRace({
     this.dgEdge,
     this.gtsh,
     this.id,
@@ -76,7 +76,7 @@ class UnifiedDailyRace {
   });
 
   /// Helper constructor that builds a unified item from the two source models.
-  factory UnifiedDailyRace.fromPair(DailyRaceSummary? dg, GtshRace? gtsh) {
+  factory DailyRace.fromPair(DgEdgeDailyRace? dg, GtshDailyRace? gtsh) {
     String? parseLabelFromTitle(String? title) {
       if (title == null) return null;
       final m = RegExp(
@@ -92,7 +92,7 @@ class UnifiedDailyRace {
     // tyre enum will be determined when building the object (DG value
     // preferred, fallback to parsed GTSh code).
 
-    return UnifiedDailyRace(
+    return DailyRace(
       dgEdge: dg,
       gtsh: gtsh,
       id: dg?.id,
@@ -236,5 +236,5 @@ class UnifiedDailyRace {
 
   @override
   String toString() =>
-      'UnifiedDailyRace(label: $label, track: $trackName, tyre: $tyreCode, dgEdge: $dgEdge, gtsh: $gtsh)';
+      'DailyRace(label: $label, track: $trackName, tyre: $tyreCode, dgEdge: $dgEdge, gtsh: $gtsh)';
 }

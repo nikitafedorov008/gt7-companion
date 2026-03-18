@@ -3,12 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter_avif/flutter_avif.dart';
-import '../models/unified_car_data.dart';
+import '../../../models/car_dealer/car.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class LegendaryCarCardItem extends StatelessWidget {
-  final UnifiedCarData car;
+  final Car car;
 
   const LegendaryCarCardItem({super.key, required this.car});
 

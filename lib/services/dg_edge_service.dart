@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as html_parser;
 import 'package:html/dom.dart' as dom;
 
-import '../models/daily_race.dart';
+import '../models/dg_edge/dg_edge_daily_race.dart';
 
 /// Service to scrape DG-Edge daily events (list + detail pages).
 ///
@@ -29,7 +29,7 @@ class DgEdgeService extends ChangeNotifier {
   DgEdgeService({http.Client? httpClient})
     : _http = httpClient ?? http.Client();
 
-  Future<List<DailyRaceSummary>> fetchDailiesPage(
+  Future<List<DgEdgeDailyRace>> fetchDailiesPage(
     int page, {
     bool forceRefresh = false,
   }) async {
@@ -90,7 +90,7 @@ class DgEdgeService extends ChangeNotifier {
   }
 
   // Parses a listing HTML document and returns best-effort summaries.
-  List<DailyRaceSummary> parseListPage(
+  List<DgEdgeDailyRace> parseListPage(
     dom.Document doc, {
     required String baseUrl,
   }) {
@@ -100,7 +100,7 @@ class DgEdgeService extends ChangeNotifier {
       'DgEdgeService.parseListPage: found ${anchors.length} anchors[href*="/events/dailies/"]',
     );
     final seen = <String>{};
-    final items = <DailyRaceSummary>[];
+    final items = <DgEdgeDailyRace>[];
     for (final a in anchors) {
       final href = a.attributes['href'] ?? '';
       if (!RegExp(r'/events/dailies/[\w-]+').hasMatch(href)) continue;
@@ -120,7 +120,7 @@ class DgEdgeService extends ChangeNotifier {
           break;
         }
       }
-      final summary = DailyRaceSummary.fromListElement(el, baseUrl: baseUrl);
+      final summary = DgEdgeDailyRace.fromListElement(el, baseUrl: baseUrl);
       if (summary != null && seen.add(summary.id)) items.add(summary);
     }
 
@@ -135,7 +135,7 @@ class DgEdgeService extends ChangeNotifier {
       '.event.is-future, .event.daily.is-future, .event.daily, .col-lg-4 .event',
     );
     for (final el in futureCards) {
-      final summary = DailyRaceSummary.fromListElement(el, baseUrl: baseUrl);
+      final summary = DgEdgeDailyRace.fromListElement(el, baseUrl: baseUrl);
       if (summary != null && seen.add(summary.id)) items.add(summary);
     }
 
@@ -149,7 +149,7 @@ class DgEdgeService extends ChangeNotifier {
       );
       for (final c in candidates) {
         for (final el in c.querySelectorAll('article, .card, .post, li')) {
-          final s = DailyRaceSummary.fromListElement(el, baseUrl: baseUrl);
+          final s = DgEdgeDailyRace.fromListElement(el, baseUrl: baseUrl);
           if (s != null && seen.add(s.id)) items.add(s);
         }
       }
@@ -190,8 +190,8 @@ class DgEdgeService extends ChangeNotifier {
   }
 
   /// Convenience: fetch multiple pages until an empty page or maxPages reached.
-  Future<List<DailyRaceSummary>> fetchAllPages({int maxPages = 10}) async {
-    final out = <DailyRaceSummary>[];
+  Future<List<DgEdgeDailyRace>> fetchAllPages({int maxPages = 10}) async {
+    final out = <DgEdgeDailyRace>[];
     for (var p = 1; p <= maxPages; p++) {
       try {
         final page = await fetchDailiesPage(p);

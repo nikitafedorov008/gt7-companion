@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import '../models/gt7info_data.dart';
+import '../models/gt7info/gt7info_data.dart';
 
 class GT7InfoService extends ChangeNotifier {
   static const String _apiUrl = 'https://ddm999.github.io/gt7info/data.json';

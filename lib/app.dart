@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'dependency_injection/app_scope.dart';
 import 'theme/gt7_theme.dart';
-import 'repositories/unified_car_repository.dart';
+import 'repositories/car_repository.dart';
 import 'services/telemetry_service.dart';
 import 'services/gt7info_service.dart';
 import 'services/gtdb_service.dart';

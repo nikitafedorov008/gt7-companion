@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/annotations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import '../models/unified_car_data.dart';
-import '../repositories/unified_car_repository.dart';
-import '../widgets/legendary_car_grid_item.dart';
+import '../../../models/car_dealer/car.dart';
+import '../../../repositories/car_repository.dart';
+import 'legendary_car_grid_item.dart';
 
 @RoutePage()
 class LegendaryCarDisplay extends StatefulWidget {
@@ -25,7 +25,7 @@ class _LegendaryCarDisplayState extends State<LegendaryCarDisplay> {
     _ribbonController = ScrollController();
 
     Future.microtask(() {
-      context.read<UnifiedCarRepository>().fetchAllCars();
+      context.read<CarRepository>().fetchAllCars();
     });
   }
 
@@ -56,7 +56,7 @@ class _LegendaryCarDisplayState extends State<LegendaryCarDisplay> {
             ],
           ),
         ),
-        child: Consumer<UnifiedCarRepository>(
+        child: Consumer<CarRepository>(
           builder: (context, repository, child) {
             if (repository.isLoading) {
               return const Center(child: CircularProgressIndicator());
@@ -133,11 +133,11 @@ class _LegendaryCarDisplayState extends State<LegendaryCarDisplay> {
     );
   }
 
-  Widget _buildCarListOrGrid(List<UnifiedCarData> cars, String title) {
+  Widget _buildCarListOrGrid(List<Car> cars, String title) {
     // Use a horizontal, bounded ListView for both mobile and desktop.
     // Snapshot the list to avoid modifications during layout (this prevents
     // "_debugDoingThisLayout" assertions when the underlying provider updates).
-    final items = List<UnifiedCarData>.from(cars);
+    final items = List<Car>.from(cars);
 
     return LayoutBuilder(
       builder: (context, constraints) {

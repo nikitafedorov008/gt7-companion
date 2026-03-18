@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:graphql/client.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../models/used_car.dart';
-import '../models/legendary_car.dart';
+import '../models/car_dealer/legendary_car.dart';
+import '../models/car_dealer/used_car.dart';
 
 class GTDBService extends ChangeNotifier {
   late GraphQLClient _usedCarsClient;

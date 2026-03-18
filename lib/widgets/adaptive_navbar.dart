@@ -107,106 +107,115 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
       }
       final active = tabs?.activeIndex ?? -1;
 
-      return SizedBox(
-        height: _kMobileBarHeight,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            // background bar
-            Positioned.fill(
-              bottom: 12,
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  height: 56,
-                  margin: const EdgeInsets.symmetric(horizontal: 12),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surface,
-                    borderRadius: BorderRadius.circular(32),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.25),
-                        blurRadius: 10,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      // left button -> Wishlist tab (index 1)
-                      IconButton(
-                        onPressed: () => _openPlaceholder(context, 'Wishlist'),
-                        icon: Icon(
-                          Icons.flag,
-                          color: active == 1
-                              ? Colors.pinkAccent
-                              : Theme.of(
-                                  context,
-                                ).colorScheme.onSurface.withOpacity(0.9),
+      return SafeArea(
+        top: false,
+        // Add a small extra bottom inset so the bar sits a couple pixels lower,
+        // while still avoiding the system navigation bar.
+        minimum: const EdgeInsets.only(bottom: 4),
+        child: SizedBox(
+          height: _kMobileBarHeight,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              // background bar
+              Positioned.fill(
+                bottom: 12,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    height: 56,
+                    margin: const EdgeInsets.symmetric(horizontal: 12),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.surface,
+                      borderRadius: BorderRadius.circular(32),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.25),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
                         ),
-                      ),
-                      const SizedBox(width: 56), // spacer for central button
-                      // right button -> Profile tab (index 2)
-                      IconButton(
-                        onPressed: () => _openPlaceholder(context, 'Profile'),
-                        icon: Icon(
-                          Icons.person_outline,
-                          color: active == 2
-                              ? Theme.of(context).colorScheme.primary
-                              : Theme.of(
-                                  context,
-                                ).colorScheme.onSurface.withOpacity(0.9),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        // left button -> Wishlist tab (index 1)
+                        IconButton(
+                          onPressed: () =>
+                              _openPlaceholder(context, 'Wishlist'),
+                          icon: Icon(
+                            Icons.flag,
+                            color: active == 1
+                                ? Colors.pinkAccent
+                                : Theme.of(
+                                    context,
+                                  ).colorScheme.onSurface.withOpacity(0.9),
+                          ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(width: 56), // spacer for central button
+                        // right button -> Profile tab (index 2)
+                        IconButton(
+                          onPressed: () => _openPlaceholder(context, 'Profile'),
+                          icon: Icon(
+                            Icons.person_outline,
+                            color: active == 2
+                                ? Theme.of(context).colorScheme.primary
+                                : Theme.of(
+                                    context,
+                                  ).colorScheme.onSurface.withOpacity(0.9),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
 
-            // central circular button (overlaps bar)
-            Positioned(
-              bottom: 20,
-              child: GestureDetector(
-                onTap: () => _goHome(context),
-                child: Container(
-                  width: 72,
-                  height: 72,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: LinearGradient(
-                      colors: active == 0
-                          ? [primary, primary.withOpacity(0.85)]
-                          : [
-                              primary.withOpacity(0.12),
-                              primary.withOpacity(0.08),
-                            ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: primary.withOpacity(0.35),
-                        blurRadius: 18,
-                        offset: const Offset(0, 8),
+              // central circular button (overlaps bar)
+              Positioned(
+                // Reduce overlap with content above the bar.
+                // Keep the button inside the nav bar bounds so it doesn't cover page content.
+                bottom: 8,
+                child: GestureDetector(
+                  onTap: () => _goHome(context),
+                  child: Container(
+                    width: 72,
+                    height: 72,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: LinearGradient(
+                        colors: active == 0
+                            ? [primary, primary.withOpacity(0.85)]
+                            : [
+                                primary.withOpacity(0.12),
+                                primary.withOpacity(0.08),
+                              ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
                       ),
-                    ],
-                  ),
-                  child: Center(
-                    child: SvgPicture.asset(
-                      'assets/images/gran_turismo_logotype.svg',
-                      color: active == 0
-                          ? onPrimary
-                          : Theme.of(context).iconTheme.color,
-                      height: 32,
-                      width: 32,
+                      boxShadow: [
+                        BoxShadow(
+                          color: primary.withOpacity(0.35),
+                          blurRadius: 18,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
+                    ),
+                    child: Center(
+                      child: SvgPicture.asset(
+                        'assets/images/gran_turismo_logotype.svg',
+                        color: active == 0
+                            ? onPrimary
+                            : Theme.of(context).iconTheme.color,
+                        height: 32,
+                        width: 32,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
     }

@@ -47,6 +47,7 @@ class NestedWidget extends StatelessWidget {
         final showBottomNav = isMobilePlatform;
 
         return Scaffold(
+          extendBody: true,
           appBar: showTopNav
               ? const PreferredSize(
                   preferredSize: Size.fromHeight(72),

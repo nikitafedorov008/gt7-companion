@@ -219,6 +219,7 @@ class _HomePageState extends State<HomePage> {
         statusBarBrightness: Brightness.dark,
       ),
       child: Scaffold(
+        extendBody: true,
         extendBodyBehindAppBar: true,
         appBar: null,
         bottomNavigationBar: null,
@@ -251,9 +252,11 @@ class _HomePageState extends State<HomePage> {
             ),
 
             // Content (kept inside SafeArea so it does not overlap the system UI)
+            // Bottom padding is disabled so content can scroll under the bottom nav.
             SafeArea(
+              bottom: false,
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 96),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

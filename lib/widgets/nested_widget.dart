@@ -54,7 +54,7 @@ class NestedWidget extends StatelessWidget {
                 )
               : null,
           bottomNavigationBar: showBottomNav ? const AdaptiveNavBar() : null,
-          body: SafeArea(child: child),
+          body: child,
         );
       },
     );

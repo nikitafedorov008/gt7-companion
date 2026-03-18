@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -210,36 +211,47 @@ class _HomePageState extends State<HomePage> {
     final screenWidth = MediaQuery.of(context).size.width;
     final isDesktop = screenWidth > 600;
 
-    return SafeArea(
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        //statusBarColor: Colors.black.withOpacity(0.2),
+        statusBarColor: Colors.red,
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark,
+      ),
       child: Scaffold(
+        extendBodyBehindAppBar: true,
         appBar: null,
         bottomNavigationBar: null,
-        body: FluidBackground(
-          initialColors: InitialColors.random(4),
-          initialPositions: InitialOffsets.predefined(),
-          velocity: 80,
-          bubblesSize: 400,
-          sizeChangingRange: const [300, 600],
-          allowColorChanging: true,
-          bubbleMutationDuration: const Duration(seconds: 4),
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  theme.colorScheme.surface.withOpacity(0.22),
-                  theme.colorScheme.surface.withOpacity(0.06),
-                  theme.colorScheme.surface,
-                ],
-                // смещаем середину чуть выше для более явного перехода
-                stops: const [0.0, 0.45, 1.0],
+        body: Stack(
+          children: [
+            // Background (fills under the status bar)
+            FluidBackground(
+              initialColors: InitialColors.random(4),
+              initialPositions: InitialOffsets.predefined(),
+              velocity: 80,
+              bubblesSize: 400,
+              sizeChangingRange: const [300, 600],
+              allowColorChanging: true,
+              bubbleMutationDuration: const Duration(seconds: 4),
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      theme.colorScheme.surface.withOpacity(0.22),
+                      theme.colorScheme.surface.withOpacity(0.06),
+                      theme.colorScheme.surface,
+                    ],
+                    // смещаем середину чуть выше для более явного перехода
+                    stops: const [0.0, 0.45, 1.0],
+                  ),
+                ),
               ),
             ),
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: MediaQuery.of(context).size.height,
-              ),
+
+            // Content (kept inside SafeArea so it does not overlap the system UI)
+            SafeArea(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.all(16),
                 child: Column(
@@ -423,17 +435,15 @@ class _HomePageState extends State<HomePage> {
                         );
                       },
                     ),
-                    const DailyRacesDisplay(
-                      ifFutureExistsNotShowPast: true,
-                    ),
+                    const DailyRacesDisplay(ifFutureExistsNotShowPast: true),
                   ],
                 ),
               ),
-            ), // ConstrainedBox
-          ), // Container
-        ), // FluidBackground
-      ), // Scaffold
-    ); // SafeArea
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 

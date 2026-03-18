@@ -13,6 +13,6 @@ class HomeShell extends StatelessWidget {
     // This shell intentionally does not render the global navigation chrome;
     // it's responsible only for providing the inner navigator for home-related
     // screens.
-    return const SafeArea(child: AutoRouter());
+    return AutoRouter();
   }
 }

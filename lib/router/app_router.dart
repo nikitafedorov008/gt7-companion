@@ -32,7 +32,7 @@ class AppRouter extends RootStackRouter {
           initial: true,
           path: 'home',
           children: [
-            AutoRoute(page: HomePageRoute.page, initial: true, path: ''),
+            AutoRoute(page: HomePageRoute.page, initial: true, path: 'start'),
             AutoRoute(page: UsedCarDisplayRoute.page, path: 'used'),
             AutoRoute(page: LegendaryCarDisplayRoute.page, path: 'legendary'),
             AutoRoute(page: GTAutoDisplayRoute.page, path: 'gtauto'),

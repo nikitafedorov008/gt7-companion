@@ -176,39 +176,43 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
                 // Reduce overlap with content above the bar.
                 // Keep the button inside the nav bar bounds so it doesn't cover page content.
                 bottom: 8,
-                child: GestureDetector(
+                child: InkWell(
                   onTap: () => _goHome(context),
+                  borderRadius: BorderRadius.circular(999),
                   child: Container(
-                    width: 72,
-                    height: 72,
+                    padding: const EdgeInsets.all(3.2),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       gradient: LinearGradient(
-                        colors: active == 0
-                            ? [primary, primary.withOpacity(0.85)]
-                            : [
-                                primary.withOpacity(0.12),
-                                primary.withOpacity(0.08),
-                              ],
-                        begin: Alignment.topLeft,
+                        begin: Alignment.topCenter,
                         end: Alignment.bottomRight,
+                        colors: [Colors.white70, Colors.grey],
                       ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: primary.withOpacity(0.35),
-                          blurRadius: 18,
-                          offset: const Offset(0, 8),
-                        ),
-                      ],
+                      // color: active == 0
+                      //     ? primary.withOpacity(0.12)
+                      //     : primary.withOpacity(0.04),
                     ),
-                    child: Center(
+                    child: ShaderMask(
+                      blendMode: BlendMode.srcIn,
+                      shaderCallback: (bounds) {
+                        return LinearGradient(
+                          colors: [Colors.black38, Colors.black],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ).createShader(bounds);
+                      },
                       child: SvgPicture.asset(
                         'assets/images/gran_turismo_logotype.svg',
-                        color: active == 0
-                            ? onPrimary
-                            : Theme.of(context).iconTheme.color,
-                        height: 32,
-                        width: 32,
+                        colorFilter: ColorFilter.mode(
+                          Colors.black.withValues(alpha: 0.6),
+                          BlendMode.srcIn,
+                        ),
+                        // colorFilter: ColorFilter.mode(
+                        //   active == 0 ? primary : Theme.of(context).iconTheme.color!,
+                        //   BlendMode.srcIn,
+                        // ),
+                        height: 58,
+                        width: 58,
                       ),
                     ),
                   ),

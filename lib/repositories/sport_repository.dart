@@ -51,21 +51,41 @@ class SportRepositoryImpl extends SportRepository {
       debugPrint(
         'SportRepository: starting fetchDailyRaces (forceRefresh=$forceRefresh)',
       );
-      final results = await Future.wait([
-        _dgEdge.fetchDailiesPage(1),
-        _gtsh.fetchRunningCards(forceRefresh: forceRefresh),
-      ]);
 
-      final dgItems = results[0] as List<DgEdgeDailyRace>;
-      final gtshItems = results[1] as List<GtshDailyRace>;
-      debugPrint(
-        'SportRepository: dg returned ${dgItems.length} items (page 1 only)',
-      );
-      debugPrint('SportRepository: gtsh returned ${gtshItems.length} items');
+      List<DgEdgeDailyRace> dgItems = [];
+      List<GtshDailyRace> gtshItems = [];
+      String? dgError;
+      String? gtshError;
 
-      _dailyRaces = _merge(dgItems, gtshItems);
-      debugPrint('SportRepository: merged list size ${_dailyRaces.length}');
-      _error = null;
+      try {
+        dgItems = await _dgEdge.fetchDailiesPage(1);
+        debugPrint(
+          'SportRepository: dg returned ${dgItems.length} items (page 1 only)',
+        );
+      } catch (e, st) {
+        dgError = e.toString();
+        debugPrint('SportRepository: failed to fetch DG-Edge races: $e\n$st');
+      }
+
+      try {
+        gtshItems = await _gtsh.fetchRunningCards(forceRefresh: forceRefresh);
+        debugPrint('SportRepository: gtsh returned ${gtshItems.length} items');
+      } catch (e, st) {
+        gtshError = e.toString();
+        debugPrint('SportRepository: failed to fetch GTSh ranks: $e\n$st');
+      }
+
+      if (dgItems.isEmpty && gtshItems.isEmpty) {
+        _dailyRaces = [];
+        _error =
+            'Failed to load daily races'
+            '${dgError != null ? ' (DG-Edge: $dgError)' : ''}'
+            '${gtshError != null ? ' (GTSh: $gtshError)' : ''}';
+      } else {
+        _dailyRaces = _merge(dgItems, gtshItems);
+        debugPrint('SportRepository: merged list size ${_dailyRaces.length}');
+        _error = null;
+      }
     } catch (e) {
       _error = 'Failed to load daily races: $e';
       debugPrint('SportRepository error: $_error');
@@ -75,10 +95,7 @@ class SportRepositoryImpl extends SportRepository {
     }
   }
 
-  List<DailyRace> _merge(
-    List<DgEdgeDailyRace> dg,
-    List<GtshDailyRace> gtsh,
-  ) {
+  List<DailyRace> _merge(List<DgEdgeDailyRace> dg, List<GtshDailyRace> gtsh) {
     // Merge the upstream sources by pairing entries by index.  We intentionally
     // keep the complete list from each source so widgets that show "past" or
     // "upcoming" races have enough data to work with.
@@ -119,7 +136,5 @@ class SportRepositoryImpl extends SportRepository {
     });
 
     return weighted.map((e) => e.value).toList();
-
-    return out;
   }
 }

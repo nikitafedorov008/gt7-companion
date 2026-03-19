@@ -4,16 +4,18 @@ import 'package:flutter/material.dart';
 import '../../models/dg_edge/dg_edge_daily_race.dart';
 import '../../models/daily_races/daily_race.dart';
 
+enum RaceType { upcoming, current, past }
+
 class DailyRaceCard extends StatelessWidget {
   final DailyRace race;
-  
-  /// Type of race: 'upcoming', 'current', or 'past'
-  final String raceType;
-  
+
+  /// Type of race (controls styling & banner).
+  final RaceType raceType;
+
   const DailyRaceCard({
     super.key,
     required this.race,
-    this.raceType = 'current',
+    this.raceType = RaceType.current,
   });
 
   @override
@@ -23,9 +25,9 @@ class DailyRaceCard extends StatelessWidget {
 
     // Determine colors and banner text based on race type
     final (borderColor, bannerColor, bannerText) = switch (raceType) {
-      'upcoming' => (Colors.amber, Colors.amber, 'FUTURE'),
-      'past' => (Colors.grey, Colors.grey, 'PAST'),
-      _ => (Colors.white24, Colors.transparent, ''),
+      RaceType.upcoming => (Colors.amber, Colors.amber, 'FUTURE'),
+      RaceType.past => (Colors.grey, Colors.grey, 'PAST'),
+      RaceType.current => (Colors.white24, Colors.transparent, ''),
     };
 
     return Container(

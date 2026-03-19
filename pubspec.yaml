@@ -51,6 +51,7 @@ dependencies:
 
   # For GraphQL API
   graphql: ^5.2.0
+  skeletonizer: ^2.1.3
 
 
 dev_dependencies:

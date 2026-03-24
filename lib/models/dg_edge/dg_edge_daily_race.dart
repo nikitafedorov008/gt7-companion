@@ -391,6 +391,7 @@ class DgEdgeDailyRace {
   static const Map<String, String> _trackIdImageMappings = {
     '391': '280',
     '367': '360',
+    '366': '358',
   };
 
   /// Get the display trackId for image URLs (handles special cases).

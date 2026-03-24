@@ -25,7 +25,9 @@ class FakeGtshRankService extends GtshRankService {
   FakeGtshRankService(this.cards) : super();
 
   @override
-  Future<List<GtshDailyRace>> fetchRunningCards({bool forceRefresh = false}) async {
+  Future<List<GtshDailyRace>> fetchRunningCards({
+    bool forceRefresh = false,
+  }) async {
     return cards;
   }
 }

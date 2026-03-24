@@ -62,7 +62,9 @@ class GTDBService extends ChangeNotifier {
       // Обработка результатов для легендарных автомобилей
       final legendaryCarList = legendaryCarsResult['data']?['gt_car'] as List?;
       if (legendaryCarList != null) {
-        _legendaryCars = legendaryCarList.map((car) => LegendaryCar.fromJson(car)).toList();
+        _legendaryCars = legendaryCarList
+            .map((car) => LegendaryCar.fromJson(car))
+            .toList();
       }
 
       _lastUpdated = DateTime.now();
@@ -76,12 +78,11 @@ class GTDBService extends ChangeNotifier {
 
   // Fetch used cars data
   Future<QueryResult> _fetchUsedCars() async {
-    final String usedCarsQuery = await rootBundle.loadString('schemas/used_cars.graphql');
-
-    final options = QueryOptions(
-      document: gql(usedCarsQuery),
-      variables: {},
+    final String usedCarsQuery = await rootBundle.loadString(
+      'schemas/used_cars.graphql',
     );
+
+    final options = QueryOptions(document: gql(usedCarsQuery), variables: {});
 
     final result = await _usedCarsClient.query(options);
     return result;
@@ -90,10 +91,10 @@ class GTDBService extends ChangeNotifier {
   // Fetch legendary cars data using HTTP client (GET request)
   Future<Map<String, dynamic>> _fetchLegendaryCars() async {
     final response = await http.get(
-      Uri.parse('https://gtdb.io/api/graphql_middleware/query/LegendCarsDealer'),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      Uri.parse(
+        'https://gtdb.io/api/graphql_middleware/query/LegendCarsDealer',
+      ),
+      headers: {'Content-Type': 'application/json'},
     );
 
     if (response.statusCode == 200) {

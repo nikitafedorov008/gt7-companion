@@ -38,7 +38,9 @@ class GtshRankService extends ChangeNotifier {
   /// page starts by listing upcoming cards followed by the running ones, so to
   /// keep the repository in sync we now return both running and next-week
   /// entries.  Consumers can still filter by whatever status they prefer.
-  Future<List<GtshDailyRace>> fetchRunningCards({bool forceRefresh = false}) async {
+  Future<List<GtshDailyRace>> fetchRunningCards({
+    bool forceRefresh = false,
+  }) async {
     _setLoading(true);
     try {
       final uri = Uri.parse('$_base/daily/');

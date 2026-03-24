@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
@@ -6,6 +7,7 @@ import 'package:html/parser.dart' as html_parser;
 import 'package:html/dom.dart' as dom;
 
 import '../models/dg_edge/dg_edge_daily_race.dart';
+import '../models/dg_edge/dg_edge_player.dart';
 
 /// Service to scrape DG-Edge daily events (list + detail pages).
 ///
@@ -83,6 +85,92 @@ class DgEdgeService extends ChangeNotifier {
       return detail;
     } catch (e) {
       _error = 'Failed to load detail $pathOrUrl: $e';
+      rethrow;
+    } finally {
+      _setLoading(false);
+    }
+  }
+
+  Future<DgEdgePlayerEventsResponse> fetchPlayerEvents(
+    String onlineId, {
+    int page = 1,
+    String language = 'EN',
+    int version = 162,
+    String tz = 'Europe/Moscow',
+  }) async {
+    _setLoading(true);
+    try {
+      final uri = Uri.parse(
+        'https://admin.dg-edge.com/api/b.players.retrievePlayerEvents',
+      );
+      final body = jsonEncode({
+        'onlineId': onlineId,
+        'page': page,
+        'language': language,
+        'version': version,
+        'cookieVersion': null,
+        'ajax_referer': '/players/$onlineId',
+        'tz': tz,
+      });
+
+      final resp = await _http
+          .post(uri, headers: _defaultJsonHeaders(), body: body)
+          .timeout(_timeout);
+      if (resp.statusCode != 200) {
+        throw Exception('HTTP ${resp.statusCode}');
+      }
+
+      final data = jsonDecode(resp.body);
+      if (data is! Map<String, dynamic> || data['success'] != true) {
+        throw Exception('DG-Edge player events request failed: ${resp.body}');
+      }
+
+      final response = DgEdgePlayerEventsResponse.fromJson(data);
+      _error = null;
+      return response;
+    } catch (e) {
+      _error = 'Failed to load player events $onlineId: $e';
+      rethrow;
+    } finally {
+      _setLoading(false);
+    }
+  }
+
+  Future<bool> sendBannerImpressions(
+    List<int> impressions, {
+    String language = 'EN',
+    int version = 162,
+    String tz = 'Europe/Moscow',
+    String onlineId = '',
+  }) async {
+    _setLoading(true);
+    try {
+      final uri = Uri.parse('https://admin.dg-edge.com/api/b.banners.impress');
+      final body = jsonEncode({
+        'impressions': impressions,
+        'language': language,
+        'version': version,
+        'cookieVersion': null,
+        'ajax_referer': onlineId.isNotEmpty ? '/players/$onlineId' : '/players',
+        'tz': tz,
+      });
+
+      final resp = await _http
+          .post(uri, headers: _defaultJsonHeaders(), body: body)
+          .timeout(_timeout);
+      if (resp.statusCode != 200) {
+        throw Exception('HTTP ${resp.statusCode}');
+      }
+
+      final data = jsonDecode(resp.body);
+      if (data is! Map || data['success'] != true) {
+        throw Exception('DG-Edge banners impress failed: ${resp.body}');
+      }
+
+      _error = null;
+      return true;
+    } catch (e) {
+      _error = 'Failed to send banner impressions: $e';
       rethrow;
     } finally {
       _setLoading(false);
@@ -182,6 +270,14 @@ class DgEdgeService extends ChangeNotifier {
   Map<String, String> _defaultHeaders() => {
     'User-Agent': 'gt7_companion/1.0 (+https://github.com)',
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  };
+
+  Map<String, String> _defaultJsonHeaders() => {
+    'User-Agent': 'gt7_companion/1.0 (+https://github.com)',
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'Origin': _base,
+    'Referer': '$_base/',
   };
 
   void _setLoading(bool v) {

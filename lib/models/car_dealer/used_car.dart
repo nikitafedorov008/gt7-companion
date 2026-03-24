@@ -37,7 +37,9 @@ class UsedCar {
     if (details?['id'] != null) {
       final detailsId = details!['id'].toString();
       if (detailsId.startsWith('#CAR')) {
-        return detailsId.substring(4); // Remove "#CAR" prefix to get the numeric ID
+        return detailsId.substring(
+          4,
+        ); // Remove "#CAR" prefix to get the numeric ID
       }
     }
     return null;
@@ -47,7 +49,8 @@ class UsedCar {
 
   int? get price => details?['used_price'] ?? details?['price'];
 
-  String? get imageId => details?['used_car_image_id'] ?? details?['thumbnail_image_id'];
+  String? get imageId =>
+      details?['used_car_image_id'] ?? details?['thumbnail_image_id'];
 
   String? get thumbnailImageId => details?['thumbnail_image_id'];
 

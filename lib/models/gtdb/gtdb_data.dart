@@ -4,10 +4,7 @@ class GTDBData {
   final List<GTDBCar> usedCars;
   final List<GTDBCar> legendCars;
 
-  GTDBData({
-    required this.usedCars,
-    required this.legendCars,
-  });
+  GTDBData({required this.usedCars, required this.legendCars});
 
   factory GTDBData.fromJson(Map<String, dynamic> json) {
     final usedCars = <GTDBCar>[];
@@ -16,19 +13,20 @@ class GTDBData {
     // Parse used cars if available in the response
     if (json['data'] != null && json['data']['gt_car'] != null) {
       final usedCarList = json['data']['gt_car'] as List;
-      usedCars.addAll(usedCarList.map((car) => GTDBCar.fromUsedCarJson(car)).toList());
+      usedCars.addAll(
+        usedCarList.map((car) => GTDBCar.fromUsedCarJson(car)).toList(),
+      );
     }
 
     // Parse legend cars if available in the response
     if (json['data'] != null && json['data']['gt_car'] != null) {
       final legendCarList = json['data']['gt_car'] as List;
-      legendCars.addAll(legendCarList.map((car) => GTDBCar.fromLegendCarJson(car)).toList());
+      legendCars.addAll(
+        legendCarList.map((car) => GTDBCar.fromLegendCarJson(car)).toList(),
+      );
     }
 
-    return GTDBData(
-      usedCars: usedCars,
-      legendCars: legendCars,
-    );
+    return GTDBData(usedCars: usedCars, legendCars: legendCars);
   }
 }
 
@@ -73,7 +71,9 @@ class GTDBCar {
     if (details?['id'] != null) {
       final detailsId = details!['id'].toString();
       if (detailsId.startsWith('#CAR')) {
-        carIdFromDetails = detailsId.substring(4); // Remove "#CAR" prefix to get the numeric ID
+        carIdFromDetails = detailsId.substring(
+          4,
+        ); // Remove "#CAR" prefix to get the numeric ID
       }
     }
 
@@ -84,7 +84,9 @@ class GTDBCar {
       slug: json['slug'] ?? '',
       manufacturerName: manufacturer?['name'] ?? '',
       state: details?['used_state'], // Used car specific
-      price: details?['used_price'] ?? details?['price'], // Use used_price if available, otherwise price
+      price:
+          details?['used_price'] ??
+          details?['price'], // Use used_price if available, otherwise price
       image: details?['used_car_image_id'] != null
           ? details!['used_car_image_id'] // Use the main image ID for image
           : details?['thumbnail_image_id'], // Fallback to thumbnail if main image is not available
@@ -148,7 +150,7 @@ class GTDBCar {
     if (credits == 0) return '0';
     return credits.toString().replaceAllMapped(
       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-      (match) => '${match[1]},'
+      (match) => '${match[1]},',
     );
   }
 

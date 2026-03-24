@@ -47,7 +47,10 @@ class CryptoUtils {
         return null;
       }
 
-      final magic = _bytesToInt(Uint8List.fromList(decrypted.take(4).toList()), 0);
+      final magic = _bytesToInt(
+        Uint8List.fromList(decrypted.take(4).toList()),
+        0,
+      );
       print('Magic number: 0x${magic.toRadixString(16)}, expected: 0x47375330');
 
       if (magic != 0x47375330) {
@@ -68,9 +71,9 @@ class CryptoUtils {
       throw ArgumentError('Not enough bytes for integer conversion');
     }
     return (bytes[offset] & 0xFF) |
-           ((bytes[offset + 1] & 0xFF) << 8) |
-           ((bytes[offset + 2] & 0xFF) << 16) |
-           ((bytes[offset + 3] & 0xFF) << 24);
+        ((bytes[offset + 1] & 0xFF) << 8) |
+        ((bytes[offset + 2] & 0xFF) << 16) |
+        ((bytes[offset + 3] & 0xFF) << 24);
   }
 
   static Uint8List _intToBytes(int value, int length) {

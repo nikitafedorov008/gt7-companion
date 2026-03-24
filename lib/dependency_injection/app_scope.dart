@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../blocs/profile/profile_bloc.dart';
+import '../repositories/profile_repository.dart';
 import '../repositories/sport_repository.dart';
 import '../services/telemetry_service.dart';
 import '../services/gt7info_service.dart';
@@ -42,6 +44,17 @@ class AppScope extends StatelessWidget {
             return repository ?? SportRepositoryImpl(dg, gtsh);
           },
         ),
+        ChangeNotifierProvider<ProfileRepositoryImpl>(
+          create: (context) => ProfileRepositoryImpl(
+            Provider.of<DgEdgeService>(context, listen: false),
+          ),
+        ),
+        Provider<ProfileBloc>(
+          create: (context) => ProfileBloc(
+            Provider.of<ProfileRepositoryImpl>(context, listen: false),
+          ),
+          dispose: (context, bloc) => bloc.close(),
+        ),
         ChangeNotifierProxyProvider2<
           GT7InfoService,
           GTDBService,
@@ -52,8 +65,7 @@ class AppScope extends StatelessWidget {
             Provider.of<GTDBService>(context, listen: false),
           ),
           update: (context, gt7InfoService, gtdbService, repository) {
-            return repository ??
-                CarRepository(gt7InfoService, gtdbService);
+            return repository ?? CarRepository(gt7InfoService, gtdbService);
           },
         ),
       ],

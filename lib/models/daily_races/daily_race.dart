@@ -199,7 +199,6 @@ class DailyRace {
         return true;
       }
 
-
       // Explicit future markers should not be treated as active even if
       // isActive is true (except 'pending' — that may be present while the
       // `isActive` flag remains true, see note in isUpcoming).

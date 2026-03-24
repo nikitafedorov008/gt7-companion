@@ -49,23 +49,22 @@ class DailyRaceCard extends StatelessWidget {
                   width: 300,
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .surface
-                        .withValues(alpha: 0.04),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.surface.withValues(alpha: 0.04),
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(12),
                       topRight: Radius.circular(12),
                     ),
                     image: it.trackBackgroundImage != null
                         ? DecorationImage(
-                      image: NetworkImage(it.trackBackgroundImage!),
-                      colorFilter: const ColorFilter.mode(
-                        Colors.black38,
-                        BlendMode.srcATop,
-                      ),
-                      fit: BoxFit.cover,
-                    )
+                            image: NetworkImage(it.trackBackgroundImage!),
+                            colorFilter: const ColorFilter.mode(
+                              Colors.black38,
+                              BlendMode.srcATop,
+                            ),
+                            fit: BoxFit.cover,
+                          )
                         : null,
                   ),
                   child: Column(
@@ -85,7 +84,7 @@ class DailyRaceCard extends StatelessWidget {
                                   height: 64,
                                   fit: BoxFit.contain,
                                   errorBuilder: (_, __, ___) =>
-                                  const SizedBox.shrink(),
+                                      const SizedBox.shrink(),
                                 ),
                               ),
                             ),
@@ -101,7 +100,7 @@ class DailyRaceCard extends StatelessWidget {
                                   height: 64,
                                   fit: BoxFit.contain,
                                   errorBuilder: (_, __, ___) =>
-                                  const SizedBox.shrink(),
+                                      const SizedBox.shrink(),
                                 ),
                               ),
                             )
@@ -109,8 +108,9 @@ class DailyRaceCard extends StatelessWidget {
                             Container(
                               width: 64,
                               height: 64,
-                              decoration:
-                              BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
                               child: const Icon(Icons.flag),
                             ),
                         ],
@@ -124,7 +124,10 @@ class DailyRaceCard extends StatelessWidget {
                     top: 0,
                     right: 0,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
                         color: bannerColor,
                         borderRadius: const BorderRadius.only(
@@ -279,7 +282,6 @@ class DailyRaceCard extends StatelessWidget {
     );
   }
 }
-
 
 class TyreCategory extends StatelessWidget {
   const TyreCategory({super.key, this.tyre});

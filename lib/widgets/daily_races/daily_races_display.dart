@@ -41,7 +41,12 @@ class _DailyRacesDisplayState extends State<DailyRacesDisplay> {
   @override
   void initState() {
     super.initState();
-    _load();
+    // Delay data-fetch until the first frame to avoid rebuild-during-build errors
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _load();
+      }
+    });
   }
 
   Future<void> _load() async {
@@ -257,7 +262,9 @@ class _RacesHeader extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Skeleton.keep(child: Text('DAILY RACES', style: theme.textTheme.titleMedium)),
+            child: Skeleton.keep(
+              child: Text('DAILY RACES', style: theme.textTheme.titleMedium),
+            ),
           ),
           Expanded(
             child: ShaderMask(
@@ -358,10 +365,7 @@ class _PastRacesSection extends StatelessWidget {
             itemCount: items.length.clamp(0, 3),
             separatorBuilder: (_, __) => const SizedBox(width: 12),
             itemBuilder: (context, index) {
-              return DailyRaceCard(
-                race: items[index],
-                raceType: RaceType.past,
-              );
+              return DailyRaceCard(race: items[index], raceType: RaceType.past);
             },
           ),
         ),

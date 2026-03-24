@@ -8,9 +8,7 @@ class GTAutoDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('GT Auto'),
-      ),
+      appBar: AppBar(title: Text('GT Auto')),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,

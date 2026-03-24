@@ -29,6 +29,8 @@ dependencies:
 
   # For state management
   provider: ^6.1.1
+  flutter_bloc: ^9.1.1
+  freezed_annotation: ^3.1.0
 
   # For network discovery
   network_discovery: ^1.0.0
@@ -59,6 +61,7 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^5.0.0
   build_runner: ^2.4.6
+  freezed: ^3.2.5
   auto_route_generator: ^10.4.0
 
 flutter:

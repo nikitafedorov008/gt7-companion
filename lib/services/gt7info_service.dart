@@ -5,7 +5,7 @@ import '../models/gt7info/gt7info_data.dart';
 
 class GT7InfoService extends ChangeNotifier {
   static const String _apiUrl = 'https://ddm999.github.io/gt7info/data.json';
-  
+
   GT7InfoData? _data;
   bool _isLoading = false;
   String? _errorMessage;
@@ -30,14 +30,15 @@ class GT7InfoService extends ChangeNotifier {
 
     try {
       final response = await http.get(Uri.parse(_apiUrl));
-      
+
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body);
         _data = GT7InfoData.fromJson(jsonData);
         _lastUpdated = DateTime.now();
         _errorMessage = null;
       } else {
-        _errorMessage = 'Failed to load GT7Info data: HTTP ${response.statusCode}';
+        _errorMessage =
+            'Failed to load GT7Info data: HTTP ${response.statusCode}';
       }
     } catch (e) {
       _errorMessage = 'Error loading GT7Info data: $e';

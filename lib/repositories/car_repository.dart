@@ -56,7 +56,9 @@ class CarRepository extends ChangeNotifier {
         if (car.source?.contains('gtdb_legend') ?? false) {
           if (matchingCarByname != null) {
             // Если нашли совпадение по имени, используем ID от GT7Info для объединения
-            final gt7InfoUnifiedId = _generateUnifiedCarId(matchingCarByname.id);
+            final gt7InfoUnifiedId = _generateUnifiedCarId(
+              matchingCarByname.id,
+            );
             if (combinedCars.containsKey(gt7InfoUnifiedId)) {
               // Объединяем информацию
               final existingCar = combinedCars[gt7InfoUnifiedId]!;
@@ -70,7 +72,9 @@ class CarRepository extends ChangeNotifier {
           // Для used cars используем обычную логику - добавляем если есть в GTDB
           if (matchingCarByname != null) {
             // Если нашли совпадение по имени, используем ID от GT7Info для объединения
-            final gt7InfoUnifiedId = _generateUnifiedCarId(matchingCarByname.id);
+            final gt7InfoUnifiedId = _generateUnifiedCarId(
+              matchingCarByname.id,
+            );
             if (combinedCars.containsKey(gt7InfoUnifiedId)) {
               // Объединяем информацию
               final existingCar = combinedCars[gt7InfoUnifiedId]!;
@@ -161,9 +165,11 @@ class CarRepository extends ChangeNotifier {
   Car _convertGTDBCarToUnifiedUsedCar(UsedCar car, String source) {
     String? imageUrl;
     if (car.imageId != null) {
-      imageUrl = 'https://imagedelivery.net/nkaANmEhdg2ZZ4vhQHp4TQ/${car.imageId}/public';
+      imageUrl =
+          'https://imagedelivery.net/nkaANmEhdg2ZZ4vhQHp4TQ/${car.imageId}/public';
     } else if (car.thumbnailImageId != null) {
-      imageUrl = 'https://imagedelivery.net/nkaANmEhdg2ZZ4vhQHp4TQ/${car.thumbnailImageId}/public';
+      imageUrl =
+          'https://imagedelivery.net/nkaANmEhdg2ZZ4vhQHp4TQ/${car.thumbnailImageId}/public';
     }
 
     return Car(
@@ -193,7 +199,8 @@ class CarRepository extends ChangeNotifier {
     String? imageUrl;
     if (car.frontImage != null) {
       // Для legendary car всегда используем frontImage, как указано в требованиях
-      imageUrl = 'https://imagedelivery.net/nkaANmEhdg2ZZ4vhQHp4TQ/${car.frontImage}/public';
+      imageUrl =
+          'https://imagedelivery.net/nkaANmEhdg2ZZ4vhQHp4TQ/${car.frontImage}/public';
     }
 
     return Car(
@@ -242,7 +249,6 @@ class CarRepository extends ChangeNotifier {
     // 2. Для цены и состояния - используем данные GTDB, если они доступны
     // 3. Для специальных атрибутов - объединяем информацию
 
-
     // Определяем приоритеты для объединения
     String name = existing.name;
     String shortName = existing.shortName;
@@ -262,10 +268,14 @@ class CarRepository extends ChangeNotifier {
     String? imageUrl = existing.imageUrl;
 
     // Если у нового источника есть более полезные данные, используем их
-    if (newCar.name.isNotEmpty && (existing.name.isEmpty || _isMoreCompleteName(newCar.name, existing.name))) {
+    if (newCar.name.isNotEmpty &&
+        (existing.name.isEmpty ||
+            _isMoreCompleteName(newCar.name, existing.name))) {
       name = newCar.name;
     }
-    if (newCar.shortName.isNotEmpty && (existing.shortName.isEmpty || _isMoreCompleteName(newCar.shortName, existing.shortName))) {
+    if (newCar.shortName.isNotEmpty &&
+        (existing.shortName.isEmpty ||
+            _isMoreCompleteName(newCar.shortName, existing.shortName))) {
       shortName = newCar.shortName;
     }
     if (newCar.manufacturer.isNotEmpty && existing.manufacturer.isEmpty) {
@@ -317,7 +327,8 @@ class CarRepository extends ChangeNotifier {
   /// Determines if the new name is more complete than the existing one
   bool _isMoreCompleteName(String newName, String existingName) {
     // Простая эвристика: если новое имя длиннее и содержит существующее, то оно более полное
-    return newName.length > existingName.length && newName.toLowerCase().contains(existingName.toLowerCase());
+    return newName.length > existingName.length &&
+        newName.toLowerCase().contains(existingName.toLowerCase());
   }
 
   /// Finds a matching car from GT7Info cars based on name comparison
@@ -333,7 +344,8 @@ class CarRepository extends ChangeNotifier {
 
     // Для legendary cars ищем совпадение по имени
     for (final gt7InfoCar in gt7InfoCars) {
-      bool isGT7InfoLegendary = gt7InfoCar.source?.contains('gt7info_legend') ?? false;
+      bool isGT7InfoLegendary =
+          gt7InfoCar.source?.contains('gt7info_legend') ?? false;
 
       if (isGT7InfoLegendary) {
         // Сравниваем имя из GT7Info (name) с именем из GTDB (shortName или name)
@@ -344,12 +356,16 @@ class CarRepository extends ChangeNotifier {
         String gtdbManufacturer = gtdbCar.manufacturer.toLowerCase().trim();
 
         // Убираем название производителя из полного имени
-        String gtdbNameWithoutManufacturer = gtdbFullName.replaceFirst(RegExp('^${RegExp.escape(gtdbManufacturer)}\\s+'), '').trim();
+        String gtdbNameWithoutManufacturer = gtdbFullName
+            .replaceFirst(RegExp('^${RegExp.escape(gtdbManufacturer)}\\s+'), '')
+            .trim();
 
         // Если после удаления производителя имя пустое, используем shortName
         String gtdbName = gtdbNameWithoutManufacturer.isNotEmpty
             ? gtdbNameWithoutManufacturer
-            : (gtdbCar.shortName.isNotEmpty ? gtdbCar.shortName.toLowerCase().trim() : gtdbFullName);
+            : (gtdbCar.shortName.isNotEmpty
+                  ? gtdbCar.shortName.toLowerCase().trim()
+                  : gtdbFullName);
 
         // Проверяем на точное совпадение или частичное совпадение
         if (gt7InfoName == gtdbName ||
@@ -364,18 +380,20 @@ class CarRepository extends ChangeNotifier {
   }
 
   List<Car> getCarsBySource(String source) {
-    return _allCars.where((car) => car.source?.contains(source) ?? false).toList();
+    return _allCars
+        .where((car) => car.source?.contains(source) ?? false)
+        .toList();
   }
 
   List<Car> getUsedCars() {
-    return _allCars.where((car) => 
-        car.source?.contains('used') ?? false
-    ).toList();
+    return _allCars
+        .where((car) => car.source?.contains('used') ?? false)
+        .toList();
   }
 
   List<Car> getLegendCars() {
-    return _allCars.where((car) => 
-        car.source?.contains('legend') ?? false
-    ).toList();
+    return _allCars
+        .where((car) => car.source?.contains('legend') ?? false)
+        .toList();
   }
 }

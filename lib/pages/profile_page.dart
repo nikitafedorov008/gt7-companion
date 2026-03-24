@@ -61,12 +61,17 @@ class _ProfilePageState extends State<ProfilePage> {
             Expanded(
               child: BlocBuilder<ProfileBloc, ProfileState>(
                 builder: (context, state) {
-                  if (state.error != null) {
-                    return Column(
+                  return state.when(
+                    initial: () => const Center(
+                      child: Text('Enter a nickname and load profile events'),
+                    ),
+                    loading: () =>
+                        const Center(child: CircularProgressIndicator()),
+                    error: (message) => Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Error: ${state.error}',
+                          'Error: $message',
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.error,
                           ),
@@ -77,59 +82,56 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: const Text('Try again'),
                         ),
                       ],
-                    );
-                  }
+                    ),
+                    loaded: (onlineId, events, pagination, csrfToken) {
+                      if (events.isEmpty) {
+                        return const Center(
+                          child: Text('No player events loaded yet'),
+                        );
+                      }
 
-                  if (state.isLoading) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
+                      return ListView.builder(
+                        itemCount: events.length,
+                        itemBuilder: (context, index) {
+                          final event = events[index];
 
-                  if (state.events.isEmpty) {
-                    return const Center(
-                      child: Text('No player events loaded yet'),
-                    );
-                  }
-
-                  return ListView.builder(
-                    itemCount: state.events.length,
-                    itemBuilder: (context, index) {
-                      final event = state.events[index];
-
-                      return Card(
-                        margin: const EdgeInsets.symmetric(vertical: 6),
-                        child: ListTile(
-                          title: Text(event.eventType ?? 'Event'),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              if (event.trackName != null)
-                                Text('Track: ${event.trackName}'),
-                              if (event.carName != null)
-                                Text('Car: ${event.carName}'),
-                              if (event.playerResult != null)
-                                Text(
-                                  'Position: ${event.playerResult!.globalPosition} / ${event.playerResult!.countryPosition}',
-                                ),
-                              if (event.playerResult?.time != null)
-                                Text('Time: ${event.playerResult!.time}'),
-                              if (event.playerResult?.timestamp != null)
-                                Text(
-                                  'Updated: ${event.playerResult!.timestamp}',
-                                ),
-                            ],
-                          ),
-                          trailing: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              if (event.isActive)
-                                const Chip(label: Text('Active')),
-                              if (event.isFuture)
-                                const Chip(label: Text('Future')),
-                              if (event.isEnded)
-                                const Chip(label: Text('Ended')),
-                            ],
-                          ),
-                        ),
+                          return Card(
+                            margin: const EdgeInsets.symmetric(vertical: 6),
+                            child: ListTile(
+                              title: Text(event.eventType ?? 'Event'),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  if (event.trackName != null)
+                                    Text('Track: ${event.trackName}'),
+                                  if (event.carName != null)
+                                    Text('Car: ${event.carName}'),
+                                  if (event.playerResult != null)
+                                    Text(
+                                      'Position: ${event.playerResult!.globalPosition} / ${event.playerResult!.countryPosition}',
+                                    ),
+                                  if (event.playerResult?.time != null)
+                                    Text('Time: ${event.playerResult!.time}'),
+                                  if (event.playerResult?.timestamp != null)
+                                    Text(
+                                      'Updated: ${event.playerResult!.timestamp}',
+                                    ),
+                                ],
+                              ),
+                              trailing: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  if (event.isActive)
+                                    const Chip(label: Text('Active')),
+                                  if (event.isFuture)
+                                    const Chip(label: Text('Future')),
+                                  if (event.isEnded)
+                                    const Chip(label: Text('Ended')),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
                       );
                     },
                   );

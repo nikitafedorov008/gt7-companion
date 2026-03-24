@@ -14,66 +14,30 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ProfileState {
 
- bool get isLoading; String? get error; String? get onlineId; List<DgEdgePlayerEvent> get events; DgEdgePlayerEventsPagination? get pagination; String? get csrfToken;
-/// Create a copy of ProfileState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$ProfileStateCopyWith<ProfileState> get copyWith => _$ProfileStateCopyWithImpl<ProfileState>(this as ProfileState, _$identity);
+
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProfileState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.error, error) || other.error == error)&&(identical(other.onlineId, onlineId) || other.onlineId == onlineId)&&const DeepCollectionEquality().equals(other.events, events)&&(identical(other.pagination, pagination) || other.pagination == pagination)&&(identical(other.csrfToken, csrfToken) || other.csrfToken == csrfToken));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProfileState);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isLoading,error,onlineId,const DeepCollectionEquality().hash(events),pagination,csrfToken);
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ProfileState(isLoading: $isLoading, error: $error, onlineId: $onlineId, events: $events, pagination: $pagination, csrfToken: $csrfToken)';
+  return 'ProfileState()';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $ProfileStateCopyWith<$Res>  {
-  factory $ProfileStateCopyWith(ProfileState value, $Res Function(ProfileState) _then) = _$ProfileStateCopyWithImpl;
-@useResult
-$Res call({
- bool isLoading, String? error, String? onlineId, List<DgEdgePlayerEvent> events, DgEdgePlayerEventsPagination? pagination, String? csrfToken
-});
-
-
-
-
-}
-/// @nodoc
-class _$ProfileStateCopyWithImpl<$Res>
-    implements $ProfileStateCopyWith<$Res> {
-  _$ProfileStateCopyWithImpl(this._self, this._then);
-
-  final ProfileState _self;
-  final $Res Function(ProfileState) _then;
-
-/// Create a copy of ProfileState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? isLoading = null,Object? error = freezed,Object? onlineId = freezed,Object? events = null,Object? pagination = freezed,Object? csrfToken = freezed,}) {
-  return _then(_self.copyWith(
-isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
-as bool,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
-as String?,onlineId: freezed == onlineId ? _self.onlineId : onlineId // ignore: cast_nullable_to_non_nullable
-as String?,events: null == events ? _self.events : events // ignore: cast_nullable_to_non_nullable
-as List<DgEdgePlayerEvent>,pagination: freezed == pagination ? _self.pagination : pagination // ignore: cast_nullable_to_non_nullable
-as DgEdgePlayerEventsPagination?,csrfToken: freezed == csrfToken ? _self.csrfToken : csrfToken // ignore: cast_nullable_to_non_nullable
-as String?,
-  ));
-}
-
+class $ProfileStateCopyWith<$Res>  {
+$ProfileStateCopyWith(ProfileState _, $Res Function(ProfileState) __);
 }
 
 
@@ -91,11 +55,14 @@ extension ProfileStatePatterns on ProfileState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ProfileState value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _ProfileStateInitial value)?  initial,TResult Function( _ProfileStateLoading value)?  loading,TResult Function( _ProfileStateLoaded value)?  loaded,TResult Function( _ProfileStateError value)?  error,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _ProfileState() when $default != null:
-return $default(_that);case _:
+case _ProfileStateInitial() when initial != null:
+return initial(_that);case _ProfileStateLoading() when loading != null:
+return loading(_that);case _ProfileStateLoaded() when loaded != null:
+return loaded(_that);case _ProfileStateError() when error != null:
+return error(_that);case _:
   return orElse();
 
 }
@@ -113,11 +80,14 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ProfileState value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _ProfileStateInitial value)  initial,required TResult Function( _ProfileStateLoading value)  loading,required TResult Function( _ProfileStateLoaded value)  loaded,required TResult Function( _ProfileStateError value)  error,}){
 final _that = this;
 switch (_that) {
-case _ProfileState():
-return $default(_that);case _:
+case _ProfileStateInitial():
+return initial(_that);case _ProfileStateLoading():
+return loading(_that);case _ProfileStateLoaded():
+return loaded(_that);case _ProfileStateError():
+return error(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -134,11 +104,14 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ProfileState value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _ProfileStateInitial value)?  initial,TResult? Function( _ProfileStateLoading value)?  loading,TResult? Function( _ProfileStateLoaded value)?  loaded,TResult? Function( _ProfileStateError value)?  error,}){
 final _that = this;
 switch (_that) {
-case _ProfileState() when $default != null:
-return $default(_that);case _:
+case _ProfileStateInitial() when initial != null:
+return initial(_that);case _ProfileStateLoading() when loading != null:
+return loading(_that);case _ProfileStateLoaded() when loaded != null:
+return loaded(_that);case _ProfileStateError() when error != null:
+return error(_that);case _:
   return null;
 
 }
@@ -155,10 +128,13 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isLoading,  String? error,  String? onlineId,  List<DgEdgePlayerEvent> events,  DgEdgePlayerEventsPagination? pagination,  String? csrfToken)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( String onlineId,  List<DgEdgePlayerEvent> events,  DgEdgePlayerEventsPagination? pagination,  String? csrfToken)?  loaded,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _ProfileState() when $default != null:
-return $default(_that.isLoading,_that.error,_that.onlineId,_that.events,_that.pagination,_that.csrfToken);case _:
+case _ProfileStateInitial() when initial != null:
+return initial();case _ProfileStateLoading() when loading != null:
+return loading();case _ProfileStateLoaded() when loaded != null:
+return loaded(_that.onlineId,_that.events,_that.pagination,_that.csrfToken);case _ProfileStateError() when error != null:
+return error(_that.message);case _:
   return orElse();
 
 }
@@ -176,10 +152,13 @@ return $default(_that.isLoading,_that.error,_that.onlineId,_that.events,_that.pa
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isLoading,  String? error,  String? onlineId,  List<DgEdgePlayerEvent> events,  DgEdgePlayerEventsPagination? pagination,  String? csrfToken)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( String onlineId,  List<DgEdgePlayerEvent> events,  DgEdgePlayerEventsPagination? pagination,  String? csrfToken)  loaded,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
-case _ProfileState():
-return $default(_that.isLoading,_that.error,_that.onlineId,_that.events,_that.pagination,_that.csrfToken);case _:
+case _ProfileStateInitial():
+return initial();case _ProfileStateLoading():
+return loading();case _ProfileStateLoaded():
+return loaded(_that.onlineId,_that.events,_that.pagination,_that.csrfToken);case _ProfileStateError():
+return error(_that.message);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -196,10 +175,13 @@ return $default(_that.isLoading,_that.error,_that.onlineId,_that.events,_that.pa
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isLoading,  String? error,  String? onlineId,  List<DgEdgePlayerEvent> events,  DgEdgePlayerEventsPagination? pagination,  String? csrfToken)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( String onlineId,  List<DgEdgePlayerEvent> events,  DgEdgePlayerEventsPagination? pagination,  String? csrfToken)?  loaded,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
-case _ProfileState() when $default != null:
-return $default(_that.isLoading,_that.error,_that.onlineId,_that.events,_that.pagination,_that.csrfToken);case _:
+case _ProfileStateInitial() when initial != null:
+return initial();case _ProfileStateLoading() when loading != null:
+return loading();case _ProfileStateLoaded() when loaded != null:
+return loaded(_that.onlineId,_that.events,_that.pagination,_that.csrfToken);case _ProfileStateError() when error != null:
+return error(_that.message);case _:
   return null;
 
 }
@@ -210,54 +192,116 @@ return $default(_that.isLoading,_that.error,_that.onlineId,_that.events,_that.pa
 /// @nodoc
 
 
-class _ProfileState implements ProfileState {
-  const _ProfileState({this.isLoading = false, this.error, this.onlineId, final  List<DgEdgePlayerEvent> events = const <DgEdgePlayerEvent>[], this.pagination, this.csrfToken}): _events = events;
+class _ProfileStateInitial implements ProfileState {
+  const _ProfileStateInitial();
   
 
-@override@JsonKey() final  bool isLoading;
-@override final  String? error;
-@override final  String? onlineId;
- final  List<DgEdgePlayerEvent> _events;
-@override@JsonKey() List<DgEdgePlayerEvent> get events {
-  if (_events is EqualUnmodifiableListView) return _events;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_events);
-}
 
-@override final  DgEdgePlayerEventsPagination? pagination;
-@override final  String? csrfToken;
 
-/// Create a copy of ProfileState
-/// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$ProfileStateCopyWith<_ProfileState> get copyWith => __$ProfileStateCopyWithImpl<_ProfileState>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProfileState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.error, error) || other.error == error)&&(identical(other.onlineId, onlineId) || other.onlineId == onlineId)&&const DeepCollectionEquality().equals(other._events, _events)&&(identical(other.pagination, pagination) || other.pagination == pagination)&&(identical(other.csrfToken, csrfToken) || other.csrfToken == csrfToken));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProfileStateInitial);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isLoading,error,onlineId,const DeepCollectionEquality().hash(_events),pagination,csrfToken);
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ProfileState(isLoading: $isLoading, error: $error, onlineId: $onlineId, events: $events, pagination: $pagination, csrfToken: $csrfToken)';
+  return 'ProfileState.initial()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class _ProfileStateLoading implements ProfileState {
+  const _ProfileStateLoading();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProfileStateLoading);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'ProfileState.loading()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class _ProfileStateLoaded implements ProfileState {
+  const _ProfileStateLoaded({required this.onlineId, final  List<DgEdgePlayerEvent> events = const <DgEdgePlayerEvent>[], this.pagination, this.csrfToken}): _events = events;
+  
+
+ final  String onlineId;
+ final  List<DgEdgePlayerEvent> _events;
+@JsonKey() List<DgEdgePlayerEvent> get events {
+  if (_events is EqualUnmodifiableListView) return _events;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_events);
+}
+
+ final  DgEdgePlayerEventsPagination? pagination;
+ final  String? csrfToken;
+
+/// Create a copy of ProfileState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ProfileStateLoadedCopyWith<_ProfileStateLoaded> get copyWith => __$ProfileStateLoadedCopyWithImpl<_ProfileStateLoaded>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProfileStateLoaded&&(identical(other.onlineId, onlineId) || other.onlineId == onlineId)&&const DeepCollectionEquality().equals(other._events, _events)&&(identical(other.pagination, pagination) || other.pagination == pagination)&&(identical(other.csrfToken, csrfToken) || other.csrfToken == csrfToken));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,onlineId,const DeepCollectionEquality().hash(_events),pagination,csrfToken);
+
+@override
+String toString() {
+  return 'ProfileState.loaded(onlineId: $onlineId, events: $events, pagination: $pagination, csrfToken: $csrfToken)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$ProfileStateCopyWith<$Res> implements $ProfileStateCopyWith<$Res> {
-  factory _$ProfileStateCopyWith(_ProfileState value, $Res Function(_ProfileState) _then) = __$ProfileStateCopyWithImpl;
-@override @useResult
+abstract mixin class _$ProfileStateLoadedCopyWith<$Res> implements $ProfileStateCopyWith<$Res> {
+  factory _$ProfileStateLoadedCopyWith(_ProfileStateLoaded value, $Res Function(_ProfileStateLoaded) _then) = __$ProfileStateLoadedCopyWithImpl;
+@useResult
 $Res call({
- bool isLoading, String? error, String? onlineId, List<DgEdgePlayerEvent> events, DgEdgePlayerEventsPagination? pagination, String? csrfToken
+ String onlineId, List<DgEdgePlayerEvent> events, DgEdgePlayerEventsPagination? pagination, String? csrfToken
 });
 
 
@@ -265,24 +309,88 @@ $Res call({
 
 }
 /// @nodoc
-class __$ProfileStateCopyWithImpl<$Res>
-    implements _$ProfileStateCopyWith<$Res> {
-  __$ProfileStateCopyWithImpl(this._self, this._then);
+class __$ProfileStateLoadedCopyWithImpl<$Res>
+    implements _$ProfileStateLoadedCopyWith<$Res> {
+  __$ProfileStateLoadedCopyWithImpl(this._self, this._then);
 
-  final _ProfileState _self;
-  final $Res Function(_ProfileState) _then;
+  final _ProfileStateLoaded _self;
+  final $Res Function(_ProfileStateLoaded) _then;
 
 /// Create a copy of ProfileState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? isLoading = null,Object? error = freezed,Object? onlineId = freezed,Object? events = null,Object? pagination = freezed,Object? csrfToken = freezed,}) {
-  return _then(_ProfileState(
-isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
-as bool,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
-as String?,onlineId: freezed == onlineId ? _self.onlineId : onlineId // ignore: cast_nullable_to_non_nullable
-as String?,events: null == events ? _self._events : events // ignore: cast_nullable_to_non_nullable
+@pragma('vm:prefer-inline') $Res call({Object? onlineId = null,Object? events = null,Object? pagination = freezed,Object? csrfToken = freezed,}) {
+  return _then(_ProfileStateLoaded(
+onlineId: null == onlineId ? _self.onlineId : onlineId // ignore: cast_nullable_to_non_nullable
+as String,events: null == events ? _self._events : events // ignore: cast_nullable_to_non_nullable
 as List<DgEdgePlayerEvent>,pagination: freezed == pagination ? _self.pagination : pagination // ignore: cast_nullable_to_non_nullable
 as DgEdgePlayerEventsPagination?,csrfToken: freezed == csrfToken ? _self.csrfToken : csrfToken // ignore: cast_nullable_to_non_nullable
 as String?,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class _ProfileStateError implements ProfileState {
+  const _ProfileStateError(this.message);
+  
+
+ final  String message;
+
+/// Create a copy of ProfileState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ProfileStateErrorCopyWith<_ProfileStateError> get copyWith => __$ProfileStateErrorCopyWithImpl<_ProfileStateError>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProfileStateError&&(identical(other.message, message) || other.message == message));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,message);
+
+@override
+String toString() {
+  return 'ProfileState.error(message: $message)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ProfileStateErrorCopyWith<$Res> implements $ProfileStateCopyWith<$Res> {
+  factory _$ProfileStateErrorCopyWith(_ProfileStateError value, $Res Function(_ProfileStateError) _then) = __$ProfileStateErrorCopyWithImpl;
+@useResult
+$Res call({
+ String message
+});
+
+
+
+
+}
+/// @nodoc
+class __$ProfileStateErrorCopyWithImpl<$Res>
+    implements _$ProfileStateErrorCopyWith<$Res> {
+  __$ProfileStateErrorCopyWithImpl(this._self, this._then);
+
+  final _ProfileStateError _self;
+  final $Res Function(_ProfileStateError) _then;
+
+/// Create a copy of ProfileState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
+  return _then(_ProfileStateError(
+null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 

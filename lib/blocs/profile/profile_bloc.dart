@@ -10,56 +10,60 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
   ProfileBloc(this._profileRepository) : super(ProfileState.initial()) {
     on<ProfileEvent>((event, emit) async {
-      await event.map(
-        loadPlayer: (loadEvent) async => _handleLoadPlayer(loadEvent, emit),
-        sendBannerImpressions: (impressionsEvent) async =>
-            _handleBannerImpressions(impressionsEvent, emit),
+      await event.when(
+        loadPlayer: (onlineId, page) async => _handleLoadPlayer(onlineId, page, emit),
+        sendBannerImpressions: (impressions) async => _handleBannerImpressions(impressions, emit),
       );
     });
   }
 
   Future<void> _handleLoadPlayer(
-    dynamic event,
+    String onlineId,
+    int page,
     Emitter<ProfileState> emit,
   ) async {
-    emit(state.copyWith(isLoading: true, error: null));
+    emit(const ProfileState.loading());
 
     try {
       final response = await _profileRepository.fetchPlayerEvents(
-        event.onlineId,
-        page: event.page,
+        onlineId,
+        page: page,
       );
 
       emit(
-        state.copyWith(
-          isLoading: false,
-          onlineId: event.onlineId,
+        ProfileState.loaded(
+          onlineId: onlineId,
           events: response.events,
           pagination: response.pagination,
           csrfToken: response.csrfToken,
-          error: null,
         ),
       );
     } catch (e) {
-      emit(state.copyWith(isLoading: false, error: e.toString()));
+      emit(ProfileState.error(e.toString()));
     }
   }
 
   Future<void> _handleBannerImpressions(
-    dynamic event,
+    List<int> impressions,
     Emitter<ProfileState> emit,
   ) async {
-    if (state.onlineId == null || state.onlineId!.isEmpty) {
+    final onlineIdMaybe = state.maybeWhen(
+      loaded: (onlineId, events, pagination, csrfToken) => onlineId,
+      orElse: () => null,
+    );
+
+    if (onlineIdMaybe == null || onlineIdMaybe.isEmpty) {
       return;
     }
 
     try {
       await _profileRepository.sendBannerImpressions(
-        event.impressions,
-        onlineId: state.onlineId!,
+        impressions,
+        onlineId: onlineIdMaybe,
       );
+      // keep current success state
     } catch (e) {
-      emit(state.copyWith(error: e.toString()));
+      emit(ProfileState.error(e.toString()));
     }
   }
 }

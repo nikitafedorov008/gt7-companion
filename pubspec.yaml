@@ -45,6 +45,7 @@ dependencies:
   # For caching images
   cached_network_image: ^3.3.1
   flutter_svg: ^2.2.3
+  intl: ^0.18.1
 
   # For handling URLs
   url_launcher: ^6.2.4

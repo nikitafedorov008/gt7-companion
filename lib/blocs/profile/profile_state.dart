@@ -6,14 +6,16 @@ part 'profile_state.freezed.dart';
 
 @freezed
 abstract class ProfileState with _$ProfileState {
-  const factory ProfileState({
-    @Default(false) bool isLoading,
-    String? error,
-    String? onlineId,
+  const factory ProfileState.initial() = _ProfileStateInitial;
+
+  const factory ProfileState.loading() = _ProfileStateLoading;
+
+  const factory ProfileState.loaded({
+    required String onlineId,
     @Default(<DgEdgePlayerEvent>[]) List<DgEdgePlayerEvent> events,
     DgEdgePlayerEventsPagination? pagination,
     String? csrfToken,
-  }) = _ProfileState;
+  }) = _ProfileStateLoaded;
 
-  factory ProfileState.initial() => const ProfileState();
+  const factory ProfileState.error(String message) = _ProfileStateError;
 }

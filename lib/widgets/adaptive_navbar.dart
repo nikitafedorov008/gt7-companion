@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart'
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'window_navigation_safe_area.dart';
 import '../router/app_router.dart';
 
@@ -374,23 +375,9 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
                 initialData: DateTime.now(),
                 builder: (context, snapshot) {
                   final now = snapshot.data ?? DateTime.now();
-                  String two(int v) => v.toString().padLeft(2, '0');
-                  const rusMonths = [
-                    'Янв',
-                    'Фев',
-                    'Мар',
-                    'Апр',
-                    'Май',
-                    'Июн',
-                    'Июл',
-                    'Авг',
-                    'Сен',
-                    'Окт',
-                    'Ноя',
-                    'Дек',
-                  ];
-                  final time = '${two(now.hour)}:${two(now.minute)}';
-                  final date = '${now.day} ${rusMonths[now.month - 1]}';
+                  final locale = Localizations.localeOf(context).toString();
+                  final time = DateFormat.Hm(locale).format(now);
+                  final date = DateFormat('d MMM', locale).format(now);
 
                   return Column(
                     mainAxisSize: MainAxisSize.min,

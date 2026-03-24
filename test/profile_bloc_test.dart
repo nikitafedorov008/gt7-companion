@@ -55,11 +55,25 @@ void main() {
       bloc.add(const ProfileEvent.loadPlayer(onlineId: 'nikitawolf008'));
       await Future<void>.delayed(const Duration(milliseconds: 50));
 
-      expect(bloc.state.isLoading, isFalse);
-      expect(bloc.state.error, isNull);
-      expect(bloc.state.onlineId, 'nikitawolf008');
-      expect(bloc.state.events, isNotEmpty);
-      expect(bloc.state.events.first.trackName, 'Test Track');
+      final loadedState = bloc.state.maybeWhen(
+        loaded: (onlineId, events, pagination, csrfToken) => bloc.state,
+        orElse: () => null,
+      );
+
+      expect(loadedState, isNotNull);
+      expect(
+        bloc.state.maybeWhen(
+          loaded: (onlineId, events, pagination, csrfToken) => onlineId,
+          orElse: () => null,
+        ),
+        'nikitawolf008',
+      );
+      final events = bloc.state.maybeWhen(
+        loaded: (onlineId, events, pagination, csrfToken) => events,
+        orElse: () => <DgEdgePlayerEvent>[],
+      );
+      expect(events, isNotEmpty);
+      expect(events.first.trackName, 'Test Track');
 
       await bloc.close();
     });
@@ -72,7 +86,10 @@ void main() {
       bloc.add(const ProfileEvent.sendBannerImpressions(impressions: [34]));
       await Future<void>.delayed(const Duration(milliseconds: 20));
 
-      expect(bloc.state.error, isNull);
+      expect(
+        bloc.state.maybeWhen(error: (message) => message, orElse: () => null),
+        isNull,
+      );
       await bloc.close();
     });
   });

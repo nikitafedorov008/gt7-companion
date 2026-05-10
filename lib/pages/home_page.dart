@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _openTelemetry(BuildContext context) {
-    context.router.push(const TelemetryDetailsScreenRoute());
+    context.tabsRouter.setActiveIndex(3);
   }
 
   void _openUsedCarDealer(BuildContext context) {
@@ -165,12 +165,56 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(height: 8),
           Consumer<TelemetryService>(
             builder: (context, service, _) {
+              return SizedBox(
+                width: double.infinity,
+                height: 48,
+                child: OutlinedButton.icon(
+                  onPressed: _isConnecting || service.isConnected
+                      ? null
+                      : () async {
+                          final tabsRouter = context.tabsRouter;
+                          setState(() {
+                            _isConnecting = true;
+                          });
+                          try {
+                            await Provider.of<TelemetryService>(
+                              context,
+                              listen: false,
+                            ).startDemoTelemetry();
+                            if (!mounted) return;
+                            tabsRouter.setActiveIndex(3);
+                          } finally {
+                            if (mounted) {
+                              setState(() {
+                                _isConnecting = false;
+                              });
+                            }
+                          }
+                        },
+                  icon: Icon(
+                    Icons.play_circle_outline,
+                    color: theme.colorScheme.primary,
+                  ),
+                  label: Text(
+                    'Demo telemetry',
+                    style: TextStyle(color: theme.colorScheme.primary),
+                  ),
+                ),
+              );
+            },
+          ),
+          const SizedBox(height: 8),
+          Consumer<TelemetryService>(
+            builder: (context, service, _) {
               if (service.isConnected) {
+                final statusLabel = service.isDemo
+                    ? 'Status: Demo mode active'
+                    : 'Status: Connected';
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Status: Connected',
+                      statusLabel,
                       style: TextStyle(
                         color: theme.colorScheme.onSurface,
                         fontWeight: FontWeight.bold,
@@ -509,9 +553,6 @@ class TelemetryDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final isDesktop = screenWidth > 600;
-
     return Scaffold(
       appBar: null,
       bottomNavigationBar: null,

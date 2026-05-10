@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../../models/telemetry/telemetry_data.dart';
+import 'throttle_brake_graph.dart';
 
 class TelemetryDisplay extends StatelessWidget {
   final TelemetryData? telemetry;
@@ -34,6 +35,8 @@ class TelemetryDisplay extends StatelessWidget {
                       _buildStatusRow(context, telemetry!, isDesktop),
                       const SizedBox(height: 18),
                       _buildDetailPanel(context, telemetry!, isDesktop),
+                      const SizedBox(height: 18),
+                      _buildThrottleBrakeGraph(context),
                     ],
                   ),
                 ),
@@ -290,6 +293,23 @@ class TelemetryDisplay extends StatelessWidget {
     if (gear == -1) return 'R';
     if (gear == 0) return 'N';
     return gear.toString();
+  }
+
+  Widget _buildThrottleBrakeGraph(BuildContext context) {
+    final theme = Theme.of(context);
+    return Container(
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: theme.colorScheme.outlineVariant,
+          width: 1,
+        ),
+      ),
+      child: const ThrottleBrakeGraph(
+        height: 200,
+      ),
+    );
   }
 }
 

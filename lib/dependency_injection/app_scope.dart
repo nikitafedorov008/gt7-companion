@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../blocs/profile/profile_bloc.dart';
+import '../blocs/throttle_brake_graph/throttle_brake_graph_bloc.dart';
 import '../repositories/profile_repository.dart';
 import '../repositories/sport_repository.dart';
 import '../services/telemetry_service.dart';
@@ -52,6 +53,12 @@ class AppScope extends StatelessWidget {
         Provider<ProfileBloc>(
           create: (context) => ProfileBloc(
             Provider.of<ProfileRepositoryImpl>(context, listen: false),
+          ),
+          dispose: (context, bloc) => bloc.close(),
+        ),
+        Provider<ThrottleBrakeGraphBloc>(
+          create: (context) => ThrottleBrakeGraphBloc(
+            Provider.of<TelemetryService>(context, listen: false),
           ),
           dispose: (context, bloc) => bloc.close(),
         ),

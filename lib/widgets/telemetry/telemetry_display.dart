@@ -1,6 +1,8 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
+
 import '../../models/telemetry/telemetry_data.dart';
-import 'package:gt7_companion/theme/gt7_theme.dart';
 
 class TelemetryDisplay extends StatelessWidget {
   final TelemetryData? telemetry;
@@ -10,1611 +12,664 @@ class TelemetryDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final screenWidth = MediaQuery.of(context).size.width;
-    final isDesktop = screenWidth > 600;
+    final isDesktop = screenWidth > 700;
+
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.all(isDesktop ? 16.0 : 8.0),
-        constraints: BoxConstraints(
-          maxWidth: isDesktop ? 1200 : double.infinity,
+      body: SafeArea(
+        child: Container(
+          color: theme.colorScheme.surface,
+          child: telemetry == null
+              ? _buildStatusMessage(context)
+              : SingleChildScrollView(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildHeader(context),
+                      const SizedBox(height: 18),
+                      _buildGauges(context, telemetry!, isDesktop),
+                      const SizedBox(height: 18),
+                      _buildStatusRow(context, telemetry!, isDesktop),
+                      const SizedBox(height: 18),
+                      _buildDetailPanel(context, telemetry!, isDesktop),
+                    ],
+                  ),
+                ),
         ),
-        child: errorMessage != null
-            ? Center(
-                child: Text(
-                  'Error: $errorMessage',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.error,
-                    fontSize: 16,
-                  ),
-                ),
-              )
-            : telemetry == null
-            ? Center(
-                child: Text(
-                  'Waiting for telemetry data...',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontSize: 16,
-                  ),
-                ),
-              )
-            : LayoutBuilder(
-                builder: (context, constraints) {
-                  return SingleChildScrollView(
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        minHeight: constraints.maxHeight,
-                      ),
-                      child: IntrinsicHeight(
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: IntrinsicWidth(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Header
-                                _buildHeader(context, isDesktop),
-
-                                // Track Data
-                                _buildSectionHeader(
-                                  context,
-                                  'Current Track Data',
-                                ),
-                                _buildCarData(context, isDesktop),
-
-                                // Tire Data
-                                _buildSectionHeader(context, 'Tyre Data'),
-                                _buildTireData(context, isDesktop),
-
-                                // Gearing and Positioning
-                                isDesktop
-                                    ? Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Expanded(
-                                            flex: 1,
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                _buildSectionHeader(
-                                                  context,
-                                                  'Gearing',
-                                                ),
-                                                _buildGearingData(
-                                                  context,
-                                                  isDesktop,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          SizedBox(width: 16),
-                                          Expanded(
-                                            flex: 1,
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                _buildSectionHeader(
-                                                  context,
-                                                  'Positioning (m)',
-                                                ),
-                                                _buildPositioningData(
-                                                  context,
-                                                  isDesktop,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    : Column(
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              _buildSectionHeader(
-                                                context,
-                                                'Gearing',
-                                              ),
-                                              _buildGearingData(
-                                                context,
-                                                isDesktop,
-                                              ),
-                                            ],
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              _buildSectionHeader(
-                                                context,
-                                                'Positioning (m)',
-                                              ),
-                                              _buildPositioningData(
-                                                context,
-                                                isDesktop,
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-
-                                // Velocity and Rotation
-                                isDesktop
-                                    ? Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Expanded(
-                                            flex: 1,
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                _buildSectionHeader(
-                                                  context,
-                                                  'Velocity (m/s)',
-                                                ),
-                                                _buildVelocityData(
-                                                  context,
-                                                  isDesktop,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          SizedBox(width: 16),
-                                          Expanded(
-                                            flex: 1,
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                _buildSectionHeader(
-                                                  context,
-                                                  'Rotation',
-                                                ),
-                                                _buildRotationData(
-                                                  context,
-                                                  isDesktop,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    : Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          _buildSectionHeader(
-                                            context,
-                                            'Velocity (m/s)',
-                                          ),
-                                          _buildVelocityData(
-                                            context,
-                                            isDesktop,
-                                          ),
-                                          _buildSectionHeader(
-                                            context,
-                                            'Rotation',
-                                          ),
-                                          _buildRotationData(
-                                            context,
-                                            isDesktop,
-                                          ),
-                                        ],
-                                      ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
       ),
     );
   }
 
-  Widget _buildMapPreview(BuildContext context, bool isDesktop) {
-    final graph = Theme.of(context).extension<GT7GraphColors>();
-    final markerColor = Theme.of(context).colorScheme.primary;
-    final trackColor = graph?.track ?? Theme.of(context).colorScheme.surface;
-    final trackShadow =
-        graph?.trackShadow ??
-        Theme.of(context).colorScheme.surface.withOpacity(0.9);
-
-    if (telemetry == null) {
-      return Container(
-        height: isDesktop ? 220 : 140,
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface.withOpacity(0.04),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.06),
-          ),
-        ),
-        child: Center(
-          child: Text(
-            'Track preview — waiting for telemetry',
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
+  Widget _buildStatusMessage(BuildContext context) {
+    final theme = Theme.of(context);
+    if (errorMessage != null) {
+      return Center(
+        child: Text(
+          'Error: $errorMessage',
+          style: TextStyle(color: theme.colorScheme.error, fontSize: 16),
         ),
       );
     }
 
-    return Container(
-      height: isDesktop ? 240 : 160,
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface.withOpacity(0.02),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: StatefulBuilder(
-        builder: (context, setState) {
-          // ephemeral toggle for visual highlights (works until parent rebuild)
-          final highlight = ValueNotifier<bool>(true);
-
-          return Stack(
-            children: [
-              // base track + grid
-              Positioned.fill(
-                child: CustomPaint(
-                  painter: _TrackBasePainter(
-                    trackColor: trackColor,
-                    trackShadow: trackShadow,
-                    gridColor:
-                        graph?.grid ?? Theme.of(context).colorScheme.surface,
-                  ),
-                ),
-              ),
-
-              // highlighted segments overlay (toggleable)
-              ValueListenableBuilder<bool>(
-                valueListenable: highlight,
-                builder: (context, showHighlights, _) => showHighlights
-                    ? Positioned.fill(
-                        child: CustomPaint(
-                          painter: _TrackHighlightPainter(
-                            highlight: markerColor.withOpacity(0.18),
-                          ),
-                        ),
-                      )
-                    : const SizedBox.shrink(),
-              ),
-
-              // center telemetry lines
-              Positioned.fill(
-                child: CustomPaint(
-                  painter: _TrackLinePainter(
-                    lineA: graph?.lineA ?? markerColor.withOpacity(0.95),
-                    lineB: graph?.lineB ?? markerColor.withOpacity(0.6),
-                  ),
-                ),
-              ),
-
-              // markers + callouts
-              Positioned.fill(
-                child: LayoutBuilder(
-                  builder: (context, bc) {
-                    Widget marker(
-                      String label,
-                      double fx,
-                      double fy, {
-                      double size = 34,
-                    }) {
-                      return Positioned(
-                        left: bc.maxWidth * fx - size / 2,
-                        top:
-                            (isDesktop ? 26 : 18) +
-                            (bc.maxHeight - (isDesktop ? 140 : 96)) * fy,
-                        child: Column(
-                          children: [
-                            // connector (visual)
-                            Container(
-                              width: 2,
-                              height: 6,
-                              color: Colors.transparent,
-                            ),
-                            Container(
-                              width: size,
-                              height: size,
-                              decoration: BoxDecoration(
-                                color: markerColor,
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: markerColor.withOpacity(0.28),
-                                    blurRadius: 10,
-                                    offset: const Offset(0, 4),
-                                  ),
-                                ],
-                                border: Border.all(
-                                  color: Colors.white.withOpacity(0.06),
-                                  width: 1,
-                                ),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  label,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    }
-
-                    Widget ring(double fx, double fy, {double diameter = 48}) {
-                      return Positioned(
-                        left: bc.maxWidth * fx - diameter / 2,
-                        top:
-                            (isDesktop ? 20 : 12) +
-                            (bc.maxHeight - (isDesktop ? 140 : 96)) * fy,
-                        child: Container(
-                          width: diameter,
-                          height: diameter,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: Colors.white.withOpacity(0.06),
-                              width: 6,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.45),
-                                blurRadius: 6,
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    }
-
-                    return Stack(
-                      children: [
-                        ring(0.45, 0.48, diameter: isDesktop ? 56 : 40),
-                        ring(0.82, 0.62, diameter: isDesktop ? 52 : 38),
-                        marker('A', 0.20, 0.36, size: isDesktop ? 36 : 28),
-                        marker('B', 0.45, 0.48, size: isDesktop ? 44 : 34),
-                        marker('C', 0.68, 0.42, size: isDesktop ? 36 : 28),
-                        marker('D', 0.82, 0.62, size: isDesktop ? 40 : 30),
-                      ],
-                    );
-                  },
-                ),
-              ),
-
-              // toggle and legend (non-destructive, visual-only)
-              Positioned(
-                right: 8,
-                top: 8,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.surface.withOpacity(0.6),
-                    borderRadius: BorderRadius.circular(999),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(
-                        Icons.scatter_plot,
-                        size: 14,
-                        color: Colors.white70,
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        'Highlights',
-                        style: Theme.of(
-                          context,
-                        ).textTheme.bodySmall?.copyWith(color: Colors.white70),
-                      ),
-                      const SizedBox(width: 8),
-                      // ephemeral visual toggle (local only)
-                      GestureDetector(
-                        onTap: () => highlight.value = !highlight.value,
-                        child: Container(
-                          width: 34,
-                          height: 18,
-                          decoration: BoxDecoration(
-                            color: Colors.white12,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: ValueListenableBuilder<bool>(
-                            valueListenable: highlight,
-                            builder: (context, v, _) => Align(
-                              alignment: v
-                                  ? Alignment.centerLeft
-                                  : Alignment.centerRight,
-                              child: Container(
-                                width: 14,
-                                height: 14,
-                                margin: const EdgeInsets.all(2),
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-
-              // small footer legend
-              Positioned(
-                left: 12,
-                bottom: 8,
-                child: Row(
-                  children: [
-                    _miniLegendDot(
-                      context,
-                      graph?.lineA ?? Theme.of(context).colorScheme.primary,
-                      'Live',
-                    ),
-                    const SizedBox(width: 8),
-                    _miniLegendDot(
-                      context,
-                      graph?.lineB ??
-                          Theme.of(
-                            context,
-                          ).colorScheme.primary.withOpacity(0.6),
-                      'Compare',
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          );
-        },
-      ),
-    );
-  }
-
-  Widget _buildHeader(BuildContext context, bool isDesktop) {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.all(isDesktop ? 12 : 8),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primary,
-        borderRadius: BorderRadius.circular(isDesktop ? 8 : 4),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              'GT7 Telemetry Display (Flutter)',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onPrimary,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          Text(
-            'Packet ID: ${telemetry?.packetId ?? 0}',
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onPrimary,
-              fontSize: 16,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSectionHeader(BuildContext context, String title) {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.all(8),
-      color: Theme.of(context).colorScheme.surface.withOpacity(0.9),
-      margin: EdgeInsets.only(top: 8),
+    return Center(
       child: Text(
-        title,
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.onSurface,
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-        ),
+        'Waiting for telemetry data...',
+        style: TextStyle(color: theme.colorScheme.onSurface, fontSize: 16),
       ),
     );
   }
 
-  Widget _buildTrackData(BuildContext context, bool isDesktop) {
-    final isWide = MediaQuery.of(context).size.width > 500;
+  Widget _buildHeader(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
-      padding: EdgeInsets.all(8),
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        border: Border.all(
-          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
-        ),
-        borderRadius: BorderRadius.circular(isDesktop ? 8 : 4),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          isWide
-              ? Row(
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        'Time on track: ${telemetry != null ? (telemetry!.timeOfDay / 1000).toStringAsFixed(0) : '0'}s',
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        'Laps: ${telemetry?.currentLap ?? 0}/${telemetry?.totalLaps ?? 0}',
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        'Position: ${telemetry?.currentPos ?? 0}/${telemetry?.totalPositions ?? 0}',
-                      ),
-                    ),
-                  ],
-                )
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Time on track: ${telemetry != null ? (telemetry!.timeOfDay / 1000).toStringAsFixed(0) : '0'}s',
-                    ),
-                    const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            'Laps: ${telemetry?.currentLap ?? 0}/${telemetry?.totalLaps ?? 0}',
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            'Position: ${telemetry?.currentPos ?? 0}/${telemetry?.totalPositions ?? 0}',
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-          SizedBox(height: 8),
-          isWide
-              ? Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Best Lap',
-                            style: Theme.of(context).textTheme.bodySmall
-                                ?.copyWith(
-                                  color: Theme.of(
-                                    context,
-                                  ).colorScheme.onSurface.withOpacity(0.7),
-                                ),
-                          ),
-                          const SizedBox(height: 6),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 8,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.secondary,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  telemetry != null
-                                      ? telemetry!.formatLapTime(
-                                          telemetry!.bestLapTime,
-                                        )
-                                      : '',
-                                  style: TextStyle(
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.onSecondary,
-                                    fontWeight: FontWeight.w800,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                Icon(
-                                  Icons.emoji_events,
-                                  size: 16,
-                                  color: Theme.of(
-                                    context,
-                                  ).colorScheme.onSecondary,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: RichText(
-                        text: TextSpan(
-                          style: Theme.of(context).textTheme.bodyMedium,
-                          children: [
-                            const TextSpan(text: 'Current Lap Time: '),
-                            TextSpan(
-                              text: telemetry != null
-                                  ? telemetry!.formatCurLapTime(
-                                      telemetry!.curLapTime,
-                                    )
-                                  : '',
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: RichText(
-                        text: TextSpan(
-                          style: Theme.of(context).textTheme.bodyMedium,
-                          children: [
-                            const TextSpan(text: 'Last Lap Time: '),
-                            TextSpan(
-                              text: telemetry != null
-                                  ? telemetry!.formatLapTime(
-                                      telemetry!.lastLapTime,
-                                    )
-                                  : '',
-                              style: TextStyle(
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.onSurface.withOpacity(0.9),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Best Lap: ${telemetry != null ? telemetry!.formatLapTime(telemetry!.bestLapTime) : ''}',
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Current Lap: ${telemetry != null ? telemetry!.formatCurLapTime(telemetry!.curLapTime) : ''}',
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Last Lap: ${telemetry != null ? telemetry!.formatLapTime(telemetry!.lastLapTime) : ''}',
-                    ),
-                  ],
-                ),
-          const SizedBox(height: 12),
-          // small map/track preview with cyan markers (visual-only)
-          _buildMapPreview(context, isDesktop),
+        color: theme.colorScheme.primary,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: theme.colorScheme.primary.withOpacity(0.15),
+            blurRadius: 24,
+            offset: const Offset(0, 8),
+          ),
         ],
       ),
-    );
-  }
-
-  Widget _buildCarData(BuildContext context, bool isDesktop) {
-    final isWide = MediaQuery.of(context).size.width > 650;
-    return Container(
-      padding: EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
-        ),
-        borderRadius: BorderRadius.circular(isDesktop ? 8 : 4),
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          isWide
-              ? Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Text('Car ID: ${telemetry?.carId ?? 0}'),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        'Throttle: ${(telemetry?.throttle ?? 0).toStringAsFixed(1)}%',
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: RichText(
-                        text: TextSpan(
-                          style: Theme.of(context).textTheme.bodyMedium,
-                          children: [
-                            const TextSpan(text: 'RPM: '),
-                            TextSpan(
-                              text: (telemetry?.rpm ?? 0).toStringAsFixed(0),
-                              style: TextStyle(
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.onSurface.withOpacity(0.9),
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            const TextSpan(text: ' rpm'),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: RichText(
-                        text: TextSpan(
-                          style: Theme.of(context).textTheme.bodyMedium,
-                          children: [
-                            const TextSpan(text: 'Speed: '),
-                            TextSpan(
-                              text: (telemetry?.speed ?? 0).toStringAsFixed(1),
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary,
-                                fontWeight: FontWeight.w800,
-                              ),
-                            ),
-                            TextSpan(
-                              text: ' kph',
-                              style: TextStyle(
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.onSurface.withOpacity(0.85),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text('Car ID: ${telemetry?.carId ?? 0}'),
-                        ),
-                        Expanded(
-                          child: Text(
-                            'Throttle: ${(telemetry?.throttle ?? 0).toStringAsFixed(1)}%',
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: RichText(
-                            text: TextSpan(
-                              style: Theme.of(context).textTheme.bodyMedium,
-                              children: [
-                                const TextSpan(text: 'RPM: '),
-                                TextSpan(
-                                  text: (telemetry?.rpm ?? 0).toStringAsFixed(
-                                    0,
-                                  ),
-                                  style: TextStyle(
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.onSurface.withOpacity(0.9),
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                const TextSpan(text: ' rpm'),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: RichText(
-                            text: TextSpan(
-                              style: Theme.of(context).textTheme.bodyMedium,
-                              children: [
-                                const TextSpan(text: 'Speed: '),
-                                TextSpan(
-                                  text: (telemetry?.speed ?? 0).toStringAsFixed(
-                                    1,
-                                  ),
-                                  style: TextStyle(
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.primary,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: ' kph',
-                                  style: TextStyle(
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.onSurface.withOpacity(0.85),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-          SizedBox(height: 8),
-          isWide
-              ? Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        'Brake: ${(telemetry?.brake ?? 0).toStringAsFixed(1)}%',
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        'Gear: ${_formatGear(telemetry?.currentGear ?? 0)} (${telemetry?.suggestedGear ?? 0})',
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        'Boost: ${(telemetry?.boost ?? 0).toStringAsFixed(2)} kPa',
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        'Rev Warning: ${(telemetry?.rpmWarning ?? 0).toStringAsFixed(0)} rpm',
-                      ),
-                    ),
-                  ],
-                )
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            'Brake: ${(telemetry?.brake ?? 0).toStringAsFixed(1)}%',
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            'Gear: ${_formatGear(telemetry?.currentGear ?? 0)} (${telemetry?.suggestedGear ?? 0})',
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            'Boost: ${(telemetry?.boost ?? 0).toStringAsFixed(2)} kPa',
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            'Rev Warning: ${(telemetry?.rpmWarning ?? 0).toStringAsFixed(0)} rpm',
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-          SizedBox(height: 8),
-          Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: Text(
-                  'Rev Limiter: ${(telemetry?.rpmLimiter ?? 0).toStringAsFixed(0)} rpm',
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Text(
-                  telemetry?.isEV == true
-                      ? 'Charge: ${(telemetry?.fuel ?? 0).toStringAsFixed(0)} kWh'
-                      : 'Fuel: ${(telemetry?.fuel ?? 0).toStringAsFixed(0)} lit',
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Text(
-                  telemetry?.isEV == true
-                      ? 'Max: ${(telemetry?.maxFuel ?? 0).toStringAsFixed(0)} kWh'
-                      : 'Max: ${(telemetry?.maxFuel ?? 0).toStringAsFixed(0)} lit',
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: RichText(
-                  text: TextSpan(
-                    style: Theme.of(context).textTheme.bodyMedium,
-                    children: [
-                      const TextSpan(text: 'Est. Speed: '),
-                      TextSpan(
-                        text: (telemetry?.estTopSpeed ?? 0).toStringAsFixed(0),
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                      TextSpan(
-                        text: ' kph',
-                        style: TextStyle(
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.onSurface.withOpacity(0.85),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+          Text(
+            'Telemetry Dashboard',
+            style: theme.textTheme.headlineSmall?.copyWith(
+              color: theme.colorScheme.onPrimary,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          SizedBox(height: 8),
-          Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: Text(
-                  'Clutch: ${(telemetry?.clutch ?? 0).toStringAsFixed(3)}/${(telemetry?.clutchEngaged ?? 0).toStringAsFixed(3)}',
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Text(
-                  'RPM After Clutch: ${(telemetry?.rpmAfterClutch ?? 0).toStringAsFixed(0)} rpm',
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Text(
-                  'Oil Temp: ${(telemetry?.oilTemp ?? 0).toStringAsFixed(1)} °C',
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Text(
-                  'Water Temp: ${(telemetry?.waterTemp ?? 0).toStringAsFixed(1)} °C',
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 8),
-          Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: Text(
-                  'Oil Pressure: ${(telemetry?.oilPressure ?? 0).toStringAsFixed(2)} bar',
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Text(
-                  'Body/Ride Height: ${(telemetry?.rideHeight ?? 0).toStringAsFixed(0)} mm',
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Container(), // Empty for layout
-              ),
-            ],
+          const SizedBox(height: 8),
+          Text(
+            'A racing-style view for speed, RPM, tires, fuel, and lap data.',
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.onPrimary.withOpacity(0.9),
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildTireData(BuildContext context, bool isDesktop) {
-    final isWide = MediaQuery.of(context).size.width > 700;
-    return Container(
-      padding: EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
+  Widget _buildGauges(
+    BuildContext context,
+    TelemetryData telemetry,
+    bool isDesktop,
+  ) {
+    return Flex(
+      direction: isDesktop ? Axis.horizontal : Axis.vertical,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: GaugeCard(
+            label: 'Speed',
+            value: telemetry.speed.clamp(0, 360),
+            maxValue: 360,
+            units: 'km/h',
+            sections: [
+              const GaugeSection(0, 120, Color(0xFF4CAF50)),
+              const GaugeSection(120, 240, Color(0xFFFFC107)),
+              const GaugeSection(240, 360, Color(0xFFF44336)),
+            ],
+            footnote: 'Top speed estimate: ${telemetry.estTopSpeed} km/h',
+          ),
         ),
-        borderRadius: BorderRadius.circular(isDesktop ? 8 : 4),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          isWide
-              ? Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        'FL: ${(telemetry?.tireTempFL ?? 0).toStringAsFixed(1)} °C',
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        'FR: ${(telemetry?.tireTempFR ?? 0).toStringAsFixed(1)} °C',
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        'ø: ${(telemetry?.tireDiamFL ?? 0).toStringAsFixed(1)}/${(telemetry?.tireDiamFR ?? 0).toStringAsFixed(1)} cm',
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        '${telemetry?.tireSpeedFL.toStringAsFixed(1) ?? '0'} kph',
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Text(telemetry?.tireSlipRatioFL ?? '0'),
-                    ),
-                  ],
-                )
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            'FL: ${(telemetry?.tireTempFL ?? 0).toStringAsFixed(1)} °C',
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            'FR: ${(telemetry?.tireTempFR ?? 0).toStringAsFixed(1)} °C',
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            'ø: ${(telemetry?.tireDiamFL ?? 0).toStringAsFixed(1)}/${(telemetry?.tireDiamFR ?? 0).toStringAsFixed(1)} cm',
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            '${telemetry?.tireSpeedFL.toStringAsFixed(1) ?? '0'} kph',
-                          ),
-                        ),
-                      ],
-                    ),
-                    Text('Slip: ${telemetry?.tireSlipRatioFL ?? '0'}'),
-                  ],
-                ),
-          SizedBox(height: 4),
-          isWide
-              ? Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        '${telemetry?.tireSpeedFL.toStringAsFixed(1) ?? '0'} kph',
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        '${telemetry?.tireSpeedFR.toStringAsFixed(1) ?? '0'} kph',
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        '${telemetry?.tireSlipRatioFL ?? '0'}/${telemetry?.tireSlipRatioFR ?? '0'}',
-                      ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Container(), // Empty for layout
-                    ),
-                  ],
-                )
-              : !isWide
-              ? Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        'Slip FL/FR: ${telemetry?.tireSlipRatioFL ?? '0'}/${telemetry?.tireSlipRatioFR ?? '0'}',
-                      ),
-                    ),
-                  ],
-                )
-              : Container(),
-          SizedBox(height: 8),
-          isWide
-              ? Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        'RL: ${(telemetry?.tireTempRL ?? 0).toStringAsFixed(1)} °C',
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        'RR: ${(telemetry?.tireTempRR ?? 0).toStringAsFixed(1)} °C',
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        'ø: ${(telemetry?.tireDiamRL ?? 0).toStringAsFixed(1)}/${(telemetry?.tireDiamRR ?? 0).toStringAsFixed(1)} cm',
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        '${telemetry?.tireSpeedRL.toStringAsFixed(1) ?? '0'} kph',
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Text(telemetry?.tireSlipRatioRL ?? '0'),
-                    ),
-                  ],
-                )
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            'RL: ${(telemetry?.tireTempRL ?? 0).toStringAsFixed(1)} °C',
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            'RR: ${(telemetry?.tireTempRR ?? 0).toStringAsFixed(1)} °C',
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            'ø: ${(telemetry?.tireDiamRL ?? 0).toStringAsFixed(1)}/${(telemetry?.tireDiamRR ?? 0).toStringAsFixed(1)} cm',
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            '${telemetry?.tireSpeedRL.toStringAsFixed(1) ?? '0'} kph',
-                          ),
-                        ),
-                      ],
-                    ),
-                    Text('Slip: ${telemetry?.tireSlipRatioRL ?? '0'}'),
-                  ],
-                ),
-          SizedBox(height: 4),
-          isWide
-              ? Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        '${telemetry?.tireSpeedRL.toStringAsFixed(1) ?? '0'} kph',
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        '${telemetry?.tireSpeedRR.toStringAsFixed(1) ?? '0'} kph',
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        '${telemetry?.tireSlipRatioRL ?? '0'}/${telemetry?.tireSlipRatioRR ?? '0'}',
-                      ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Container(), // Empty for layout
-                    ),
-                  ],
-                )
-              : !isWide
-              ? Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        'Slip RL/RR: ${telemetry?.tireSlipRatioRL ?? '0'}/${telemetry?.tireSlipRatioRR ?? '0'}',
-                      ),
-                    ),
-                  ],
-                )
-              : Container(),
-        ],
-      ),
+        SizedBox(width: isDesktop ? 16 : 0, height: isDesktop ? 0 : 16),
+        Expanded(
+          child: GaugeCard(
+            label: 'RPM',
+            value: telemetry.rpm.clamp(0, 9000),
+            maxValue: 9000,
+            units: 'rpm',
+            sections: [
+              const GaugeSection(0, 4500, Color(0xFF4CAF50)),
+              const GaugeSection(4500, 7000, Color(0xFFFFC107)),
+              const GaugeSection(7000, 9000, Color(0xFFF44336)),
+            ],
+            footnote: 'Limiter: ${telemetry.rpmLimiter} rpm',
+          ),
+        ),
+      ],
     );
   }
 
-  Widget _buildGearingData(BuildContext context, bool isDesktop) {
-    final isNarrow = MediaQuery.of(context).size.width < 500;
-    return Container(
-      padding: EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
+  Widget _buildStatusRow(
+    BuildContext context,
+    TelemetryData telemetry,
+    bool isDesktop,
+  ) {
+    final theme = Theme.of(context);
+    final fuelPercent = telemetry.maxFuel > 0
+        ? (telemetry.fuel / telemetry.maxFuel).clamp(0.0, 1.0)
+        : 0.0;
+    return Wrap(
+      spacing: 12,
+      runSpacing: 12,
+      children: [
+        _StatTile(
+          title: 'Gear',
+          value: _formatGear(telemetry.currentGear),
+          accent: theme.colorScheme.primary,
+          subtitle: 'Suggested: ${_formatGear(telemetry.suggestedGear)}',
         ),
-        borderRadius: BorderRadius.circular(isDesktop ? 8 : 4),
+        _StatTile(
+          title: telemetry.isEV ? 'Charge' : 'Fuel',
+          value:
+              '${telemetry.fuel.toStringAsFixed(0)} / ${telemetry.maxFuel.toStringAsFixed(0)}',
+          accent: fuelPercent > 0.4
+              ? const Color(0xFF4CAF50)
+              : const Color(0xFFFFC107),
+          subtitle: '${(fuelPercent * 100).toStringAsFixed(0)}%',
+        ),
+        _StatTile(
+          title: 'Lap',
+          value: '${telemetry.currentLap}/${telemetry.totalLaps}',
+          accent: theme.colorScheme.secondary,
+          subtitle: 'Best: ${telemetry.formatLapTime(telemetry.bestLapTime)}',
+        ),
+        _StatTile(
+          title: 'Position',
+          value: '${telemetry.currentPos}/${telemetry.totalPositions}',
+          accent: theme.colorScheme.tertiaryContainer,
+          subtitle: 'Last: ${telemetry.formatLapTime(telemetry.lastLapTime)}',
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDetailPanel(
+    BuildContext context,
+    TelemetryData telemetry,
+    bool isDesktop,
+  ) {
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Theme.of(
+          context,
+        ).colorScheme.surfaceContainerHighest.withOpacity(0.9),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.08),
+        ),
       ),
-      child: isNarrow
-          ? Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Tire & Vehicle Status',
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 16),
+            Wrap(
+              spacing: 12,
+              runSpacing: 12,
               children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        '1: ${(telemetry?.gear1 ?? 0).toStringAsFixed(3)}',
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        '2: ${(telemetry?.gear2 ?? 0).toStringAsFixed(3)}',
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        '3: ${(telemetry?.gear3 ?? 0).toStringAsFixed(3)}',
-                      ),
-                    ),
-                  ],
+                _TireStatusBadge(
+                  label: 'FL',
+                  temperature: telemetry.tireTempFL,
                 ),
-                const SizedBox(height: 4),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        '4: ${(telemetry?.gear4 ?? 0).toStringAsFixed(3)}',
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        '5: ${(telemetry?.gear5 ?? 0).toStringAsFixed(3)}',
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        '6: ${(telemetry?.gear6 ?? 0).toStringAsFixed(3)}',
-                      ),
-                    ),
-                  ],
+                _TireStatusBadge(
+                  label: 'FR',
+                  temperature: telemetry.tireTempFR,
                 ),
-                const SizedBox(height: 4),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        '7: ${(telemetry?.gear7 ?? 0).toStringAsFixed(3)}',
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        '8: ${(telemetry?.gear8 ?? 0).toStringAsFixed(3)}',
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        '?: ${(telemetry?.gearUnknown ?? 0).toStringAsFixed(3)}',
-                      ),
-                    ),
-                  ],
+                _TireStatusBadge(
+                  label: 'RL',
+                  temperature: telemetry.tireTempRL,
                 ),
-              ],
-            )
-          : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('1st: ${(telemetry?.gear1 ?? 0).toStringAsFixed(3)}'),
-                Text('2nd: ${(telemetry?.gear2 ?? 0).toStringAsFixed(3)}'),
-                Text('3rd: ${(telemetry?.gear3 ?? 0).toStringAsFixed(3)}'),
-                Text('4th: ${(telemetry?.gear4 ?? 0).toStringAsFixed(3)}'),
-                Text('5th: ${(telemetry?.gear5 ?? 0).toStringAsFixed(3)}'),
-                Text('6th: ${(telemetry?.gear6 ?? 0).toStringAsFixed(3)}'),
-                Text('7th: ${(telemetry?.gear7 ?? 0).toStringAsFixed(3)}'),
-                Text('8th: ${(telemetry?.gear8 ?? 0).toStringAsFixed(3)}'),
-                Text(
-                  '???: ${(telemetry?.gearUnknown ?? 0).toStringAsFixed(3)}',
+                _TireStatusBadge(
+                  label: 'RR',
+                  temperature: telemetry.tireTempRR,
                 ),
               ],
             ),
-    );
-  }
-
-  Widget _buildPositioningData(BuildContext context, bool isDesktop) {
-    return Container(
-      padding: EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
+            const SizedBox(height: 20),
+            _buildAuxiliaryRow(context, telemetry),
+          ],
         ),
-        borderRadius: BorderRadius.circular(isDesktop ? 8 : 4),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('X: ${(telemetry?.posX ?? 0).toStringAsFixed(4)}'),
-          Text('Y: ${(telemetry?.posY ?? 0).toStringAsFixed(4)}'),
-          Text('Z: ${(telemetry?.posZ ?? 0).toStringAsFixed(4)}'),
-        ],
       ),
     );
   }
 
-  Widget _buildVelocityData(BuildContext context, bool isDesktop) {
-    return Container(
-      padding: EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
-        ),
-        borderRadius: BorderRadius.circular(isDesktop ? 8 : 4),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('X: ${(telemetry?.velX ?? 0).toStringAsFixed(4)}'),
-          Text('Y: ${(telemetry?.velY ?? 0).toStringAsFixed(4)}'),
-          Text('Z: ${(telemetry?.velZ ?? 0).toStringAsFixed(4)}'),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildRotationData(BuildContext context, bool isDesktop) {
-    return Container(
-      padding: EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
-        ),
-        borderRadius: BorderRadius.circular(isDesktop ? 8 : 4),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('P: ${(telemetry?.rotPitch ?? 0).toStringAsFixed(4)}'),
-          Text('Y: ${(telemetry?.rotYaw ?? 0).toStringAsFixed(4)}'),
-          Text('R: ${(telemetry?.rotRoll ?? 0).toStringAsFixed(4)}'),
-        ],
-      ),
+  Widget _buildAuxiliaryRow(BuildContext context, TelemetryData telemetry) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isWide = constraints.maxWidth > 600;
+        return Flex(
+          direction: isWide ? Axis.horizontal : Axis.vertical,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: _DetailChip(
+                label: 'Oil Temp',
+                value: '${telemetry.oilTemp.toStringAsFixed(1)} °C',
+                color: telemetry.oilTemp > 110
+                    ? const Color(0xFFF44336)
+                    : const Color(0xFF4CAF50),
+              ),
+            ),
+            SizedBox(width: isWide ? 12 : 0, height: isWide ? 0 : 12),
+            Expanded(
+              child: _DetailChip(
+                label: 'Water Temp',
+                value: '${telemetry.waterTemp.toStringAsFixed(1)} °C',
+                color: telemetry.waterTemp > 100
+                    ? const Color(0xFFF44336)
+                    : const Color(0xFF4CAF50),
+              ),
+            ),
+            SizedBox(width: isWide ? 12 : 0, height: isWide ? 0 : 12),
+            Expanded(
+              child: _DetailChip(
+                label: 'Brake',
+                value: '${(telemetry.brake).toStringAsFixed(0)}%',
+                color: telemetry.brake > 80
+                    ? const Color(0xFFF44336)
+                    : const Color(0xFF4CAF50),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 
   String _formatGear(int gear) {
-    if (gear == -1) return 'R'; // Reverse
+    if (gear == -1) return 'R';
+    if (gear == 0) return 'N';
     return gear.toString();
   }
 }
 
-// --- Track preview painters & small helpers (visual-only) ---
-Widget _miniLegendDot(BuildContext context, Color color, String label) {
-  return Row(
-    children: [
-      Container(
-        width: 10,
-        height: 10,
-        decoration: BoxDecoration(
-          color: color,
-          shape: BoxShape.circle,
-          boxShadow: [BoxShadow(color: color.withOpacity(0.25), blurRadius: 6)],
+class GaugeCard extends StatelessWidget {
+  final String label;
+  final double value;
+  final double maxValue;
+  final String units;
+  final String footnote;
+  final List<GaugeSection> sections;
+
+  const GaugeCard({
+    super.key,
+    required this.label,
+    required this.value,
+    required this.maxValue,
+    required this.units,
+    required this.sections,
+    required this.footnote,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: theme.colorScheme.onSurface.withOpacity(0.08),
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.06),
+            blurRadius: 18,
+            offset: const Offset(0, 10),
+          ),
+        ],
       ),
-      const SizedBox(width: 6),
-      Text(
-        label,
-        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-        ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  label,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              Text(
+                units,
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.onSurface.withOpacity(0.65),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          SizedBox(
+            height: 240,
+            child: TweenAnimationBuilder<double>(
+              tween: Tween(begin: 0, end: value),
+              duration: const Duration(milliseconds: 600),
+              curve: Curves.easeOutCubic,
+              builder: (context, animatedValue, child) {
+                return CustomPaint(
+                  painter: _GaugePainter(
+                    currentValue: animatedValue,
+                    maxValue: maxValue,
+                    sections: sections,
+                    backgroundColor: theme.colorScheme.onSurface.withOpacity(
+                      0.08,
+                    ),
+                    needleColor: theme.colorScheme.primary,
+                    tickColor: theme.colorScheme.onSurface.withOpacity(0.55),
+                  ),
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          animatedValue.toStringAsFixed(0),
+                          style: theme.textTheme.headlineMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          units,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: theme.colorScheme.onSurface.withOpacity(0.7),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            footnote,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.colorScheme.onSurface.withOpacity(0.74),
+            ),
+          ),
+        ],
       ),
-    ],
-  );
+    );
+  }
 }
 
-class _TrackBasePainter extends CustomPainter {
-  final Color trackColor;
-  final Color trackShadow;
-  final Color gridColor;
-  const _TrackBasePainter({
-    required this.trackColor,
-    required this.trackShadow,
-    required this.gridColor,
+class GaugeSection {
+  final double start;
+  final double end;
+  final Color color;
+
+  const GaugeSection(this.start, this.end, this.color);
+}
+
+class _GaugePainter extends CustomPainter {
+  final double currentValue;
+  final double maxValue;
+  final List<GaugeSection> sections;
+  final Color backgroundColor;
+  final Color needleColor;
+  final Color tickColor;
+
+  const _GaugePainter({
+    required this.currentValue,
+    required this.maxValue,
+    required this.sections,
+    required this.backgroundColor,
+    required this.needleColor,
+    required this.tickColor,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()..color = gridColor.withOpacity(0.12);
-    final stepX = size.width / 8;
-    final stepY = size.height / 6;
-    for (double x = 0; x <= size.width; x += stepX) {
-      canvas.drawLine(Offset(x, 0), Offset(x, size.height), paint);
-    }
-    for (double y = 0; y <= size.height; y += stepY) {
-      canvas.drawLine(Offset(0, y), Offset(size.width, y), paint);
+    final center = size.center(Offset.zero);
+    final radius = size.width * 0.38;
+    final strokeWidth = 18.0;
+    final startAngle = math.pi * 0.75;
+    final sweepAngle = math.pi * 1.5;
+
+    final basePaint = Paint()
+      ..color = backgroundColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = strokeWidth
+      ..strokeCap = StrokeCap.round;
+
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius),
+      startAngle,
+      sweepAngle,
+      false,
+      basePaint,
+    );
+
+    for (final section in sections) {
+      final sectionStart = (section.start / maxValue) * sweepAngle;
+      final sectionSweep =
+          ((section.end - section.start) / maxValue) * sweepAngle;
+      final sectionPaint = Paint()
+        ..color = section.color
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = strokeWidth
+        ..strokeCap = StrokeCap.butt;
+      canvas.drawArc(
+        Rect.fromCircle(center: center, radius: radius),
+        startAngle + sectionStart,
+        sectionSweep,
+        false,
+        sectionPaint,
+      );
     }
 
-    // track shadow (rounded rect)
-    final shadowRect = Rect.fromCenter(
-      center: size.center(Offset.zero),
-      width: size.width * 0.9,
-      height: size.height * 0.6,
-    );
-    final r = RRect.fromRectAndRadius(
-      shadowRect,
-      Radius.circular(size.height * 0.25),
-    );
-    final shadowPaint = Paint()..color = trackShadow;
-    canvas.drawRRect(r, shadowPaint);
+    for (int tick = 0; tick <= 10; tick++) {
+      final tickAngle = startAngle + sweepAngle * (tick / 10);
+      final tickStart = Offset(
+        center.dx + (radius - 8) * math.cos(tickAngle),
+        center.dy + (radius - 8) * math.sin(tickAngle),
+      );
+      final tickEnd = Offset(
+        center.dx + (radius + 8) * math.cos(tickAngle),
+        center.dy + (radius + 8) * math.sin(tickAngle),
+      );
+      canvas.drawLine(
+        tickStart,
+        tickEnd,
+        Paint()
+          ..color = tickColor
+          ..strokeWidth = 2,
+      );
+    }
 
-    // track base
-    final trackRect = shadowRect.deflate(size.height * 0.06);
-    final trackR = RRect.fromRectAndRadius(
-      trackRect,
-      Radius.circular(size.height * 0.22),
+    final needleAngle =
+        startAngle + sweepAngle * (currentValue / maxValue).clamp(0.0, 1.0);
+    final needlePaint = Paint()
+      ..color = needleColor
+      ..strokeWidth = 4
+      ..strokeCap = StrokeCap.round;
+    final needleEnd = Offset(
+      center.dx + (radius - 14) * math.cos(needleAngle),
+      center.dy + (radius - 14) * math.sin(needleAngle),
     );
-    final trackPaint = Paint()
-      ..shader = LinearGradient(
-        colors: [trackColor.withOpacity(0.6), trackColor.withOpacity(0.9)],
-      ).createShader(trackRect);
-    canvas.drawRRect(trackR, trackPaint);
+    canvas.drawLine(center, needleEnd, needlePaint);
+
+    canvas.drawCircle(center, 10, Paint()..color = needleColor);
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  bool shouldRepaint(covariant _GaugePainter oldDelegate) {
+    return oldDelegate.currentValue != currentValue ||
+        oldDelegate.maxValue != maxValue;
+  }
 }
 
-class _TrackLinePainter extends CustomPainter {
-  final Color lineA;
-  final Color lineB;
-  const _TrackLinePainter({required this.lineA, required this.lineB});
+class _StatTile extends StatelessWidget {
+  final String title;
+  final String value;
+  final String subtitle;
+  final Color accent;
+
+  const _StatTile({
+    required this.title,
+    required this.value,
+    required this.subtitle,
+    required this.accent,
+  });
 
   @override
-  void paint(Canvas canvas, Size size) {
-    final center = size.center(Offset.zero);
-    // simple undulating path across the track area
-    final path = Path();
-    final left = size.width * 0.08;
-    final right = size.width * 0.92;
-    path.moveTo(left, center.dy + size.height * 0.08);
-    path.cubicTo(
-      size.width * 0.28,
-      size.height * 0.06,
-      size.width * 0.40,
-      size.height * 0.18,
-      size.width * 0.52,
-      center.dy - size.height * 0.06,
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Container(
+      width: 170,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: theme.colorScheme.onSurface.withOpacity(0.06),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.colorScheme.onSurface.withOpacity(0.75),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            value,
+            style: theme.textTheme.titleLarge?.copyWith(
+              color: accent,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            subtitle,
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.colorScheme.onSurface.withOpacity(0.68),
+            ),
+          ),
+        ],
+      ),
     );
-    path.cubicTo(
-      size.width * 0.64,
-      center.dy - size.height * 0.12,
-      size.width * 0.76,
-      center.dy - size.height * 0.04,
-      right,
-      center.dy - size.height * 0.02,
-    );
-
-    final pA = Paint()
-      ..color = lineA
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.6
-      ..strokeCap = StrokeCap.round;
-    final pB = Paint()
-      ..color = lineB
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.6
-      ..strokeCap = StrokeCap.round;
-
-    canvas.drawPath(path, pB);
-    canvas.drawPath(path, pA);
   }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
-class _TrackHighlightPainter extends CustomPainter {
-  final Color highlight;
-  const _TrackHighlightPainter({required this.highlight});
+class _TireStatusBadge extends StatelessWidget {
+  final String label;
+  final double temperature;
+
+  const _TireStatusBadge({required this.label, required this.temperature});
 
   @override
-  void paint(Canvas canvas, Size size) {
-    final center = size.center(Offset.zero);
-    final paint = Paint()
-      ..color = highlight
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 12
-      ..strokeCap = StrokeCap.round;
-    paint.maskFilter = MaskFilter.blur(BlurStyle.normal, 8);
-
-    // draw 2 highlighted segments as bezier subsections
-    final seg1 = Path();
-    seg1.moveTo(size.width * 0.30, center.dy + size.height * 0.05);
-    seg1.quadraticBezierTo(
-      size.width * 0.36,
-      center.dy - size.height * 0.02,
-      size.width * 0.44,
-      center.dy - size.height * 0.03,
+  Widget build(BuildContext context) {
+    final color = _temperatureColor(temperature);
+    return Container(
+      width: 130,
+      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.14),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: color.withOpacity(0.25)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: Theme.of(
+              context,
+            ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            '${temperature.toStringAsFixed(1)} °C',
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              color: color,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            _temperatureLabel(temperature),
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.75),
+            ),
+          ),
+        ],
+      ),
     );
-
-    final seg2 = Path();
-    seg2.moveTo(size.width * 0.66, center.dy - size.height * 0.01);
-    seg2.quadraticBezierTo(
-      size.width * 0.74,
-      center.dy + size.height * 0.02,
-      size.width * 0.82,
-      center.dy + size.height * 0.04,
-    );
-
-    canvas.drawPath(seg1, paint);
-    canvas.drawPath(seg2, paint);
-
-    // small zig-zag accent on a segment (visual mimic)
-    final zig = Path();
-    double sx = size.width * 0.60;
-    double sy = center.dy + size.height * 0.02;
-    for (int i = 0; i < 8; i++) {
-      zig.lineTo(sx + i * 6, sy + (i % 2 == 0 ? -4 : 4));
-    }
-    final zigPaint = Paint()
-      ..color = highlight.withOpacity(0.95)
-      ..strokeWidth = 2
-      ..style = PaintingStyle.stroke;
-    canvas.drawPath(zig, zigPaint);
   }
 
+  Color _temperatureColor(double temperature) {
+    if (temperature < 80) return const Color(0xFF42A5F5);
+    if (temperature < 110) return const Color(0xFF66BB6A);
+    if (temperature < 130) return const Color(0xFFFFC107);
+    return const Color(0xFFF44336);
+  }
+
+  String _temperatureLabel(double temperature) {
+    if (temperature < 80) return 'Cold';
+    if (temperature < 110) return 'Optimal';
+    if (temperature < 130) return 'Warm';
+    return 'Hot';
+  }
+}
+
+class _DetailChip extends StatelessWidget {
+  final String label;
+  final String value;
+  final Color color;
+
+  const _DetailChip({
+    required this.label,
+    required this.value,
+    required this.color,
+  });
+
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.12),
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.75),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            value,
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+              color: color,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

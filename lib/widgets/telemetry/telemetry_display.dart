@@ -28,7 +28,6 @@ class TelemetryDisplay extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildHeader(context),
                       const SizedBox(height: 18),
                       _buildGauges(context, telemetry!, isDesktop),
                       const SizedBox(height: 18),
@@ -64,44 +63,6 @@ class TelemetryDisplay extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader(BuildContext context) {
-    final theme = Theme.of(context);
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.primary,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: theme.colorScheme.primary.withOpacity(0.15),
-            blurRadius: 24,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Telemetry Dashboard',
-            style: theme.textTheme.headlineSmall?.copyWith(
-              color: theme.colorScheme.onPrimary,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'A racing-style view for speed, RPM, tires, fuel, and lap data.',
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: theme.colorScheme.onPrimary.withOpacity(0.9),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildGauges(
     BuildContext context,
     TelemetryData telemetry,
@@ -114,13 +75,30 @@ class TelemetryDisplay extends StatelessWidget {
         Expanded(
           child: GaugeCard(
             label: 'Speed',
-            value: telemetry.speed.clamp(0, 360),
-            maxValue: 360,
+            value: telemetry.speed.clamp(0, 540),
+            maxValue: 540,
             units: 'km/h',
             sections: [
-              const GaugeSection(0, 120, Color(0xFF4CAF50)),
-              const GaugeSection(120, 240, Color(0xFFFFC107)),
-              const GaugeSection(240, 360, Color(0xFFF44336)),
+              const GaugeSection(0, 180, Color(0xFF4CAF50)),
+              const GaugeSection(180, 360, Color(0xFFFFC107)),
+              const GaugeSection(360, 540, Color(0xFFF44336)),
+            ],
+            tickLabels: const [
+              GaugeLabel(text: '0', ratio: 0 / 540),
+              GaugeLabel(text: '40', ratio: 40 / 540),
+              GaugeLabel(text: '80', ratio: 80 / 540),
+              GaugeLabel(text: '120', ratio: 120 / 540),
+              GaugeLabel(text: '160', ratio: 160 / 540),
+              GaugeLabel(text: '200', ratio: 200 / 540),
+              GaugeLabel(text: '240', ratio: 240 / 540),
+              GaugeLabel(text: '280', ratio: 280 / 540),
+              GaugeLabel(text: '320', ratio: 320 / 540),
+              GaugeLabel(text: '360', ratio: 360 / 540),
+              GaugeLabel(text: '400', ratio: 400 / 540),
+              GaugeLabel(text: '440', ratio: 440 / 540),
+              GaugeLabel(text: '480', ratio: 480 / 540),
+              GaugeLabel(text: '520', ratio: 520 / 540),
+              GaugeLabel(text: '540', ratio: 540 / 540),
             ],
             footnote: 'Top speed estimate: ${telemetry.estTopSpeed} km/h',
           ),
@@ -136,6 +114,19 @@ class TelemetryDisplay extends StatelessWidget {
               const GaugeSection(0, 4500, Color(0xFF4CAF50)),
               const GaugeSection(4500, 7000, Color(0xFFFFC107)),
               const GaugeSection(7000, 9000, Color(0xFFF44336)),
+            ],
+            tickLabels: const [
+              GaugeLabel(text: '0', ratio: 0.0),
+              GaugeLabel(text: '1', ratio: 1 / 10),
+              GaugeLabel(text: '2', ratio: 2 / 10),
+              GaugeLabel(text: '3', ratio: 3 / 10),
+              GaugeLabel(text: '4', ratio: 4 / 10),
+              GaugeLabel(text: '5', ratio: 5 / 10),
+              GaugeLabel(text: '6', ratio: 6 / 10),
+              GaugeLabel(text: '7', ratio: 7 / 10),
+              GaugeLabel(text: '8', ratio: 8 / 10),
+              GaugeLabel(text: '9', ratio: 9 / 10),
+              GaugeLabel(text: '10', ratio: 1.0),
             ],
             footnote: 'Limiter: ${telemetry.rpmLimiter} rpm',
           ),
@@ -315,6 +306,7 @@ class GaugeCard extends StatelessWidget {
   final String units;
   final String footnote;
   final List<GaugeSection> sections;
+  final List<GaugeLabel> tickLabels;
 
   const GaugeCard({
     super.key,
@@ -324,6 +316,7 @@ class GaugeCard extends StatelessWidget {
     required this.units,
     required this.sections,
     required this.footnote,
+    this.tickLabels = const [],
   });
 
   @override
@@ -379,15 +372,16 @@ class GaugeCard extends StatelessWidget {
                     currentValue: animatedValue,
                     maxValue: maxValue,
                     sections: sections,
+                    tickLabels: tickLabels,
+                    isSpeedometer: label.toLowerCase() == 'speed',
                     backgroundColor: theme.colorScheme.onSurface.withOpacity(
                       0.08,
                     ),
                     needleColor: theme.colorScheme.primary,
                     tickColor: theme.colorScheme.onSurface.withOpacity(0.55),
-                    dynamicRingColor: _calculateGaugeRingColor(
-                      animatedValue,
-                      maxValue,
-                    ),
+                    dynamicRingColor: label.toLowerCase() == 'speed'
+                        ? Colors.white.withOpacity(0.5)
+                        : _calculateGaugeRingColor(animatedValue, maxValue),
                   ),
                   child: Align(
                     alignment: const Alignment(0, 0.6),
@@ -437,10 +431,19 @@ class GaugeSection {
   const GaugeSection(this.start, this.end, this.color);
 }
 
+class GaugeLabel {
+  final String text;
+  final double ratio;
+
+  const GaugeLabel({required this.text, required this.ratio});
+}
+
 class _GaugePainter extends CustomPainter {
   final double currentValue;
   final double maxValue;
   final List<GaugeSection> sections;
+  final List<GaugeLabel> tickLabels;
+  final bool isSpeedometer;
   final Color backgroundColor;
   final Color needleColor;
   final Color tickColor;
@@ -450,6 +453,8 @@ class _GaugePainter extends CustomPainter {
     required this.currentValue,
     required this.maxValue,
     required this.sections,
+    required this.tickLabels,
+    required this.isSpeedometer,
     required this.backgroundColor,
     required this.needleColor,
     required this.tickColor,
@@ -483,7 +488,7 @@ class _GaugePainter extends CustomPainter {
       final sectionSweep =
           ((section.end - section.start) / maxValue) * sweepAngle;
       final sectionPaint = Paint()
-        ..color = section.color
+        ..color = Colors.grey.withOpacity(0.25)
         ..style = PaintingStyle.stroke
         ..strokeWidth = strokeWidth
         ..strokeCap = StrokeCap.butt;
@@ -496,7 +501,8 @@ class _GaugePainter extends CustomPainter {
       );
     }
 
-    if (dynamicRingColor.alpha > 0) {
+    final fillRatio = (currentValue / maxValue).clamp(0.0, 1.0);
+    if (fillRatio > 0.0) {
       final overlayPaint = Paint()
         ..color = dynamicRingColor
         ..style = PaintingStyle.stroke
@@ -505,7 +511,7 @@ class _GaugePainter extends CustomPainter {
       canvas.drawArc(
         Rect.fromCircle(center: center, radius: radius),
         startAngle,
-        sweepAngle,
+        sweepAngle * fillRatio,
         false,
         overlayPaint,
       );
@@ -534,26 +540,32 @@ class _GaugePainter extends CustomPainter {
       );
     }
 
-    final needleAngle =
-        startAngle + sweepAngle * (currentValue / maxValue).clamp(0.0, 1.0);
-    final needlePaint = Paint()
-      ..color = needleColor
-      ..strokeWidth = 4
-      ..strokeCap = StrokeCap.round;
-    final needleEnd = Offset(
-      center.dx + (radius - 14) * math.cos(needleAngle),
-      center.dy + (radius - 14) * math.sin(needleAngle),
-    );
-    canvas.drawLine(center, needleEnd, needlePaint);
-
-    canvas.drawCircle(center, 10, Paint()..color = needleColor);
+    for (final label in tickLabels) {
+      final labelAngle = startAngle + sweepAngle * label.ratio.clamp(0.0, 1.0);
+      final labelRadius = radius - (isSpeedometer ? 34 : 22);
+      final labelOffset = Offset(
+        center.dx + labelRadius * math.cos(labelAngle),
+        center.dy + labelRadius * math.sin(labelAngle),
+      );
+      final textPainter = TextPainter(
+        text: TextSpan(
+          text: label.text,
+          style: const TextStyle(color: Colors.grey, fontSize: 12),
+        ),
+        textDirection: TextDirection.ltr,
+      )..layout();
+      final textPos =
+          labelOffset - Offset(textPainter.width / 2, textPainter.height / 2);
+      textPainter.paint(canvas, textPos);
+    }
   }
 
   @override
   bool shouldRepaint(covariant _GaugePainter oldDelegate) {
     return oldDelegate.currentValue != currentValue ||
         oldDelegate.maxValue != maxValue ||
-        oldDelegate.dynamicRingColor != dynamicRingColor;
+        oldDelegate.dynamicRingColor != dynamicRingColor ||
+        oldDelegate.isSpeedometer != isSpeedometer;
   }
 }
 
@@ -563,11 +575,15 @@ Color _calculateGaugeRingColor(double currentValue, double maxValue) {
     return Colors.transparent;
   }
 
+  if (ratio < 0.5) {
+    return Color.lerp(Colors.green, Colors.yellow, ratio * 2)!.withOpacity(0.7);
+  }
+
   return Color.lerp(
-    Colors.transparent,
+    Colors.yellow,
     Colors.red,
-    ratio,
-  )!.withOpacity(0.65 * ratio.clamp(0.0, 1.0));
+    (ratio - 0.5) * 2,
+  )!.withOpacity(0.85);
 }
 
 class _StatTile extends StatelessWidget {

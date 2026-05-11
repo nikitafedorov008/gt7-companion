@@ -301,14 +301,9 @@ class TelemetryDisplay extends StatelessWidget {
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: theme.colorScheme.outlineVariant,
-          width: 1,
-        ),
+        border: Border.all(color: theme.colorScheme.outlineVariant, width: 1),
       ),
-      child: const ThrottleBrakeGraph(
-        height: 200,
-      ),
+      child: const ThrottleBrakeGraph(height: 200),
     );
   }
 }
@@ -389,8 +384,13 @@ class GaugeCard extends StatelessWidget {
                     ),
                     needleColor: theme.colorScheme.primary,
                     tickColor: theme.colorScheme.onSurface.withOpacity(0.55),
+                    dynamicRingColor: _calculateGaugeRingColor(
+                      animatedValue,
+                      maxValue,
+                    ),
                   ),
-                  child: Center(
+                  child: Align(
+                    alignment: const Alignment(0, 0.6),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -444,6 +444,7 @@ class _GaugePainter extends CustomPainter {
   final Color backgroundColor;
   final Color needleColor;
   final Color tickColor;
+  final Color dynamicRingColor;
 
   const _GaugePainter({
     required this.currentValue,
@@ -452,6 +453,7 @@ class _GaugePainter extends CustomPainter {
     required this.backgroundColor,
     required this.needleColor,
     required this.tickColor,
+    required this.dynamicRingColor,
   });
 
   @override
@@ -494,11 +496,29 @@ class _GaugePainter extends CustomPainter {
       );
     }
 
-    for (int tick = 0; tick <= 10; tick++) {
-      final tickAngle = startAngle + sweepAngle * (tick / 10);
+    if (dynamicRingColor.alpha > 0) {
+      final overlayPaint = Paint()
+        ..color = dynamicRingColor
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = strokeWidth
+        ..strokeCap = StrokeCap.round;
+      canvas.drawArc(
+        Rect.fromCircle(center: center, radius: radius),
+        startAngle,
+        sweepAngle,
+        false,
+        overlayPaint,
+      );
+    }
+
+    const tickCount = 30;
+    for (int tick = 0; tick <= tickCount; tick++) {
+      final tickAngle = startAngle + sweepAngle * (tick / tickCount);
+      final isMajor = tick % 5 == 0;
+      final tickLength = isMajor ? 14.0 : 8.0;
       final tickStart = Offset(
-        center.dx + (radius - 8) * math.cos(tickAngle),
-        center.dy + (radius - 8) * math.sin(tickAngle),
+        center.dx + (radius - tickLength - 4) * math.cos(tickAngle),
+        center.dy + (radius - tickLength - 4) * math.sin(tickAngle),
       );
       final tickEnd = Offset(
         center.dx + (radius + 8) * math.cos(tickAngle),
@@ -509,7 +529,8 @@ class _GaugePainter extends CustomPainter {
         tickEnd,
         Paint()
           ..color = tickColor
-          ..strokeWidth = 2,
+          ..strokeWidth = isMajor ? 2.5 : 1.2
+          ..strokeCap = StrokeCap.round,
       );
     }
 
@@ -531,8 +552,22 @@ class _GaugePainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant _GaugePainter oldDelegate) {
     return oldDelegate.currentValue != currentValue ||
-        oldDelegate.maxValue != maxValue;
+        oldDelegate.maxValue != maxValue ||
+        oldDelegate.dynamicRingColor != dynamicRingColor;
   }
+}
+
+Color _calculateGaugeRingColor(double currentValue, double maxValue) {
+  final ratio = (currentValue / maxValue).clamp(0.0, 1.0);
+  if (ratio <= 0.0) {
+    return Colors.transparent;
+  }
+
+  return Color.lerp(
+    Colors.transparent,
+    Colors.red,
+    ratio,
+  )!.withOpacity(0.65 * ratio.clamp(0.0, 1.0));
 }
 
 class _StatTile extends StatelessWidget {

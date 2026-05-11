@@ -1,20 +1,25 @@
 schema: spec-driven
 
-# Project context (optional)
-# This is shown to AI when creating artifacts.
-# Add your tech stack, conventions, style guides, domain knowledge, etc.
-# Example:
-#   context: |
-#     Tech stack: TypeScript, React, Node.js
-#     We use conventional commits
-#     Domain: e-commerce platform
+context: |
+  Tech stack: Flutter + Dart cross-platform app.
+  Architecture: clean architecture style with separate layers for services, models, widgets, pages, blocs, repositories и router.
+  Routing: auto_route with MaterialApp.router in lib/app.dart.
+  State management:
+    - Provider / MultiProvider / ChangeNotifierProvider for top-level services и repositories.
+    - flutter_bloc for feature state и widget state.
+    - ChangeNotifierProxyProvider2 for dependent repositories.
+  Dependency injection: centralized in lib/dependency_injection/app_scope.dart; add new DI bindings there.
+  Domain: GT7 telemetry over UDP, real-time vehicle and tire data, heartbeat packets, Salsa20 decryption.
+  Repo layout: lib/services, lib/models, lib/widgets, lib/pages, lib/blocs, lib/repositories, lib/router, lib/theme.
 
-# Per-artifact rules (optional)
-# Add custom rules for specific artifacts.
-# Example:
-#   rules:
-#     proposal:
-#       - Keep proposals under 500 words
-#       - Always include a "Non-goals" section
-#     tasks:
-#       - Break tasks into chunks of max 2 hours
+rules: &base_rules
+  proposal:
+    - Keep proposals concise and domain-specific.
+    - Mention Flutter/Dart implementation details when relevant.
+  tasks:
+    - Break work into small, implementable Flutter tasks.
+    - Prefer changes inside lib/ and avoid unrelated platform folders unless needed.
+  specs:
+    - Describe desired behavior at the app and widget level.
+    - Include routing, state updates, and UDP telemetry expectations.
+    - Specs may be written in both Russian и English.

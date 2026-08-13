@@ -182,64 +182,35 @@ class DgEdgeService extends ChangeNotifier {
     dom.Document doc, {
     required String baseUrl,
   }) {
-    // Candidate selectors (robust): look for anchors to /events/dailies/ and then the containing card
-    final anchors = doc.querySelectorAll('a[href*="/events/dailies/"]');
-    debugPrint(
-      'DgEdgeService.parseListPage: found ${anchors.length} anchors[href*="/events/dailies/"]',
-    );
     final seen = <String>{};
     final items = <DgEdgeDailyRace>[];
-    for (final a in anchors) {
-      final href = a.attributes['href'] ?? '';
-      if (!RegExp(r'/events/dailies/[\w-]+').hasMatch(href)) continue;
-      // Prefer the nearest ancestor that looks like a card/article
-      dom.Element el = a;
-      for (final sel in [
-        '.card',
-        '.event',
-        'article',
-        '.entry',
-        '.post',
-        '.listing-item',
-      ]) {
-        final parent = _closestAncestor(a, sel);
-        if (parent != null) {
-          el = parent;
-          break;
-        }
-      }
+
+    // Race cards are `.event.daily` — active, past and (when scheduled ahead)
+    // `.is-future`, which has no link yet. Selecting the card class directly
+    // rather than every `/events/dailies/` anchor keeps the pagination strip
+    // out: those `.page-link` anchors point at the same path and used to be
+    // parsed as if they were races.
+    final cards = doc.querySelectorAll('.event.daily');
+    debugPrint('DgEdgeService.parseListPage: found ${cards.length} .event.daily cards');
+    for (final el in cards) {
+      if (el.classes.contains('page-link')) continue;
       final summary = DgEdgeDailyRace.fromListElement(el, baseUrl: baseUrl);
       if (summary != null && seen.add(summary.id)) items.add(summary);
     }
 
-    // Include upcoming/future races (e.g. DG‑Edge cards marked `.event.is-future`) that
-    // may not have an active link yet.
-    // Some DG‑Edge pages use different markup variants for future cards:
-    // - `.event.is-future` or `.event.daily.is-future`
-    // - plain `.event.daily` inside bootstrap grid columns (`.col-lg-4`)
-    // Include the common variants so we don't miss unlinked or grid-wrapped
-    // future cards.
-    final futureCards = doc.querySelectorAll(
-      '.event.is-future, .event.daily.is-future, .event.daily, .col-lg-4 .event',
-    );
-    for (final el in futureCards) {
-      final summary = DgEdgeDailyRace.fromListElement(el, baseUrl: baseUrl);
-      if (summary != null && seen.add(summary.id)) items.add(summary);
-    }
-
-    // Fallback: if nothing found, try common list containers
+    // Fallback for markup variants that drop the `daily` class or wrap the
+    // card in a grid column.
     if (items.isEmpty) {
-      final candidates = doc.querySelectorAll(
-        '.events-list, .dailies-list, .cards, .posts',
+      final fallbackCards = doc.querySelectorAll(
+        '.event.is-future, .col-lg-4 .event, .events-list .event, .dailies-list .event',
       );
       debugPrint(
-        'DgEdgeService.parseListPage: fallback candidates ${candidates.length}',
+        'DgEdgeService.parseListPage: fallback cards ${fallbackCards.length}',
       );
-      for (final c in candidates) {
-        for (final el in c.querySelectorAll('article, .card, .post, li')) {
-          final s = DgEdgeDailyRace.fromListElement(el, baseUrl: baseUrl);
-          if (s != null && seen.add(s.id)) items.add(s);
-        }
+      for (final el in fallbackCards) {
+        if (el.classes.contains('page-link')) continue;
+        final s = DgEdgeDailyRace.fromListElement(el, baseUrl: baseUrl);
+        if (s != null && seen.add(s.id)) items.add(s);
       }
     }
 
@@ -247,24 +218,6 @@ class DgEdgeService extends ChangeNotifier {
       'DgEdgeService.parseListPage: returning ${items.length} summaries',
     );
     return items;
-  }
-
-  // package:html.Element does not provide a `closest` helper; implement a small, robust fallback
-  dom.Element? _closestAncestor(dom.Element el, String selector) {
-    dom.Node? cur = el;
-    final isClass = selector.startsWith('.');
-    final selName = isClass ? selector.substring(1) : selector.toLowerCase();
-
-    while (cur is dom.Element) {
-      final e = cur; // promoted to Element by the `is` check above
-      if (isClass) {
-        if (e.classes.contains(selName)) return e;
-      } else {
-        if (e.localName == selName) return e;
-      }
-      cur = cur.parent;
-    }
-    return null;
   }
 
   Map<String, String> _defaultHeaders() => {

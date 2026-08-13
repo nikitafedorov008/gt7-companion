@@ -11,7 +11,7 @@ import '../models/gtsh_rank/gtsh_daily_race.dart';
 /// currently-running race cards (the rows labelled A/B/C).
 ///
 /// The API is intentionally minimal at the moment; callers may simply invoke
-/// [fetchRunningCards] and use the results directly. The implementation mirrors
+/// [fetchDailyCards] and use the results directly. The implementation mirrors
 /// the style of [DgEdgeService], including a loading flag and error message so
 /// that widgets may listen for changes.
 class GtshRankService extends ChangeNotifier {
@@ -38,7 +38,7 @@ class GtshRankService extends ChangeNotifier {
   /// page starts by listing upcoming cards followed by the running ones, so to
   /// keep the repository in sync we now return both running and next-week
   /// entries.  Consumers can still filter by whatever status they prefer.
-  Future<List<GtshDailyRace>> fetchRunningCards({
+  Future<List<GtshDailyRace>> fetchDailyCards({
     bool forceRefresh = false,
   }) async {
     _setLoading(true);
@@ -61,24 +61,24 @@ class GtshRankService extends ChangeNotifier {
     }
   }
 
-  /// Parse a document into a list of `GtshRaceCard` items.
+  /// Parse a document into a list of race cards.
   ///
-  /// Historically only entries marked `.status.running` were returned; the
-  /// caller was named `fetchRunningCards` for that reason.  That meant cards
-  /// labelled "next week" or similar never surfaced in the UI, even though
-  /// the upstream site includes them at the top of the page.  Switch to a more
-  /// permissive rule so that upcoming races appear alongside ongoing ones.
+  /// Every card on the page is returned — running and archived alike — because
+  /// past weeks are the reason this source is scraped at all. Callers decide
+  /// what to show; [GtshDailyRace.status] carries the distinction.
   ///
-  /// The returned list preserves the order of the page, so clients can still
-  /// show running events first if desired.
+  /// The card selector is `.daily-race-card`. The site used to call it
+  /// `.race-card` and to mark state with `.status.running/.next/.ended`; both
+  /// were replaced in a redesign, and selecting the old names silently
+  /// returned an empty list.
   List<GtshDailyRace> parsePage(dom.Document doc) {
     final cards = <GtshDailyRace>[];
-    for (final el in doc.querySelectorAll('.race-card')) {
-      // include entries that are either running or scheduled for next week
-      final statusEl = el.querySelector('.status');
-      final classes = statusEl?.classes ?? const <String>[];
-      if (!(classes.contains('running') || classes.contains('next'))) continue;
-      cards.add(GtshDailyRace.fromElement(el));
+    for (final el in doc.querySelectorAll('.daily-race-card')) {
+      final card = GtshDailyRace.fromElement(el);
+      // A card with neither a track nor a letter is markup we no longer
+      // understand — skip it rather than surface a blank entry.
+      if (card.trackName.isEmpty && card.label.isEmpty) continue;
+      cards.add(card);
     }
     return cards;
   }

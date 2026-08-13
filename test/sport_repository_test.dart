@@ -13,11 +13,7 @@ class FakeDgEdgeService extends DgEdgeService {
   Future<List<DgEdgeDailyRace>> fetchDailiesPage(
     int page, {
     bool forceRefresh = false,
-  }) async {
-    // we only ever ask for page=1 in the repo implementation
-    if (page == 1) return items;
-    return const [];
-  }
+  }) async => page == 1 ? items : const [];
 }
 
 class FakeGtshRankService extends GtshRankService {
@@ -25,142 +21,197 @@ class FakeGtshRankService extends GtshRankService {
   FakeGtshRankService(this.cards) : super();
 
   @override
-  Future<List<GtshDailyRace>> fetchRunningCards({
+  Future<List<GtshDailyRace>> fetchDailyCards({
     bool forceRefresh = false,
-  }) async {
-    return cards;
-  }
+  }) async => cards;
 }
 
+class ThrowingDgEdgeService extends DgEdgeService {
+  @override
+  Future<List<DgEdgeDailyRace>> fetchDailiesPage(
+    int page, {
+    bool forceRefresh = false,
+  }) async => throw Exception('boom');
+}
+
+DgEdgeDailyRace _dg({
+  required String id,
+  String? rankingId,
+  String? trackName = 'TrackX',
+  String? letter,
+  bool? isActive,
+  bool? isEnded,
+}) => DgEdgeDailyRace(
+  id: id,
+  title: 'Daily ${letter ?? id}',
+  url: 'https://www.dg-edge.com/events/dailies/$id',
+  trackName: trackName,
+  raceLetter: letter,
+  rankingId: rankingId,
+  isActive: isActive,
+  isEnded: isEnded,
+);
+
+GtshDailyRace _gtsh({
+  String label = 'A',
+  String trackName = 'TrackX',
+  String? rankingId,
+  String status = 'running',
+  String? carImage,
+}) => GtshDailyRace(
+  label: label,
+  trackName: trackName,
+  tyreCode: 'SS',
+  status: status,
+  rankingId: rankingId,
+  carImage: carImage,
+  pitStops: '-',
+  bop: true,
+  damage: 'Light',
+  startType: 'Rolling',
+  carSettings: false,
+);
+
 void main() {
-  group('SportRepository', () {
-    test('merges items from both providers correctly', () async {
-      // create matching summary & card
-      final dg1 = DgEdgeDailyRace(
-        id: '1',
-        title: 'Daily A',
-        url: 'url',
-        trackName: 'TrackX',
+  group('SportRepository merging', () {
+    test('pairs the two sources on the shared ranking id', () async {
+      // Both sites publish the game's own board id — DG-Edge as `rankingid`,
+      // GTSh as `data-board`. Deliberately listed in opposite orders so that
+      // positional pairing, which this used to do, would mismatch them.
+      final dgA = _dg(id: '1', rankingId: 'p_rt_100_001', trackName: 'Monza');
+      final dgB = _dg(id: '2', rankingId: 'p_rt_200_001', trackName: 'Fuji');
+      final gtB = _gtsh(rankingId: 'p_rt_200_001', trackName: 'Fuji', label: 'B');
+      final gtA = _gtsh(rankingId: 'p_rt_100_001', trackName: 'Monza');
+
+      final sport = SportRepositoryImpl(
+        FakeDgEdgeService([dgA, dgB]),
+        FakeGtshRankService([gtB, gtA]),
       );
-      final card1 = GtshDailyRace(
-        label: 'A',
-        trackName: 'TrackX',
-        tyreCode: 'SS',
-        status: 'running',
+      await sport.fetchDailyRaces();
+
+      final byTrack = {for (final r in sport.dailyRaces) r.trackName: r};
+      expect(byTrack['Monza']!.gtsh, same(gtA));
+      expect(byTrack['Fuji']!.gtsh, same(gtB));
+    });
+
+    test('falls back to race letter and track when no ranking id is set', () {
+      // Track names differ slightly between the sites, so only the segment
+      // before the dash is compared: "Grand Valley" vs "Grand Valley - Highway 1".
+      final dg = _dg(id: '3', trackName: 'Grand Valley', letter: 'C');
+      final gt = _gtsh(label: 'C', trackName: 'Grand Valley - Highway 1');
+
+      final sport = SportRepositoryImpl(
+        FakeDgEdgeService([dg]),
+        FakeGtshRankService([gt]),
+      );
+
+      return sport.fetchDailyRaces().then((_) {
+        expect(sport.dailyRaces, hasLength(1));
+        expect(sport.dailyRaces.single.gtsh, same(gt));
+      });
+    });
+
+    test('keeps entries that exist in only one source', () async {
+      final dgOnly = _dg(id: '1', rankingId: 'p_rt_1_001', trackName: 'SoloDG');
+      final gtOnly = _gtsh(rankingId: 'p_rt_9_001', trackName: 'SoloGTSh');
+
+      final sport = SportRepositoryImpl(
+        FakeDgEdgeService([dgOnly]),
+        FakeGtshRankService([gtOnly]),
+      );
+      await sport.fetchDailyRaces();
+
+      expect(sport.dailyRaces.map((r) => r.trackName), containsAll(<String>[
+        'SoloDG',
+        'SoloGTSh',
+      ]));
+      final solo = sport.dailyRaces.firstWhere((r) => r.trackName == 'SoloDG');
+      expect(solo.gtsh, isNull);
+    });
+
+    test('drops entries with no track at all', () async {
+      final sport = SportRepositoryImpl(
+        FakeDgEdgeService([
+          _dg(id: 'ok', rankingId: 'p_rt_1_001'),
+          _dg(id: 'nil', trackName: null),
+        ]),
+        FakeGtshRankService(const []),
+      );
+      await sport.fetchDailyRaces();
+
+      expect(sport.dailyRaces, hasLength(1));
+      expect(sport.dailyRaces.single.dgEdge?.id, 'ok');
+    });
+
+    test('carries paired GTSh detail through to the unified race', () async {
+      final dg = _dg(id: '1', rankingId: 'p_rt_1_001');
+      final gt = _gtsh(
+        rankingId: 'p_rt_1_001',
         carImage: 'https://gtsh-rank.com/images/car/123.png',
-        pitStops: '-',
-        bop: true,
-        damage: 'Light',
-        startType: 'Grid',
-        carSettings: false,
-        wideFender: 'No',
-      );
-
-      // dg only and gtsh only items
-      final dg2 = DgEdgeDailyRace(
-        id: '2',
-        title: 'Daily B',
-        url: 'url',
-        trackName: 'SoloDG',
-      );
-      final card2 = GtshDailyRace(
-        label: 'C',
-        trackName: 'SoloGTSh',
-        tyreCode: 'RH',
-        status: 'running',
-        pitStops: '-',
-        bop: false,
-        damage: 'None',
-        startType: 'Rolling',
-        carSettings: true,
-        wideFender: 'Yes',
-      );
-
-      // item lacking any track information should be ignored later
-      final dgNull = DgEdgeDailyRace(
-        id: 'nil',
-        title:
-            'Daily ?'
-            'Unknown',
-        url: 'url',
-        trackName: null,
       );
 
       final sport = SportRepositoryImpl(
-        FakeDgEdgeService([dg1, dg2, dgNull]),
-        FakeGtshRankService([card1, card2]),
+        FakeDgEdgeService([dg]),
+        FakeGtshRankService([gt]),
       );
-
       await sport.fetchDailyRaces();
-      final list = sport.dailyRaces;
 
-      // blank entry is dropped; we only pair by index so we'll get two
-      // merged items (dgNull produces nothing).
-      expect(list.length, 2);
-
-      // index-based matching: first pair should contain dg1/card1
-      expect(list[0].dgEdge, equals(dg1));
-      expect(list[0].gtsh, equals(card1));
-      expect(list[0].label, equals('A'));
-      expect(list[0].carImage, contains('123.png'));
-
-      // second pair should be dg2/card2
-      expect(list[1].dgEdge, equals(dg2));
-      expect(list[1].gtsh, equals(card2));
+      final race = sport.dailyRaces.single;
+      expect(race.label, 'A');
+      expect(race.carImage, contains('123.png'));
+      expect(race.damage, 'Light');
+      expect(race.startType, 'Rolling');
     });
+  });
 
-    test('upcoming races are placed before current ones by _merge', () async {
-      final futureSummary = DgEdgeDailyRace(
-        id: 'f',
-        title: 'Future',
-        url: 'u',
-        trackName: 'Later',
-        isActive: false,
-        isEnded: false,
-      );
-      final currentSummary = DgEdgeDailyRace(
+  group('SportRepository ordering and failures', () {
+    test('places upcoming races before current ones', () async {
+      final current = _dg(
         id: 'c',
-        title: 'Current',
-        url: 'u',
+        rankingId: 'p_rt_c_001',
         trackName: 'Now',
         isActive: true,
         isEnded: false,
       );
-      final nextCard = GtshDailyRace(
-        label: 'A',
-        trackName: 'Next',
-        tyreCode: 'SM',
-        status: 'next',
-        pitStops: '-',
-        bop: false,
-        damage: '',
-        startType: '',
-        carSettings: false,
-        wideFender: '',
-      );
-      final runningCard = GtshDailyRace(
-        label: 'B',
-        trackName: 'Now',
-        tyreCode: 'RH',
-        status: 'running',
-        pitStops: '-',
-        bop: false,
-        damage: '',
-        startType: '',
-        carSettings: false,
-        wideFender: '',
+      final future = _dg(
+        id: 'f',
+        rankingId: 'p_rt_f_001',
+        trackName: 'Later',
+        isActive: false,
+        isEnded: false,
       );
 
       final sport = SportRepositoryImpl(
-        FakeDgEdgeService([currentSummary, futureSummary]),
-        FakeGtshRankService([runningCard, nextCard]),
+        FakeDgEdgeService([current, future]),
+        FakeGtshRankService(const []),
       );
-
       await sport.fetchDailyRaces();
-      final list = sport.dailyRaces;
-      expect(list.first.isUpcoming, isTrue);
+
+      expect(sport.dailyRaces.first.isUpcoming, isTrue);
+      expect(sport.dailyRaces.first.trackName, 'Later');
     });
 
-    // remove previous sorting test
+    test('still returns the surviving source when one fails', () async {
+      final sport = SportRepositoryImpl(
+        ThrowingDgEdgeService(),
+        FakeGtshRankService([_gtsh(trackName: 'GTShOnly')]),
+      );
+      await sport.fetchDailyRaces();
+
+      expect(sport.dailyRaces, hasLength(1));
+      expect(sport.dailyRaces.single.trackName, 'GTShOnly');
+      expect(sport.error, isNull);
+    });
+
+    test('reports an error only when both sources come back empty', () async {
+      final sport = SportRepositoryImpl(
+        ThrowingDgEdgeService(),
+        FakeGtshRankService(const []),
+      );
+      await sport.fetchDailyRaces();
+
+      expect(sport.dailyRaces, isEmpty);
+      expect(sport.error, isNotNull);
+    });
   });
 }

@@ -285,6 +285,51 @@ class _RacesHeader extends StatelessWidget {
   }
 }
 
+/// A week's races, laid out to fit the width rather than scrolling sideways.
+///
+/// Same shape as the Services grid on the home page: [LayoutBuilder] picks a
+/// column count from the width and [GridView.count] sizes the tiles, with
+/// scrolling left to the page. Column count is capped at three because a week
+/// is three races — a fourth column would only add an empty slot.
+class _RaceGrid extends StatelessWidget {
+  const _RaceGrid({required this.items, required this.raceType});
+
+  final List<DailyRace> items;
+  final RaceType raceType;
+
+  @override
+  Widget build(BuildContext context) {
+    final shown = items.take(3).toList();
+    if (shown.isEmpty) return const SizedBox.shrink();
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final width = constraints.maxWidth;
+        // One column on a phone. The card is a copy of a panel GT7 draws
+        // across a television, and squeezed into half a phone width its
+        // footer labels stop being readable.
+        int crossAxisCount = 1;
+        if (width > 560) crossAxisCount = 2;
+        if (width > 900) crossAxisCount = 3;
+        crossAxisCount = crossAxisCount.clamp(1, shown.length);
+
+        return GridView.count(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          crossAxisCount: crossAxisCount,
+          mainAxisSpacing: 12,
+          crossAxisSpacing: 12,
+          childAspectRatio: kDailyRaceCardAspectRatio,
+          children: [
+            for (final race in shown)
+              DailyRaceCard(race: race, raceType: raceType),
+          ],
+        );
+      },
+    );
+  }
+}
+
 class _UpcomingRacesSection extends StatelessWidget {
   final List<DailyRace> items;
 
@@ -295,21 +340,7 @@ class _UpcomingRacesSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          height: kDailyRaceCardHeight,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 6),
-            itemCount: items.length.clamp(0, 3),
-            separatorBuilder: (_, __) => const SizedBox(width: 12),
-            itemBuilder: (context, index) {
-              return DailyRaceCard(
-                race: items[index],
-                raceType: RaceType.upcoming,
-              );
-            },
-          ),
-        ),
+        _RaceGrid(items: items, raceType: RaceType.upcoming),
         const SizedBox(height: 16),
       ],
     );
@@ -326,21 +357,7 @@ class _CurrentRacesSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          height: kDailyRaceCardHeight,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 6),
-            itemCount: items.length.clamp(0, 3),
-            separatorBuilder: (_, __) => const SizedBox(width: 12),
-            itemBuilder: (context, index) {
-              return DailyRaceCard(
-                race: items[index],
-                raceType: RaceType.current,
-              );
-            },
-          ),
-        ),
+        _RaceGrid(items: items, raceType: RaceType.current),
         const SizedBox(height: 16),
       ],
     );
@@ -354,23 +371,7 @@ class _PastRacesSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          height: kDailyRaceCardHeight,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 6),
-            itemCount: items.length.clamp(0, 3),
-            separatorBuilder: (_, __) => const SizedBox(width: 12),
-            itemBuilder: (context, index) {
-              return DailyRaceCard(race: items[index], raceType: RaceType.past);
-            },
-          ),
-        ),
-      ],
-    );
+    return _RaceGrid(items: items, raceType: RaceType.past);
   }
 }
 

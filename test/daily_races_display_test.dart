@@ -75,7 +75,14 @@ void main() {
       MaterialApp(
         home: ChangeNotifierProvider<SportRepository>.value(
           value: fake,
-          child: const Scaffold(body: DailyRacesDisplay()),
+          // The display is a content block, not a scroller: it lays its
+          // sections out in a Column and expects the page to scroll, which is
+          // how home_page.dart hosts it. Giving it a bare 800×600 box instead
+          // makes it overflow for reasons that have nothing to do with the
+          // behaviour under test.
+          child: const Scaffold(
+            body: SingleChildScrollView(child: DailyRacesDisplay()),
+          ),
         ),
       ),
     );
@@ -88,5 +95,77 @@ void main() {
     expect(find.text('Track3'), findsOneWidget);
     expect(find.text('Track4'), findsOneWidget);
     expect(find.text('Track5'), findsNothing);
+  });
+
+  testWidgets('race cards fit the width instead of scrolling sideways', (
+    tester,
+  ) async {
+    final races = List.generate(
+      3,
+      (i) => DailyRace.fromPair(
+        DgEdgeDailyRace(
+          id: '$i',
+          title: 'Race $i',
+          url: 'https://www.dg-edge.com/events/dailies/$i',
+          trackName: 'Track$i',
+          tyreCode: 'RM',
+          tyre: Tyre.RM,
+          isActive: true,
+          isEnded: false,
+        ),
+        null,
+      ),
+    );
+
+    Future<void> pumpAt(Size size) async {
+      tester.view.physicalSize = size;
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: ChangeNotifierProvider<SportRepository>.value(
+            value: FakeSportRepository(races),
+            child: const Scaffold(
+              body: SingleChildScrollView(child: DailyRacesDisplay()),
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+    }
+
+    await pumpAt(const Size(400, 900));
+
+    // No horizontal scroller anywhere in the section: the cards are laid out
+    // to fit, the way the Services grid does it.
+    final horizontal = find.byWidgetPredicate(
+      (w) => w is ScrollView && w.scrollDirection == Axis.horizontal,
+    );
+    expect(horizontal, findsNothing);
+
+    // The grid itself must not scroll either — the page owns scrolling.
+    final grid = tester.widget<GridView>(find.byType(GridView));
+    expect(grid.physics, isA<NeverScrollableScrollPhysics>());
+    expect(
+      (grid.gridDelegate as SliverGridDelegateWithFixedCrossAxisCount)
+          .crossAxisCount,
+      1,
+      reason: 'a phone-width column shows one card per row',
+    );
+
+    // All three cards are laid out, none parked off-screen.
+    for (var i = 0; i < 3; i++) {
+      expect(find.text('Track$i'), findsOneWidget);
+    }
+
+    await pumpAt(const Size(1200, 1200));
+    final wide = tester.widget<GridView>(find.byType(GridView));
+    expect(
+      (wide.gridDelegate as SliverGridDelegateWithFixedCrossAxisCount)
+          .crossAxisCount,
+      3,
+      reason: 'a desktop width shows the week as a row of three, like the game',
+    );
   });
 }

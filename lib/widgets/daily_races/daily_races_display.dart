@@ -296,7 +296,7 @@ class _UpcomingRacesSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          height: 356,
+          height: kDailyRaceCardHeight,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 6),
@@ -305,7 +305,7 @@ class _UpcomingRacesSection extends StatelessWidget {
             itemBuilder: (context, index) {
               return DailyRaceCard(
                 race: items[index],
-                raceType: RaceType.current,
+                raceType: RaceType.upcoming,
               );
             },
           ),
@@ -327,7 +327,7 @@ class _CurrentRacesSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          height: 356,
+          height: kDailyRaceCardHeight,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 6),
@@ -358,7 +358,7 @@ class _PastRacesSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          height: 356,
+          height: kDailyRaceCardHeight,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 6),

@@ -1,15 +1,31 @@
-// Reused card component
+// Race card shaped after the in-game Daily Races panel.
+//
+// GT7 shows four things and nothing else: the race letter with its BoP badge,
+// a photo of the circuit with the layout drawn over it, the track name with a
+// category chip, and a strip of label/value cells along the bottom. Everything
+// else the two scrapers publish — regulations, the field breakdown, the record
+// holder — lives in [DailyRaceDetailsSheet], one tap away.
 import 'package:flutter/material.dart';
 
 import '../../models/dg_edge/dg_edge_daily_race.dart';
 import '../../models/daily_races/daily_race.dart';
+import 'daily_race_details_sheet.dart';
 
 enum RaceType { upcoming, current, past }
+
+/// Size of a card. [DailyRacesDisplay] sizes its strip from these so the two
+/// cannot drift apart — a fixed strip with a taller card is what overflowed
+/// here before.
+const double kDailyRaceCardWidth = 280;
+const double kDailyRaceCardHeight = 300;
+
+const double _kHeroHeight = 148;
+const double _kFooterHeight = 62;
 
 class DailyRaceCard extends StatelessWidget {
   final DailyRace race;
 
-  /// Type of race (controls styling & banner).
+  /// Type of race (controls the badge in the header slot).
   final RaceType raceType;
 
   const DailyRaceCard({
@@ -21,308 +37,125 @@ class DailyRaceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final it = race;
+    final surface = theme.colorScheme.surfaceContainerHighest;
 
-    // Determine colors and banner text based on race type
-    final (borderColor, bannerColor, bannerText) = switch (raceType) {
-      RaceType.upcoming => (Colors.amber, Colors.amber, 'FUTURE'),
-      RaceType.past => (Colors.grey, Colors.grey, 'PAST'),
-      RaceType.current => (Colors.white24, Colors.transparent, ''),
-    };
-
-    return Container(
-      width: 280,
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+    return SizedBox(
+      width: kDailyRaceCardWidth,
+      height: kDailyRaceCardHeight,
+      child: Material(
+        color: surface.withValues(alpha: 0.92),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: borderColor, width: 1.0),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Flexible(
-            flex: 4,
-            child: Stack(
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: () => DailyRaceDetailsSheet.show(context, race),
+          child: Ink(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: raceType == RaceType.past
+                    ? Colors.white12
+                    : Colors.white24,
+                width: 1.0,
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Container(
-                  width: 300,
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.surface.withValues(alpha: 0.04),
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(12),
-                      topRight: Radius.circular(12),
-                    ),
-                    image: it.trackBackgroundImage != null
-                        ? DecorationImage(
-                            image: NetworkImage(it.trackBackgroundImage!),
-                            colorFilter: const ColorFilter.mode(
-                              Colors.black38,
-                              BlendMode.srcATop,
-                            ),
-                            fit: BoxFit.cover,
-                          )
-                        : null,
-                  ),
-                  child: Column(
-                    children: [
-                      Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          if (it.trackLogotype != null)
-                            Align(
-                              alignment: Alignment.bottomLeft,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.network(
-                                  it.trackLogotype!,
-                                  key: ValueKey('thumb-${it.trackName ?? ''}'),
-                                  width: 64,
-                                  height: 64,
-                                  fit: BoxFit.contain,
-                                  errorBuilder: (_, __, ___) =>
-                                      const SizedBox.shrink(),
-                                ),
-                              ),
-                            ),
-                          if (it.trackImage != null)
-                            Align(
-                              alignment: Alignment.center,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.network(
-                                  it.trackImage!,
-                                  key: ValueKey('track-${it.trackName ?? ''}'),
-                                  width: 64,
-                                  height: 64,
-                                  fit: BoxFit.contain,
-                                  errorBuilder: (_, __, ___) =>
-                                      const SizedBox.shrink(),
-                                ),
-                              ),
-                            )
-                          else
-                            Container(
-                              width: 64,
-                              height: 64,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: const Icon(Icons.flag),
-                            ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                // Banner for upcoming/past races
-                if (bannerText.isNotEmpty)
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 4,
-                      ),
-                      decoration: BoxDecoration(
-                        color: bannerColor,
-                        borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(8),
-                          topRight: Radius.circular(12),
-                        ),
-                      ),
-                      child: Text(
-                        bannerText,
-                        style: theme.textTheme.labelSmall?.copyWith(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                  ),
+                _Hero(race: race, raceType: raceType),
+                Expanded(child: _Title(race: race)),
+                _StatsFooter(race: race),
               ],
             ),
           ),
-          Flexible(
-            flex: 5,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8.0,
-                    vertical: 4.0,
-                  ),
-                  child: Column(
-                    spacing: 8.0,
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (it.trackName != null)
-                        Text(
-                          it.trackName!,
-                          style: theme.textTheme.titleSmall,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      CarCategory(info: it.carType),
-                      if (it.weekLabel != null)
-                        Text(
-                          it.weekLabel!,
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            color: theme.colorScheme.onSurface.withValues(
-                              alpha: 0.55,
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Circuit photo with the layout outline over it, plus the header strip.
+class _Hero extends StatelessWidget {
+  const _Hero({required this.race, required this.raceType});
+
+  final DailyRace race;
+  final RaceType raceType;
+
+  @override
+  Widget build(BuildContext context) {
+    final background = race.trackBackgroundImage;
+
+    return SizedBox(
+      height: _kHeroHeight,
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          if (background != null)
+            Image.network(
+              background,
+              fit: BoxFit.cover,
+              errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+            )
+          else
+            Container(color: Colors.white10),
+
+          // The game darkens the top of the photo so the header reads on any
+          // circuit.
+          const DecoratedBox(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Colors.black54, Colors.transparent],
+                stops: [0.0, 0.45],
+              ),
+            ),
+          ),
+
+          if (race.trackImage != null)
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 28, 14, 12),
+                child: Image.network(
+                  race.trackImage!,
+                  key: ValueKey('track-${race.trackName ?? ''}'),
+                  fit: BoxFit.contain,
+                  errorBuilder: (_, __, ___) => const SizedBox.shrink(),
                 ),
-                Divider(
-                  color: Colors.white24,
-                  thickness: 1.0,
-                  height: 1.0,
-                  indent: 0,
-                  endIndent: 0.0,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: IntrinsicHeight(
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        spacing: 4.0,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          if (it.laps != null)
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 8.0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    'laps',
-                                    style: theme.textTheme.bodySmall,
-                                  ),
-                                  Text(
-                                    it.laps!.toString(),
-                                    style: theme.textTheme.titleSmall,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          if (it.tyresAvailable != null)
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 8.0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    'tyre intake',
-                                    style: theme.textTheme.bodySmall,
-                                  ),
-                                  Text(
-                                    it.tyresAvailable!.toString(),
-                                    style: theme.textTheme.titleSmall,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          if (it.pitStops != null)
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 8.0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    'pit-stops',
-                                    style: theme.textTheme.bodySmall,
-                                  ),
-                                  Text(
-                                    it.pitStops!.toString(),
-                                    style: theme.textTheme.titleSmall,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          if (it.refuels != null)
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 8.0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    'fuel intake',
-                                    style: theme.textTheme.bodySmall,
-                                  ),
-                                  Text(
-                                    it.refuels!.toString(),
-                                    style: theme.textTheme.titleSmall,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          if (it.playersCount != null)
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 8.0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    'entrants',
-                                    style: theme.textTheme.bodySmall,
-                                  ),
-                                  Text(
-                                    it.playersCount!.toString(),
-                                    style: theme.textTheme.titleSmall,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          if (it.leadTime != null)
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 8.0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    'leader',
-                                    style: theme.textTheme.bodySmall,
-                                  ),
-                                  Text(
-                                    it.leadTime!,
-                                    style: theme.textTheme.titleSmall,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          const SizedBox(width: 6),
-                          VerticalDivider(
-                            color: Colors.white24,
-                            thickness: 1.0,
-                            width: 16.0,
-                            indent: 0.0,
-                            endIndent: 0.0,
-                          ),
-                          const SizedBox(width: 6),
-                          TyreCategory(tyre: it.tyre),
+              ),
+            ),
+
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10, 8, 8, 0),
+              child: Row(
+                children: [
+                  const _GridGlyph(),
+                  const SizedBox(width: 6),
+                  Expanded(
+                    child: Text(
+                      race.label != null
+                          ? 'RACE ${race.label}'
+                          : (race.className ?? '').toUpperCase(),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 1.2,
+                        shadows: [
+                          Shadow(blurRadius: 4, color: Colors.black87),
                         ],
                       ),
                     ),
                   ),
-                ),
-                // The DR/SR and country histograms are deliberately not here:
-                // the card lives in a fixed-height horizontal strip, and two
-                // expansion tiles overflow it. `RaceFieldHistogram` is built
-                // for a detail view, where there is room for it.
-                if (it.leaderName != null) _RaceLeader(race: it),
-              ],
+                  _HeaderBadge(race: race, raceType: raceType),
+                ],
+              ),
             ),
           ),
         ],
@@ -331,66 +164,232 @@ class DailyRaceCard extends StatelessWidget {
   }
 }
 
-/// The current world-record holder, as published by GTSh-rank.
-class _RaceLeader extends StatelessWidget {
-  const _RaceLeader({required this.race});
+/// The slot GT7 uses for "BoP Applied". Race status wins it when the race is
+/// not the running one, because that is the more useful fact then; BoP is
+/// always spelled out in the details sheet.
+class _HeaderBadge extends StatelessWidget {
+  const _HeaderBadge({required this.race, required this.raceType});
+
+  final DailyRace race;
+  final RaceType raceType;
+
+  @override
+  Widget build(BuildContext context) {
+    final (label, background, foreground) = switch (raceType) {
+      RaceType.past => ('PAST', Colors.white70, Colors.black87),
+      RaceType.upcoming => ('NEXT WEEK', Colors.amber, Colors.black87),
+      RaceType.current => race.bop == true
+          ? ('BoP Applied', const Color(0xFFF5E34F), Colors.black87)
+          : (null, Colors.transparent, Colors.transparent),
+    };
+
+    if (label == null) return const SizedBox.shrink();
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+      decoration: BoxDecoration(
+        color: background,
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Text(
+        label,
+        style: TextStyle(
+          color: foreground,
+          fontSize: 10,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    );
+  }
+}
+
+/// The little checkered square GT7 prints before the race letter.
+class _GridGlyph extends StatelessWidget {
+  const _GridGlyph();
+
+  @override
+  Widget build(BuildContext context) {
+    Widget cell(bool filled) => Container(
+      width: 5,
+      height: 5,
+      color: filled ? Colors.white : Colors.transparent,
+    );
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [cell(true), cell(false)],
+        ),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [cell(false), cell(true)],
+        ),
+      ],
+    );
+  }
+}
+
+class _Title extends StatelessWidget {
+  const _Title({required this.race});
 
   final DailyRace race;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final category = race.carType?.display;
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-      child: Row(
+      padding: const EdgeInsets.fromLTRB(12, 10, 12, 6),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (race.leaderAvatar != null)
-            ClipOval(
-              child: Image.network(
-                race.leaderAvatar!,
-                width: 24,
-                height: 24,
-                fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+          Flexible(
+            child: Text(
+              race.trackName ?? '—',
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: theme.textTheme.titleSmall?.copyWith(
+                fontWeight: FontWeight.w600,
+                height: 1.15,
               ),
             ),
-          if (race.leaderCountryFlag != null) ...[
-            const SizedBox(width: 6),
-            Image.network(
-              race.leaderCountryFlag!,
-              width: 18,
-              height: 12,
-              fit: BoxFit.contain,
-              errorBuilder: (_, __, ___) => const SizedBox.shrink(),
-            ),
-          ],
-          const SizedBox(width: 8),
+          ),
+          const Spacer(),
+          if (category != null && category.isNotEmpty)
+            CarCategory(info: race.carType),
+        ],
+      ),
+    );
+  }
+}
+
+/// The bottom strip: three cells, then the record time set apart the way the
+/// game sets "Next Race" apart.
+class _StatsFooter extends StatelessWidget {
+  const _StatsFooter({required this.race});
+
+  final DailyRace race;
+
+  static String _compact(int value) {
+    if (value < 10000) return value.toString();
+    return '${(value / 1000).toStringAsFixed(1)}K';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final tyre = race.tyre;
+
+    return Container(
+      height: _kFooterHeight,
+      decoration: const BoxDecoration(
+        border: Border(top: BorderSide(color: Colors.white24)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
+            flex: 3,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
-                  race.leaderName!,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    fontWeight: FontWeight.w600,
+                Expanded(
+                  child: _StatCell(
+                    label: 'No. of Laps',
+                    value: race.laps?.toString(),
+                    valueColor: const Color(0xFF7FB2E5),
                   ),
                 ),
-                if (race.leaderCarName != null)
-                  Text(
-                    race.leaderCarName!,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.colorScheme.onSurface.withValues(
-                        alpha: 0.55,
-                      ),
-                    ),
+                const _CellDivider(),
+                Expanded(
+                  child: _StatCell(
+                    label: 'Tyres',
+                    value: tyre?.code,
+                    valueColor: tyre?.color,
                   ),
+                ),
+                const _CellDivider(),
+                Expanded(
+                  child: _StatCell(
+                    label: 'Entrants',
+                    value: race.playersCount == null
+                        ? null
+                        : _compact(race.playersCount!),
+                  ),
+                ),
               ],
+            ),
+          ),
+          const SizedBox(width: 6),
+          Expanded(
+            flex: 2,
+            child: DecoratedBox(
+              decoration: const BoxDecoration(
+                color: Colors.white10,
+                border: Border(left: BorderSide(color: Colors.white24)),
+              ),
+              child: _StatCell(label: 'Best Lap', value: race.leadTime),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _CellDivider extends StatelessWidget {
+  const _CellDivider();
+
+  @override
+  Widget build(BuildContext context) => const VerticalDivider(
+    color: Colors.white24,
+    thickness: 1,
+    width: 1,
+    indent: 10,
+    endIndent: 10,
+  );
+}
+
+class _StatCell extends StatelessWidget {
+  const _StatCell({required this.label, this.value, this.valueColor});
+
+  final String label;
+  final String? value;
+  final Color? valueColor;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              label,
+              maxLines: 1,
+              style: theme.textTheme.bodySmall?.copyWith(
+                fontSize: 9,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.55),
+              ),
+            ),
+          ),
+          const SizedBox(height: 2),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              value ?? '—',
+              maxLines: 1,
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: valueColor,
+              ),
             ),
           ),
         ],
@@ -438,25 +437,33 @@ class CarCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final display = info?.display;
-    if (display != null && display.isNotEmpty) {
-      return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
-        decoration: BoxDecoration(
-          color: Colors.black54,
-          borderRadius: BorderRadius.circular(6),
-          border: Border.all(color: Colors.white),
-        ),
-        child: Text(
-          display,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            fontSize: 10,
-            fontWeight: FontWeight.w700,
-            color: Colors.white,
-          ),
-        ),
+    if (display == null || display.isEmpty) return const SizedBox.shrink();
+
+    final style = Theme.of(context).textTheme.bodyMedium?.copyWith(
+      fontSize: 13,
+      fontWeight: FontWeight.w600,
+      color: Colors.white,
+    );
+
+    // A category code ("Gr.4") gets the boxed treatment GT7 gives it. A
+    // one-make race carries a car model instead, which is far too long for a
+    // chip — the game prints those as plain text, and so do we.
+    if (info?.type == null) {
+      return Text(
+        display,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: style,
       );
-    } else {
-      return const SizedBox.shrink();
     }
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 3.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(color: Colors.white70),
+      ),
+      child: Text(display, maxLines: 1, style: style),
+    );
   }
 }

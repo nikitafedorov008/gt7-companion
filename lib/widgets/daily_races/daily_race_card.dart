@@ -38,17 +38,24 @@ class DailyRaceCard extends StatelessWidget {
     this.raceType = RaceType.current,
   });
 
+  /// The card body in GT7 is a cool blue-grey, appreciably lighter than this
+  /// app's near-black surface. Lifting the theme colour toward that tone keeps
+  /// the card recognisable without hard-coding a palette beside the theme.
+  static Color _panelColor(ThemeData theme) => Color.alphaBlend(
+    const Color(0xFF4A6FA5).withValues(alpha: 0.10),
+    theme.colorScheme.surface,
+  );
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final surface = theme.colorScheme.surfaceContainerHighest;
 
     return LayoutBuilder(
       builder: (context, constraints) {
         final metrics = _CardMetrics(constraints.maxWidth);
 
         return Material(
-          color: surface.withValues(alpha: 0.92),
+          color: _panelColor(theme),
           borderRadius: BorderRadius.circular(metrics.radius),
           clipBehavior: Clip.antiAlias,
           child: InkWell(
@@ -381,8 +388,10 @@ class _StatsFooter extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          // Two thirds for the three plain cells, one third for the one set
+          // apart on the right — the split GT7 uses.
           Expanded(
-            flex: 3,
+            flex: 2,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -418,7 +427,7 @@ class _StatsFooter extends StatelessWidget {
           ),
           SizedBox(width: metrics.pad * 0.4),
           Expanded(
-            flex: 2,
+            flex: 1,
             child: DecoratedBox(
               decoration: const BoxDecoration(
                 color: Colors.white10,

@@ -159,13 +159,23 @@ void main() {
       expect(find.text('Track$i'), findsOneWidget);
     }
 
+    // 800 logical points is an ordinary macOS window, and the game puts a
+    // whole week in one row there. This is the case that regressed.
+    await pumpAt(const Size(800, 1200));
+    final desktop = tester.widget<GridView>(find.byType(GridView));
+    expect(
+      (desktop.gridDelegate as SliverGridDelegateWithFixedCrossAxisCount)
+          .crossAxisCount,
+      3,
+      reason: 'a desktop window shows the week as a row of three, like the game',
+    );
+
     await pumpAt(const Size(1200, 1200));
     final wide = tester.widget<GridView>(find.byType(GridView));
     expect(
       (wide.gridDelegate as SliverGridDelegateWithFixedCrossAxisCount)
           .crossAxisCount,
       3,
-      reason: 'a desktop width shows the week as a row of three, like the game',
     );
   });
 }

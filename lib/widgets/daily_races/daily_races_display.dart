@@ -305,12 +305,13 @@ class _RaceGrid extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final width = constraints.maxWidth;
-        // One column on a phone. The card is a copy of a panel GT7 draws
-        // across a television, and squeezed into half a phone width its
-        // footer labels stop being readable.
+        // GT7 gives each card about 30% of the screen, which is what puts the
+        // week in one row of three. Three columns start as soon as that still
+        // leaves a readable card — below that the card would be narrower than
+        // the game ever draws it, so drop to two and then to one.
         int crossAxisCount = 1;
-        if (width > 560) crossAxisCount = 2;
-        if (width > 900) crossAxisCount = 3;
+        if (width > 500) crossAxisCount = 2;
+        if (width > 700) crossAxisCount = 3;
         crossAxisCount = crossAxisCount.clamp(1, shown.length);
 
         return GridView.count(

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../../models/dg_edge/dg_edge_daily_race.dart';
 import '../../models/daily_races/daily_race.dart';
-import 'race_field_histogram.dart';
 
 enum RaceType { upcoming, current, past }
 
@@ -43,7 +42,7 @@ class DailyRaceCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Flexible(
-            flex: 5,
+            flex: 4,
             child: Stack(
               children: [
                 Container(
@@ -149,7 +148,7 @@ class DailyRaceCard extends StatelessWidget {
             ),
           ),
           Flexible(
-            flex: 4,
+            flex: 5,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -318,25 +317,11 @@ class DailyRaceCard extends StatelessWidget {
                     ),
                   ),
                 ),
+                // The DR/SR and country histograms are deliberately not here:
+                // the card lives in a fixed-height horizontal strip, and two
+                // expansion tiles overflow it. `RaceFieldHistogram` is built
+                // for a detail view, where there is room for it.
                 if (it.leaderName != null) _RaceLeader(race: it),
-                if (it.ratingsMatrix.isNotEmpty ||
-                    it.countriesMatrix.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 0, 8, 4),
-                    child: Column(
-                      children: [
-                        RaceFieldHistogram(
-                          title: 'Field by rating',
-                          values: it.ratingsMatrix,
-                          labelBuilder: formatRatingBucket,
-                        ),
-                        RaceFieldHistogram(
-                          title: 'Field by country',
-                          values: it.countriesMatrix,
-                        ),
-                      ],
-                    ),
-                  ),
               ],
             ),
           ),

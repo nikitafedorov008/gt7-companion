@@ -43,3 +43,11 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Agent tooling: share the project-level config, keep machine-local state out.
+# `*.local.json` is the per-developer permission override and holds absolute
+# home paths; the rest is per-session runtime state, not configuration.
+**/settings.local.json
+.mimosa/
+.playwright-mcp/
+.zcode/plans/

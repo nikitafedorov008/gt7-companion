@@ -1,0 +1,69 @@
+<TechnologyStack VERSION="0.2.0">
+  <Runtime>Flutter SDK stable</Runtime>
+  <Language>Dart 3.x</Language>
+  <Framework>Flutter with Material 3</Framework>
+
+  <Dependencies>
+    <dep name="flutter_bloc" version="latest" purpose="BLoC/Cubit state management for features" />
+    <dep name="provider" version="latest" purpose="Shared services, repositories, and lightweight state" />
+    <dep name="auto_route" version="latest" purpose="Declarative routing with MaterialApp.router" />
+    <dep name="pointycastle" version="latest" purpose="Salsa20 stream cipher for GT7 telemetry decryption" />
+    <dep name="equatable" version="latest" purpose="Value equality for models and states" />
+    <dep name="freezed" version="latest" purpose="Immutable model generation" />
+    <dep name="json_serializable" version="latest" purpose="JSON serialization for API models" />
+  </Dependencies>
+
+  <VersionConstraints>
+    <constraint lib="flutter" min="3.x" max="3.x" reason="Stable Flutter SDK conventions" />
+    <constraint lib="dart" min="3.x" max="3.x" reason="Dart 3 language features required" />
+  </VersionConstraints>
+
+  <Tooling>
+    <tool name="package-manager" value="pub" version="stable" />
+    <tool name="linter" value="dart analyze" version="stable" />
+    <tool name="formatter" value="dart format" version="stable" />
+    <tool name="test-runner" value="flutter_test" version="stable" />
+    <tool name="build-runner" value="build_runner" version="latest" />
+  </Tooling>
+
+  <PreferredAgentStack>
+    <preferred-runtime-library>flutter_bloc for feature state, Provider for shared services</preferred-runtime-library>
+    <preferred-test-library>flutter_test + mocktail</preferred-test-library>
+    <preferred-observability-library>print/debugPrint (no structured logging yet)</preferred-observability-library>
+    <discouraged-surface reason="Maintain consistency with existing architecture.">Direct setState for feature state; use BLoC/Cubit instead.</discouraged-surface>
+  </PreferredAgentStack>
+
+  <Testing>
+    <module-level>
+      <command>flutter test test/path/to/module_test.dart</command>
+      <focus>Fast deterministic unit and widget checks</focus>
+    </module-level>
+    <wave-level>
+      <command>flutter test test/path/to/integration_test.dart</command>
+      <focus>Checks only merged surfaces touched by a wave</focus>
+    </wave-level>
+    <phase-level>
+      <command>flutter test</command>
+      <focus>Broader integration and regression confidence</focus>
+    </phase-level>
+    <mocking-policy>Prefer mocktail fakes and narrow stubs over broad monkey-patching.</mocking-policy>
+  </Testing>
+
+  <Observability>
+    <logger>print/debugPrint</logger>
+    <log-format>[ModuleName] message</log-format>
+    <required-fields>none (unstructured logging)</required-fields>
+    <redaction>No secrets in telemetry data; network credentials must not appear in logs.</redaction>
+  </Observability>
+
+  <AutonomyPolicy>
+    <default-execution-profile>balanced</default-execution-profile>
+    <max-fix-attempts-per-step>2</max-fix-attempts-per-step>
+    <replan-trigger>Missing dependency, contradictory contract, or unclear third-party surface.</replan-trigger>
+    <checkpoint-requirement>Every completed step must emit assumptions, commands, evidence, and next action.</checkpoint-requirement>
+  </AutonomyPolicy>
+
+  <DeliveryShape>
+    <shape>Cross-platform Flutter app targeting iOS, Android, macOS, Windows, Linux, and Web from a single codebase.</shape>
+  </DeliveryShape>
+</TechnologyStack>

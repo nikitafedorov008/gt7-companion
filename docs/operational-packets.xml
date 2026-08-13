@@ -1,0 +1,120 @@
+<OperationalPackets VERSION="0.1.0">
+  <ExecutionPacketTemplate>
+    <ExecutionPacket>
+      <module-id>M-EXAMPLE</module-id>
+      <module-name>ExampleModule</module-name>
+      <purpose>Implement the approved module without architectural drift.</purpose>
+      <write-scope>
+        <file-1>lib/path/to/module.dart</file-1>
+        <file-2>test/path/to/module_test.dart</file-2>
+      </write-scope>
+      <contract-excerpt><![CDATA[
+Planned module contract excerpt goes here.
+      ]]></contract-excerpt>
+      <graph-entry-excerpt><![CDATA[
+Knowledge graph entry excerpt goes here.
+      ]]></graph-entry-excerpt>
+      <dependency-contract-summaries>
+        <dependency-1 module="M-LOGGER">Structured logger interface with stable marker fields.</dependency-1>
+      </dependency-contract-summaries>
+      <verification-excerpt><![CDATA[
+Verification-plan excerpt goes here.
+      ]]></verification-excerpt>
+      <assumptions>
+        <assumption-1>Config schema and dependency contracts are already approved.</assumption-1>
+      </assumptions>
+      <stop-conditions>
+        <condition-1>Stop if a new dependency, new module, or unclear third-party surface is required.</condition-1>
+      </stop-conditions>
+      <retry-budget>2</retry-budget>
+      <checkpoint-fields>
+        <field-1>assumptions-kept</field-1>
+        <field-2>commands-run</field-2>
+        <field-3>evidence-captured</field-3>
+        <field-4>next-action</field-4>
+      </checkpoint-fields>
+      <expected-graph-delta-fields>
+        <field-1>imports</field-1>
+        <field-2>exports</field-2>
+        <field-3>annotations</field-3>
+        <field-4>CrossLinks</field-4>
+      </expected-graph-delta-fields>
+      <expected-verification-delta-fields>
+        <field-1>test-files</field-1>
+        <field-2>module-checks</field-2>
+        <field-3>required-log-markers</field-3>
+        <field-4>follow-up-checks</field-4>
+      </expected-verification-delta-fields>
+    </ExecutionPacket>
+  </ExecutionPacketTemplate>
+
+  <GraphDeltaTemplate>
+    <GraphDelta module="M-EXAMPLE">
+      <imports-added>
+        <import-1>M-LOGGER</import-1>
+      </imports-added>
+      <imports-removed />
+      <exports-added>
+        <export-1>runExample</export-1>
+      </exports-added>
+      <exports-removed />
+      <annotations-added>
+        <annotation-1>&lt;fn-runExample PURPOSE="Execute the example flow" /&gt;</annotation-1>
+      </annotations-added>
+      <annotations-removed />
+      <cross-links-added>
+        <CrossLink from="M-EXAMPLE" to="M-LOGGER" relation="uses" />
+      </cross-links-added>
+      <cross-links-removed />
+    </GraphDelta>
+  </GraphDeltaTemplate>
+
+  <VerificationDeltaTemplate>
+    <VerificationDelta module="M-EXAMPLE">
+      <test-files-added>
+        <file-1>test/path/to/module_test.dart</file-1>
+      </test-files-added>
+      <test-files-removed />
+      <module-checks>
+        <command-1>flutter test test/path/to/module_test.dart</command-1>
+      </module-checks>
+      <required-log-markers>
+        <marker-1>[ModuleName][functionName][BLOCK_EXECUTE]</marker-1>
+      </required-log-markers>
+    </VerificationDelta>
+  </VerificationDeltaTemplate>
+
+  <FailurePacketTemplate>
+    <FailurePacket>
+      <scenario>Primary success path fails on valid input.</scenario>
+      <contract-ref>M-EXAMPLE / V-M-EXAMPLE / scenario-1</contract-ref>
+      <expected-evidence>
+        <marker-1>[ModuleName][functionName][BLOCK_VALIDATE_INPUT]</marker-1>
+        <assertion-1>Expected return value should match expected output.</assertion-1>
+      </expected-evidence>
+      <observed-evidence>
+        <log-1>[ModuleName][functionName][BLOCK_VALIDATE_INPUT] emitted</log-1>
+        <trace-1>BLOCK_VALIDATE_INPUT -> threw UNEXPECTED_ERROR</trace-1>
+      </observed-evidence>
+      <first-divergent-block>BLOCK_VALIDATE_INPUT</first-divergent-block>
+      <suggested-next-action>Read the contract, inspect the divergent block, and apply the smallest safe fix.</suggested-next-action>
+    </FailurePacket>
+  </FailurePacketTemplate>
+
+  <CheckpointReportTemplate>
+    <CheckpointReport>
+      <scope>M-EXAMPLE / step-1</scope>
+      <assumptions-kept>
+        <item-1>Dependency contracts matched the packet.</item-1>
+      </assumptions-kept>
+      <commands-run>
+        <command-1>flutter test test/path/to/module_test.dart</command-1>
+      </commands-run>
+      <evidence-captured>
+        <item-1>[ModuleName][functionName][BLOCK_EXECUTE] emitted once.</item-1>
+      </evidence-captured>
+      <retry-budget-used>0</retry-budget-used>
+      <next-action>Ready for shared-artifact sync.</next-action>
+    </CheckpointReport>
+  </CheckpointReportTemplate>
+</OperationalPackets>

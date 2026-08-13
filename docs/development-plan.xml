@@ -1,0 +1,56 @@
+<DevelopmentPlan VERSION="0.2.0">
+  <ArchitectureNotes>
+    <objective>Real-time GT7 telemetry visualization with clean architecture, BLoC state management, and cross-platform Flutter support.</objective>
+    <non-goal>No multiplayer, no historical analysis, no external sim platform integration.</non-goal>
+    <risk-1>UDP packet loss and Salsa20 decryption errors may cause gauge stuttering.</risk-1>
+    <risk-2>High-frequency telemetry updates may cause excessive widget rebuilds.</risk-2>
+  </ArchitectureNotes>
+
+  <Modules>
+    <!-- Modules will be populated during /grace:plan phase.
+
+         Planned module candidates:
+         <M-SERVICE-TELEMETRY NAME="TelemetryService" TYPE="DATA_LAYER" LAYER="0" ORDER="1" STATUS="planned">
+           <contract>
+             <purpose>UDP telemetry ingestion and Salsa20 decryption from GT7</purpose>
+             <inputs><param name="port" type="int" /></inputs>
+             <outputs><param name="stream" type="Stream<TelemetryData>" /></outputs>
+             <errors><error code="DECRYPTION_FAILED" /><error code="SOCKET_ERROR" /></errors>
+           </contract>
+           <depends>none</depends>
+           <target>
+             <source>lib/services/telemetry_service.dart</source>
+             <tests>test/services/telemetry_service_test.dart</tests>
+           </target>
+           <verification-ref>V-M-SERVICE-TELEMETRY</verification-ref>
+         </M-SERVICE-TELEMETRY>
+    -->
+  </Modules>
+
+  <DataFlow>
+    <!-- Flows will be populated during /grace:plan phase.
+
+         <DF-TELEMETRY NAME="TelemetryIngestion" TRIGGER="UDP packet received">
+           <step-1>PS5 sends UDP telemetry packet to app socket</step-1>
+           <step-2>TelemetryService receives raw bytes</step-2>
+           <step-3>Salsa20 decryption applied to packet</step-3>
+           <step-4>Decoded data mapped to TelemetryData model</step-4>
+           <step-5>TelemetryData emitted on stream to BLoC</step-5>
+           <step-6>BLoC updates state, widgets rebuild</step-6>
+         </DF-TELEMETRY>
+    -->
+  </DataFlow>
+
+  <ImplementationOrder>
+    <!-- Phases will be populated during /grace:plan phase. -->
+  </ImplementationOrder>
+
+  <ExecutionPolicy>
+    <default-profile>balanced</default-profile>
+    <controller-owns>docs/development-plan.xml, docs/knowledge-graph.xml, docs/verification-plan.xml</controller-owns>
+    <worker-owns>Only module source files and module-local tests inside the approved write scope.</worker-owns>
+    <max-fix-attempts-per-step>2</max-fix-attempts-per-step>
+    <replan-trigger>Missing dependency, contradictory contract, or unclear external surface.</replan-trigger>
+    <checkpoint-requirement>Every step must leave assumptions, commands run, evidence, and next action.</checkpoint-requirement>
+  </ExecutionPolicy>
+</DevelopmentPlan>

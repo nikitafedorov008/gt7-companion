@@ -1,0 +1,26 @@
+<KnowledgeGraph>
+  <Project NAME="GT7 Companion" VERSION="0.2.0">
+    <keywords>gt7, telemetry, flutter, dart, racing, udp, salsa20</keywords>
+    <annotation>Flutter app for real-time GT7 telemetry display across mobile and desktop platforms</annotation>
+
+    <!-- Modules populated during /grace:plan phase.
+
+         Planned module candidates based on existing codebase:
+         - M-SERVICE-TELEMETRY: UDP telemetry ingestion and Salsa20 decryption (lib/services/)
+         - M-REPO-SPORT: Sport mode / daily races data repository (lib/repositories/)
+         - M-BLOC-TELEMETRY: Telemetry state management via BLoC/Cubit
+         - M-BLOC-SPORT: Sport mode state management
+         - M-WIDGET-GAUGES: Analog gauge widgets (speedometer, tachometer, circular gauges)
+         - M-WIDGET-TIRES: Tire metrics display (FL/FR/RL/RR)
+         - M-WIDGET-GRAPH: Throttle/brake time-series graph (CustomPaint)
+         - M-WIDGET-DASHBOARD: Main telemetry dashboard layout
+         - M-WIDGET-DAILY: Daily races display
+         - M-MODEL-TELEMETRY: Telemetry data models
+         - M-MODEL-DAILY: Daily race models
+         - M-DI-APPSCOPE: Dependency injection (lib/dependency_injection/app_scope.dart)
+         - M-ROUTER: Auto-route configuration (lib/router/app_router.dart)
+         - M-THEME: GT7 dark theme with custom graph colors (lib/theme/)
+    -->
+
+  </Project>
+</KnowledgeGraph>

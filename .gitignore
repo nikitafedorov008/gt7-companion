@@ -51,3 +51,6 @@ app.*.map.json
 .mimosa/
 .playwright-mcp/
 .zcode/plans/
+
+# Raw scraper output; DESIGN.md at the repo root is the copy that is kept.
+/output/

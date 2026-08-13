@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../models/dg_edge/dg_edge_daily_race.dart';
 import '../../models/daily_races/daily_race.dart';
+import 'race_field_histogram.dart';
 
 enum RaceType { upcoming, current, past }
 
@@ -171,6 +172,15 @@ class DailyRaceCard extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                       CarCategory(info: it.carType),
+                      if (it.weekLabel != null)
+                        Text(
+                          it.weekLabel!,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: theme.colorScheme.onSurface.withValues(
+                              alpha: 0.55,
+                            ),
+                          ),
+                        ),
                     ],
                   ),
                 ),
@@ -259,6 +269,40 @@ class DailyRaceCard extends StatelessWidget {
                                 ],
                               ),
                             ),
+                          if (it.playersCount != null)
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'entrants',
+                                    style: theme.textTheme.bodySmall,
+                                  ),
+                                  Text(
+                                    it.playersCount!.toString(),
+                                    style: theme.textTheme.titleSmall,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          if (it.leadTime != null)
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'leader',
+                                    style: theme.textTheme.bodySmall,
+                                  ),
+                                  Text(
+                                    it.leadTime!,
+                                    style: theme.textTheme.titleSmall,
+                                  ),
+                                ],
+                              ),
+                            ),
                           const SizedBox(width: 6),
                           VerticalDivider(
                             color: Colors.white24,
@@ -274,6 +318,93 @@ class DailyRaceCard extends StatelessWidget {
                     ),
                   ),
                 ),
+                if (it.leaderName != null) _RaceLeader(race: it),
+                if (it.ratingsMatrix.isNotEmpty ||
+                    it.countriesMatrix.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8, 0, 8, 4),
+                    child: Column(
+                      children: [
+                        RaceFieldHistogram(
+                          title: 'Field by rating',
+                          values: it.ratingsMatrix,
+                          labelBuilder: formatRatingBucket,
+                        ),
+                        RaceFieldHistogram(
+                          title: 'Field by country',
+                          values: it.countriesMatrix,
+                        ),
+                      ],
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// The current world-record holder, as published by GTSh-rank.
+class _RaceLeader extends StatelessWidget {
+  const _RaceLeader({required this.race});
+
+  final DailyRace race;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+      child: Row(
+        children: [
+          if (race.leaderAvatar != null)
+            ClipOval(
+              child: Image.network(
+                race.leaderAvatar!,
+                width: 24,
+                height: 24,
+                fit: BoxFit.cover,
+                errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+              ),
+            ),
+          if (race.leaderCountryFlag != null) ...[
+            const SizedBox(width: 6),
+            Image.network(
+              race.leaderCountryFlag!,
+              width: 18,
+              height: 12,
+              fit: BoxFit.contain,
+              errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+            ),
+          ],
+          const SizedBox(width: 8),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  race.leaderName!,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                if (race.leaderCarName != null)
+                  Text(
+                    race.leaderCarName!,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onSurface.withValues(
+                        alpha: 0.55,
+                      ),
+                    ),
+                  ),
               ],
             ),
           ),

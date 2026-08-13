@@ -56,6 +56,10 @@ dependencies:
   graphql: ^5.2.0
   skeletonizer: ^2.1.3
 
+  # For PSN Auth (WebView + token storage)
+  flutter_inappwebview: ^6.1.5
+  shared_preferences: ^2.3.5
+
 
 dev_dependencies:
   flutter_test:

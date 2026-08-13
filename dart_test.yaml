@@ -1,0 +1,15 @@
+# Test runner configuration.
+#
+# The `network` tag marks tests that fetch third-party sites. They are skipped
+# by default so a redesign or an outage upstream cannot turn the suite red for
+# reasons unrelated to this codebase. Run them on demand with:
+#
+#   flutter test --tags network --run-skipped
+#
+# Both flags are needed. `--tags` alone only narrows the selection; the skip
+# declared here still fires, so `--run-skipped` is what actually executes them.
+# (`exclude_tags` was tried instead and is worse: it wins over `--tags`, so
+# there is then no way to run the check at all.)
+tags:
+  network:
+    skip: "live third-party markup check — run: flutter test --tags network --run-skipped"

@@ -3,8 +3,11 @@ import 'package:provider/provider.dart';
 
 import '../blocs/profile/profile_bloc.dart';
 import '../blocs/throttle_brake_graph/throttle_brake_graph_bloc.dart';
+import '../repositories/gt7_auth_repository.dart';
 import '../repositories/profile_repository.dart';
 import '../repositories/sport_repository.dart';
+import '../services/gt7_api_service.dart';
+import '../services/gt7_auth_service.dart';
 import '../services/telemetry_service.dart';
 import '../services/gt7info_service.dart';
 import '../services/gtdb_service.dart';
@@ -31,6 +34,26 @@ class AppScope extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => GTDBService()),
         ChangeNotifierProvider(create: (context) => DgEdgeService()),
         ChangeNotifierProvider(create: (context) => GtshRankService()),
+        // GT7 PSN Auth
+        ChangeNotifierProvider(create: (context) => Gt7AuthService()),
+        ChangeNotifierProxyProvider<Gt7AuthService, Gt7ApiService>(
+          create: (context) => Gt7ApiService(
+            Provider.of<Gt7AuthService>(context, listen: false),
+          ),
+          update: (context, authService, apiService) {
+            return apiService ?? Gt7ApiService(authService);
+          },
+        ),
+        ChangeNotifierProxyProvider2<Gt7AuthService, Gt7ApiService,
+            Gt7AuthRepositoryImpl>(
+          create: (context) => Gt7AuthRepositoryImpl(
+            Provider.of<Gt7AuthService>(context, listen: false),
+            Provider.of<Gt7ApiService>(context, listen: false),
+          ),
+          update: (context, authService, apiService, repo) {
+            return repo ?? Gt7AuthRepositoryImpl(authService, apiService);
+          },
+        ),
         // repository that merges daily races from both sources
         ChangeNotifierProxyProvider2<
           DgEdgeService,

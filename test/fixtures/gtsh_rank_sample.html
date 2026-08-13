@@ -1,342 +1,320 @@
-    </ul>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GT7 Daily Races and Archive | GTSH-Rank</title><meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"><meta name="theme-color" content="#06101e"><meta name="description" content="Gran Turismo 7 Daily Races with current and archived Race A, Race B and Race C regulations, tracks, tyre compounds, cars and leaderboard links."><link rel="canonical" href="https://gtsh-rank.com/daily/"><meta property="og:type" content="website"><meta property="og:site_name" content="GTSH-Rank"><meta property="og:title" content="GT7 Daily Races and Archive | GTSH-Rank"><meta property="og:description" content="Gran Turismo 7 Daily Races with current and archived Race A, Race B and Race C regulations, tracks, tyre compounds, cars and leaderboard links."><meta property="og:url" content="https://gtsh-rank.com/daily/"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://gtsh-rank.com/images/course/1260.png"><meta property="og:image:alt" content="GT7 Daily Races on GTSH-Rank"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="GT7 Daily Races and Archive | GTSH-Rank"><meta name="twitter:description" content="Gran Turismo 7 Daily Races with current and archived Race A, Race B and Race C regulations, tracks, tyre compounds, cars and leaderboard links."><meta name="twitter:image" content="https://gtsh-rank.com/images/course/1260.png"><link rel="icon" href="/images/gtsh-rank-favicon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"><link rel="stylesheet" href="/catalog-ui/catalog.css?v=2"><link rel="stylesheet" href="/catalog-ui/catalog-adjustments.css?v=1"><script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"GT7 Daily Races","url":"https://gtsh-rank.com/daily/","description":"Current and archived Gran Turismo 7 Daily Race events with regulations and leaderboard access.","isPartOf":{"@type":"WebSite","name":"GTSH-Rank","url":"https://gtsh-rank.com/"},"about":{"@type":"VideoGame","name":"Gran Turismo 7"}}</script><script src="/assets/js/content-protection.js?v=20260703" defer></script>
+</head><body><button class="hamburger" type="button" aria-label="Open navigation"><span></span><span></span><span></span></button><nav class="sidebar" aria-label="Main navigation"><ul><li><a href="/"><i class="fas fa-home"></i>Home</a></li><li><a href="/profile/"><i class="fas fa-user"></i>Profile</a></li><li class="current"><a href="/daily/"><i class="fas fa-trophy"></i>Daily Race</a></li><li><a href="/time-trials/"><i class="fas fa-stopwatch"></i>Time Trial</a></li><li><a href="/championships/"><i class="fas fa-flag-checkered"></i>Championship</a></li><li><a href="/weekly/"><i class="fas fa-calendar-week"></i>Weekly Challenges</a></li><li><a href="/ranking/"><i class="fas fa-chart-bar"></i>DR Rankings</a></li><li><a href="/seasons/"><i class="fas fa-calendar"></i>ROH Events</a></li><li><a href="/terms/"><i class="fas fa-file-contract"></i>Terms</a></li><li><a href="/privacy-policy/"><i class="fas fa-user-shield"></i>Privacy Policy</a></li></ul></nav><link rel="stylesheet" href="/daily-races/daily-races.css?v=9">
+<style>
+.daily-race-card.is-expired .daily-course{filter:grayscale(100%)}
+.daily-category{position:absolute;z-index:3;right:12px;top:94px;width:76px;padding:6px 4px;border:0;background:rgba(8,16,32,.88);color:var(--cyan);font:600 18px/1 'Oswald',sans-serif;text-align:center;text-transform:uppercase}.daily-category.is-specified{width:82px;padding:5px 4px;color:#f2c94c;font-size:11px;line-height:1.08;letter-spacing:.03em}
+.board-loader-overlay{position:fixed;inset:0;z-index:5000;display:flex;align-items:center;justify-content:center;background:rgba(5,10,22,.78);backdrop-filter:blur(4px);transition:opacity .2s ease,visibility .2s ease}.board-loader-overlay.hidden{opacity:0;visibility:hidden;pointer-events:none}.board-loader-panel{display:grid;justify-items:center;gap:12px;padding:22px 26px;border:1px solid rgba(0,212,255,.35);border-radius:10px;background:rgba(22,33,62,.94);box-shadow:0 18px 40px #0009,0 0 30px rgba(0,212,255,.14)}.board-loader-panel img{width:46px;height:46px;filter:drop-shadow(0 0 5px #00d4ff) drop-shadow(0 0 15px #00d4ff)}.board-loader-panel span{color:#eaf7ff;font:600 .85rem 'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.05em}
+.tire-ring.required:after{display:none}
+.daily-race-card{position:relative}.daily-card-link{position:absolute;z-index:4;inset:0}.card-save{position:absolute;z-index:6;right:0;bottom:0;width:38px;height:38px;display:grid;place-items:center;border:1px solid var(--cyan);border-right:0;border-bottom:0;border-radius:4px 0 0;background:#081020dd;color:var(--cyan);cursor:pointer;transition:background .2s,color .2s}.card-save:hover{background:var(--cyan);color:#07101c}.card-save:disabled{cursor:wait;opacity:.65}.daily-race-card.exporting{transform:none}.daily-race-card.exporting .card-save,.daily-race-card.exporting .daily-card-link{visibility:hidden}
+.daily-search{grid-template-columns:minmax(220px,1fr) auto auto}.daily-search .page-btn{height:44px;display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer}.daily-card-grid>.empty-state{grid-column:1/-1}
+.daily-visual .daily-car{display:none}
+.daily-title{position:relative;display:block;min-height:0;padding-right:0}
+.daily-title-copy{min-width:0}
+.daily-title-copy h2{max-width:100%;overflow:hidden;white-space:nowrap;font-size:15px}
+.daily-title-meta{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.daily-title .daily-title-meta span{color:var(--cyan);font:600 10px 'Oswald',sans-serif;text-transform:uppercase}
+.daily-title .daily-title-meta .daily-time{color:var(--muted);font-size:13px}.daily-meta-right{display:flex;align-items:center;gap:7px;min-width:0}.daily-start-date{position:absolute;left:12px;bottom:12px;z-index:7;padding:5px 9px;border:1px solid rgba(255,255,255,.18);border-radius:4px;background:rgba(3,9,18,.78);backdrop-filter:blur(6px);color:#f3f7fb;font:700 12px 'Oswald',sans-serif;text-decoration:none;text-transform:uppercase;letter-spacing:.03em;box-shadow:0 6px 18px #0008;white-space:nowrap}.daily-start-date:hover{border-color:var(--cyan);color:var(--cyan)}.daily-race-card.is-expired .daily-start-date,.daily-race-card.is-next .daily-start-date{background:rgba(3,9,18,.72);color:#e6e8ec}.daily-race-control-flag{position:absolute;z-index:3;top:42px;left:10px;display:inline-flex;align-items:center;gap:5px;min-height:24px;padding:4px 6px;border:1px solid currentColor;border-radius:4px;background:rgba(4,10,20,.84);box-shadow:0 5px 14px rgba(0,0,0,.45);font:700 10px/1 'Oswald',sans-serif;letter-spacing:.04em;text-transform:uppercase}.daily-race-control-flag.yellow{color:#ffd166}.daily-race-control-flag.red{color:#ff6570}.daily-race-control-flag i{font-size:11px}.daily-race-control-flag strong{display:grid;min-width:15px;height:15px;place-items:center;border-radius:2px;background:currentColor;color:#070d18;font:700 10px/1 'Oswald',sans-serif}
+.daily-leader{position:static;width:100%;margin-top:2px;text-align:left}
+.daily-leader-visual{display:flex;align-items:flex-start;justify-content:flex-start;gap:0;min-height:0;margin-top:14px}
+.daily-title-car{display:block;width:155px;height:92px;object-fit:contain;object-position:left bottom;filter:drop-shadow(0 7px 6px #0009)}
+.leader-avatar-frame{display:block;flex:0 0 88px;width:88px;height:66px;margin-top:4px;overflow:hidden;background:transparent}.daily-leader-visual .leader-avatar{display:block;width:88px;height:88px;border:0;border-radius:0;object-fit:contain;background:transparent}
+.daily-leader-id{display:flex;align-items:center;justify-content:flex-start;gap:5px;min-width:0;min-height:22px;margin-top:5px;color:#dce5f4;font-size:9px;white-space:nowrap}
+.daily-leader-id .leader-flag{width:18px;height:12px;object-fit:cover}
+.daily-leader-name{flex:0 1 auto;max-width:105px;overflow:hidden;text-overflow:ellipsis}.daily-leader-car-name{min-width:0;overflow:hidden;text-overflow:ellipsis;color:var(--muted)}
+.daily-lap-info{position:relative;z-index:6;display:inline-grid;place-items:center;flex:0 0 25px;width:25px;height:25px;padding:0;border:2px solid #fff;border-radius:50%;background:#fff;color:#05080d;font:800 15px/1 Georgia,serif;cursor:pointer;box-shadow:0 3px 10px #0008;transition:transform .16s ease,box-shadow .16s ease}.daily-lap-info:hover,.daily-lap-info:focus-visible{transform:scale(1.08);box-shadow:0 0 0 3px rgba(255,255,255,.18),0 4px 12px #0009;outline:0}
+.daily-lap-modal{position:fixed;inset:0;z-index:6000;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(3,8,16,.58);backdrop-filter:blur(9px) saturate(.78);-webkit-backdrop-filter:blur(9px) saturate(.78)}.daily-lap-modal[hidden]{display:none}.daily-lap-dialog{position:relative;width:min(440px,100%);padding:22px;border:1px solid rgba(255,255,255,.24);border-radius:8px;background:rgba(16,26,45,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 22px 60px #000c,inset 0 1px 0 rgba(255,255,255,.06)}.daily-lap-close{position:absolute;top:10px;right:10px;display:grid;place-items:center;width:34px;height:34px;padding:0;border:1px solid rgba(255,255,255,.2);border-radius:50%;background:rgba(8,16,32,.82);color:#fff;font-size:20px;cursor:pointer}.daily-lap-dialog h2{margin:0 42px 16px 0;color:#fff;font:700 1.2rem 'Oswald',sans-serif;letter-spacing:.03em}.daily-lap-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.daily-lap-stat{padding:11px 12px;border:1px solid rgba(40,69,111,.88);border-radius:5px;background:rgba(11,21,39,.76)}.daily-lap-stat span{display:block;margin-bottom:5px;color:#aebdd2;font-size:10px;text-transform:uppercase;letter-spacing:.045em}.daily-lap-stat strong{display:block;color:#fff;font:700 1.08rem 'Oswald',sans-serif}.daily-lap-state{margin:4px 0 0;color:#cbd7e8;font-size:13px}.daily-lap-state.error{color:#ff7a84}
+.daily-lap-dialog{width:min(620px,100%);max-height:calc(100vh - 36px);overflow-y:auto}.daily-lap-hero{display:grid;grid-template-columns:145px minmax(0,1fr);gap:18px;align-items:center;margin:0 0 16px;padding:14px;border:1px solid rgba(0,212,255,.24);border-radius:7px;background:linear-gradient(135deg,rgba(0,212,255,.08),rgba(8,16,32,.38))}.daily-lap-avatar{display:block;width:145px;height:145px;object-fit:contain;object-position:center bottom;border:1px solid rgba(255,255,255,.18);border-radius:6px;background:rgba(237,241,243,.9)}.daily-lap-identity{min-width:0}.daily-lap-driver{margin:0;color:#fff;font:700 1.45rem 'Oswald',sans-serif;overflow-wrap:anywhere}.daily-lap-car-stage{display:flex;align-items:center;min-height:92px;margin-top:3px}.daily-lap-car{display:block;width:min(100%,290px);height:105px;object-fit:contain;object-position:left center;filter:drop-shadow(0 8px 7px #000a)}.daily-lap-car-name{margin:0;color:#b9c8dc;font-size:12px;line-height:1.4}
+.daily-lap-hero{grid-template-columns:160px minmax(0,1fr)}.daily-lap-player-card{position:relative;width:160px;height:160px;overflow:hidden;border:1px solid rgba(255,255,255,.2);border-radius:9px;background:#081020;box-shadow:0 8px 20px #0008}.daily-lap-player-card::before{content:"";position:absolute;inset:0;background:url('/profile/gt7.png') center/cover no-repeat;filter:brightness(30%);z-index:0}.daily-lap-player-card .daily-lap-avatar{position:relative;z-index:1;width:100%;height:100%;object-fit:contain;object-position:center bottom;border:0;border-radius:0;background:transparent;box-shadow:none}.daily-lap-country-flag{position:absolute;z-index:2;top:9px;right:9px;width:38px;height:auto;max-height:27px;object-fit:cover;border-radius:4px;box-shadow:0 3px 12px #0009}
+.daily-lap-grid{grid-template-columns:repeat(6,minmax(0,1fr))}.daily-lap-stat{grid-column:span 3}.daily-lap-stat:nth-child(n+3){grid-column:span 2}
+.daily-lap-modal{background:rgba(3,8,16,.30);backdrop-filter:blur(7px) saturate(1.22);-webkit-backdrop-filter:blur(7px) saturate(1.22)}.daily-lap-dialog{border-color:rgba(92,220,255,.42);background:linear-gradient(145deg,rgba(13,66,99,.70),rgba(55,29,91,.63) 55%,rgba(8,38,66,.68));box-shadow:0 24px 65px #0009,0 0 42px rgba(0,212,255,.13),inset 0 1px 0 rgba(255,255,255,.12)}.daily-lap-hero{border-color:rgba(105,225,255,.38);background:linear-gradient(135deg,rgba(0,212,255,.17),rgba(126,76,190,.14),rgba(255,255,255,.05))}.daily-lap-stat{border-color:rgba(111,200,244,.42);background:linear-gradient(145deg,rgba(9,37,63,.55),rgba(41,25,70,.48))}.daily-lap-close{background:rgba(8,28,51,.58);border-color:rgba(255,255,255,.32)}
+.daily-specs{display:flex;flex-wrap:wrap;grid-template-columns:none;gap:6px;padding-top:10px;border-top:1px solid #263b60}
+.daily-specs div{display:flex;align-items:baseline;gap:4px;min-width:0;padding:5px 7px;border:1px solid #28456f;border-radius:4px;background:#0d172b;color:#c8d4e7;font-size:10px;line-height:1.2}
+.daily-specs span,.daily-specs strong{display:inline;margin:0;font-size:10px;line-height:1.2;overflow:visible;text-overflow:clip;white-space:nowrap}
+.daily-specs span{color:#c8d4e7;text-transform:none}
+.daily-specs strong{color:#fff}
+@media(max-width:620px){.daily-search{grid-template-columns:1fr 1fr}.daily-search .search{grid-column:1/-1}.daily-category{right:12px;top:82px;width:64px}.daily-leader-visual{gap:0;min-height:0}.daily-title-car{width:175px;height:104px}.leader-avatar-frame{flex-basis:104px;width:104px;height:78px}.daily-leader-visual .leader-avatar{width:104px;height:104px}.daily-leader-id{font-size:10px}.daily-leader-name{max-width:100px}.daily-lap-info{flex-basis:30px;width:30px;height:30px;font-size:17px}.daily-lap-dialog{padding:19px 15px}.daily-lap-hero{grid-template-columns:96px minmax(0,1fr);gap:11px;padding:10px}.daily-lap-avatar{width:96px;height:112px}.daily-lap-driver{font-size:1.15rem}.daily-lap-car-stage{min-height:68px}.daily-lap-car{height:76px}.daily-lap-car-name{font-size:10px}.daily-lap-grid{gap:7px}.daily-lap-stat{padding:10px 9px}}
+@media(max-width:620px){.daily-lap-hero{grid-template-columns:112px minmax(0,1fr)}.daily-lap-player-card{width:112px;height:112px}.daily-lap-player-card .daily-lap-avatar{width:100%;height:100%}.daily-lap-country-flag{top:7px;right:7px;width:30px;max-height:21px}}
+</style>
+<div id="daily-board-loader" class="board-loader-overlay hidden"><div class="board-loader-panel"><img src="/images/loader.svg" alt="Loading"><span>Loading leaderboard</span></div></div>
+<main class="catalog-shell daily-races-shell">
+    <header class="page-header"><div><div class="eyebrow">Gran Turismo 7 Sport Mode</div><h1>GT7 Daily Races</h1></div><p>Gran Turismo 7 Daily Races with current and archived Race A, Race B and Race C regulations, tracks, tyre compounds, cars and leaderboard links.</p></header>
+    <form class="toolbar daily-search" method="get" action="/daily/"><input class="search" type="search" name="q" value="" placeholder="Search track"><button class="page-btn" type="submit"><i class="fas fa-search"></i> Search</button></form>    <section class="daily-card-grid">
+                <article class="daily-race-card ">
+            <div class="daily-visual">
+                <img class="daily-course" src="/images/course/1260.png" alt="Special Stage Route X track" onerror="this.src='/images/background.jpg'">
+                <span class="daily-letter">A</span>
+                                <span class="status-badge active">Running</span>
+                                <a class="daily-start-date" href="/daily/week/2026-08-10/">10 Aug 2026</a>                <button class="card-save" type="button" title="Save card as JPG" aria-label="Save card as JPG"><i class="fas fa-download"></i></button>
+            </div>
+            <div class="daily-card-body">
+                <div class="daily-title"><div class="daily-title-copy"><div class="daily-title-meta"><span>Daily Race A</span><span class="daily-meta-right"><button class="daily-lap-info" type="button" data-board="p_rt_1014514_001" data-token="12c1cdd368cd877b2671a0dfa131d9a759f2c707dd162bdc00b342e384dc8efd" data-driver-name="F4H Camo" data-car-name="Pagani Huayra &apos;13" data-avatar="/images/daily-leaders/99b89d772c11fa12574804d5583b94723b4b2743eb7dd779b6b05d4ecb2d408a.png" data-country-flag="/images/flags/us.png" data-car-image="/cars/16/1152921504606848316.png" data-car-fallback="/images/car/2050.png" aria-label="Show world leader lap information" title="World leader lap information">i</button><span class="daily-time">15:39</span></span></div><h2 title="Special Stage Route X">Special Stage Route X</h2></div><div class="daily-leader"><div class="daily-leader-visual"><span class="leader-avatar-frame"><img class="leader-avatar" src="/images/daily-leaders/99b89d772c11fa12574804d5583b94723b4b2743eb7dd779b6b05d4ecb2d408a.png" alt="F4H Camo" onerror="this.onerror=null;this.src='/profile/driver.png'"></span><img class="daily-title-car" src="/cars/16/1152921504606848316.png" alt="Pagani Huayra &apos;13" onerror="this.onerror=null;this.src='/images/car/2050.png'"></div><div class="daily-leader-id"><img class="leader-flag" src="/images/flags/us.png" alt="US" onerror="this.hidden=true"><span class="daily-leader-name">F4H Camo</span><span>-</span><span class="daily-leader-car-name">Pagani Huayra &apos;13</span></div></div></div>
+                <div class="daily-tires" aria-label="Available tyre compounds">
+                                        <span class="tire-ring tire-ss " title="Sport Soft">SS</span>
+                                    </div>
+                <div class="daily-specs">
+                    <div><span>BoP</span><strong>Off</strong></div>
+                    <div><span>Setup</span><strong>Allowed</strong></div>
+                    <div><span>Damage</span><strong>Light</strong></div>
+                    <div><span>Start</span><strong>Rolling</strong></div>
+                    <div><span>Fuel</span><strong>x1</strong></div>
+                    <div><span>Tyres</span><strong>x1</strong></div>
+                    <div><span>Pit</span><strong>-</strong></div>
+                    <div><span>Slipstream</span><strong>Custom</strong></div>
+                </div>
+            </div>
+            <a class="daily-card-link" href="/daily/leaderboard?event=HFYfEk1IVkJvQ0M4RUNBW0dFBm8BB1ZWX1ILEx1eSRMNRTVRXE0RG0deRUUeVklSTV5WQFFFXgkTUUpNUFgQU1BFRU5RUkNQGlNdVBVdVlFcTQAVUVVDREVOKC1DUBJbXEVSFVZJFg4eB1dN" aria-label="Open Daily Race A leaderboard"></a>        </article>
+                <article class="daily-race-card ">
+            <div class="daily-visual">
+                <img class="daily-course" src="/images/course/16.png" alt="Fuji International Speedway track" onerror="this.src='/images/background.jpg'">
+                <span class="daily-letter">B</span>
+                <span class="daily-category ">Gr.3</span>                <span class="status-badge active">Running</span>
+                                <a class="daily-start-date" href="/daily/week/2026-08-10/">10 Aug 2026</a>                <button class="card-save" type="button" title="Save card as JPG" aria-label="Save card as JPG"><i class="fas fa-download"></i></button>
+            </div>
+            <div class="daily-card-body">
+                <div class="daily-title"><div class="daily-title-copy"><div class="daily-title-meta"><span>Daily Race B</span><span class="daily-meta-right"><button class="daily-lap-info" type="button" data-board="p_rt_1014518_001" data-token="d6cb8ce5fe7d6278260567719a3cb5b42b0e684e37d9821e9e68af7dedbd4b1d" data-driver-name="D. Chafe" data-car-name="Porsche 911 GT3 R (992) &apos;22" data-avatar="/images/daily-leaders/80272425730a3b62181a7a498a09fd998131e1e804c1e55ae3538810bb7e73e3.png" data-country-flag="/images/flags/nl.png" data-car-image="/cars/37/19422522481407637.png" data-car-fallback="/images/car/3600.png" aria-label="Show world leader lap information" title="World leader lap information">i</button><span class="daily-time">16:00</span></span></div><h2 title="Fuji International Speedway">Fuji International Speedway</h2></div><div class="daily-leader"><div class="daily-leader-visual"><span class="leader-avatar-frame"><img class="leader-avatar" src="/images/daily-leaders/80272425730a3b62181a7a498a09fd998131e1e804c1e55ae3538810bb7e73e3.png" alt="D. Chafe" onerror="this.onerror=null;this.src='/profile/driver.png'"></span><img class="daily-title-car" src="/cars/37/19422522481407637.png" alt="Porsche 911 GT3 R (992) &apos;22" onerror="this.onerror=null;this.src='/images/car/3600.png'"></div><div class="daily-leader-id"><img class="leader-flag" src="/images/flags/nl.png" alt="NL" onerror="this.hidden=true"><span class="daily-leader-name">D. Chafe</span><span>-</span><span class="daily-leader-car-name">Porsche 911 GT3 R (992) &apos;22</span></div></div></div>
+                <div class="daily-tires" aria-label="Available tyre compounds">
+                                        <span class="tire-ring tire-rm " title="Racing Medium">RM</span>
+                                    </div>
+                <div class="daily-specs">
+                    <div><span>BoP</span><strong>On</strong></div>
+                    <div><span>Setup</span><strong>Allowed</strong></div>
+                    <div><span>Damage</span><strong>Med</strong></div>
+                    <div><span>Start</span><strong>Rolling</strong></div>
+                    <div><span>Fuel</span><strong>x1</strong></div>
+                    <div><span>Tyres</span><strong>x1</strong></div>
+                    <div><span>Pit</span><strong>-</strong></div>
+                    <div><span>Slipstream</span><strong>Custom</strong></div>
+                </div>
+            </div>
+            <a class="daily-card-link" href="/daily/leaderboard?event=HFYfEk1IVkJvQ0M4RUNBW0dFCm8BB1ZWX1ILEx1eSRMNRTZRXE0RG0deRUUeVklSTV5WQFFFXgkTUUpNUFgQU1BFRU5RUkNQGlNdVBVdVlFcTQAVUVVDREVOKC1DUBJbXEVSFVZJFg4eB1dN" aria-label="Open Daily Race B leaderboard"></a>        </article>
+                <article class="daily-race-card ">
+            <div class="daily-visual">
+                <img class="daily-course" src="/images/course/1292.png" alt="Grand Valley - Highway 1 track" onerror="this.src='/images/background.jpg'">
+                <span class="daily-letter">C</span>
+                <span class="daily-category ">Gr.4</span>                <span class="status-badge active">Running</span>
+                                <a class="daily-start-date" href="/daily/week/2026-08-10/">10 Aug 2026</a>                <button class="card-save" type="button" title="Save card as JPG" aria-label="Save card as JPG"><i class="fas fa-download"></i></button>
+            </div>
+            <div class="daily-card-body">
+                <div class="daily-title"><div class="daily-title-copy"><div class="daily-title-meta"><span>Daily Race C</span><span class="daily-meta-right"><button class="daily-lap-info" type="button" data-board="p_rt_1014523_001" data-token="15dc9452c1ce68012e3a19be85eeeee1561ea781aa8e4142a87f7dc762e90ec8" data-driver-name="M. Estevez" data-car-name="GT by Citroën Gr.4" data-avatar="/images/daily-leaders/681e758181fcc91361146067f0bb1f5834c6d61560d536aac0249729acaab0c4.png" data-country-flag="/images/flags/ar.png" data-car-image="/cars/29/19422401946083729.png" data-car-fallback="/images/car/3248.png" aria-label="Show world leader lap information" title="World leader lap information">i</button><span class="daily-time">16:48</span></span></div><h2 title="Grand Valley - Highway 1">Grand Valley - Highway 1</h2></div><div class="daily-leader"><div class="daily-leader-visual"><span class="leader-avatar-frame"><img class="leader-avatar" src="/images/daily-leaders/681e758181fcc91361146067f0bb1f5834c6d61560d536aac0249729acaab0c4.png" alt="M. Estevez" onerror="this.onerror=null;this.src='/profile/driver.png'"></span><img class="daily-title-car" src="/cars/29/19422401946083729.png" alt="GT by Citroën Gr.4" onerror="this.onerror=null;this.src='/images/car/3248.png'"></div><div class="daily-leader-id"><img class="leader-flag" src="/images/flags/ar.png" alt="AR" onerror="this.hidden=true"><span class="daily-leader-name">M. Estevez</span><span>-</span><span class="daily-leader-car-name">GT by Citroën Gr.4</span></div></div></div>
+                <div class="daily-tires" aria-label="Available tyre compounds">
+                                        <span class="tire-ring tire-rm required" title="Racing Medium - required">RM</span>
+                                        <span class="tire-ring tire-rs required" title="Racing Soft - required">RS</span>
+                                    </div>
+                <div class="daily-specs">
+                    <div><span>BoP</span><strong>On</strong></div>
+                    <div><span>Setup</span><strong>Allowed</strong></div>
+                    <div><span>Damage</span><strong>Med</strong></div>
+                    <div><span>Start</span><strong>Rolling</strong></div>
+                    <div><span>Fuel</span><strong>x2</strong></div>
+                    <div><span>Tyres</span><strong>x4</strong></div>
+                    <div><span>Pit</span><strong>-</strong></div>
+                    <div><span>Slipstream</span><strong>Custom</strong></div>
+                </div>
+            </div>
+            <a class="daily-card-link" href="/daily/leaderboard?event=HFYfEk1IVkJvQ0M4RUNBW0dGAW8BB1ZWX1ILEx1eSRMNRTdRXE0RG0deRUUeVklSTV5WQFFFXgkTUUpNUFgQU1BFRU5RUkNQGlNdVBVdVlFcTQAVUVVDREVOKC1DUBJbXEVSFVZJFg4eB1dN" aria-label="Open Daily Race C leaderboard"></a>        </article>
+                <article class="daily-race-card is-expired">
+            <div class="daily-visual">
+                <img class="daily-course" src="/images/course/469.png" alt="Autodromo Nazionale Monza track" onerror="this.src='/images/background.jpg'">
+                <span class="daily-letter">A</span>
+                <span class="daily-category is-specified">Specified Car</span>                <span class="status-badge expired">Archived</span>
+                                <a class="daily-start-date" href="/daily/week/2026-08-03/">03 Aug 2026</a>                <button class="card-save" type="button" title="Save card as JPG" aria-label="Save card as JPG"><i class="fas fa-download"></i></button>
+            </div>
+            <div class="daily-card-body">
+                <div class="daily-title"><div class="daily-title-copy"><div class="daily-title-meta"><span>Daily Race A</span><span class="daily-meta-right"><button class="daily-lap-info" type="button" data-board="p_rt_1014503_001" data-token="22d63eafd3ebe399357183799cd7b25b5dc2c2ac04d35b4d37568ab018d5bb9e" data-driver-name="Á. Tápai" data-car-name="Lamborghini Murciélago LP 640 &apos;09" data-avatar="/images/daily-leaders/273d5de4b2a5c8597a095cfbd089fd48abdda09b1ed2ba79cc6c774464e5419a.png" data-country-flag="/images/flags/hu.png" data-car-image="/cars/0/0.png" data-car-fallback="/images/car/1545.png" aria-label="Show world leader lap information" title="World leader lap information">i</button><span class="daily-time">17:27</span></span></div><h2 title="Autodromo Nazionale Monza">Autodromo Nazionale Monza</h2></div><div class="daily-leader"><div class="daily-leader-visual"><span class="leader-avatar-frame"><img class="leader-avatar" src="/images/daily-leaders/273d5de4b2a5c8597a095cfbd089fd48abdda09b1ed2ba79cc6c774464e5419a.png" alt="Á. Tápai" onerror="this.onerror=null;this.src='/profile/driver.png'"></span><img class="daily-title-car" src="/cars/0/0.png" alt="Lamborghini Murciélago LP 640 &apos;09" onerror="this.onerror=null;this.src='/images/car/1545.png'"></div><div class="daily-leader-id"><img class="leader-flag" src="/images/flags/hu.png" alt="HU" onerror="this.hidden=true"><span class="daily-leader-name">Á. Tápai</span><span>-</span><span class="daily-leader-car-name">Lamborghini Murciélago LP 640 &apos;09</span></div></div></div>
+                <div class="daily-tires" aria-label="Available tyre compounds">
+                                        <span class="tire-ring tire-ss " title="Sport Soft">SS</span>
+                                    </div>
+                <div class="daily-specs">
+                    <div><span>BoP</span><strong>On</strong></div>
+                    <div><span>Setup</span><strong>Fixed</strong></div>
+                    <div><span>Damage</span><strong>Med</strong></div>
+                    <div><span>Start</span><strong>Rolling</strong></div>
+                    <div><span>Fuel</span><strong>x1</strong></div>
+                    <div><span>Tyres</span><strong>x1</strong></div>
+                    <div><span>Pit</span><strong>-</strong></div>
+                    <div><span>Slipstream</span><strong>Simulation</strong></div>
+                </div>
+            </div>
+            <a class="daily-card-link" href="/daily/leaderboard?event=HFYfEk1IVkJvQ0M4RUNBW0dEAW8BB1ZWX1ILEx1eSRMNRTVRXE0RG0deRUUeVklSTV5WQFFFXgkTUUpNUFgQU1BFRU5RUkNQGlNdVBVdVlFcTQAVUVVDREVOKC1DUBJbXEVSFVZJFg4eB1dN" aria-label="Open Daily Race A leaderboard"></a>        </article>
+                <article class="daily-race-card is-expired">
+            <div class="daily-visual">
+                <img class="daily-course" src="/images/course/470.png" alt="Red Bull Ring track" onerror="this.src='/images/background.jpg'">
+                <span class="daily-letter">B</span>
+                <span class="daily-category ">Gr.4</span>                <span class="status-badge expired">Archived</span>
+                                <a class="daily-start-date" href="/daily/week/2026-08-03/">03 Aug 2026</a>                <button class="card-save" type="button" title="Save card as JPG" aria-label="Save card as JPG"><i class="fas fa-download"></i></button>
+            </div>
+            <div class="daily-card-body">
+                <div class="daily-title"><div class="daily-title-copy"><div class="daily-title-meta"><span>Daily Race B</span><span class="daily-meta-right"><button class="daily-lap-info" type="button" data-board="p_rt_1014504_001" data-token="9111312564ff9823d1ef0aa004d194a60aa2c488802c60ca33e763e273a28328" data-driver-name="P. Blazsán" data-car-name="Mazda Atenza Gr.4" data-avatar="/images/daily-leaders/113117225f91b7d57ca10e57eaef0e72bce6ec779053cf87889038e6640801dd.png" data-country-flag="/images/flags/hu.png" data-car-image="/cars/0/0.png" data-car-fallback="/images/car/3256.png" aria-label="Show world leader lap information" title="World leader lap information">i</button><span class="daily-time">12:55</span></span></div><h2 title="Red Bull Ring">Red Bull Ring</h2></div><div class="daily-leader"><div class="daily-leader-visual"><span class="leader-avatar-frame"><img class="leader-avatar" src="/images/daily-leaders/113117225f91b7d57ca10e57eaef0e72bce6ec779053cf87889038e6640801dd.png" alt="P. Blazsán" onerror="this.onerror=null;this.src='/profile/driver.png'"></span><img class="daily-title-car" src="/cars/0/0.png" alt="Mazda Atenza Gr.4" onerror="this.onerror=null;this.src='/images/car/3256.png'"></div><div class="daily-leader-id"><img class="leader-flag" src="/images/flags/hu.png" alt="HU" onerror="this.hidden=true"><span class="daily-leader-name">P. Blazsán</span><span>-</span><span class="daily-leader-car-name">Mazda Atenza Gr.4</span></div></div></div>
+                <div class="daily-tires" aria-label="Available tyre compounds">
+                                        <span class="tire-ring tire-rm " title="Racing Medium">RM</span>
+                                    </div>
+                <div class="daily-specs">
+                    <div><span>BoP</span><strong>On</strong></div>
+                    <div><span>Setup</span><strong>Allowed</strong></div>
+                    <div><span>Damage</span><strong>Med</strong></div>
+                    <div><span>Start</span><strong>Rolling</strong></div>
+                    <div><span>Fuel</span><strong>x1</strong></div>
+                    <div><span>Tyres</span><strong>x1</strong></div>
+                    <div><span>Pit</span><strong>-</strong></div>
+                    <div><span>Slipstream</span><strong>Custom</strong></div>
+                </div>
+            </div>
+            <a class="daily-card-link" href="/daily/leaderboard?event=HFYfEk1IVkJvQ0M4RUNBW0dEBm8BB1ZWX1ILEx1eSRMNRTZRXE0RG0deRUUeVklSTV5WQFFFXgkTUUpNUFgQU1BFRU5RUkNQGlNdVBVdVlFcTQAVUVVDREVOKC1DUBJbXEVSFVZJFg4eB1dN" aria-label="Open Daily Race B leaderboard"></a>        </article>
+                <article class="daily-race-card is-expired">
+            <div class="daily-visual">
+                <img class="daily-course" src="/images/course/361.png" alt="Tokyo Expressway - East Clockwise track" onerror="this.src='/images/background.jpg'">
+                <span class="daily-letter">C</span>
+                <span class="daily-category ">Gr.3</span>                <span class="status-badge expired">Archived</span>
+                                <a class="daily-start-date" href="/daily/week/2026-08-03/">03 Aug 2026</a>                <button class="card-save" type="button" title="Save card as JPG" aria-label="Save card as JPG"><i class="fas fa-download"></i></button>
+            </div>
+            <div class="daily-card-body">
+                <div class="daily-title"><div class="daily-title-copy"><div class="daily-title-meta"><span>Daily Race C</span><span class="daily-meta-right"><button class="daily-lap-info" type="button" data-board="p_rt_1014505_001" data-token="18d2e40cb83fbe64591df288f2bcbdd0537f5c27303eaf39f1bc8758691f8fda" data-driver-name="D. Chafe" data-car-name="Toyota GR Supra Racing Concept &apos;18" data-avatar="/images/daily-leaders/80272425730a3b62181a7a498a09fd998131e1e804c1e55ae3538810bb7e73e3.png" data-country-flag="/images/flags/nl.png" data-car-image="/cars/21/19421862460107321.png" data-car-fallback="/images/car/3352.png" aria-label="Show world leader lap information" title="World leader lap information">i</button><span class="daily-time">14:49</span></span></div><h2 title="Tokyo Expressway - East Clockwise">Tokyo Expressway - East Clockwise</h2></div><div class="daily-leader"><div class="daily-leader-visual"><span class="leader-avatar-frame"><img class="leader-avatar" src="/images/daily-leaders/80272425730a3b62181a7a498a09fd998131e1e804c1e55ae3538810bb7e73e3.png" alt="D. Chafe" onerror="this.onerror=null;this.src='/profile/driver.png'"></span><img class="daily-title-car" src="/cars/21/19421862460107321.png" alt="Toyota GR Supra Racing Concept &apos;18" onerror="this.onerror=null;this.src='/images/car/3352.png'"></div><div class="daily-leader-id"><img class="leader-flag" src="/images/flags/nl.png" alt="NL" onerror="this.hidden=true"><span class="daily-leader-name">D. Chafe</span><span>-</span><span class="daily-leader-car-name">Toyota GR Supra Racing Concept &apos;18</span></div></div></div>
+                <div class="daily-tires" aria-label="Available tyre compounds">
+                                        <span class="tire-ring tire-rh " title="Racing Hard">RH</span>
+                                    </div>
+                <div class="daily-specs">
+                    <div><span>BoP</span><strong>On</strong></div>
+                    <div><span>Setup</span><strong>Allowed</strong></div>
+                    <div><span>Damage</span><strong>Med</strong></div>
+                    <div><span>Start</span><strong>Rolling</strong></div>
+                    <div><span>Fuel</span><strong>x1</strong></div>
+                    <div><span>Tyres</span><strong>x1</strong></div>
+                    <div><span>Pit</span><strong>-</strong></div>
+                    <div><span>Slipstream</span><strong>Custom</strong></div>
+                </div>
+            </div>
+            <a class="daily-card-link" href="/daily/leaderboard?event=HFYfEk1IVkJvQ0M4RUNBW0dEB28BB1ZWX1ILEx1eSRMNRTdRXE0RG0deRUUeVklSTV5WQFFFXgkTUUpNUFgQU1BFRU5RUkNQGlNdVBVdVlFcTQAVUVVDREVOKC1DUBJbXEVSFVZJFg4eB1dN" aria-label="Open Daily Race C leaderboard"></a>        </article>
+                    </section>
+    <nav class="pagination"><span>1 / 116</span><a class="page-btn" href="?page=2&q=">Next <i class="fas fa-angle-right"></i></a><a class="page-btn" href="?page=116&q=">Last <i class="fas fa-angles-right"></i></a></nav></main>
+<div class="daily-lap-modal" id="daily-lap-modal" hidden>
+    <section class="daily-lap-dialog" role="dialog" aria-modal="true" aria-labelledby="daily-lap-title">
+        <button class="daily-lap-close" type="button" aria-label="Close">&times;</button>
+        <h2 id="daily-lap-title">World Leader Lap</h2>
+        <div class="daily-lap-hero">
+            <div class="daily-lap-player-card">
+                <img class="daily-lap-avatar" src="/profile/driver.png" alt="">
+                <img class="daily-lap-country-flag" src="" alt="">
+            </div>
+            <div class="daily-lap-identity">
+                <p class="daily-lap-driver">-</p>
+                <div class="daily-lap-car-stage"><img class="daily-lap-car" src="" alt=""></div>
+                <p class="daily-lap-car-name">-</p>
+            </div>
+        </div>
+        <p class="daily-lap-state">Loading...</p>
+        <div class="daily-lap-grid" hidden>
+            <div class="daily-lap-stat"><span>Lap Time</span><strong data-stat="lap_time_ms">-</strong></div>
+            <div class="daily-lap-stat"><span>Average Speed</span><strong data-stat="average_speed_kmh">-</strong></div>
+            <div class="daily-lap-stat"><span>Full Throttle</span><strong data-stat="full_throttle_pct">-</strong></div>
+            <div class="daily-lap-stat"><span>Braking</span><strong data-stat="braking_pct">-</strong></div>
+            <div class="daily-lap-stat"><span>Coasting</span><strong data-stat="coasting_pct">-</strong></div>
+        </div>
+    </section>
 </div>
-
-
-<div class="container">
-
-<a href='leaderboard?event=HFYfEk1IVkJvQ0M4RUNBXERDAW8BB1ZWX1ILEx1eSRMNRTVRXE0RG0deRUUeVklSTV5WQFFFXgkTUUpNUFgQU1BFRU5RUkNQGlNdVBVdVlFcTQAVUVVDREVOKC1DUBJbXEVSFVZJFg4eB1dN'>
-            <div class='race-card'>
-                <div class='header'></div>
-                <div class='status next'><font>DAILY RACE </font><span>NEXT WEEK</span></div>
-                <div class='daily-label'>A</div>
-                <div class='track-display'>
-                    <div class='main-display'>
-                        <img class='track-img' src='/images/course/1292.png' style=''>
-                        <div class='track-name'>Grand Valley - Highway 1</div>
-                        <div class='car-tire-container'>
-                            <img class='car-img' src='' style=''>
-                            <div class='tire-container'><span class='tire yellowtyre'>SM</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class='dashboard'>
-                    <div class='toggle-container'>
-                        <label class='toggle-switch'>
-                            <input type='checkbox'>
-                            <span class='slider'></span>
-                        </label>
-                        <span class='toggle-label'>Top 100 Racers</span>
-                    </div>
-                    <div class='params-section'>
-                        <div class='section'>
-                            <div class='row'><div class='icon-text'><img src='/images/fuel.svg' width='20'><span></span></div><span>1 x</span></div>
-                            <div class='row'><div class='icon-text'><img src='/images/tirewear.svg' width='20'><span></span></div><span>1 x</span></div>
-                            <div class='row'><div class='icon-text'><img src='/images/pit.svg' width='20'><span></span></div><span>-</span></div>
-                        </div>
-                        <div class='section'>
-                            <div class='row'><div class='icon-text'><span>BOP:</span></div><span>Yes</span></div>
-                            <div class='row'><div class='icon-text'><span>Damage:</span></div><span>Middle</span></div>
-                            <div class='row'><div class='icon-text'><span>Start Type:</span></div><span>StartGrid</span></div>
-                        </div>
-                        <div class='section'>
-                            <div class='row'><div class='icon-text'><span>Car Settings:</span></div><span>Yes</span></div>
-                            <div class='row'><div class='icon-text'><span>Wide Fender:</span></div><span>Prohibitted</span></div>
-                        </div>
-                    </div>
-                    <div class='racers-section'>
-                        <div class='section'>        </div>
-                    </div>
-                </div>
-            </div>
-        </a><a href='leaderboard?event=HFYfEk1IVkJvQ0M4RUNBXERDBm8BB1ZWX1ILEx1eSRMNRTZRXE0RG0deRUUeVklSTV5WQFFFXgkTUUpNUFgQU1BFRU5RUkNQGlNdVBVdVlFcTQAVUVVDREVOKC1DUBJbXEVSFVZJFg4eB1dN'>
-            <div class='race-card'>
-                <div class='header'></div>
-                <div class='status next'><font>DAILY RACE </font><span>NEXT WEEK</span></div>
-                <div class='daily-label'>B</div>
-                <div class='track-display'>
-                    <div class='main-display'>
-                        <img class='track-img' src='/images/course/469.png' style=''>
-                        <div class='track-name'>Autodromo Nazionale Monza</div>
-                        <div class='car-tire-container'>
-                            <img class='car-img' src='' style=''>
-                            <div class='tire-container'><span class='tire whitetyre'>RH</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class='dashboard'>
-                    <div class='toggle-container'>
-                        <label class='toggle-switch'>
-                            <input type='checkbox'>
-                            <span class='slider'></span>
-                        </label>
-                        <span class='toggle-label'>Top 100 Racers</span>
-                    </div>
-                    <div class='params-section'>
-                        <div class='section'>
-                            <div class='row'><div class='icon-text'><img src='/images/fuel.svg' width='20'><span></span></div><span>1 x</span></div>
-                            <div class='row'><div class='icon-text'><img src='/images/tirewear.svg' width='20'><span></span></div><span>1 x</span></div>
-                            <div class='row'><div class='icon-text'><img src='/images/pit.svg' width='20'><span></span></div><span>-</span></div>
-                        </div>
-                        <div class='section'>
-                            <div class='row'><div class='icon-text'><span>BOP:</span></div><span>Yes</span></div>
-                            <div class='row'><div class='icon-text'><span>Damage:</span></div><span>Middle</span></div>
-                            <div class='row'><div class='icon-text'><span>Start Type:</span></div><span>Rolling</span></div>
-                        </div>
-                        <div class='section'>
-                            <div class='row'><div class='icon-text'><span>Car Settings:</span></div><span>No</span></div>
-                            <div class='row'><div class='icon-text'><span>Wide Fender:</span></div><span>Prohibitted</span></div>
-                        </div>
-                    </div>
-                    <div class='racers-section'>
-                        <div class='section'>        </div>
-                    </div>
-                </div>
-            </div>
-        </a><a href='leaderboard?event=HFYfEk1IVkJvQ0M4RUNBXERDB28BB1ZWX1ILEx1eSRMNRTdRXE0RG0deRUUeVklSTV5WQFFFXgkTUUpNUFgQU1BFRU5RUkNQGlNdVBVdVlFcTQAVUVVDREVOKC1DUBJbXEVSFVZJFg4eB1dN'>
-            <div class='race-card'>
-                <div class='header'></div>
-                <div class='status next'><font>DAILY RACE </font><span>NEXT WEEK</span></div>
-                <div class='daily-label'>C</div>
-                <div class='track-display'>
-                    <div class='main-display'>
-                        <img class='track-img' src='/images/course/827.png' style=''>
-                        <div class='track-name'>Circuit de Sainte-Croix - B</div>
-                        <div class='car-tire-container'>
-                            <img class='car-img' src='' style=''>
-                            <div class='tire-container'><span class='tire whitetyre'>RH</span><span class='tire yellowtyre'>RM</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class='dashboard'>
-                    <div class='toggle-container'>
-                        <label class='toggle-switch'>
-                            <input type='checkbox'>
-                            <span class='slider'></span>
-                        </label>
-                        <span class='toggle-label'>Top 100 Racers</span>
-                    </div>
-                    <div class='params-section'>
-                        <div class='section'>
-                            <div class='row'><div class='icon-text'><img src='/images/fuel.svg' width='20'><span></span></div><span>3 x</span></div>
-                            <div class='row'><div class='icon-text'><img src='/images/tirewear.svg' width='20'><span></span></div><span>5 x</span></div>
-                            <div class='row'><div class='icon-text'><img src='/images/pit.svg' width='20'><span></span></div><span>-</span></div>
-                        </div>
-                        <div class='section'>
-                            <div class='row'><div class='icon-text'><span>BOP:</span></div><span>Yes</span></div>
-                            <div class='row'><div class='icon-text'><span>Damage:</span></div><span>Middle</span></div>
-                            <div class='row'><div class='icon-text'><span>Start Type:</span></div><span>Rolling</span></div>
-                        </div>
-                        <div class='section'>
-                            <div class='row'><div class='icon-text'><span>Car Settings:</span></div><span>No</span></div>
-                            <div class='row'><div class='icon-text'><span>Wide Fender:</span></div><span>Prohibitted</span></div>
-                        </div>
-                    </div>
-                    <div class='racers-section'>
-                        <div class='section'>        </div>
-                    </div>
-                </div>
-            </div>
-        </a><a href='leaderboard?event=HFYfEk1IVkJvQ0M4RUNBXERAC28BB1ZWX1ILEx1eSRMNRTVRXE0RG0deRUUeVklSTV5WQFFFXgkTUUpNUFgQU1BFRU5RUkNQGlNdVBVdVlFcTQAVUVVDREVOKC1DUBJbXEVSFVZJFg4eB1dN'>
-            <div class='race-card'>
-                <div class='header'></div>
-                <div class='status running'><font>DAILY RACE </font><span>RUNNING</span></div>
-                <div class='daily-label'>A</div>
-                <div class='track-display'>
-                    <div class='main-display'>
-                        <img class='track-img' src='/images/course/1327.png' style=''>
-                        <div class='track-name'>Eiger Nordwand</div>
-                        <div class='car-tire-container'>
-                            <img class='car-img' src='/images/car/451.png' style=''>
-                            <div class='tire-container'><span class='tire redtyre'>SS</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class='dashboard'>
-                    <div class='toggle-container'>
-                        <label class='toggle-switch'>
-                            <input type='checkbox'>
-                            <span class='slider'></span>
-                        </label>
-                        <span class='toggle-label'>Top 100 Racers</span>
-                    </div>
-                    <div class='params-section'>
-                        <div class='section'>
-                            <div class='row'><div class='icon-text'><img src='/images/fuel.svg' width='20'><span></span></div><span>1 x</span></div>
-                            <div class='row'><div class='icon-text'><img src='/images/tirewear.svg' width='20'><span></span></div><span>1 x</span></div>
-                            <div class='row'><div class='icon-text'><img src='/images/pit.svg' width='20'><span></span></div><span>-</span></div>
-                        </div>
-                        <div class='section'>
-                            <div class='row'><div class='icon-text'><span>BOP:</span></div><span>No</span></div>
-                            <div class='row'><div class='icon-text'><span>Damage:</span></div><span>Middle</span></div>
-                            <div class='row'><div class='icon-text'><span>Start Type:</span></div><span>Rolling</span></div>
-                        </div>
-                        <div class='section'>
-                            <div class='row'><div class='icon-text'><span>Car Settings:</span></div><span>No</span></div>
-                            <div class='row'><div class='icon-text'><span>Wide Fender:</span></div><span>Prohibitted</span></div>
-                        </div>
-                    </div>
-                    <div class='racers-section'>
-                        <div class='section'><div class='row '>
-                <span class='position'>1.</span>
-                <img src='https://flagcdn.com/16x12/us.png' width='20'>
-                <span class='name'>STR-Padrome</span>
-                <span class='time'>1:05.359</span>
-                <span class='delta'>Interv.</span>
-                <span class='circle-column'><span class='time-circle lime'></span></span>
-            </div><div class='row '>
-                <span class='position'>2.</span>
-                <img src='https://flagcdn.com/16x12/jp.png' width='20'>
-                <span class='name'>BW-_ららぴぴ</span>
-                <span class='time'>1:05.519</span>
-                <span class='delta'>+0.160</span>
-                <span class='circle-column'><span class='time-circle lime'></span></span>
-            </div><div class='row '>
-                <span class='position'>3.</span>
-                <img src='https://flagcdn.com/16x12/ae.png' width='20'>
-                <span class='name'>AT__1826</span>
-                <span class='time'>1:05.717</span>
-                <span class='delta'>+0.358</span>
-                <span class='circle-column'><span class='time-circle red'></span></span>
-            </div><div class='row '>
-                <span class='position'>4.</span>
-                <img src='https://flagcdn.com/16x12/it.png' width='20'>
-                <span class='name'>ARGTDRIVER1</span>
-                <span class='time'>1:05.758</span>
-                <span class='delta'>+0.399</span>
-                <span class='circle-column'><span class='time-circle lime'></span></span>
-            </div><div class='row '>
-                <span class='position'>5.</span>
-                <img src='https://flagcdn.com/16x12/sg.png' width='20'>
-                <span class='name'>K31thc0m</span>
-                <span class='time'>1:05.902</span>
-                <span class='delta'>+0.543</span>
-                <span class='circle-column'><span class='time-circle lime'></span></span>
-            </div><div class='row '>
-                <span class='position'>6.</span>
-                <img src='https://flagcdn.com/16x12/es.png' width='20'>
-                <span class='name'>A. Aller</span>
-                <span class='time'>1:05.931</span>
-                <span class='delta'>+0.572</span>
-                <span class='circle-column'><span class='time-circle red'></span></span>
-            </div><div class='row '>
-                <span class='circle-column'><span class='time-circle red'></span></span>
-            </div><div class='row '>
-                <span class='position'>100.</span>
-                <img src='https://flagcdn.com/16x12/gb.png' width='20'>
-                <span class='name'>Braddan</span>
-                <span class='time'>1:06.812</span>
-                <span class='delta'>+1.453</span>
-                <span class='circle-column'><span class='time-circle red'></span></span>
-            </div>        </div>
-                    </div>
-                </div>
-            </div>
-        </a><a href='leaderboard?event=HFYfEk1IVkJvQ0M4RUNBXERBAm8BB1ZWX1ILEx1eSRMNRTZRXE0RG0deRUUeVklSTV5WQFFFXgkTUUpNUFgQU1BFRU5RUkNQGlNdVBVdVlFcTQAVUVVDREVOKC1DUBJbXEVSFVZJFg4eB1dN'>
-            <div class='race-card'>
-                <div class='header'></div>
-                <div class='status running'><font>DAILY RACE </font><span>RUNNING</span></div>
-                <div class='daily-label'>B</div>
-                <div class='track-display'>
-                    <div class='main-display'>
-                        <img class='track-img' src='/images/course/1240.png' style=''>
-                        <div class='track-name'>Watkins Glen Long Course</div>
-                        <div class='car-tire-container'>
-                            <img class='car-img' src='/images/car/3251.png' style=''>
-                            <div class='tire-container'><span class='tire whitetyre'>RH</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class='dashboard'>
-                    <div class='toggle-container'>
-                        <label class='toggle-switch'>
-                            <input type='checkbox'>
-                            <span class='slider'></span>
-                        </label>
-                        <span class='toggle-label'>Top 100 Racers</span>
-                    </div>
-                    <div class='params-section'>
-                        <div class='section'>
-                            <div class='row'><div class='icon-text'><img src='/images/fuel.svg' width='20'><span></span></div><span>1 x</span></div>
-                            <div class='row'><div class='icon-text'><img src='/images/tirewear.svg' width='20'><span></span></div><span>1 x</span></div>
-                            <div class='row'><div class='icon-text'><img src='/images/pit.svg' width='20'><span></span></div><span>-</span></div>
-                        </div>
-                        <div class='section'>
-                            <div class='row'><div class='icon-text'><span>BOP:</span></div><span>Yes</span></div>
-                            <div class='row'><div class='icon-text'><span>Damage:</span></div><span>Middle</span></div>
-                            <div class='row'><div class='icon-text'><span>Start Type:</span></div><span>Rolling</span></div>
-                        </div>
-                        <div class='section'>
-                            <div class='row'><div class='icon-text'><span>Car Settings:</span></div><span>No</span></div>
-                            <div class='row'><div class='icon-text'><span>Wide Fender:</span></div><span>Prohibitted</span></div>
-                        </div>
-                    </div>
-                    <div class='racers-section'>
-                        <div class='section'><div class='row '>
-                <span class='position'>1.</span>
-                <img src='https://flagcdn.com/16x12/gb.png' width='20'>
-                <span class='name'>M. Davey</span>
-                <span class='time'>1:54.361</span>
-                <span class='delta'>Interv.</span>
-                <span class='circle-column'><span class='time-circle lime'></span></span>
-            </div><div class='row '>
-                <span class='position'>2.</span>
-                <img src='https://flagcdn.com/16x12/jp.png' width='20'>
-                <span class='name'>****************</span>
-                <span class='time'>1:54.381</span>
-                <span class='delta'>+0.020</span>
-                <span class='circle-column'><span class='time-circle red'></span></span>
-            </div><div class='row '>
-                <span class='position'>3.</span>
-                <img src='https://flagcdn.com/16x12/co.png' width='20'>
-                <span class='name'>luvlyxbella</span>
-                <span class='time'>1:54.390</span>
-                <span class='delta'>+0.029</span>
-                <span class='circle-column'><span class='time-circle lime'></span></span>
-            </div><div class='row '>
-                <span class='position'>4.</span>
-                <img src='https://flagcdn.com/16x12/nl.png' width='20'>
-                <span class='name'>S. Yasar</span>
-                <span class='time'>1:54.392</span>
-                <span class='delta'>+0.031</span>
-                <span class='circle-column'><span class='time-circle lime'></span></span>
-            </div><div class='row '>
-                <span class='position'>5.</span>
-                <img src='https://flagcdn.com/16x12/fr.png' width='20'>
-                <span class='name'>TX3_Biinou67</span>
-                <span class='time'>1:54.429</span>
-                <span class='delta'>+0.068</span>
-                <span class='circle-column'><span class='time-circle red'></span></span>
-            </div><div class='row '>
-                <span class='position'>6.</span>
-                <img src='https://flagcdn.com/16x12/es.png' width='20'>
-                <span class='name'>A.Ruizz</span>
-                <span class='time'>1:54.429</span>
-                <span class='delta'>+0.068</span>
-                <span class='circle-column'><span class='time-circle red'></span></span>
-            </div><div class='row '>
-                <span class='position'>7.</span>
-                <img src='https://flagcdn.com/16x12/hu.png' width='20'>
-                <span class='name'>ChrisG</span>
-                <span class='time'>1:54.435</span>
-                <span class='delta'>+0.074</span>
-                <span class='circle-column'><span class='time-circle yellow'></span></span>
-            </div><div class='row '>
-                <span class='position'>8.</span>
-                <img src='https://flagcdn.com/16x12/gb.png' width='20'>
-                <span class='name'>RTR_STOKIEBEN777</span>
-                <span class='time'>1:54.440</span>
-                <span class='delta'>+0.079</span>
-                <span class='circle-column'><span class='time-circle red'></span></span>
-            </div><div class='row '>
-                <span class='position'>9.</span>
-                <img src='https://flagcdn.com/16x12/fr.png' width='20'>
-                <span class='name'>Wiilly66</span>
-                <span class='time'>1:54.457</span>
-                <span class='delta'>+0.096</span>
-                <span class='circle-column'><span class='time-circle red'></span></span>
-            </div><div class='row '>
-                <span class='position'>10.</span>
-                <img src='https://flagcdn.com/16x12/cz.png' width='20'>
-                <span class='name'>TES_Dajo</span>
-                <span class='time'>1:54.470</span>
-                <span class='delta'>+0.109</span>
+<script src="/catalog-ui/vendor/html2canvas.min.js"></script>
+<script>
+const dailyBoardLoader=document.getElementById('daily-board-loader');
+const hideDailyBoardLoader=()=>dailyBoardLoader?.classList.add('hidden');
+document.querySelectorAll('.daily-card-link').forEach(link=>link.addEventListener('click',()=>dailyBoardLoader?.classList.remove('hidden')));
+window.addEventListener('pageshow',hideDailyBoardLoader);
+window.addEventListener('pagehide',hideDailyBoardLoader);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)hideDailyBoardLoader();});
+const dailyLapModal=document.getElementById('daily-lap-modal');
+const dailyLapDialog=dailyLapModal?.querySelector('.daily-lap-dialog');
+const dailyLapState=dailyLapModal?.querySelector('.daily-lap-state');
+const dailyLapGrid=dailyLapModal?.querySelector('.daily-lap-grid');
+const dailyLapAvatar=dailyLapModal?.querySelector('.daily-lap-avatar');
+const dailyLapCountryFlag=dailyLapModal?.querySelector('.daily-lap-country-flag');
+const dailyLapCar=dailyLapModal?.querySelector('.daily-lap-car');
+const dailyLapDriver=dailyLapModal?.querySelector('.daily-lap-driver');
+const dailyLapCarName=dailyLapModal?.querySelector('.daily-lap-car-name');
+const closeDailyLapModal=()=>{if(dailyLapModal)dailyLapModal.hidden=true;};
+const formatDailyLapTime=value=>{
+    const milliseconds=Math.max(0,Math.round(Number(value)||0));
+    const minutes=Math.floor(milliseconds/60000);
+    const seconds=Math.floor((milliseconds%60000)/1000);
+    const remainder=milliseconds%1000;
+    return `${minutes}:${String(seconds).padStart(2,'0')}.${String(remainder).padStart(3,'0')}`;
+};
+document.querySelectorAll('.daily-lap-info').forEach(button=>button.addEventListener('click',async event=>{
+    event.preventDefault();
+    event.stopPropagation();
+    if(!dailyLapModal||!dailyLapState||!dailyLapGrid)return;
+    dailyLapModal.hidden=false;
+    dailyLapGrid.hidden=true;
+    dailyLapState.hidden=false;
+    dailyLapState.classList.remove('error');
+    dailyLapState.textContent='Loading...';
+    if(dailyLapDriver)dailyLapDriver.textContent=button.dataset.driverName||'-';
+    if(dailyLapCarName)dailyLapCarName.textContent=button.dataset.carName||'-';
+    if(dailyLapAvatar){
+        dailyLapAvatar.onerror=()=>{dailyLapAvatar.onerror=null;dailyLapAvatar.src='/profile/driver.png';};
+        dailyLapAvatar.src=button.dataset.avatar||'/profile/driver.png';
+    }
+    if(dailyLapCountryFlag){
+        dailyLapCountryFlag.hidden=!button.dataset.countryFlag;
+        dailyLapCountryFlag.onerror=()=>{dailyLapCountryFlag.hidden=true;};
+        dailyLapCountryFlag.src=button.dataset.countryFlag||'';
+    }
+    if(dailyLapCar){
+        dailyLapCar.onerror=()=>{dailyLapCar.onerror=null;dailyLapCar.src=button.dataset.carFallback||'';};
+        dailyLapCar.src=button.dataset.carImage||button.dataset.carFallback||'';
+    }
+    dailyLapDialog?.querySelector('.daily-lap-close')?.focus();
+    try{
+        const query=new URLSearchParams({board:button.dataset.board||'',token:button.dataset.token||''});
+        const response=await fetch(`/daily/leader-summary.php?${query}`,{headers:{Accept:'application/json'}});
+        const data=await response.json();
+        if(!response.ok)throw new Error(data?.error||'Lap information is not available yet.');
+        const values={
+            lap_time_ms:formatDailyLapTime(data.lap_time_ms),
+            average_speed_kmh:`${Number(data.average_speed_kmh).toFixed(1)} km/h`,
+            full_throttle_pct:`${Number(data.full_throttle_pct).toFixed(1)}%`,
+            braking_pct:`${Number(data.braking_pct).toFixed(1)}%`,
+            coasting_pct:`${Number(data.coasting_pct).toFixed(1)}%`
+        };
+        Object.entries(values).forEach(([key,value])=>{
+            const target=dailyLapGrid.querySelector(`[data-stat="${key}"]`);
+            if(target)target.textContent=value;
+        });
+        dailyLapState.hidden=true;
+        dailyLapGrid.hidden=false;
+    }catch(error){
+        dailyLapState.textContent=error instanceof Error?error.message:'Lap information is not available yet.';
+        dailyLapState.classList.add('error');
+    }
+}));
+dailyLapModal?.querySelector('.daily-lap-close')?.addEventListener('click',closeDailyLapModal);
+dailyLapModal?.addEventListener('click',event=>{if(event.target===dailyLapModal)closeDailyLapModal();});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&dailyLapModal&&!dailyLapModal.hidden)closeDailyLapModal();});
+document.querySelectorAll('.card-save').forEach(button=>button.addEventListener('click',async event=>{
+    event.preventDefault();
+    event.stopPropagation();
+    const card=button.closest('.daily-race-card');
+    if(!card||button.disabled||typeof html2canvas!=='function')return;
+    button.disabled=true;
+    card.classList.add('exporting');
+    try{
+        if(document.fonts?.ready)await document.fonts.ready;
+        await Promise.all([...card.querySelectorAll('img')].map(img=>img.complete?Promise.resolve():new Promise(resolve=>{img.addEventListener('load',resolve,{once:true});img.addEventListener('error',resolve,{once:true})})));
+        const canvas=await html2canvas(card,{scale:2,useCORS:true,allowTaint:false,backgroundColor:'#16213e',logging:false,scrollX:0,scrollY:-window.scrollY});
+        const title=card.querySelector('h2')?.textContent?.trim()||'daily-race';
+        const label=card.querySelector('.daily-letter')?.textContent?.trim()||'';
+        const slug=title.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60);
+        canvas.toBlob(blob=>{
+            if(!blob)return;
+            const link=document.createElement('a');
+            link.href=URL.createObjectURL(blob);
+            link.download=`daily-race-${label.toLowerCase()}-${slug}.jpg`;
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            setTimeout(()=>URL.revokeObjectURL(link.href),1000);
+        },'image/jpeg',0.94);
+    }finally{
+        card.classList.remove('exporting');
+        button.disabled=false;
+    }
+}));
+</script>
+<script>document.addEventListener("DOMContentLoaded",()=>{const b=document.querySelector(".hamburger"),s=document.querySelector(".sidebar");b?.addEventListener("click",()=>{b.classList.toggle("active");s.classList.toggle("active");document.body.classList.toggle("menu-open")});document.addEventListener("click",e=>{if(s?.classList.contains("active")&&!s.contains(e.target)&&!b.contains(e.target)){b.classList.remove("active");s.classList.remove("active");document.body.classList.remove("menu-open")}})});</script></body></html>

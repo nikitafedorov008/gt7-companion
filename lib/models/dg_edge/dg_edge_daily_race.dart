@@ -1,5 +1,7 @@
 // Models for DG-Edge daily races
 
+import 'dart:convert';
+
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -383,6 +385,38 @@ class DgEdgeDailyRace {
   final String? metaTitle;
   final String? metaDescription;
 
+  /// Race letter — "A", "B", "C". From the `.event-type` badge or [metaTitle].
+  final String? raceLetter;
+
+  /// Week the race belongs to, as printed on the card ("Week 33/2026").
+  final String? weekLabel;
+
+  /// Human date range for the week ("10 August 2026 - 17 August 2026").
+  final String? dateRange;
+
+  // Participation figures, straight off the card's attributes.
+  final int? playersCount;
+  final int? wheelCount;
+  final int? padCount;
+  final int? vrCount;
+  final int? tmCount;
+
+  /// Reference lap times in milliseconds — overall leader, and the cut-offs
+  /// for the top 100 and top 1000.
+  final int? leadTimeMs;
+  final int? top100TimeMs;
+  final int? top1000TimeMs;
+
+  /// Histogram of `DR_SR` pairs across everyone who has set a time, e.g.
+  /// `{"D_S": 3323, "B_S": 2638, …}`. Empty when the card omits it.
+  final Map<String, int> ratingsMatrix;
+
+  /// Players per ISO country code, e.g. `{"US": 3259, "GB": 2221, …}`.
+  final Map<String, int> countriesMatrix;
+
+  /// Share of positive votes as printed on the cover badge, e.g. 68.
+  final int? votesPercent;
+
   final String url; // full or relative url
 
   /// Map of special trackId substitutions for image URLs.
@@ -432,7 +466,41 @@ class DgEdgeDailyRace {
     this.lastUpdateStart,
     this.metaTitle,
     this.metaDescription,
+    this.raceLetter,
+    this.weekLabel,
+    this.dateRange,
+    this.playersCount,
+    this.wheelCount,
+    this.padCount,
+    this.vrCount,
+    this.tmCount,
+    this.leadTimeMs,
+    this.top100TimeMs,
+    this.top1000TimeMs,
+    this.ratingsMatrix = const {},
+    this.countriesMatrix = const {},
+    this.votesPercent,
   });
+
+  /// Lap time formatted the way the site prints it — `4:25.614`.
+  static String? formatLapTime(int? milliseconds) {
+    if (milliseconds == null || milliseconds <= 0) return null;
+    final m = milliseconds ~/ 60000;
+    final s = (milliseconds % 60000) ~/ 1000;
+    final ms = milliseconds % 1000;
+    final secs = s.toString().padLeft(2, '0');
+    final millis = ms.toString().padLeft(3, '0');
+    return m > 0 ? '$m:$secs.$millis' : '$s.$millis';
+  }
+
+  String? get leadTime => formatLapTime(leadTimeMs);
+  String? get top100Time => formatLapTime(top100TimeMs);
+  String? get top1000Time => formatLapTime(top1000TimeMs);
+
+  /// Total entries counted in [ratingsMatrix], useful as a sanity check
+  /// against [playersCount].
+  int get ratedPlayersCount =>
+      ratingsMatrix.values.fold<int>(0, (sum, v) => sum + v);
 
   factory DgEdgeDailyRace.fromJson(Map<String, dynamic> j) => DgEdgeDailyRace(
     id: j['id'] as String,
@@ -476,7 +544,31 @@ class DgEdgeDailyRace {
         : DateTime.parse(j['lastUpdateStart'] as String),
     metaTitle: j['metaTitle'] as String?,
     metaDescription: j['metaDescription'] as String?,
+    raceLetter: j['raceLetter'] as String?,
+    weekLabel: j['weekLabel'] as String?,
+    dateRange: j['dateRange'] as String?,
+    playersCount: j['playersCount'] as int?,
+    wheelCount: j['wheelCount'] as int?,
+    padCount: j['padCount'] as int?,
+    vrCount: j['vrCount'] as int?,
+    tmCount: j['tmCount'] as int?,
+    leadTimeMs: j['leadTimeMs'] as int?,
+    top100TimeMs: j['top100TimeMs'] as int?,
+    top1000TimeMs: j['top1000TimeMs'] as int?,
+    ratingsMatrix: _intMapFromJson(j['ratingsMatrix']),
+    countriesMatrix: _intMapFromJson(j['countriesMatrix']),
+    votesPercent: j['votesPercent'] as int?,
   );
+
+  static Map<String, int> _intMapFromJson(Object? raw) {
+    if (raw is! Map) return const {};
+    final out = <String, int>{};
+    raw.forEach((k, v) {
+      final n = v is num ? v.toInt() : int.tryParse('$v');
+      if (n != null) out['$k'] = n;
+    });
+    return out;
+  }
 
   Map<String, dynamic> toJson() => {
     'id': id,
@@ -513,6 +605,20 @@ class DgEdgeDailyRace {
     'lastUpdateStart': lastUpdateStart?.toIso8601String(),
     'metaTitle': metaTitle,
     'metaDescription': metaDescription,
+    'raceLetter': raceLetter,
+    'weekLabel': weekLabel,
+    'dateRange': dateRange,
+    'playersCount': playersCount,
+    'wheelCount': wheelCount,
+    'padCount': padCount,
+    'vrCount': vrCount,
+    'tmCount': tmCount,
+    'leadTimeMs': leadTimeMs,
+    'top100TimeMs': top100TimeMs,
+    'top1000TimeMs': top1000TimeMs,
+    if (ratingsMatrix.isNotEmpty) 'ratingsMatrix': ratingsMatrix,
+    if (countriesMatrix.isNotEmpty) 'countriesMatrix': countriesMatrix,
+    'votesPercent': votesPercent,
   };
 
   String? get trackImage => trackId != null
@@ -532,317 +638,188 @@ class DgEdgeDailyRace {
 
   // Conservative, best-effort HTML element parsing from a listing/card element.
   // The selector strategy in the service tries to locate an <a> that links to /events/dailies/{id}
+  /// Build a race from one listing card.
+  ///
+  /// The card is an `<a class="event card daily">` that carries its data in
+  /// HTML attributes — `trackid`, `metatitle`, `playerscount`, `ratingsmatrix`
+  /// and friends. Those are read first because they are already normalised;
+  /// the visible markup is only consulted for the handful of figures that have
+  /// no attribute (laps, refuels, tyre sets, tyre code, car class).
   static DgEdgeDailyRace? fromListElement(
     dom.Element el, {
     required String baseUrl,
   }) {
     try {
-      // Diagnostic: log the element we're attempting to parse (short form)
-      debugPrint(
-        'DgEdgeDailyRace.fromListElement: parsing element <${el.localName}> classes=${el.classes}',
-      );
-
-      // Find anchor pointing to the detail; some "future" cards are not yet
-      // linked, so fall back to the wrapper element.
-      final anchor = el.querySelector('a[href*="/events/dailies/"]') ?? el;
-      final href = anchor.attributes['href'] ?? '';
-      debugPrint('  anchor href="$href"');
-
-      // Prefer IDs from the URL when available (most cards are linked).
-      String? id;
-      final idMatch = RegExp(r'/events/dailies/([\w-]+)').firstMatch(href);
-      if (idMatch != null) {
-        id = idMatch.group(1);
-      }
-
-      // If the card is not linked (future events), try to use the externalid
-      // metadata attribute that DG‑Edge embeds on the wrapper.
-      dom.Node? cur2 = el;
-      while (cur2 is dom.Element) {
-        final externalId = cur2.attributes['externalid'];
-        if (externalId != null && externalId.isNotEmpty) {
-          if (id == null || id.isEmpty) id = externalId;
-          break;
-        }
-        cur2 = cur2.parent;
-      }
-
-      // Fallback to base url if we still don't have an ID
-      id ??= baseUrl;
-
-      final uri = href.startsWith('http')
-          ? href
-          : (href.isNotEmpty ? baseUrl + href : '$baseUrl/events/dailies/$id');
-
-      // Title: try heading tags then alt or text
-      final titleEl =
-          anchor.querySelector('h3') ??
-          anchor.querySelector('h2') ??
-          anchor.querySelector('.card-title');
-      // Raw title text from the heading or anchor
-      var title = (titleEl?.text ?? anchor.text).trim().split(RegExp('\n'))[0];
-
-      // If the title contains a concatenated section token like `dailyc` make it readable
-      // e.g. `dailycgr.4` -> `Daily cgr.4` (we'll remove class token below)
-      title = title.replaceAllMapped(
-        RegExp(r'^daily([a-z])', caseSensitive: false),
-        (m) => 'Daily ${m[1]!.toUpperCase()}',
-      );
-
-      // Not parsing thumbnail/track/background images here — use computed getters based on `trackId`.
-
-      // Explicit event name (some pages use `.event-name`) and explicit event time
-      final eventNameEl =
-          anchor.querySelector('.event-name') ??
-          el.querySelector('.event-name');
-      final eventTimeEl =
-          anchor.querySelector('.event-time.mb-0') ??
-          el.querySelector('.event-time');
-      final trackNameEl =
-          anchor.querySelector('h4') ??
-          anchor.querySelector('h5') ??
-          el.querySelector('h4') ??
-          el.querySelector('h5');
-      final eventName = eventNameEl?.text.trim();
-      final eventTime = eventTimeEl?.text.trim();
-      final trackName = trackNameEl?.text.trim();
-
-      // Short description
-      String? shortDesc;
-      final descEl =
-          el.querySelector('.card-text') ??
-          el.querySelector('.excerpt') ??
-          el.querySelector('p');
-      if (descEl != null) shortDesc = descEl.text.trim();
-
-      // Try to extract pit stops / tyre counts / tyre code from small metadata elements or badges
-      int? pitStops;
-      int? tyresAvailable;
-      String? tyreCode;
-
-      // Optional summary-level fields
-      String? className;
-      int? laps;
-      int? refuels;
-      String? tyreCompound;
-      String? reward;
-
-      // Look for explicit elements
-      final infoEls = [
-        ...el.querySelectorAll(
-          '.info, .specs, .badges, .meta, .event-info, .event-specs',
-        ),
-        if (el.querySelectorAll('.badge').isNotEmpty)
-          ...el.querySelectorAll('.badge'),
-      ];
-      for (final info in infoEls) {
-        final t = info.text;
-        // Pits: x1 or Pits x1
-        final pitMatch = RegExp(
-          r"(?:(?:Pits?|Pit\s*stops?):?)\s*[x×]?\s*(\d+)",
-          caseSensitive: false,
-        ).firstMatch(t);
-        if (pitMatch != null) pitStops ??= int.tryParse(pitMatch.group(1)!);
-        // Tyres available: x2
-        final tyreCountMatch = RegExp(
-          r"Tyres?:?\s*[x×]?\s*(\d+)",
-          caseSensitive: false,
-        ).firstMatch(t);
-        if (tyreCountMatch != null) {
-          tyresAvailable ??= int.tryParse(tyreCountMatch.group(1)!);
-        }
-        // Tyre code (RM, RS, SO etc.)
-        final tyreCodeMatch = RegExp(r"\b([A-Z]{1,3})\b").firstMatch(t);
-        if (tyreCodeMatch != null && tyreCode == null) {
-          final candidate = tyreCodeMatch.group(1)!;
-          if (candidate.length <= 3 && RegExp(r"[A-Z]").hasMatch(candidate)) {
-            tyreCode = candidate;
-          }
-        }
-
-        // summary-level extraction
-        final classMatch = RegExp(
-          r"Class:\s*(.+)",
-          caseSensitive: false,
-        ).firstMatch(t);
-        if (classMatch != null) className ??= classMatch.group(1)?.trim();
-        final lapsMatch = RegExp(
-          r"Laps?:\s*[x×]?\s*(\d+)",
-          caseSensitive: false,
-        ).firstMatch(t);
-        if (lapsMatch != null) laps ??= int.tryParse(lapsMatch.group(1)!);
-        final refuelMatch = RegExp(
-          r"Refuels?:?\s*[x×]?\s*(\d+)",
-          caseSensitive: false,
-        ).firstMatch(t);
-        if (refuelMatch != null) {
-          refuels ??= int.tryParse(refuelMatch.group(1)!);
-        }
-        final tyreCompoundMatch = RegExp(
-          r"(Hard|Medium|Soft)",
-          caseSensitive: false,
-        ).firstMatch(t);
-        if (tyreCompoundMatch != null) {
-          tyreCompound ??= tyreCompoundMatch.group(1)!.trim();
-        }
-        final rewardMatch = RegExp(
-          r"Reward:\s*([^\n]+)",
-          caseSensitive: false,
-        ).firstMatch(t);
-        if (rewardMatch != null) reward ??= rewardMatch.group(1)!.trim();
-      }
-
-      // Fallback: try to find inline annotations like data-* attributes on the anchor
-      if (pitStops == null && anchor.attributes['data-pits'] != null) {
-        pitStops = int.tryParse(anchor.attributes['data-pits']!);
-      }
-      if (tyresAvailable == null && anchor.attributes['data-tyres'] != null) {
-        tyresAvailable = int.tryParse(anchor.attributes['data-tyres']!);
-      }
-      tyreCode ??= anchor.attributes['data-tyre-code'];
-
-      // populate summary-level fallback fields from parsed metadata if present
-      className ??= anchor.attributes['data-class'];
-      laps ??= int.tryParse(anchor.attributes['data-laps'] ?? '');
-      refuels ??= int.tryParse(anchor.attributes['data-refuels'] ?? '');
-      tyreCompound ??= anchor.attributes['data-tyre-compound'];
-      reward ??= anchor.attributes['data-reward'];
-
-      // Try to find event-level wrapper (div.event) to extract additional attributes and elements
-      dom.Element? wrapper;
+      // The card itself carries the metadata, but tolerate being handed a
+      // wrapper by walking up to the nearest element that has the attributes.
+      dom.Element card = el;
       dom.Node? cur = el;
       while (cur is dom.Element) {
-        final e = cur;
-        if (e.attributes.containsKey('externalid') ||
-            e.classes.contains('event')) {
-          wrapper = e;
+        if (cur.attributes.containsKey('externalid') ||
+            cur.classes.contains('event')) {
+          card = cur;
           break;
         }
         cur = cur.parent;
       }
 
-      String? carTypeVal;
-      String? tyreSpanVal;
-      String? externalId;
-      String? rankingId;
-      String? trackId;
-      String? statusAttr;
-      bool? isActiveAttr;
-      bool? isEndedAttr;
-      int? totalPagesAttr;
-      DateTime? lastUpdateAttr;
-      DateTime? lastUpdateStartAttr;
-      String? metaTitleAttr;
-      String? metaDescriptionAttr;
+      final anchor = card.attributes.containsKey('href')
+          ? card
+          : (card.querySelector('a[href*="/events/dailies/"]') ?? card);
+      final href = anchor.attributes['href'] ?? '';
 
-      if (wrapper != null) {
-        carTypeVal = wrapper.querySelector('.car-type span')?.text.trim();
-        tyreSpanVal = wrapper.querySelector('.tire')?.text.trim();
-
-        externalId = wrapper.attributes['externalid'];
-        rankingId = wrapper.attributes['rankingid'];
-        trackId = wrapper.attributes['trackid'];
-        statusAttr = wrapper.attributes['status'];
-        isActiveAttr = wrapper.attributes['isactive'] == 'true';
-        isEndedAttr = wrapper.attributes['isended'] == 'true';
-        totalPagesAttr = int.tryParse(wrapper.attributes['totalpages'] ?? '');
-        metaTitleAttr = wrapper.attributes['metatitle'];
-        metaDescriptionAttr = wrapper.attributes['metadescription'];
-        final lu = wrapper.attributes['lastupdate'];
-        final lus = wrapper.attributes['lastupdatestart'];
-        if (lu != null && lu.isNotEmpty) lastUpdateAttr = DateTime.tryParse(lu);
-        if (lus != null && lus.isNotEmpty) {
-          lastUpdateStartAttr = DateTime.tryParse(lus);
-        }
-
-        // Icon-based extraction (flag/gas/tire svg with adjacent text)
-        final flagSvg =
-            wrapper.querySelector('svg[data-icon="flag-checkered"]') ??
-            wrapper.querySelector('.fa-flag-checkered');
-        if (flagSvg != null) {
-          final parentText = flagSvg.parent?.text ?? '';
-          final m = RegExp(r"(\d+)").firstMatch(parentText);
-          if (m != null) laps ??= int.tryParse(m.group(1)!);
-        }
-        final gasSvg =
-            wrapper.querySelector('svg[data-icon="gas-pump"]') ??
-            wrapper.querySelector('.fa-gas-pump');
-        if (gasSvg != null) {
-          final parentText = gasSvg.parent?.text ?? '';
-          final m = RegExp(
-            r"x\s*(\d+)",
-            caseSensitive: false,
-          ).firstMatch(parentText);
-          if (m != null) refuels ??= int.tryParse(m.group(1)!);
-        }
-        final tireSvg =
-            wrapper.querySelector('svg[data-icon="tire"]') ??
-            wrapper.querySelector('.fa-tire');
-        if (tireSvg != null) {
-          final parentText = tireSvg.parent?.text ?? '';
-          final m = RegExp(
-            r"x\s*(\d+)",
-            caseSensitive: false,
-          ).firstMatch(parentText);
-          if (m != null) tyresAvailable ??= int.tryParse(m.group(1)!);
-        }
-
-        // wrapper background image not parsed here
+      String? attr(String name) {
+        final v = card.attributes[name];
+        return (v == null || v.isEmpty) ? null : v;
       }
 
-      // Best-effort date/time parse from text
-      DateTime? when;
-      final text = el.text;
-      final timeMatch = RegExp(r"(\d{1,2}:\d{2})").firstMatch(text);
-      if (timeMatch != null) {
-        // no timezone or date — leave null or attempt today
+      int? intAttr(String name) => int.tryParse(attr(name) ?? '');
+
+      // Ids: the URL is authoritative, `externalid` covers unlinked cards.
+      final id =
+          RegExp(r'/events/dailies/([\w-]+)').firstMatch(href)?.group(1) ??
+          attr('externalid') ??
+          baseUrl;
+
+      final uri = href.startsWith('http')
+          ? href
+          : (href.isNotEmpty ? baseUrl + href : '$baseUrl/events/dailies/$id');
+
+      final metaTitle = attr('metatitle');
+      final metaDescription = attr('metadescription');
+
+      // metatitle: "Week 33-2026 Daily A - Gran Turismo 7"
+      // metadescription: "Special Stage Route X - GT7 Daily Race A - Week 33/2026 - …"
+      final raceLetter =
+          RegExp(
+            r'Daily\s+Race\s+([A-Z])\b',
+            caseSensitive: false,
+          ).firstMatch(metaDescription ?? '')?.group(1) ??
+          RegExp(
+            r'Daily\s+([A-Z])\b',
+            caseSensitive: false,
+          ).firstMatch(metaTitle ?? '')?.group(1) ??
+          card.querySelector('.event-type .badge')?.text.trim().replaceFirst(
+            RegExp(r'^Daily\s*', caseSensitive: false),
+            '',
+          );
+
+      // Visible week block: two spans, "Week 33/2026" then the date range.
+      final timeSpans =
+          card.querySelectorAll('.event-time span').map((e) => e.text.trim())
+              .where((t) => t.isNotEmpty).toList();
+      final weekLabel = timeSpans.isNotEmpty
+          ? timeSpans.first
+          : RegExp(
+              r'Week\s+\d+[-/]\d{4}',
+            ).firstMatch(metaTitle ?? '')?.group(0);
+      final dateRange = timeSpans.length > 1 ? timeSpans[1] : null;
+
+      // The track name moved into `.event-name`; the leading segment of
+      // metadescription says the same thing and survives markup changes.
+      final trackName =
+          card.querySelector('.event-name')?.text.trim() ??
+          metaDescription?.split(' - ').first.trim();
+
+      final title = [
+        if (raceLetter != null) 'Daily $raceLetter',
+        if (trackName != null && trackName.isNotEmpty) trackName,
+      ].join(' — ');
+
+      // Car class or, for one-make races, the car model.
+      final carTypeVal = card
+          .querySelector('.event-car-type, .car-type span')
+          ?.text
+          .trim();
+      final parsedCarType = CarTypeX.parse(carTypeVal);
+
+      final tyreCode = card.querySelector('.tires .tire, .tire')?.text.trim();
+
+      // Icon rows: flag = laps, gas pump = refuels, tyre = tyre sets.
+      int? iconValue(String icon, {required bool expectMultiplier}) {
+        final svg =
+            card.querySelector('svg[data-icon="$icon"]') ??
+            card.querySelector('.fa-$icon');
+        if (svg == null) return null;
+        final text = svg.parent?.text ?? '';
+        final m = expectMultiplier
+            ? RegExp(r'[x×]\s*(\d+)', caseSensitive: false).firstMatch(text)
+            : RegExp(r'(\d+)').firstMatch(text);
+        return m == null ? null : int.tryParse(m.group(1)!);
       }
+
+      final votesText = card.querySelector('.event-votes')?.text ?? '';
+      final votesPercent = int.tryParse(
+        RegExp(r'(\d+)\s*%').firstMatch(votesText)?.group(1) ?? '',
+      );
 
       return DgEdgeDailyRace(
         id: id,
-        title: title.isEmpty ? '(no title)' : title,
+        title: title.isEmpty ? (metaTitle ?? '(no title)') : title,
         url: uri,
-        thumbnailUrl: null,
-        trackImageUrl: null,
-        backgroundImageUrl: null,
-        backgroundImageLoaded: null,
-        shortDescription: shortDesc,
-        eventName: eventName,
-        eventTime: eventTime,
+        eventName: card.querySelector('.event-name')?.text.trim(),
+        eventTime: card.querySelector('.event-time')?.text.trim(),
         trackName: trackName,
-        startDateTime: when,
-        pitStops: pitStops,
-        tyresAvailable: tyresAvailable,
+        laps: iconValue('flag-checkered', expectMultiplier: false),
+        refuels: iconValue('gas-pump', expectMultiplier: true),
+        tyresAvailable: iconValue('tire', expectMultiplier: true),
         tyreCode: tyreCode,
-        //className: className,
-        laps: laps,
-        refuels: refuels,
-        tyreCompound: tyreCompound,
-        reward: reward,
-        carType: CarTypeX.parse(carTypeVal) != null
-            ? CarTypeInfo(type: CarTypeX.parse(carTypeVal))
+        tyre: TyreX.parse(tyreCode),
+        carType: parsedCarType != null
+            ? CarTypeInfo(type: parsedCarType)
             : (carTypeVal != null && carTypeVal.isNotEmpty
                   ? CarTypeInfo(model: carTypeVal)
                   : null),
-        tyre: TyreX.parse(tyreSpanVal),
-        externalId: externalId,
-        rankingId: rankingId,
-        trackId: trackId,
-        status: statusAttr,
-        isActive: isActiveAttr,
-        isEnded: isEndedAttr,
-        totalPages: totalPagesAttr,
-        lastUpdate: lastUpdateAttr,
-        lastUpdateStart: lastUpdateStartAttr,
-        metaTitle: metaTitleAttr,
-        metaDescription: metaDescriptionAttr,
-        className: className,
+        className: carTypeVal,
+        externalId: attr('externalid'),
+        rankingId: attr('rankingid'),
+        trackId: attr('trackid'),
+        status: attr('status'),
+        // `is-active` on the card is the reliable live marker; the `isactive`
+        // attribute is not always present.
+        isActive: card.classes.contains('is-active'),
+        isEnded: attr('isended') == 'true',
+        totalPages: intAttr('totalpages'),
+        lastUpdate: DateTime.tryParse(attr('lastupdate') ?? ''),
+        lastUpdateStart: DateTime.tryParse(attr('lastupdatestart') ?? ''),
+        metaTitle: metaTitle,
+        metaDescription: metaDescription,
+        raceLetter: raceLetter,
+        weekLabel: weekLabel,
+        dateRange: dateRange,
+        playersCount: intAttr('playerscount'),
+        wheelCount: intAttr('wheelcount'),
+        padCount: intAttr('padcount'),
+        vrCount: intAttr('vrcount'),
+        tmCount: intAttr('tmcount'),
+        leadTimeMs: intAttr('leadtime'),
+        top100TimeMs: intAttr('top100time'),
+        top1000TimeMs: intAttr('top1000time'),
+        ratingsMatrix: _matrixAttribute(card, 'ratingsmatrix'),
+        countriesMatrix: _matrixAttribute(card, 'countriesmatrix'),
+        votesPercent: votesPercent,
       );
     } catch (e, st) {
       debugPrint(
         'DgEdgeDailyRace.fromListElement: parse failed for element — error: $e\n$st',
       );
       return null;
+    }
+  }
+
+  /// Decode one of the JSON histogram attributes.
+  ///
+  /// `package:html` already resolves the `&quot;` entities the server emits,
+  /// so the value can go straight to [jsonDecode]. Anything unparseable yields
+  /// an empty map rather than failing the whole card.
+  static Map<String, int> _matrixAttribute(dom.Element card, String name) {
+    final raw = card.attributes[name];
+    if (raw == null || raw.isEmpty) return const {};
+    try {
+      return _intMapFromJson(jsonDecode(raw));
+    } catch (e) {
+      debugPrint('DgEdgeDailyRace: could not decode $name — $e');
+      return const {};
     }
   }
 }

@@ -130,6 +130,39 @@ class DailyRace {
   String? get trackImage => dgEdge?.trackImage;
   String? get trackBackgroundImage => dgEdge?.trackBackgroundImage;
 
+  // Figures each provider publishes and the other does not. Exposed here so
+  // widgets read one flat model instead of reaching into the source objects.
+
+  /// Week the race belongs to, e.g. "Week 33/2026" (DG-Edge).
+  String? get weekLabel => dgEdge?.weekLabel;
+
+  /// Everyone who has set a time in this race (DG-Edge).
+  int? get playersCount => dgEdge?.playersCount;
+
+  /// Overall leader's lap, formatted as `1:37.682` (DG-Edge).
+  ///
+  /// GTSh also prints a clock next to its leader, but that is an "updated at"
+  /// time rather than a lap — see [GtshDailyRace.updatedAtLabel].
+  String? get leadTime => dgEdge?.leadTime;
+
+  /// Share of positive votes on the race, 0-100 (DG-Edge).
+  int? get votesPercent => dgEdge?.votesPercent;
+
+  /// Histogram of `DR_SR` pairs across entrants (DG-Edge).
+  Map<String, int> get ratingsMatrix => dgEdge?.ratingsMatrix ?? const {};
+
+  /// Entrants per ISO country code (DG-Edge).
+  Map<String, int> get countriesMatrix => dgEdge?.countriesMatrix ?? const {};
+
+  // World leader — GTSh only.
+  String? get leaderName => gtsh?.leaderName;
+  String? get leaderCarName => gtsh?.leaderCarName;
+  String? get leaderAvatar => gtsh?.leaderAvatar;
+  String? get leaderCountryFlag => gtsh?.leaderCountryFlag;
+
+  /// Slipstream setting — "Custom", "Real", "Off" (GTSh).
+  String? get slipstream => gtsh?.slipstream;
+
   // GTSh specific properties are preserved via fields directly
 
   /// Returns true when either source indicates the event is not yet running.

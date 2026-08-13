@@ -68,7 +68,7 @@ class SportRepositoryImpl extends SportRepository {
       }
 
       try {
-        gtshItems = await _gtsh.fetchRunningCards(forceRefresh: forceRefresh);
+        gtshItems = await _gtsh.fetchDailyCards(forceRefresh: forceRefresh);
         debugPrint('SportRepository: gtsh returned ${gtshItems.length} items');
       } catch (e, st) {
         gtshError = e.toString();
@@ -95,21 +95,67 @@ class SportRepositoryImpl extends SportRepository {
     }
   }
 
-  List<DailyRace> _merge(List<DgEdgeDailyRace> dg, List<GtshDailyRace> gtsh) {
-    // Merge the upstream sources by pairing entries by index.  We intentionally
-    // keep the complete list from each source so widgets that show "past" or
-    // "upcoming" races have enough data to work with.
-    final out = <DailyRace>[];
-    final maxLen = dg.length > gtsh.length ? dg.length : gtsh.length;
+  /// Normalised pairing key for a race, used when no ranking id is available.
+  ///
+  /// Track names differ slightly between the sources — DG-Edge says
+  /// "Grand Valley" where GTSh says "Grand Valley - Highway 1" — so only the
+  /// segment before the first dash is compared.
+  static String? _fallbackKey(String? label, String? track) {
+    if (label == null || label.isEmpty) return null;
+    if (track == null || track.isEmpty) return null;
+    final base = track.split(' - ').first.trim().toLowerCase();
+    if (base.isEmpty) return null;
+    return '${label.toUpperCase()}|$base';
+  }
 
-    for (var i = 0; i < maxLen; i++) {
-      final dgItem = i < dg.length ? dg[i] : null;
-      final gtshItem = i < gtsh.length ? gtsh[i] : null;
-      final unified = DailyRace.fromPair(dgItem, gtshItem);
+  List<DailyRace> _merge(List<DgEdgeDailyRace> dg, List<GtshDailyRace> gtsh) {
+    // Pair on the game's own board id, which both sites publish: DG-Edge as
+    // `rankingid`, GTSh as `data-board` (e.g. p_rt_1014514_001). Pairing by
+    // list position, as this used to do, matched unrelated races — the two
+    // sources cover different numbers of weeks.
+    final gtshByRankingId = <String, GtshDailyRace>{};
+    final gtshByFallback = <String, GtshDailyRace>{};
+    for (final g in gtsh) {
+      final id = g.rankingId;
+      if (id != null && id.isNotEmpty) {
+        gtshByRankingId.putIfAbsent(id, () => g);
+      }
+      final key = _fallbackKey(g.label, g.trackName);
+      if (key != null) gtshByFallback.putIfAbsent(key, () => g);
+    }
+
+    final out = <DailyRace>[];
+    final pairedGtsh = <GtshDailyRace>{};
+
+    for (final d in dg) {
+      GtshDailyRace? match;
+      final rankingId = d.rankingId;
+      if (rankingId != null && rankingId.isNotEmpty) {
+        match = gtshByRankingId[rankingId];
+      }
+      match ??= gtshByFallback[_fallbackKey(d.raceLetter, d.trackName) ?? ''];
+
+      if (match != null) pairedGtsh.add(match);
+      final unified = DailyRace.fromPair(d, match);
       if (unified.trackName != null && unified.trackName!.isNotEmpty) {
         out.add(unified);
       }
     }
+
+    // GTSh cards with no DG-Edge counterpart still belong in the list — the
+    // two sites do not always publish the same weeks.
+    for (final g in gtsh) {
+      if (pairedGtsh.contains(g)) continue;
+      final unified = DailyRace.fromPair(null, g);
+      if (unified.trackName != null && unified.trackName!.isNotEmpty) {
+        out.add(unified);
+      }
+    }
+
+    debugPrint(
+      'SportRepository._merge: ${dg.length} dg + ${gtsh.length} gtsh -> '
+      '${out.length} races (${pairedGtsh.length} paired)',
+    );
 
     // ensure upcoming/future races come first, then running/current, then past
     // (stable ordering keeps the upstream page order for items with the same

@@ -43,6 +43,30 @@
 - For UI changes, prefer adding widgets under `lib/widgets/` and wiring them into `lib/pages/` or existing display widgets.
 - When introducing network or service dependencies, register them in DI and keep them decoupled from widgets.
 
+## Live app inspection (Dart MCP server)
+
+`.mcp.json` registers `dart mcp-server`, which ships with the Dart SDK — nothing
+to install. It talks to the Dart Tooling Daemon, the same daemon DevTools uses,
+so an agent can run the app and look at it rather than asking the user to.
+
+Typical loop:
+
+1. `list_devices` → pick a target
+2. `launch_app` with `root` as a **plain path** (not a `file://` URI — passing a
+   URI makes the launch fail with a confusing `ProcessException`) — returns a
+   PID and a DTD URI
+3. `connect_dart_tooling_daemon` with that URI
+4. `hot_reload` after edits, then `get_runtime_errors` / `get_widget_tree`
+5. `stop_app` with the PID
+
+Verified on this project: macOS launches in ~25 s, the iOS simulator in ~50 s,
+and hot reload plus widget-tree inspection work on both. Android needs
+`flutter emulators --launch Pixel_9_Pro` first; iOS simulators need
+`xcrun simctl boot <udid>` before they appear in `list_devices`.
+
+Prefer the server's `run_tests` over `flutter test` — its own description says
+so, and it reports failures in a form built for agents.
+
 ## Notes for automation
 - Use `README.md` and `openspec/config.yaml` as the primary references for project conventions.
 - Avoid broad refactors unless the user requests them explicitly.

@@ -41,10 +41,13 @@ class DailyRaceCard extends StatelessWidget {
   /// The card body in GT7 is a cool blue-grey, appreciably lighter than this
   /// app's near-black surface. Lifting the theme colour toward that tone keeps
   /// the card recognisable without hard-coding a palette beside the theme.
+  ///
+  /// Kept translucent so the page gradient carries through the body and the
+  /// stats strip; the circuit photo above them is opaque either way.
   static Color _panelColor(ThemeData theme) => Color.alphaBlend(
     const Color(0xFF4A6FA5).withValues(alpha: 0.10),
     theme.colorScheme.surface,
-  );
+  ).withValues(alpha: 0.62);
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +123,10 @@ class _CardMetrics {
   double get trackName => _scaled(0.036, 12);
   double get category => _scaled(0.052, 13);
   double get statLabel => _scaled(0.0225, 8);
-  double get statValue => _scaled(0.059, 15);
+
+  /// The three plain cells sit below the one on the right, which is the
+  /// figure GT7 gives the most weight.
+  double get statValue => _scaled(0.048, 13);
   double get featuredValue => _scaled(0.066, 16);
 
   double get glyph => _scaled(0.011, 4);
@@ -389,7 +395,9 @@ class _StatsFooter extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           // Two thirds for the three plain cells, one third for the one set
-          // apart on the right — the split GT7 uses.
+          // apart on the right — the split GT7 uses. The plain cells run
+          // together with no rule between them; the only vertical divider is
+          // the one that fences off the last cell.
           Expanded(
             flex: 2,
             child: Row(
@@ -399,20 +407,16 @@ class _StatsFooter extends StatelessWidget {
                   child: _StatCell(
                     label: 'No. of Laps',
                     value: race.laps?.toString(),
-                    valueColor: const Color(0xFF7FB2E5),
                     metrics: metrics,
                   ),
                 ),
-                const _CellDivider(),
                 Expanded(
                   child: _StatCell(
                     label: 'Tyres',
                     value: tyre?.code,
-                    valueColor: tyre?.color,
                     metrics: metrics,
                   ),
                 ),
-                const _CellDivider(),
                 Expanded(
                   child: _StatCell(
                     label: 'Entrants',
@@ -430,7 +434,6 @@ class _StatsFooter extends StatelessWidget {
             flex: 1,
             child: DecoratedBox(
               decoration: const BoxDecoration(
-                color: Colors.white10,
                 border: Border(left: BorderSide(color: Colors.white24)),
               ),
               child: _StatCell(
@@ -447,34 +450,21 @@ class _StatsFooter extends StatelessWidget {
   }
 }
 
-class _CellDivider extends StatelessWidget {
-  const _CellDivider();
-
-  @override
-  Widget build(BuildContext context) => const VerticalDivider(
-    color: Colors.white24,
-    thickness: 1,
-    width: 1,
-    indent: 8,
-    endIndent: 8,
-  );
-}
-
 class _StatCell extends StatelessWidget {
   const _StatCell({
     required this.label,
     required this.metrics,
     this.value,
-    this.valueColor,
     this.featured = false,
   });
 
   final String label;
   final String? value;
-  final Color? valueColor;
   final _CardMetrics metrics;
 
-  /// The cell GT7 sets apart on the right, printed a shade larger.
+  /// The cell GT7 sets apart on the right: larger type than the plain three,
+  /// and the only one with a rule beside it. No colour of its own — every
+  /// value on the strip is the same white.
   final bool featured;
 
   @override
@@ -512,7 +502,7 @@ class _StatCell extends StatelessWidget {
                       ? metrics.featuredValue
                       : metrics.statValue,
                   fontWeight: FontWeight.w600,
-                  color: valueColor ?? Colors.white,
+                  color: Colors.white,
                 ),
               ),
             ),

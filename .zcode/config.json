@@ -1,0 +1,13 @@
+{
+  "mcp": {
+    "servers": {
+      "pubdev": {
+        "command": "npx",
+        "args": ["-y", "@devqxi/pubdev-mcp-server"]
+      },
+      "flutter-lens": {
+        "command": "/Users/nikitafedorov008/.pub-cache/bin/flutter-agent-lens"
+      }
+    }
+  }
+}

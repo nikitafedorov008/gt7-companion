@@ -1,0 +1,87 @@
+<RequirementsAnalysis VERSION="0.2.0">
+  <Project>
+    <name>GT7 Companion</name>
+    <annotation>Flutter app for real-time GT7 telemetry display across mobile and desktop platforms</annotation>
+    <keywords>gt7, telemetry, flutter, dart, racing, udp, salsa20, motorsport</keywords>
+  </Project>
+
+  <Actors>
+    <actor-Driver>Player actively racing in Gran Turismo 7, needs real-time telemetry on a secondary device.</actor-Driver>
+    <actor-Spectator>Observer watching a race session, reviewing telemetry data post-race.</actor-Spectator>
+  </Actors>
+
+  <UseCases>
+    <UC-001>
+      <Actor>Driver</Actor>
+      <Action>Receives and decrypts real-time UDP telemetry from PS5/GT7</Action>
+      <Goal>To monitor speed, RPM, tire data, fuel, and gear status live during a race</Goal>
+      <Preconditions>PS5 running GT7 on the same local network; telemetry output enabled in GT7 settings</Preconditions>
+      <AcceptanceCriteria>Telemetry data updates at game framerate with correct Salsa20 decryption; all gauges reflect live values</AcceptanceCriteria>
+      <Priority>high</Priority>
+      <RelatedFlows>DF-TELEMETRY</RelatedFlows>
+    </UC-001>
+
+    <UC-002>
+      <Actor>Driver</Actor>
+      <Action>Views analog gauges for speed and RPM with dynamic color transitions</Action>
+      <Goal>To get at-a-glance performance feedback without looking away from the road</Goal>
+      <Preconditions>Telemetry stream is active</Preconditions>
+      <AcceptanceCriteria>Gauges animate smoothly; color transitions (green-yellow-red) reflect RPM range; fuel indicator shows inside speedometer</AcceptanceCriteria>
+      <Priority>high</Priority>
+      <RelatedFlows>DF-UI-UPDATE</RelatedFlows>
+    </UC-002>
+
+    <UC-003>
+      <Actor>Driver</Actor>
+      <Action>Monitors tire temperatures and pressures for all four wheels</Action>
+      <Goal>To optimize tire strategy and detect degradation early</Goal>
+      <Preconditions>Telemetry stream is active</Preconditions>
+      <AcceptanceCriteria>Tire metrics (FL/FR/RL/RR) display temperature and pressure with responsive layout for desktop and mobile</AcceptanceCriteria>
+      <Priority>high</Priority>
+      <RelatedFlows>DF-UI-UPDATE</RelatedFlows>
+    </UC-003>
+
+    <UC-004>
+      <Actor>Driver</Actor>
+      <Action>Views daily race schedule and sport mode information</Action>
+      <Goal>To plan racing sessions and check upcoming events</Goal>
+      <Preconditions>Internet connection available</Preconditions>
+      <AcceptanceCriteria>Daily races load from API; race details (track, car class, schedule) display correctly</AcceptanceCriteria>
+      <Priority>medium</Priority>
+      <RelatedFlows>DF-SPORT</RelatedFlows>
+    </UC-004>
+
+    <UC-005>
+      <Actor>Driver</Actor>
+      <Action>Views throttle/brake input graph over time</Action>
+      <Goal>To analyze driving inputs and improve lap consistency</Goal>
+      <Preconditions>Telemetry stream is active</Preconditions>
+      <AcceptanceCriteria>Throttle and brake graph renders in real-time with 10-second ring buffer; CustomPaint used for performance</AcceptanceCriteria>
+      <Priority>medium</Priority>
+      <RelatedFlows>DF-UI-UPDATE</RelatedFlows>
+    </UC-005>
+  </UseCases>
+
+  <NonGoals>
+    <item-1>No multiplayer telemetry sharing in v1.</item-1>
+    <item-2>No lap time recording or historical analysis.</item-2>
+    <item-3>No integration with external sim racing platforms.</item-3>
+  </NonGoals>
+
+  <Constraints>
+    <constraint-1>Must work on iOS, Android, macOS, Windows, Linux, and Web from a single Dart codebase.</constraint-1>
+    <constraint-2>Telemetry decryption must handle Salsa20 stream cipher in real-time without frame drops.</constraint-2>
+    <constraint-3>UI must remain responsive at 60fps during active telemetry ingestion.</constraint-3>
+    <constraint-4>Cross-platform code stays in Dart; no platform-specific native logic unless explicitly needed.</constraint-4>
+  </Constraints>
+
+  <Risks>
+    <risk-1>UDP packet loss or decryption errors could cause gauge stuttering or incorrect values.</risk-1>
+    <risk-2>High-frequency telemetry updates may cause excessive widget rebuilds if not properly throttled.</risk-2>
+    <risk-3>GT7 telemetry protocol changes in game updates could break decryption.</risk-3>
+  </Risks>
+
+  <OpenQuestions>
+    <question-1>Should telemetry data be persisted for post-session analysis?</question-1>
+  </OpenQuestions>
+</RequirementsAnalysis>

@@ -1,14 +1,31 @@
 import 'package:flutter/material.dart';
 
-// GT7-inspired dark color palette (cyan highlights + warm yellow accents)
-const Color _gt7Background = Color(0xFF0B0D0F);
-const Color _gt7Surface = Color(0xFF141619);
-const Color _gt7Primary = Color(0xFF00D1E8); // cyan/aqua
-const Color _gt7PrimaryContainer = Color(0xFF07282B);
-const Color _gt7Accent = Color(0xFF6BE3FF);
-const Color _gt7Secondary = Color(0xFFFFC857); // warm yellow (badges)
-const Color _gt7Muted = Color(0xFF9AA3AC);
-const Color _gt7Error = Color(0xFFFF5C5C);
+// GT7-inspired dark color palette
+// Based on design tokens from gran-turismo.com (dark theme)
+// See DESIGN.md for full token reference
+const Color _gt7Background = Color(0xFF000000);      // pure black (from GT7 site)
+const Color _gt7Surface = Color(0xFF141619);          // dark surface (cards, panels)
+const Color _gt7Primary = Color(0xFF00D1E8);          // cyan/aqua (telemetry accent)
+const Color _gt7PrimaryContainer = Color(0xFF07282B); // subtle cyan tint
+const Color _gt7Accent = Color(0xFF6BE3FF);           // light cyan highlight
+const Color _gt7Secondary = Color(0xFFFFC857);        // warm yellow (badges, race data)
+const Color _gt7Muted = Color(0xFFA2A4AC);            // muted gray (from GT7 site)
+const Color _gt7OnSurface = Color(0xFFFFFFFF);        // white text (from GT7 site)
+const Color _gt7Error = Color(0xFFFF5C5C);            // error red
+
+// Design tokens: rounded corners (from DESIGN.md)
+const double gt7RadiusSm = 7.0;
+const double gt7RadiusMd = 8.0;
+const double gt7RadiusLg = 12.0;
+const double gt7RadiusXl = 50.0;
+
+// Design tokens: spacing (from DESIGN.md)
+const double gt7SpacingXs = 5.0;
+const double gt7SpacingSm = 7.0;
+const double gt7SpacingMd = 8.0;
+const double gt7SpacingLg = 9.0;
+const double gt7SpacingXl = 10.0;
+const double gt7SpacingXxl = 12.0;
 
 final ColorScheme _gt7ColorScheme = ColorScheme(
   brightness: Brightness.dark,
@@ -19,7 +36,7 @@ final ColorScheme _gt7ColorScheme = ColorScheme(
   secondary: _gt7Secondary,
   onSecondary: _gt7Surface,
   surface: _gt7Surface,
-  onSurface: Color(0xFFE6EEF2),
+  onSurface: _gt7OnSurface,
   error: _gt7Error,
   onError: Colors.white,
 );
@@ -40,28 +57,29 @@ ThemeData gt7Theme() => ThemeData(
     fillColor: _gt7Surface,
     contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(gt7RadiusLg),
       borderSide: BorderSide(color: Colors.transparent),
     ),
     enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(gt7RadiusLg),
       borderSide: BorderSide(
         color: _gt7ColorScheme.onSurface.withOpacity(0.08),
       ),
     ),
     focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(gt7RadiusLg),
       borderSide: BorderSide(color: _gt7ColorScheme.primary.withOpacity(0.85)),
     ),
-    labelStyle: TextStyle(color: _gt7ColorScheme.onSurface.withOpacity(0.7)),
-    hintStyle: TextStyle(color: _gt7ColorScheme.onSurface.withOpacity(0.5)),
+    labelStyle: TextStyle(color: _gt7Muted),
+    hintStyle: TextStyle(color: _gt7Muted.withOpacity(0.6)),
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       backgroundColor: _gt7Primary,
       foregroundColor: _gt7ColorScheme.onPrimary,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(gt7RadiusMd)),
       elevation: 0,
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
     ),
   ),
   textButtonTheme: TextButtonThemeData(
@@ -70,23 +88,92 @@ ThemeData gt7Theme() => ThemeData(
   cardColor: _gt7Surface,
   iconTheme: IconThemeData(color: _gt7ColorScheme.onSurface.withOpacity(0.9)),
   textTheme: TextTheme(
-    displayLarge: TextStyle(color: _gt7ColorScheme.onSurface),
+    // Headings — Roboto Condensed (from DESIGN.md: text-1, 29dp, light)
+    displayLarge: TextStyle(
+      fontFamily: 'Roboto Condensed',
+      fontSize: 29,
+      fontWeight: FontWeight.w300,
+      height: 1.45,
+      color: _gt7ColorScheme.onSurface,
+    ),
     displayMedium: TextStyle(
-      color: _gt7ColorScheme.onSurface.withOpacity(0.95),
+      fontFamily: 'Roboto Condensed',
+      fontSize: 24,
+      fontWeight: FontWeight.w400,
+      height: 1.3,
+      color: _gt7ColorScheme.onSurface,
     ),
-    displaySmall: TextStyle(color: _gt7ColorScheme.onSurface.withOpacity(0.9)),
+    displaySmall: TextStyle(
+      fontFamily: 'Roboto Condensed',
+      fontSize: 20,
+      fontWeight: FontWeight.w400,
+      height: 1.2,
+      color: _gt7ColorScheme.onSurface.withOpacity(0.9),
+    ),
+    // Section headers — Helvetica Neue (from DESIGN.md: text-2, 21dp, bold)
     headlineSmall: TextStyle(
-      color: _gt7ColorScheme.onSurface,
+      fontSize: 21,
       fontWeight: FontWeight.w700,
+      height: 1.15,
+      color: _gt7ColorScheme.onSurface,
     ),
+    // Titles
     titleLarge: TextStyle(
+      fontSize: 20,
+      fontWeight: FontWeight.w400,
+      height: 1.2,
       color: _gt7ColorScheme.onSurface,
-      fontWeight: FontWeight.w700,
     ),
-    titleMedium: TextStyle(color: _gt7ColorScheme.onSurface.withOpacity(0.9)),
-    bodyLarge: TextStyle(color: _gt7ColorScheme.onSurface),
-    bodyMedium: TextStyle(color: _gt7ColorScheme.onSurface.withOpacity(0.9)),
-    bodySmall: TextStyle(color: _gt7ColorScheme.onSurface.withOpacity(0.75)),
+    titleMedium: TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.w400,
+      height: 1.2,
+      color: _gt7ColorScheme.onSurface.withOpacity(0.9),
+    ),
+    titleSmall: TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+      height: 1.0,
+      color: _gt7ColorScheme.onSurface.withOpacity(0.9),
+    ),
+    // Body
+    bodyLarge: TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+      height: 1.5,
+      color: _gt7ColorScheme.onSurface,
+    ),
+    bodyMedium: TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+      height: 1.3,
+      color: _gt7ColorScheme.onSurface.withOpacity(0.9),
+    ),
+    bodySmall: TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+      height: 1.2,
+      color: _gt7Muted,
+    ),
+    // Labels
+    labelLarge: TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w500,
+      height: 1.0,
+      color: _gt7ColorScheme.onSurface,
+    ),
+    labelMedium: TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+      height: 1.2,
+      color: _gt7Muted,
+    ),
+    labelSmall: TextStyle(
+      fontSize: 10,
+      fontWeight: FontWeight.w500,
+      height: 1.2,
+      color: _gt7Muted,
+    ),
   ),
   extensions: <ThemeExtension<dynamic>>[
     GT7GraphColors(

@@ -8,8 +8,8 @@ import 'package:fluid_background/fluid_background.dart';
 import '../router/app_router.dart';
 import '../services/telemetry_service.dart';
 import '../widgets/daily_races/daily_races_display.dart';
-import '../widgets/telemetry/playstation_scanner_dialog.dart';
 import '../widgets/telemetry/telemetry_display.dart';
+import '../widgets/telemetry/telemetry_panel.dart';
 
 @RoutePage()
 class HomePage extends StatefulWidget {
@@ -20,26 +20,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final TextEditingController _ipController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  bool _isConnecting = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _ipController.text = '192.168.1.123';
-  }
-
-  @override
-  void dispose() {
-    _ipController.dispose();
-    super.dispose();
-  }
-
-  void _openTelemetry(BuildContext context) {
-    context.tabsRouter.setActiveIndex(3);
-  }
-
   void _openUsedCarDealer(BuildContext context) {
     context.router.push(const UsedCarDisplayRoute());
   }
@@ -52,208 +32,9 @@ class _HomePageState extends State<HomePage> {
     context.router.push(const GTAutoDisplayRoute());
   }
 
-  Widget _buildConnectionForm(BuildContext context, bool isDesktop) {
-    final theme = Theme.of(context);
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: TextFormField(
-                  controller: _ipController,
-                  style: TextStyle(color: theme.colorScheme.onSurface),
-                  decoration: InputDecoration(
-                    labelText: 'PlayStation IP',
-                    labelStyle: TextStyle(
-                      color: theme.colorScheme.onSurface.withOpacity(0.7),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: theme.colorScheme.onSurface.withOpacity(0.12),
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: theme.colorScheme.primary.withOpacity(0.85),
-                      ),
-                    ),
-                    suffixIcon: IconButton(
-                      icon: Icon(Icons.search, color: theme.iconTheme.color),
-                      tooltip: 'Scan for PlayStation',
-                      onPressed: () async {
-                        final selectedIp = await showDialog<String>(
-                          context: context,
-                          builder: (context) =>
-                              const PlayStationScannerDialog(),
-                        );
-                        if (selectedIp != null) {
-                          _ipController.text = selectedIp;
-                        }
-                      },
-                    ),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Enter IP';
-                    }
-                    final ipPattern = RegExp(
-                      r'^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$',
-                    );
-                    if (!ipPattern.hasMatch(value)) {
-                      return 'Invalid IP';
-                    }
-                    return null;
-                  },
-                ),
-              ),
-              const SizedBox(width: 8),
-              SizedBox(
-                height: 56, // Match input height roughly
-                child: Consumer<TelemetryService>(
-                  builder: (context, service, _) {
-                    if (service.isConnected) {
-                      return ElevatedButton(
-                        onPressed: () => service.disconnect(),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: theme.colorScheme.error,
-                          foregroundColor: theme.colorScheme.onError,
-                        ),
-                        child: const Text('Disconnect'),
-                      );
-                    } else {
-                      return ElevatedButton(
-                        onPressed: _isConnecting
-                            ? null
-                            : () async {
-                                if (_formKey.currentState?.validate() ??
-                                    false) {
-                                  setState(() {
-                                    _isConnecting = true;
-                                  });
-                                  await Provider.of<TelemetryService>(
-                                    context,
-                                    listen: false,
-                                  ).connectToGT7(_ipController.text);
-                                  setState(() {
-                                    _isConnecting = false;
-                                  });
-                                }
-                              },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: theme.colorScheme.primary,
-                          foregroundColor: theme.colorScheme.onPrimary,
-                        ),
-                        child: _isConnecting
-                            ? const SizedBox(
-                                width: 20,
-                                height: 20,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                ),
-                              )
-                            : const Text('Connect'),
-                      );
-                    }
-                  },
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Consumer<TelemetryService>(
-            builder: (context, service, _) {
-              return SizedBox(
-                width: double.infinity,
-                height: 48,
-                child: OutlinedButton.icon(
-                  onPressed: _isConnecting || service.isConnected
-                      ? null
-                      : () async {
-                          final tabsRouter = context.tabsRouter;
-                          setState(() {
-                            _isConnecting = true;
-                          });
-                          try {
-                            await Provider.of<TelemetryService>(
-                              context,
-                              listen: false,
-                            ).startDemoTelemetry();
-                            if (!mounted) return;
-                            tabsRouter.setActiveIndex(3);
-                          } finally {
-                            if (mounted) {
-                              setState(() {
-                                _isConnecting = false;
-                              });
-                            }
-                          }
-                        },
-                  icon: Icon(
-                    Icons.play_circle_outline,
-                    color: theme.colorScheme.primary,
-                  ),
-                  label: Text(
-                    'Demo telemetry',
-                    style: TextStyle(color: theme.colorScheme.primary),
-                  ),
-                ),
-              );
-            },
-          ),
-          const SizedBox(height: 8),
-          Consumer<TelemetryService>(
-            builder: (context, service, _) {
-              if (service.isConnected) {
-                final statusLabel = service.isDemo
-                    ? 'Status: Demo mode active'
-                    : 'Status: Connected';
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      statusLabel,
-                      style: TextStyle(
-                        color: theme.colorScheme.onSurface,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    TextButton.icon(
-                      onPressed: () => _openTelemetry(context),
-                      icon: Icon(
-                        Icons.open_in_new,
-                        color: theme.colorScheme.onSurface,
-                      ),
-                      label: Text(
-                        'Open Dashboard',
-                        style: TextStyle(color: theme.colorScheme.onSurface),
-                      ),
-                    ),
-                  ],
-                );
-              } else if (service.errorMessage != null) {
-                return Text(
-                  'Error: ${service.errorMessage}',
-                  style: TextStyle(color: theme.colorScheme.error),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                );
-              }
-              return const SizedBox.shrink();
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final screenWidth = MediaQuery.of(context).size.width;
-    final isDesktop = screenWidth > 600;
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
@@ -304,40 +85,7 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // telemetry header
-                    Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: theme.colorScheme.primary.withAlpha(90),
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(
-                          color: theme.colorScheme.primary.withOpacity(0.08),
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: theme.colorScheme.primary.withOpacity(0.12),
-                            blurRadius: 24,
-                            spreadRadius: 0,
-                            offset: Offset(0, 6),
-                          ),
-                        ],
-                      ),
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Telemetry',
-                            style: theme.textTheme.headlineSmall?.copyWith(
-                              color: theme.colorScheme.onPrimary,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          _buildConnectionForm(context, isDesktop),
-                        ],
-                      ),
-                    ),
+                    const TelemetryPanel(),
 
                     const SizedBox(height: 24),
                     Text('Services', style: theme.textTheme.titleMedium),

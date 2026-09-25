@@ -13,7 +13,10 @@ import '../services/gt7info_service.dart';
 import '../services/gtdb_service.dart';
 import '../services/dg_edge_service.dart';
 import '../services/gtsh_rank_service.dart';
+import '../repositories/car_catalog.dart';
 import '../repositories/car_repository.dart';
+import '../repositories/track_catalog.dart';
+import '../repositories/track_repository.dart';
 
 /// Top-level provider scope used by the application.
 ///
@@ -30,6 +33,19 @@ class AppScope extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => TelemetryService()),
+        // Records the route from the packet positions so the HUD can draw a
+        // track map. It follows the telemetry service, so it needs it first.
+        ChangeNotifierProvider(
+          create: (context) => TrackTraceRepository(
+            Provider.of<TelemetryService>(context, listen: false),
+          ),
+        ),
+        // The catalogue of cars the telemetry packet can refer to: loads the two
+        // bundled assets once and answers id → name / photo.
+        ChangeNotifierProvider(create: (context) => CarCatalog()..load()),
+        // The course database, for naming a circuit from the lap we measured:
+        // GT7 never sends a track id.
+        ChangeNotifierProvider(create: (context) => TrackCatalog()..load()),
         ChangeNotifierProvider(create: (context) => GT7InfoService()),
         ChangeNotifierProvider(create: (context) => GTDBService()),
         ChangeNotifierProvider(create: (context) => DgEdgeService()),

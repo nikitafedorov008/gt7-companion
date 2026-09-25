@@ -9,6 +9,11 @@ class MainFlutterWindow: NSWindow {
     self.contentViewController = flutterViewController
     self.setFrame(windowFrame, display: true)
 
+    // The telemetry HUD is laid out like the game's cluster, which needs more
+    // room than the storyboard default of 800x600.
+    self.setContentSize(NSSize(width: 1280, height: 820))
+    self.center()
+
     RegisterGeneratedPlugins(registry: flutterViewController)
 
     // let windowFrame = self.frame

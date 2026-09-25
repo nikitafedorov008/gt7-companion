@@ -43,3 +43,14 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+.fvm/
+
+# Local tooling and generated output: agent workspaces, design exports and
+# scraped pages. Nothing here is a source of the app, and `output/design` alone
+# is 50 MB of images.
+.air/
+.dsh-studio/
+.mimosa/
+.playwright-mcp/
+.zcode/
+output/

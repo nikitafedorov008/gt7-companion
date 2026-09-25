@@ -22,6 +22,21 @@ class PlatformUtils {
   static Future<void> _configureMacosWindowUtils() async {
     await WindowManipulator.initialize(enableWindowDelegate: true);
 
+    // The telemetry HUD is laid out like the game's instrument cluster and
+    // needs more room than the storyboard's 800x600 default. Only grow the
+    // window when it is too small, so a size the user chose is kept.
+    try {
+      final frame = await WindowManipulator.getWindowFrame();
+      if (frame.width < 1180 || frame.height < 780) {
+        await WindowManipulator.setWindowFrame(
+          Rect.fromLTWH(frame.left, frame.top, 1280, 820),
+        );
+        await WindowManipulator.centerWindow();
+      }
+    } catch (_) {
+      // Window size is a nicety; never block startup on it.
+    }
+
     WindowManipulator.makeTitlebarTransparent();
     WindowManipulator.enableFullSizeContentView();
     WindowManipulator.addToolbar();

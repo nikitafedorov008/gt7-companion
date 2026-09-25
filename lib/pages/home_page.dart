@@ -8,7 +8,7 @@ import 'package:fluid_background/fluid_background.dart';
 import '../router/app_router.dart';
 import '../services/telemetry_service.dart';
 import '../widgets/daily_races/daily_races_display.dart';
-import '../widgets/telemetry/telemetry_display.dart';
+import '../widgets/telemetry/telemetry_screen.dart';
 import '../widgets/telemetry/telemetry_panel.dart';
 
 @RoutePage()
@@ -310,7 +310,7 @@ class TelemetryDetailsScreen extends StatelessWidget {
             return const Center(child: Text('Not connected to GT7'));
           }
 
-          return TelemetryDisplay(
+          return TelemetryScreen(
             telemetry: service.telemetry,
             errorMessage: service.errorMessage,
           );

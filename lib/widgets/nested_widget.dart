@@ -1,7 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import '../router/app_router.dart';
+import '../services/telemetry_service.dart';
+import '../utils/dev_flags.dart';
 
 import 'adaptive_navbar.dart';
 
@@ -55,9 +59,47 @@ class NestedWidget extends StatelessWidget {
                 )
               : null,
           bottomNavigationBar: showBottomNav ? const AdaptiveNavBar() : null,
-          body: child,
+          body: _AutoDemoLauncher(child: child),
         );
       },
     );
   }
+}
+
+/// Development helper: with `--dart-define=GT7_DEMO=true` the app lands on the
+/// telemetry tab with the demo feed already running, so the dashboard can be
+/// inspected without a console on the network.
+class _AutoDemoLauncher extends StatefulWidget {
+  const _AutoDemoLauncher({required this.child});
+
+  final Widget child;
+
+  @override
+  State<_AutoDemoLauncher> createState() => _AutoDemoLauncherState();
+}
+
+class _AutoDemoLauncherState extends State<_AutoDemoLauncher> {
+  @override
+  void initState() {
+    super.initState();
+    if (!autoDemoTelemetryEnabled) return;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+
+      final service = context.read<TelemetryService>();
+      if (!service.isConnected) {
+        service.startDemoTelemetry();
+      }
+
+      try {
+        AutoTabsRouter.of(context).setActiveIndex(3);
+      } catch (_) {
+        // Not inside a TabsRouter (e.g. a deep link) - nothing to switch.
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
 }

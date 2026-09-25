@@ -10,6 +10,8 @@ class ThrottleBrakeGraphEvent with _$ThrottleBrakeGraphEvent {
     required double throttle,
     required double brake,
     required DateTime timestamp,
+    @Default(0.0) double clutch,
+    @Default(0.0) double clutchEngaged,
   }) = _TelemetryUpdated;
 
   const factory ThrottleBrakeGraphEvent.clear() = _Clear;

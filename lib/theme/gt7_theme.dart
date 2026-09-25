@@ -10,6 +10,22 @@ const Color _gt7Secondary = Color(0xFFFFC857); // warm yellow (badges)
 const Color _gt7Muted = Color(0xFF9AA3AC);
 const Color _gt7Error = Color(0xFFFF5C5C);
 
+// Panel + hairline values measured off the GT7 reference screenshots:
+// near-black translucent panels, 1 px light borders, no shadows, 6-10 px radii.
+const Color gt7Panel = Color(0xFF16191E);
+const Color gt7PanelTranslucent = Color(0xCC16191E);
+const Color gt7Hairline = Color(0x24FFFFFF);
+const Color gt7Plot = Color(0xFF0E1114);
+const Color gt7Text = Color(0xFFE6EEF2);
+const Color gt7TextMuted = _gt7Muted;
+
+// Data-meaning colours, as used by the game itself.
+const Color gt7SlotA = Color(0xFF4DC3F3); // cyan  - slot A / reference
+const Color gt7SlotB = Color(0xFFE7CB3C); // yellow - slot B / active
+const Color gt7Best = Color(0xFF8E4DB1); // purple - best / fastest lap
+const Color gt7Warn = Color(0xFFFA0F0B); // red    - loss / brake / redline
+const Color gt7Gain = Color(0xFF4DA3FF); // blue   - gain  / faster
+
 final ColorScheme _gt7ColorScheme = ColorScheme(
   brightness: Brightness.dark,
   primary: _gt7Primary,
@@ -18,10 +34,27 @@ final ColorScheme _gt7ColorScheme = ColorScheme(
   onPrimaryContainer: _gt7Accent,
   secondary: _gt7Secondary,
   onSecondary: _gt7Surface,
-  surface: _gt7Surface,
-  onSurface: Color(0xFFE6EEF2),
+  secondaryContainer: const Color(0xFF2A2E35),
+  onSecondaryContainer: gt7Text,
+  tertiary: gt7SlotA,
+  onTertiary: _gt7Background,
+  tertiaryContainer: const Color(0xFF23272E),
+  onTertiaryContainer: gt7Text,
   error: _gt7Error,
   onError: Colors.white,
+  surface: _gt7Surface,
+  onSurface: gt7Text,
+  surfaceContainerLowest: _gt7Background,
+  surfaceContainerLow: const Color(0xFF101317),
+  surfaceContainer: gt7Panel,
+  surfaceContainerHigh: const Color(0xFF1B1F25),
+  surfaceContainerHighest: const Color(0xFF23272E),
+  onSurfaceVariant: _gt7Muted,
+  outline: const Color(0xFF3A4048),
+  outlineVariant: gt7Hairline,
+  inverseSurface: gt7Text,
+  onInverseSurface: _gt7Background,
+  surfaceTint: Colors.transparent,
 );
 
 ThemeData gt7Theme() => ThemeData(
@@ -90,17 +123,63 @@ ThemeData gt7Theme() => ThemeData(
   ),
   extensions: <ThemeExtension<dynamic>>[
     GT7GraphColors(
-      lineA: _gt7Primary,
-      lineB: _gt7Primary.withOpacity(0.6),
-      marker: _gt7Primary,
-      grid: _gt7Surface.withOpacity(0.06),
-      highlight: _gt7Primary.withOpacity(0.18),
-      track: _gt7Surface.withOpacity(0.04),
-      trackShadow: _gt7Surface.withOpacity(0.9),
+      // The game draws the throttle bar white and the brake bar white with a
+      // red cap (the ABS-reduced part), so the traces follow that pairing.
+      lineA: gt7Text,
+      lineB: gt7Warn,
+      marker: gt7SlotA,
+      grid: const Color(0x14FFFFFF),
+      highlight: gt7SlotA,
+      track: gt7Plot,
+      trackShadow: gt7Panel,
     ),
   ],
   dialogTheme: DialogThemeData(backgroundColor: _gt7Surface),
 );
+
+/// Small uppercase caption, the way the game labels everything.
+TextStyle gt7Caption({
+  Color color = gt7TextMuted,
+  double size = 10,
+  double letterSpacing = 1.3,
+  FontWeight weight = FontWeight.w600,
+}) {
+  return TextStyle(
+    color: color,
+    fontSize: size,
+    letterSpacing: letterSpacing,
+    fontWeight: weight,
+    height: 1.1,
+  );
+}
+
+/// Squared, tabular numerals - the closest stand-in for the game's segmented
+/// digit face without shipping a font.
+TextStyle gt7Digital({
+  required double size,
+  Color color = gt7Text,
+  FontWeight weight = FontWeight.w600,
+  double letterSpacing = 1.4,
+}) {
+  return TextStyle(
+    color: color,
+    fontSize: size,
+    fontWeight: weight,
+    letterSpacing: letterSpacing,
+    height: 1.0,
+    fontFeatures: const [FontFeature.tabularFigures()],
+  );
+}
+
+/// Near-black translucent panel with a 1 px hairline - the game's only
+/// container treatment. No shadows, no elevation.
+BoxDecoration gt7PanelDecoration({double radius = 10, Color? borderColor}) {
+  return BoxDecoration(
+    color: gt7PanelTranslucent,
+    borderRadius: BorderRadius.circular(radius),
+    border: Border.all(color: borderColor ?? gt7Hairline, width: 1),
+  );
+}
 
 // ThemeExtension for telemetry/graph-specific colors
 @immutable

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../services/telemetry_service.dart';
+import '../../services/udp_service.dart';
 import 'playstation_scanner_dialog.dart';
 
 /// The telemetry connection panel on the home page.
@@ -94,6 +95,8 @@ class _TelemetryPanelState extends State<TelemetryPanel> {
           ),
           const SizedBox(height: 14),
           Form(key: _formKey, child: _buildConnectionRow(context)),
+          const SizedBox(height: 12),
+          _buildPacketRow(context),
           const SizedBox(height: 10),
           Consumer<TelemetryService>(
             builder: (context, service, _) => _buildFooter(context, service),
@@ -102,6 +105,50 @@ class _TelemetryPanelState extends State<TelemetryPanel> {
       ),
     );
   }
+
+  Widget _buildPacketRow(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Consumer<TelemetryService>(
+      builder: (context, service, _) {
+        return Row(
+          children: [
+            Text(
+              'PACKET',
+              style: theme.textTheme.labelSmall?.copyWith(
+                letterSpacing: 1.4,
+                color: Colors.white70,
+              ),
+            ),
+            const SizedBox(width: 10),
+            for (final type in UdpService.packetTypes) ...[
+              _PacketChip(
+                type: type,
+                selected: service.packetType == type,
+                onTap: () => service.packetType = type,
+              ),
+              const SizedBox(width: 6),
+            ],
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                _packetHint(service.packetType),
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: Colors.white54,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  static String _packetHint(String type) => switch (type) {
+        'A' => '296 bytes: position, rotation, lap times — no steering',
+        'B' => '316 bytes: adds steering angle and g-forces',
+        _ => '368 bytes: adds surfaces and car category',
+      };
 
   Widget _buildConnectionRow(BuildContext context) {
     final theme = Theme.of(context);
@@ -325,6 +372,49 @@ class _PanelButton extends StatelessWidget {
                 label,
                 style: const TextStyle(fontWeight: FontWeight.w600),
               ),
+      ),
+    );
+  }
+}
+
+/// One of the heartbeat characters: what the console is asked to send.
+class _PacketChip extends StatelessWidget {
+  const _PacketChip({
+    required this.type,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final String type;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(6),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        decoration: BoxDecoration(
+          color: selected
+              ? theme.colorScheme.primary.withValues(alpha: 0.18)
+              : Colors.black.withValues(alpha: 0.25),
+          border: Border.all(
+            color: selected ? theme.colorScheme.primary : Colors.white12,
+          ),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Text(
+          type,
+          style: theme.textTheme.labelMedium?.copyWith(
+            letterSpacing: 1.2,
+            fontWeight: FontWeight.w700,
+            color: selected ? theme.colorScheme.primary : Colors.white70,
+          ),
+        ),
       ),
     );
   }

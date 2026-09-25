@@ -59,8 +59,7 @@ dependencies:
   # For PSN Auth (WebView + token storage)
   flutter_inappwebview: ^6.1.5
   shared_preferences: ^2.3.5
-
-
+  marionette_flutter: ^0.6.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -73,6 +72,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/cars/
+    - assets/tracks/
     - schemas/
 
   # example:

@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ThrottleBrakeDataPoint {
 
- double get throttle; double get brake; DateTime get timestamp;
+ double get throttle; double get brake; DateTime get timestamp; double get clutch; double get clutchEngaged;
 /// Create a copy of ThrottleBrakeDataPoint
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $ThrottleBrakeDataPointCopyWith<ThrottleBrakeDataPoint> get copyWith => _$Thrott
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ThrottleBrakeDataPoint&&(identical(other.throttle, throttle) || other.throttle == throttle)&&(identical(other.brake, brake) || other.brake == brake)&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ThrottleBrakeDataPoint&&(identical(other.throttle, throttle) || other.throttle == throttle)&&(identical(other.brake, brake) || other.brake == brake)&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp)&&(identical(other.clutch, clutch) || other.clutch == clutch)&&(identical(other.clutchEngaged, clutchEngaged) || other.clutchEngaged == clutchEngaged));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,throttle,brake,timestamp);
+int get hashCode => Object.hash(runtimeType,throttle,brake,timestamp,clutch,clutchEngaged);
 
 @override
 String toString() {
-  return 'ThrottleBrakeDataPoint(throttle: $throttle, brake: $brake, timestamp: $timestamp)';
+  return 'ThrottleBrakeDataPoint(throttle: $throttle, brake: $brake, timestamp: $timestamp, clutch: $clutch, clutchEngaged: $clutchEngaged)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $ThrottleBrakeDataPointCopyWith<$Res>  {
   factory $ThrottleBrakeDataPointCopyWith(ThrottleBrakeDataPoint value, $Res Function(ThrottleBrakeDataPoint) _then) = _$ThrottleBrakeDataPointCopyWithImpl;
 @useResult
 $Res call({
- double throttle, double brake, DateTime timestamp
+ double throttle, double brake, DateTime timestamp, double clutch, double clutchEngaged
 });
 
 
@@ -62,12 +62,14 @@ class _$ThrottleBrakeDataPointCopyWithImpl<$Res>
 
 /// Create a copy of ThrottleBrakeDataPoint
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? throttle = null,Object? brake = null,Object? timestamp = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? throttle = null,Object? brake = null,Object? timestamp = null,Object? clutch = null,Object? clutchEngaged = null,}) {
   return _then(_self.copyWith(
 throttle: null == throttle ? _self.throttle : throttle // ignore: cast_nullable_to_non_nullable
 as double,brake: null == brake ? _self.brake : brake // ignore: cast_nullable_to_non_nullable
 as double,timestamp: null == timestamp ? _self.timestamp : timestamp // ignore: cast_nullable_to_non_nullable
-as DateTime,
+as DateTime,clutch: null == clutch ? _self.clutch : clutch // ignore: cast_nullable_to_non_nullable
+as double,clutchEngaged: null == clutchEngaged ? _self.clutchEngaged : clutchEngaged // ignore: cast_nullable_to_non_nullable
+as double,
   ));
 }
 
@@ -152,10 +154,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( double throttle,  double brake,  DateTime timestamp)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( double throttle,  double brake,  DateTime timestamp,  double clutch,  double clutchEngaged)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ThrottleBrakeDataPoint() when $default != null:
-return $default(_that.throttle,_that.brake,_that.timestamp);case _:
+return $default(_that.throttle,_that.brake,_that.timestamp,_that.clutch,_that.clutchEngaged);case _:
   return orElse();
 
 }
@@ -173,10 +175,10 @@ return $default(_that.throttle,_that.brake,_that.timestamp);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( double throttle,  double brake,  DateTime timestamp)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( double throttle,  double brake,  DateTime timestamp,  double clutch,  double clutchEngaged)  $default,) {final _that = this;
 switch (_that) {
 case _ThrottleBrakeDataPoint():
-return $default(_that.throttle,_that.brake,_that.timestamp);case _:
+return $default(_that.throttle,_that.brake,_that.timestamp,_that.clutch,_that.clutchEngaged);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -193,10 +195,10 @@ return $default(_that.throttle,_that.brake,_that.timestamp);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( double throttle,  double brake,  DateTime timestamp)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( double throttle,  double brake,  DateTime timestamp,  double clutch,  double clutchEngaged)?  $default,) {final _that = this;
 switch (_that) {
 case _ThrottleBrakeDataPoint() when $default != null:
-return $default(_that.throttle,_that.brake,_that.timestamp);case _:
+return $default(_that.throttle,_that.brake,_that.timestamp,_that.clutch,_that.clutchEngaged);case _:
   return null;
 
 }
@@ -208,12 +210,14 @@ return $default(_that.throttle,_that.brake,_that.timestamp);case _:
 
 
 class _ThrottleBrakeDataPoint implements ThrottleBrakeDataPoint {
-  const _ThrottleBrakeDataPoint({required this.throttle, required this.brake, required this.timestamp});
+  const _ThrottleBrakeDataPoint({required this.throttle, required this.brake, required this.timestamp, this.clutch = 0.0, this.clutchEngaged = 0.0});
   
 
 @override final  double throttle;
 @override final  double brake;
 @override final  DateTime timestamp;
+@override@JsonKey() final  double clutch;
+@override@JsonKey() final  double clutchEngaged;
 
 /// Create a copy of ThrottleBrakeDataPoint
 /// with the given fields replaced by the non-null parameter values.
@@ -225,16 +229,16 @@ _$ThrottleBrakeDataPointCopyWith<_ThrottleBrakeDataPoint> get copyWith => __$Thr
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ThrottleBrakeDataPoint&&(identical(other.throttle, throttle) || other.throttle == throttle)&&(identical(other.brake, brake) || other.brake == brake)&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ThrottleBrakeDataPoint&&(identical(other.throttle, throttle) || other.throttle == throttle)&&(identical(other.brake, brake) || other.brake == brake)&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp)&&(identical(other.clutch, clutch) || other.clutch == clutch)&&(identical(other.clutchEngaged, clutchEngaged) || other.clutchEngaged == clutchEngaged));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,throttle,brake,timestamp);
+int get hashCode => Object.hash(runtimeType,throttle,brake,timestamp,clutch,clutchEngaged);
 
 @override
 String toString() {
-  return 'ThrottleBrakeDataPoint(throttle: $throttle, brake: $brake, timestamp: $timestamp)';
+  return 'ThrottleBrakeDataPoint(throttle: $throttle, brake: $brake, timestamp: $timestamp, clutch: $clutch, clutchEngaged: $clutchEngaged)';
 }
 
 
@@ -245,7 +249,7 @@ abstract mixin class _$ThrottleBrakeDataPointCopyWith<$Res> implements $Throttle
   factory _$ThrottleBrakeDataPointCopyWith(_ThrottleBrakeDataPoint value, $Res Function(_ThrottleBrakeDataPoint) _then) = __$ThrottleBrakeDataPointCopyWithImpl;
 @override @useResult
 $Res call({
- double throttle, double brake, DateTime timestamp
+ double throttle, double brake, DateTime timestamp, double clutch, double clutchEngaged
 });
 
 
@@ -262,12 +266,14 @@ class __$ThrottleBrakeDataPointCopyWithImpl<$Res>
 
 /// Create a copy of ThrottleBrakeDataPoint
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? throttle = null,Object? brake = null,Object? timestamp = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? throttle = null,Object? brake = null,Object? timestamp = null,Object? clutch = null,Object? clutchEngaged = null,}) {
   return _then(_ThrottleBrakeDataPoint(
 throttle: null == throttle ? _self.throttle : throttle // ignore: cast_nullable_to_non_nullable
 as double,brake: null == brake ? _self.brake : brake // ignore: cast_nullable_to_non_nullable
 as double,timestamp: null == timestamp ? _self.timestamp : timestamp // ignore: cast_nullable_to_non_nullable
-as DateTime,
+as DateTime,clutch: null == clutch ? _self.clutch : clutch // ignore: cast_nullable_to_non_nullable
+as double,clutchEngaged: null == clutchEngaged ? _self.clutchEngaged : clutchEngaged // ignore: cast_nullable_to_non_nullable
+as double,
   ));
 }
 

@@ -34,8 +34,16 @@ class ThrottleBrakeGraphBloc extends Bloc<ThrottleBrakeGraphEvent, ThrottleBrake
     on<ThrottleBrakeGraphEvent>((event, emit) async {
       await event.when(
         initialize: () async => _handleInitialize(emit),
-        telemetryUpdated: (throttle, brake, timestamp) async =>
-            _handleTelemetryUpdated(throttle, brake, timestamp, emit),
+        telemetryUpdated:
+            (throttle, brake, timestamp, clutch, clutchEngaged) async =>
+                _handleTelemetryUpdated(
+                  throttle,
+                  brake,
+                  timestamp,
+                  clutch,
+                  clutchEngaged,
+                  emit,
+                ),
         clear: () async => _handleClear(emit),
       );
     });
@@ -64,6 +72,14 @@ class ThrottleBrakeGraphBloc extends Bloc<ThrottleBrakeGraphEvent, ThrottleBrake
       add(ThrottleBrakeGraphEvent.telemetryUpdated(
         throttle: data.throttle.toDouble(),
         brake: data.brake.toDouble(),
+        // The clutch pedal's own position and how far the clutch is let in,
+        // both 0..1 in the packet.
+        clutch: (data.clutch.isNaN ? 0.0 : data.clutch * 100)
+            .clamp(0.0, 100.0)
+            .toDouble(),
+        clutchEngaged: (data.clutchEngaged.isNaN ? 0.0 : data.clutchEngaged * 100)
+            .clamp(0.0, 100.0)
+            .toDouble(),
         timestamp: DateTime.now(),
       ));
     }
@@ -74,6 +90,8 @@ class ThrottleBrakeGraphBloc extends Bloc<ThrottleBrakeGraphEvent, ThrottleBrake
     double throttle,
     double brake,
     DateTime timestamp,
+    double clutch,
+    double clutchEngaged,
     Emitter<ThrottleBrakeGraphState> emit,
   ) async {
     try {
@@ -88,6 +106,8 @@ class ThrottleBrakeGraphBloc extends Bloc<ThrottleBrakeGraphEvent, ThrottleBrake
       final dataPoint = ThrottleBrakeDataPoint(
         throttle: throttle.clamp(0.0, 100.0),
         brake: brake.clamp(0.0, 100.0),
+        clutch: clutch.clamp(0.0, 100.0),
+        clutchEngaged: clutchEngaged.clamp(0.0, 100.0),
         timestamp: timestamp,
       );
 

@@ -6,7 +6,22 @@ class CryptoUtils {
   static const String _keyString = 'Simulator Interface Packet GT7 ver 0.0';
   static final Uint8List _key = utf8.encode(_keyString).sublist(0, 32);
 
-  static Uint8List? decryptSalsa20(Uint8List encryptedData) {
+  /// The nonce seed is XORed with a constant that depends on which packet the
+  /// console is sending - `A` uses 0xDEADBEAF while `B` and `C` use 0xDEADBEEF
+  /// and `~` uses 0x55FABB4F. Decrypting a `B`/`C`/`~` packet with the `A`
+  /// constant produces garbage, which is exactly what happened before the
+  /// heartbeat became selectable.
+  static const Map<String, int> nonceXor = {
+    'A': 0xDEADBEAF,
+    'B': 0xDEADBEEF,
+    '~': 0x55FABB4F,
+    'C': 0xDEADBEEF,
+  };
+
+  static Uint8List? decryptSalsa20(
+    Uint8List encryptedData, {
+    String packetType = 'A',
+  }) {
     try {
       print('Starting decryption, data length: ${encryptedData.length}');
 
@@ -21,8 +36,9 @@ class CryptoUtils {
       final iv1 = _bytesToInt(oiv, 0);
       print('Extracted IV1: 0x${iv1.toRadixString(16)}');
 
-      // Calculate IV2: Notice DEADBEAF, not DEADBEEF
-      final iv2 = iv1 ^ 0xDEADBEAF;
+      // Calculate IV2 from the constant for this packet type: DEADBEAF for
+      // the base packet, DEADBEEF for B/C, 55FABB4F for "~".
+      final iv2 = iv1 ^ (nonceXor[packetType] ?? nonceXor['A']!);
       print('Calculated IV2: 0x${iv2.toRadixString(16)}');
 
       // Create the full 8-byte IV

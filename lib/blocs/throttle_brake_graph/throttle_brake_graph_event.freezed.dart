@@ -125,11 +125,11 @@ return clear(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initialize,TResult Function( double throttle,  double brake,  DateTime timestamp)?  telemetryUpdated,TResult Function()?  clear,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initialize,TResult Function( double throttle,  double brake,  DateTime timestamp,  double clutch,  double clutchEngaged)?  telemetryUpdated,TResult Function()?  clear,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initialize() when initialize != null:
 return initialize();case _TelemetryUpdated() when telemetryUpdated != null:
-return telemetryUpdated(_that.throttle,_that.brake,_that.timestamp);case _Clear() when clear != null:
+return telemetryUpdated(_that.throttle,_that.brake,_that.timestamp,_that.clutch,_that.clutchEngaged);case _Clear() when clear != null:
 return clear();case _:
   return orElse();
 
@@ -148,11 +148,11 @@ return clear();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initialize,required TResult Function( double throttle,  double brake,  DateTime timestamp)  telemetryUpdated,required TResult Function()  clear,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initialize,required TResult Function( double throttle,  double brake,  DateTime timestamp,  double clutch,  double clutchEngaged)  telemetryUpdated,required TResult Function()  clear,}) {final _that = this;
 switch (_that) {
 case _Initialize():
 return initialize();case _TelemetryUpdated():
-return telemetryUpdated(_that.throttle,_that.brake,_that.timestamp);case _Clear():
+return telemetryUpdated(_that.throttle,_that.brake,_that.timestamp,_that.clutch,_that.clutchEngaged);case _Clear():
 return clear();case _:
   throw StateError('Unexpected subclass');
 
@@ -170,11 +170,11 @@ return clear();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initialize,TResult? Function( double throttle,  double brake,  DateTime timestamp)?  telemetryUpdated,TResult? Function()?  clear,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initialize,TResult? Function( double throttle,  double brake,  DateTime timestamp,  double clutch,  double clutchEngaged)?  telemetryUpdated,TResult? Function()?  clear,}) {final _that = this;
 switch (_that) {
 case _Initialize() when initialize != null:
 return initialize();case _TelemetryUpdated() when telemetryUpdated != null:
-return telemetryUpdated(_that.throttle,_that.brake,_that.timestamp);case _Clear() when clear != null:
+return telemetryUpdated(_that.throttle,_that.brake,_that.timestamp,_that.clutch,_that.clutchEngaged);case _Clear() when clear != null:
 return clear();case _:
   return null;
 
@@ -219,12 +219,14 @@ String toString() {
 
 
 class _TelemetryUpdated implements ThrottleBrakeGraphEvent {
-  const _TelemetryUpdated({required this.throttle, required this.brake, required this.timestamp});
+  const _TelemetryUpdated({required this.throttle, required this.brake, required this.timestamp, this.clutch = 0.0, this.clutchEngaged = 0.0});
   
 
  final  double throttle;
  final  double brake;
  final  DateTime timestamp;
+@JsonKey() final  double clutch;
+@JsonKey() final  double clutchEngaged;
 
 /// Create a copy of ThrottleBrakeGraphEvent
 /// with the given fields replaced by the non-null parameter values.
@@ -236,16 +238,16 @@ _$TelemetryUpdatedCopyWith<_TelemetryUpdated> get copyWith => __$TelemetryUpdate
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TelemetryUpdated&&(identical(other.throttle, throttle) || other.throttle == throttle)&&(identical(other.brake, brake) || other.brake == brake)&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TelemetryUpdated&&(identical(other.throttle, throttle) || other.throttle == throttle)&&(identical(other.brake, brake) || other.brake == brake)&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp)&&(identical(other.clutch, clutch) || other.clutch == clutch)&&(identical(other.clutchEngaged, clutchEngaged) || other.clutchEngaged == clutchEngaged));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,throttle,brake,timestamp);
+int get hashCode => Object.hash(runtimeType,throttle,brake,timestamp,clutch,clutchEngaged);
 
 @override
 String toString() {
-  return 'ThrottleBrakeGraphEvent.telemetryUpdated(throttle: $throttle, brake: $brake, timestamp: $timestamp)';
+  return 'ThrottleBrakeGraphEvent.telemetryUpdated(throttle: $throttle, brake: $brake, timestamp: $timestamp, clutch: $clutch, clutchEngaged: $clutchEngaged)';
 }
 
 
@@ -256,7 +258,7 @@ abstract mixin class _$TelemetryUpdatedCopyWith<$Res> implements $ThrottleBrakeG
   factory _$TelemetryUpdatedCopyWith(_TelemetryUpdated value, $Res Function(_TelemetryUpdated) _then) = __$TelemetryUpdatedCopyWithImpl;
 @useResult
 $Res call({
- double throttle, double brake, DateTime timestamp
+ double throttle, double brake, DateTime timestamp, double clutch, double clutchEngaged
 });
 
 
@@ -273,12 +275,14 @@ class __$TelemetryUpdatedCopyWithImpl<$Res>
 
 /// Create a copy of ThrottleBrakeGraphEvent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? throttle = null,Object? brake = null,Object? timestamp = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? throttle = null,Object? brake = null,Object? timestamp = null,Object? clutch = null,Object? clutchEngaged = null,}) {
   return _then(_TelemetryUpdated(
 throttle: null == throttle ? _self.throttle : throttle // ignore: cast_nullable_to_non_nullable
 as double,brake: null == brake ? _self.brake : brake // ignore: cast_nullable_to_non_nullable
 as double,timestamp: null == timestamp ? _self.timestamp : timestamp // ignore: cast_nullable_to_non_nullable
-as DateTime,
+as DateTime,clutch: null == clutch ? _self.clutch : clutch // ignore: cast_nullable_to_non_nullable
+as double,clutchEngaged: null == clutchEngaged ? _self.clutchEngaged : clutchEngaged // ignore: cast_nullable_to_non_nullable
+as double,
   ));
 }
 

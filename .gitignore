@@ -48,9 +48,15 @@ app.*.map.json
 # `*.local.json` is the per-developer permission override and holds absolute
 # home paths; the rest is per-session runtime state, not configuration.
 **/settings.local.json
+.air/
+.dsh-studio/
 .mimosa/
 .playwright-mcp/
-.zcode/plans/
+.zcode/
 
-# Raw scraper output; DESIGN.md at the repo root is the copy that is kept.
+# The Flutter SDK pin, so everyone builds the version the project is written for.
+.fvm/
+
+# Raw scraper output and design exports. DESIGN.md at the repo root is the copy
+# that is kept, and `output/design` alone is 52 MB of images.
 /output/

@@ -43,14 +43,20 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-.fvm/
 
-# Local tooling and generated output: agent workspaces, design exports and
-# scraped pages. Nothing here is a source of the app, and `output/design` alone
-# is 50 MB of images.
+# Agent tooling: share the project-level config, keep machine-local state out.
+# `*.local.json` is the per-developer permission override and holds absolute
+# home paths; the rest is per-session runtime state, not configuration.
+**/settings.local.json
 .air/
 .dsh-studio/
 .mimosa/
 .playwright-mcp/
 .zcode/
-output/
+
+# The Flutter SDK pin, so everyone builds the version the project is written for.
+.fvm/
+
+# Raw scraper output and design exports. DESIGN.md at the repo root is the copy
+# that is kept, and `output/design` alone is 52 MB of images.
+/output/

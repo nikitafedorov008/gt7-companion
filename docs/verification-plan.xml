@@ -1,0 +1,67 @@
+<VerificationPlan VERSION="0.2.0">
+  <GlobalPolicy>
+    <log-format>[ModuleName] message</log-format>
+    <deterministic-first>true</deterministic-first>
+    <module-level-focus>Fast deterministic unit and widget checks close to the module.</module-level-focus>
+    <wave-level-focus>Checks only merged surfaces touched by the current wave.</wave-level-focus>
+    <phase-level-focus>Broader integration and regression confidence.</phase-level-focus>
+    <autonomy-gate>Each shared module needs commands, scenarios, observable evidence, and wave/phase follow-up before long autonomous execution.</autonomy-gate>
+    <redaction>No secrets or network credentials in logs.</redaction>
+  </GlobalPolicy>
+
+  <CriticalFlows>
+    <VF-001 NAME="TelemetryDecryption" USE_CASES="UC-001" DATA_FLOW="DF-TELEMETRY" PRIORITY="high">
+      <scenario>GT7 UDP packet is received, decrypted with Salsa20, and mapped to TelemetryData.</scenario>
+      <expected-outcome>TelemetryData contains correct speed, RPM, tire, fuel, and gear values matching the game state.</expected-outcome>
+      <required-signals>
+        <log-marker>[TelemetryService] Packet decrypted successfully</log-marker>
+        <trace-sequence>RECEIVE_BYTES -> SALSA20_DECRYPT -> MAP_TO_MODEL -> EMIT_STREAM</trace-sequence>
+      </required-signals>
+    </VF-001>
+
+    <VF-002 NAME="RealTimeUIUpdate" USE_CASES="UC-002, UC-003, UC-005" DATA_FLOW="DF-UI-UPDATE" PRIORITY="high">
+      <scenario>TelemetryData stream triggers gauge and graph widget rebuilds.</scenario>
+      <expected-outcome>Gauges animate smoothly at 60fps; color transitions reflect RPM range; throttle/brake graph updates in real-time.</expected-outcome>
+      <required-signals>
+        <log-marker>[TelemetryBloc] State updated</log-marker>
+        <trace-sequence>STREAM_EMIT -> BLOC_STATE_UPDATE -> WIDGET_REBUILD</trace-sequence>
+      </required-signals>
+    </VF-002>
+
+    <VF-003 NAME="SportDailyRaces" USE_CASES="UC-004" DATA_FLOW="DF-SPORT" PRIORITY="medium">
+      <scenario>Daily race data is fetched from API and displayed.</scenario>
+      <expected-outcome>Race schedule, track, car class, and timing data render correctly.</expected-outcome>
+      <required-signals>
+        <log-marker>[SportRepository] Daily races loaded</log-marker>
+      </required-signals>
+    </VF-003>
+  </CriticalFlows>
+
+  <ModuleVerification>
+    <!-- Module verification entries will be populated during /grace:plan phase.
+
+         <V-M-SERVICE-TELEMETRY MODULE="M-SERVICE-TELEMETRY" PRIORITY="high">
+           <test-files>
+             <file>test/services/telemetry_service_test.dart</file>
+           </test-files>
+           <module-checks>
+             <check-1>flutter test test/services/telemetry_service_test.dart</check-1>
+           </module-checks>
+           <scenarios>
+             <scenario-1 kind="success">Valid encrypted packet decrypts to correct TelemetryData.</scenario-1>
+             <scenario-2 kind="failure">Malformed packet triggers DECRYPTION_FAILED error.</scenario-2>
+           </scenarios>
+         </V-M-SERVICE-TELEMETRY>
+    -->
+  </ModuleVerification>
+
+  <PhaseGates>
+    <!-- Phase gates will be populated during /grace:plan phase. -->
+  </PhaseGates>
+
+  <FailurePackets>
+    <packet-template>
+      <expected-fields>scenario, expected-evidence, observed-evidence, first-divergent-block, next-action</expected-fields>
+    </packet-template>
+  </FailurePackets>
+</VerificationPlan>

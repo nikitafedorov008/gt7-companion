@@ -34,7 +34,7 @@
 ## Important files and paths
 - `README.md` — repository setup and architecture summary
 - `docs/CODE_STYLE.md` — how code and UI are actually written, with file:line evidence; the `gt7-*` skills summarise it
-- `openspec/config.yaml` — OpenSpec change workflow configuration
+- `.grace/context/*.xml` — GRACE 4 product and technical context
 - `lib/app.dart` — app root and router setup
 - `lib/dependency_injection/app_scope.dart` — dependency injection bindings
 - `lib/router/app_router.dart` — route definitions and auto_route config

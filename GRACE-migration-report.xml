@@ -1,4 +1,4 @@
-<GraceMigrationReport graceVersion="4.0" status="written-pending-cleanup-approval">
+<GraceMigrationReport graceVersion="4.0" status="complete">
   <SourceInventory complete="true">
     <Source path="docs/knowledge-graph.xml" disposition=".grace/graph/main.xml — 14 module candidates mapped to 32 real modules; the four telemetry widget candidates collapsed into M-WIDGET-TELEMETRY because the code keeps one telemetry vertical" />
     <Source path="docs/verification-plan.xml" disposition=".grace/verification/main.xml — VF-001..003 became scenarios on V-M-SERVICE-TELEMETRY, V-M-WIDGET-TELEMETRY, V-M-REPO-SPORT and V-M-WIDGET-DAILY; GlobalPolicy folded into .grace/context/principles.xml and ux-guidelines.xml" />
@@ -53,7 +53,10 @@
     <PorcelainOutput>65 paths changed or untracked at the time of migration, including the user's own uncommitted work in ios/Podfile, ios/Podfile.lock, ios/Runner.xcodeproj/project.pbxproj, ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme and lib/main_demo.dart. None of those files are part of this migration or of the cleanup proposal.</PorcelainOutput>
   </GitPreflight>
 
-  <CleanupProposal approved="false">
+  <CleanupProposal approved="true">
+    <ConfirmedBy>user</ConfirmedBy>
+    <ConfirmedAt>2026-10-03T19:31:00+03:00</ConfirmedAt>
+    <ApprovalNote>The user chose "удалить всё из предложения": the six GRACE 3 XML artifacts and the OpenSpec group. docs/CODE_STYLE.md, docs/DESIGN.md, docs/images/, docs/reference/ were excluded from the proposal and remain untouched.</ApprovalNote>
     <Item path="docs/knowledge-graph.xml" action="delete" />
     <Item path="docs/verification-plan.xml" action="delete" />
     <Item path="docs/development-plan.xml" action="delete" />
@@ -72,13 +75,26 @@
     <Note>docs/DESIGN.md, docs/images/, docs/reference/ and the two docs/...GRACE-3 XML sets are NOT part of this proposal; only the six XML artifacts listed above are. The OpenSpec group is a separate tool's removal, approved in the plan but requiring its own explicit go-ahead now.</Note>
   </CleanupProposal>
 
-  <DirtyOrNonGitRiskAcknowledgement required="true" approved="false">
-    <Risk>The worktree is dirty with the user's own uncommitted changes (ios/**, lib/main_demo.dart). Deleting anything is refused until the user acknowledges that the remaining changes are unrelated and must stay untouched.</Risk>
+  <DirtyOrNonGitRiskAcknowledgement required="true" approved="true">
+    <ConfirmedBy>user</ConfirmedBy>
+    <ConfirmedAt>2026-10-03T19:31:00+03:00</ConfirmedAt>
+    <Risk>Acknowledged: the worktree is dirty with the user's own uncommitted changes (ios/**, lib/main_demo.dart). Deleting anything is refused until the user acknowledges that the remaining changes are unrelated and must stay untouched.</Risk>
   </DirtyOrNonGitRiskAcknowledgement>
 
-  <CleanupResults performed="false">
-    <Item path="docs/*.xml (6 files)" action="delete" result="not performed — awaiting explicit cleanup approval" />
-    <Item path="openspec/ and .github openspec skills/prompts" action="delete" result="not performed — awaiting explicit cleanup approval" />
+  <CleanupResults performed="true">
+    <Item path="docs/knowledge-graph.xml" action="delete" result="deleted, verified absent" />
+    <Item path="docs/verification-plan.xml" action="delete" result="deleted, verified absent" />
+    <Item path="docs/development-plan.xml" action="delete" result="deleted, verified absent" />
+    <Item path="docs/requirements.xml" action="delete" result="deleted, verified absent" />
+    <Item path="docs/technology.xml" action="delete" result="deleted, verified absent" />
+    <Item path="docs/operational-packets.xml" action="delete" result="deleted, verified absent" />
+    <Item path="openspec/" action="delete" result="deleted (31 files), verified absent" />
+    <Item path=".github/skills/openspec-propose" action="delete" result="deleted, verified absent" />
+    <Item path=".github/skills/openspec-apply-change" action="delete" result="deleted, verified absent" />
+    <Item path=".github/skills/openspec-explore" action="delete" result="deleted, verified absent" />
+    <Item path=".github/skills/openspec-archive-change" action="delete" result="deleted, verified absent" />
+    <Item path=".github/prompts/opsx-*.prompt.md (4 files)" action="delete" result="deleted, verified absent" />
+    <Item path="/tmp/grace3-docs-backup" action="keep" result="intact, 6 files" />
     <FailurePreservationStatement>Legacy GRACE 3 artifacts remain untouched unless the failure output explicitly lists a completed move.</FailurePreservationStatement>
   </CleanupResults>
 </GraceMigrationReport>

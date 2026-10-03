@@ -1,0 +1,41 @@
+<GraceGraphIndex graceVersion="4.0">
+  <GraphDocuments>
+    <GD-MAIN>
+      <Path>graph/main.xml</Path>
+      <Owns>
+        <M-SERVICE-TELEMETRY />
+        <M-SERVICE-UDP />
+        <M-MODEL-TELEMETRY />
+        <M-MODEL-TRACK-TRACE />
+        <M-WIDGET-TELEMETRY />
+        <M-BLOC-THROTTLE-BRAKE />
+        <M-SERVICE-DG-EDGE />
+        <M-SERVICE-GTSH-RANK />
+        <M-REPO-SPORT />
+        <M-MODEL-DAILY />
+        <M-WIDGET-DAILY />
+        <M-SERVICE-GT7INFO />
+        <M-SERVICE-GTDB />
+        <M-REPO-CAR />
+        <M-MODEL-CAR />
+        <M-WIDGET-CAR-DEALER />
+        <M-MODEL-GT-AUTO />
+        <M-WIDGET-GT-AUTO />
+        <M-SERVICE-GT7-AUTH />
+        <M-SERVICE-GT7-API />
+        <M-SERVICE-NETWORK-SCANNER />
+        <M-REPO-GT7-AUTH />
+        <M-REPO-TRACK />
+        <M-PAGE-LOGIN />
+        <M-PAGE-WISHLIST />
+        <M-SHELL-HOME />
+        <M-SHELL-TABS />
+        <M-NAVBAR />
+        <M-DI-APPSCOPE />
+        <M-ROUTER />
+        <M-THEME />
+        <M-FEATURE-PROFILE />
+      </Owns>
+    </GD-MAIN>
+  </GraphDocuments>
+</GraceGraphIndex>

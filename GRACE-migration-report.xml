@@ -1,0 +1,84 @@
+<GraceMigrationReport graceVersion="4.0" status="written-pending-cleanup-approval">
+  <SourceInventory complete="true">
+    <Source path="docs/knowledge-graph.xml" disposition=".grace/graph/main.xml — 14 module candidates mapped to 32 real modules; the four telemetry widget candidates collapsed into M-WIDGET-TELEMETRY because the code keeps one telemetry vertical" />
+    <Source path="docs/verification-plan.xml" disposition=".grace/verification/main.xml — VF-001..003 became scenarios on V-M-SERVICE-TELEMETRY, V-M-WIDGET-TELEMETRY, V-M-REPO-SPORT and V-M-WIDGET-DAILY; GlobalPolicy folded into .grace/context/principles.xml and ux-guidelines.xml" />
+    <Source path="docs/development-plan.xml" disposition=".grace/context/requirements.xml (objective, non-goal) and .grace/context/principles.xml (risks kept as context, ExecutionPolicy dropped)" />
+    <Source path="docs/requirements.xml" disposition=".grace/context/requirements.xml — goals, users and constraints verified against the code and expanded" />
+    <Source path="docs/technology.xml" disposition=".grace/context/technology.xml — stack confirmed and corrected (FVM pin, http/graphql, no TTL cache)" />
+    <Source path="docs/operational-packets.xml" disposition="unsupported — GRACE 4 carries execution context in change bundles (C-*/plan.xml), so no destination was created" />
+  </SourceInventory>
+
+  <Backup restorable="true">
+    <Path>/tmp/grace3-docs-backup</Path>
+    <CreatedAt>2026-10-03T18:20:00+03:00</CreatedAt>
+    <Verification>6 files copied with cp -p and hashed: development-plan.xml 6beea80469fa, knowledge-graph.xml dad56f420eaf, operational-packets.xml 1c88c3601cff, requirements.xml 0b0dda44b7db, technology.xml 2d85e9409a18, verification-plan.xml cbf4c61e3cf4. All six files are also tracked by git in the worktree, so the primary restoration path is git checkout.</Verification>
+  </Backup>
+
+  <WriteApproval approved="true">
+    <ConfirmedBy>user</ConfirmedBy>
+    <ConfirmedAt>2026-10-03T18:06:00+03:00</ConfirmedAt>
+    <Note>The user approved the whole sequence in the plan presented before this migration ("сначала скиллы стиля, потом GRACE, OpenSpec убрать после миграции") and then answered "да давай". No separate write-approval message was requested; recorded here explicitly so the provenance is not implied.</Note>
+  </WriteApproval>
+
+  <GeneratedGrace4Layout coverageVerified="true">
+    <Context>.grace/context/{requirements,technology,principles,deployment,ux-guidelines}.xml — written during grace-init from the codebase; the migration confirmed and extended them</Context>
+    <Graph>.grace/graph/{index,main}.xml — 32 modules, index Owns lists all of them</Graph>
+    <Verification>.grace/verification/{index,main}.xml — 32 entries, one per module, index Owns lists all of them; 15 entries carry real test files, 17 carry scenarios only and are marked as coverage gaps in the document</Verification>
+    <Changes>.grace/changes/active and .grace/changes/archive created empty; no retroactive C-* bundles were invented</Changes>
+  </GeneratedGrace4Layout>
+
+  <Ambiguities>
+    <Ambiguity>docs/knowledge-graph.xml lists M-BLOC-TELEMETRY and M-BLOC-SPORT, but no telemetry or sport BLoC exists in the code: telemetry state is a ChangeNotifier service and sport state is a ChangeNotifier repository. The only BLoC in the app is the throttle/brake graph. Mapped to M-SERVICE-TELEMETRY/M-REPO-SPORT plus M-BLOC-THROTTLE-BRAKE and recorded here rather than invented.</Ambiguity>
+    <Ambiguity>The legacy plan split telemetry UI into M-WIDGET-GAUGES, M-WIDGET-TIRES, M-WIDGET-GRAPH and M-WIDGET-DASHBOARD; the repository keeps a single lib/widgets/telemetry/ vertical, so all four collapse into M-WIDGET-TELEMETRY. Splitting it later is a normal change, not a migration decision.</Ambiguity>
+    <Ambiguity>The legacy verification markers ([TelemetryService] …, [SportRepository] …, [TelemetryBloc] State updated) do not match the code: repositories log with debugPrint('SportRepository: …') and telemetry still uses bare print() with no prefix. Markers in the migrated entries use the real text; the telemetry prefix gap is a code clean-up, not a migration task.</Ambiguity>
+    <Ambiguity>The GRACE 3 example referenced test/services/telemetry_service_test.dart, which does not exist. V-M-SERVICE-TELEMETRY therefore has scenarios and markers but no test file.</Ambiguity>
+    <Ambiguity>The grace-explainer reference unique-tag-convention.md shows module anchors with NAME/TYPE attributes, while the 4.2.1 linter rejects attributes on semantic anchors. The linter was treated as authoritative: anchors are bare and the type is written at the start of each Summary.</Ambiguity>
+    <Ambiguity>The legacy inventory covered only telemetry, sport, DI, router and theme. The graph additionally contains car dealer, GT Auto, PSN auth, tracks, shell/navbar, wishlist and the profile feature, because a projection that omits half of the app is not useful. These are additions beyond the legacy inventory, not legacy-derived.</Ambiguity>
+  </Ambiguities>
+
+  <UnsupportedStructures>
+    <Unsupported source="docs/operational-packets.xml">The packet template (module-id, contract-excerpt, verification-excerpt, assumptions) has no GRACE 4 equivalent; execution context now lives in GraceChangePlan.</Unsupported>
+    <Unsupported source="docs/development-plan.xml">ExecutionPolicy (controller-owns / worker-owns / max-fix-attempts-per-step / replan-trigger / checkpoint-requirement) is GRACE 3 orchestration policy; GRACE 4 encodes this per change plan, so it was dropped rather than copied.</Unsupported>
+    <Unsupported source="docs/verification-plan.xml">FailurePackets template (expected-fields list) is superseded by the plan/assertion model.</Unsupported>
+  </UnsupportedStructures>
+
+  <Validation successful="true">
+    <Check command="grace lint --path . --assertions current" exitCode="0">Errors: 0, Warnings: 0, XML artifacts checked: 9. Earlier iterations failed with projection.verification.missing-module-coverage (17 modules), projection.verification.dangling-module / unlisted-anchor (1 entry) and artifact.semantic-anchor-has-attributes (32 anchors); all were fixed in the artifacts, not suppressed.</Check>
+    <Check command="grace status --path . --json" exitCode="0" projectKind="grace4" integrityErrors="0">graceVersion 4.0, contextArtifacts 5, graphModules 32, verificationEntries 32, activeChanges 0, integrityWarnings 0. blockedModules is 32 because no source file carries GRACE markup yet (governed files: 0) — markup arrives with the changes that touch those files.</Check>
+  </Validation>
+
+  <GitPreflight available="true" inWorktree="true" dirty="true">
+    <WorktreeRoot>/Users/nikitafedorov008/Projects/gt7_companion</WorktreeRoot>
+    <PorcelainCommand>git status --porcelain --untracked-files=all</PorcelainCommand>
+    <PorcelainOutput>65 paths changed or untracked at the time of migration, including the user's own uncommitted work in ios/Podfile, ios/Podfile.lock, ios/Runner.xcodeproj/project.pbxproj, ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme and lib/main_demo.dart. None of those files are part of this migration or of the cleanup proposal.</PorcelainOutput>
+  </GitPreflight>
+
+  <CleanupProposal approved="false">
+    <Item path="docs/knowledge-graph.xml" action="delete" />
+    <Item path="docs/verification-plan.xml" action="delete" />
+    <Item path="docs/development-plan.xml" action="delete" />
+    <Item path="docs/requirements.xml" action="delete" />
+    <Item path="docs/technology.xml" action="delete" />
+    <Item path="docs/operational-packets.xml" action="delete" />
+    <Item path="openspec/config.yaml" action="delete-with-directory: openspec/" />
+    <Item path=".github/skills/openspec-propose" action="delete" />
+    <Item path=".github/skills/openspec-apply-change" action="delete" />
+    <Item path=".github/skills/openspec-explore" action="delete" />
+    <Item path=".github/skills/openspec-archive-change" action="delete" />
+    <Item path=".github/prompts/opsx-propose.prompt.md" action="delete" />
+    <Item path=".github/prompts/opsx-apply.prompt.md" action="delete" />
+    <Item path=".github/prompts/opsx-explore.prompt.md" action="delete" />
+    <Item path=".github/prompts/opsx-archive.prompt.md" action="delete" />
+    <Note>docs/DESIGN.md, docs/images/, docs/reference/ and the two docs/...GRACE-3 XML sets are NOT part of this proposal; only the six XML artifacts listed above are. The OpenSpec group is a separate tool's removal, approved in the plan but requiring its own explicit go-ahead now.</Note>
+  </CleanupProposal>
+
+  <DirtyOrNonGitRiskAcknowledgement required="true" approved="false">
+    <Risk>The worktree is dirty with the user's own uncommitted changes (ios/**, lib/main_demo.dart). Deleting anything is refused until the user acknowledges that the remaining changes are unrelated and must stay untouched.</Risk>
+  </DirtyOrNonGitRiskAcknowledgement>
+
+  <CleanupResults performed="false">
+    <Item path="docs/*.xml (6 files)" action="delete" result="not performed — awaiting explicit cleanup approval" />
+    <Item path="openspec/ and .github openspec skills/prompts" action="delete" result="not performed — awaiting explicit cleanup approval" />
+    <FailurePreservationStatement>Legacy GRACE 3 artifacts remain untouched unless the failure output explicitly lists a completed move.</FailurePreservationStatement>
+  </CleanupResults>
+</GraceMigrationReport>

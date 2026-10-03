@@ -1,0 +1,10 @@
+<GraceUXGuidelines graceVersion="4.0">
+  <Applicability>applicable</Applicability>
+  <Audience>Gran Turismo 7 players who read the app at a glance while racing, often on a second screen at arm's length.</Audience>
+  <Guideline>Dark-only, game-styled presentation: pure black background, near-black panels (#16191E / #16191E at 80%), 1 px hairline borders (0x24FFFFFF), radii 7/8/12 and the 5-7-8-9-10-12 spacing scale taken from DESIGN.md.</Guideline>
+  <Guideline>Numbers that update live use tabular figures so digits do not jitter; telemetry text uses the gt7Caption/gt7Digital helpers, and every gauge is a custom painter already in lib/widgets/telemetry.</Guideline>
+  <Guideline>Async surfaces always answer three questions: loading (spinner or Skeletonizer), empty (SizedBox.shrink or a panel with a reason), error (inline panel tinted with colorScheme.error plus a refresh IconButton).</Guideline>
+  <Guideline>Refresh is an explicit IconButton; pull-to-refresh is not used anywhere in the app.</Guideline>
+  <Guideline>Layout must survive phone-to-desktop widths: LayoutBuilder with the 600/800/900/1200 breakpoints, and no Card/ListTile/elevation-based surfaces.</Guideline>
+  <Guideline>Respect the system UI: screens keep Scaffold chrome disabled (extendBody, translucent app bar) and use SafeArea so content scrolls under the bottom navigation.</Guideline>
+</GraceUXGuidelines>

@@ -1,0 +1,20 @@
+<GraceRequirements graceVersion="4.0">
+  <ProjectName>GT7 Companion</ProjectName>
+  <Annotation>Flutter app that reads Gran Turismo 7 telemetry over UDP and shows it next to the game's own service data (daily races, car dealerships, GT Auto) on mobile and desktop.</Annotation>
+  <Keywords>gt7, telemetry, flutter, dart, racing, udp, salsa20, daily-races, car-dealer</Keywords>
+  <Goals>
+    <Goal>Display live GT7 telemetry (speed, gears, tyres, lap and throttle/brake traces) with low latency and no perceptible stutter.</Goal>
+    <Goal>Show the game's service side in the same app: daily races from two independent sources, used and legendary car dealerships, and GT Auto counters.</Goal>
+    <Goal>Keep the same feature set on mobile and desktop from one Dart codebase, with the app running alongside the game on a second screen.</Goal>
+  </Goals>
+  <Users>
+    <User>Gran Turismo 7 players who run this app on a phone, tablet or desktop next to the console while racing.</User>
+  </Users>
+  <Constraints>
+    <Constraint>Telemetry arrives as the game's UDP broadcast and is decrypted with Salsa20; protocol parsing stays inside lib/services and never moves into widgets.</Constraint>
+    <Constraint>Service-side data comes from third-party sources (dg-edge, gt-sh, gt7info, GTDB) that are scraped politely: fixed timeouts, crawl delay, no aggressive retry loops.</Constraint>
+    <Constraint>PSN authentication tokens are secrets: they are stored in SharedPreferences and must be masked in every log line.</Constraint>
+    <Constraint>Only a dark, GT7-styled presentation is supported; there is no light theme or ThemeMode switch.</Constraint>
+    <Constraint>The Flutter SDK is pinned per project through FVM (.fvm/flutter_sdk, .fvmrc); builds must use that SDK rather than whatever is on PATH.</Constraint>
+  </Constraints>
+</GraceRequirements>

@@ -1,0 +1,45 @@
+<GraceChangePlan graceVersion="4.0" status="draft">
+  <C-CHANGE-ID>
+    <IntentSummary>$INTENT_SUMMARY</IntentSummary>
+    <BaselineAssertions>
+      <MustExist>
+        <Value>M-EXISTING-MODULE</Value>
+      </MustExist>
+    </BaselineAssertions>
+    <TargetAssertions>
+      <MustVerify>
+        <Module>M-TARGET-MODULE</Module>
+      </MustVerify>
+      <MustPassCommand>
+        <Command>bun run check</Command>
+      </MustPassCommand>
+    </TargetAssertions>
+    <DurableScope>
+      <GraphAnchors>
+        <M-TARGET-MODULE />
+      </GraphAnchors>
+      <VerificationAnchors>
+        <V-M-TARGET-MODULE />
+      </VerificationAnchors>
+      <ContextArtifact>requirements.xml</ContextArtifact>
+    </DurableScope>
+    <ObservedWriteScope>
+      <File>src/path/to/file.ts</File>
+      <Glob>tests/**/*.test.ts</Glob>
+    </ObservedWriteScope>
+    <ImplementationPlan>
+      <T-001>
+        <Title>$TASK_TITLE</Title>
+        <!-- Zero or more predecessors, comma-separated: T-001, T-002. List only true
+             dependencies — never linearize independent tasks into a chain. -->
+        <DependsOn></DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>$TASK_ACCEPTANCE</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>$TASK_VERIFICATION_COMMAND</Command>
+        </Verification>
+      </T-001>
+    </ImplementationPlan>
+  </C-CHANGE-ID>
+</GraceChangePlan>

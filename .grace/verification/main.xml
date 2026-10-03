@@ -1,0 +1,235 @@
+<GraceVerificationDocument graceVersion="4.0">
+  <VD-MAIN>
+
+    <!-- Entries marked "gap" have no deterministic test yet; they carry the scenario the
+         module must satisfy and the log marker a future check can assert on. -->
+
+    <!-- Telemetry. -->
+    <V-M-SERVICE-TELEMETRY>
+      <Scenario kind="success">A GT7 UDP packet is received, decrypted with Salsa20 and mapped to TelemetryData with speed, RPM, tyre, fuel and gear values matching the game state.</Scenario>
+      <Scenario kind="failure">A malformed or truncated packet is rejected without killing the listener, and the next valid packet still updates the state.</Scenario>
+      <Marker>Successfully decrypted packet</Marker>
+      <Marker>Invalid magic number</Marker>
+    </V-M-SERVICE-TELEMETRY>
+
+    <V-M-SERVICE-UDP>
+      <Scenario kind="success">The listener binds the telemetry port, reports the local address it will receive on, and stops cleanly on dispose.</Scenario>
+      <Scenario kind="failure">A port already in use surfaces as a socket error instead of a silent no-op.</Scenario>
+    </V-M-SERVICE-UDP>
+
+    <V-M-MODEL-TELEMETRY>
+      <Scenario kind="success">Raw decoded bytes map to the documented field set, including tyre temperatures and the throttle/brake pair.</Scenario>
+      <Scenario kind="failure">A short packet leaves the optional fields null rather than producing wrong values.</Scenario>
+    </V-M-MODEL-TELEMETRY>
+
+    <V-M-MODEL-TRACK-TRACE>
+      <TestFiles>
+        <File>test/track_trace_test.dart</File>
+      </TestFiles>
+      <Command>flutter test test/track_trace_test.dart</Command>
+      <Scenario kind="success">A recorded trace keeps packet order and closes the path when the lap restarts.</Scenario>
+    </V-M-MODEL-TRACK-TRACE>
+
+    <V-M-WIDGET-TELEMETRY>
+      <TestFiles>
+        <File>test/telemetry_display_layout_test.dart</File>
+        <File>test/motion_panel_layout_test.dart</File>
+        <File>test/car_model_3d_test.dart</File>
+        <File>test/surface_codes_test.dart</File>
+      </TestFiles>
+      <Command>flutter test test/telemetry_display_layout_test.dart test/motion_panel_layout_test.dart test/car_model_3d_test.dart test/surface_codes_test.dart</Command>
+      <Scenario kind="success">Telemetry and motion layouts build at phone and desktop widths without overflow.</Scenario>
+      <Scenario kind="success">Surface code labels match the game's grip codes.</Scenario>
+      <Scenario kind="failure">A missing or unknown surface code renders the neutral label instead of throwing.</Scenario>
+    </V-M-WIDGET-TELEMETRY>
+
+    <V-M-BLOC-THROTTLE-BRAKE>
+      <TestFiles>
+        <File>test/throttle_brake_clutch_test.dart</File>
+      </TestFiles>
+      <Command>flutter test test/throttle_brake_clutch_test.dart</Command>
+      <Scenario kind="success">Clutch and throttle/brake samples are windowed in packet order.</Scenario>
+    </V-M-BLOC-THROTTLE-BRAKE>
+
+    <!-- Sport / daily races. -->
+    <V-M-SERVICE-DG-EDGE>
+      <TestFiles>
+        <File>test/dg_edge_service_test.dart</File>
+        <File>test/dg_edge_service_profile_test.dart</File>
+      </TestFiles>
+      <Command>flutter test test/dg_edge_service_test.dart test/dg_edge_service_profile_test.dart</Command>
+      <Scenario kind="success">Both frozen fixtures (race list, player profile) parse into the expected counts and first item.</Scenario>
+      <Scenario kind="failure">A non-200 response surfaces as an error state instead of an empty list.</Scenario>
+      <Scenario kind="failure">A live page redesign parses to zero cards: covered by the network-tagged diagnostic `flutter test --tags network --run-skipped test/live_markup_guard_test.dart`.</Scenario>
+      <Marker>DgEdgeService:</Marker>
+    </V-M-SERVICE-DG-EDGE>
+
+    <V-M-SERVICE-GTSH-RANK>
+      <TestFiles>
+        <File>test/gtsh_rank_service_test.dart</File>
+      </TestFiles>
+      <Command>flutter test test/gtsh_rank_service_test.dart</Command>
+      <Scenario kind="success">Ranking cards parse with leader and slipstream fields populated.</Scenario>
+      <Scenario kind="failure">The live site renaming its card class is caught by the network-tagged diagnostic `flutter test --tags network --run-skipped test/live_markup_guard_test.dart`.</Scenario>
+    </V-M-SERVICE-GTSH-RANK>
+
+    <V-M-REPO-SPORT>
+      <TestFiles>
+        <File>test/sport_repository_test.dart</File>
+      </TestFiles>
+      <Command>flutter test test/sport_repository_test.dart</Command>
+      <Scenario kind="success">Races pair on the game's board id and unpaired GTSh cards still appear in the merged list.</Scenario>
+      <Scenario kind="success">The merged list orders upcoming before active before past, keeping upstream order inside a group.</Scenario>
+      <Scenario kind="failure">When one source fails the other half is still published, and the aggregate error appears only when both are empty.</Scenario>
+      <Marker>SportRepository:</Marker>
+    </V-M-REPO-SPORT>
+
+    <V-M-MODEL-DAILY>
+      <Scenario kind="success">DailyRace.fromPair fills the unified fields from whichever source provides them and keeps the other side nullable.</Scenario>
+      <Scenario kind="failure">A race without a track name is dropped rather than rendered as a blank card.</Scenario>
+    </V-M-MODEL-DAILY>
+
+    <V-M-WIDGET-DAILY>
+      <TestFiles>
+        <File>test/daily_races_display_test.dart</File>
+      </TestFiles>
+      <Command>flutter test test/daily_races_display_test.dart</Command>
+      <Scenario kind="success">The daily races screen renders the expected race sections and hides past races when asked to.</Scenario>
+    </V-M-WIDGET-DAILY>
+
+    <!-- Car dealer. -->
+    <V-M-SERVICE-GT7INFO>
+      <Scenario kind="success">Used and legendary lists parse from the site's payload with prices and stock state.</Scenario>
+      <Scenario kind="failure">A site change yields an empty list plus an error state, never a silent empty success.</Scenario>
+    </V-M-SERVICE-GT7INFO>
+
+    <V-M-SERVICE-GTDB>
+      <Scenario kind="success">The GraphQL query returns cars with artwork identifiers that the card can resolve.</Scenario>
+      <Scenario kind="failure">A missing artwork id falls back to the GT7 thumbnail instead of a broken image.</Scenario>
+    </V-M-SERVICE-GTDB>
+
+    <V-M-REPO-CAR>
+      <TestFiles>
+        <File>test/car_catalog_test.dart</File>
+      </TestFiles>
+      <Command>flutter test test/car_catalog_test.dart</Command>
+      <Scenario kind="success">The bundled car catalogue loads and answers id to name and photo lookups.</Scenario>
+      <Scenario kind="success">Merged gt7info and GTDB rows split into the used and legendary lists without duplicates.</Scenario>
+      <Scenario kind="failure">One source failing still publishes the other source's cars.</Scenario>
+    </V-M-REPO-CAR>
+
+    <V-M-MODEL-CAR>
+      <TestFiles>
+        <File>test/car_type_enum_test.dart</File>
+      </TestFiles>
+      <Command>flutter test test/car_type_enum_test.dart</Command>
+      <Scenario kind="success">Car type codes map to their expected labels and categories.</Scenario>
+      <Scenario kind="failure">An unknown code yields null rather than a plausible-looking wrong value.</Scenario>
+    </V-M-MODEL-CAR>
+
+    <V-M-WIDGET-CAR-DEALER>
+      <Scenario kind="success">Used and legendary screens render their grids at phone and desktop widths and open the price history on tap.</Scenario>
+      <Scenario kind="failure">A missing car image renders the placeholder instead of collapsing the card.</Scenario>
+    </V-M-WIDGET-CAR-DEALER>
+
+    <!-- GT Auto. -->
+    <V-M-MODEL-GT-AUTO>
+      <TestFiles>
+        <File>test/gt_auto_catalog_test.dart</File>
+      </TestFiles>
+      <Command>flutter test test/gt_auto_catalog_test.dart</Command>
+      <Scenario kind="success">The GT Auto catalogue exposes the counters used by the screen.</Scenario>
+    </V-M-MODEL-GT-AUTO>
+
+    <V-M-WIDGET-GT-AUTO>
+      <Scenario kind="success">The GT Auto screen lists counters and opens a counter view with its multiplier.</Scenario>
+      <Scenario kind="failure">Selecting a counter that has no data keeps the previous selection instead of rendering an empty view.</Scenario>
+    </V-M-WIDGET-GT-AUTO>
+
+    <!-- Auth and the official API. -->
+    <V-M-SERVICE-GT7-AUTH>
+      <TestFiles>
+        <File>test/gt7_auth_trace_redact_test.dart</File>
+      </TestFiles>
+      <Command>flutter test test/gt7_auth_trace_redact_test.dart</Command>
+      <Scenario kind="success">Secret fields are masked in every trace line.</Scenario>
+      <Scenario kind="failure">A token that reaches a log line is redacted, never printed verbatim.</Scenario>
+      <Scenario kind="success">Concurrent refresh calls share one in-flight token exchange.</Scenario>
+    </V-M-SERVICE-GT7-AUTH>
+
+    <V-M-SERVICE-GT7-API>
+      <Scenario kind="success">A successful call returns the decoded body and clears the error state.</Scenario>
+      <Scenario kind="failure">A 401 triggers exactly one token refresh and one retry, then reports the error and invalidates the token.</Scenario>
+    </V-M-SERVICE-GT7-API>
+
+    <V-M-SERVICE-NETWORK-SCANNER>
+      <Scenario kind="success">The scanner reports hosts that answer on the Remote Play port with a PlayStation-like hostname.</Scenario>
+      <Scenario kind="failure">A subnet that cannot be determined returns an empty result plus a logged reason, not an exception.</Scenario>
+    </V-M-SERVICE-NETWORK-SCANNER>
+
+    <V-M-REPO-GT7-AUTH>
+      <Scenario kind="success">A stored token restores a signed-in profile without a new login.</Scenario>
+      <Scenario kind="failure">An expired token clears the session and reports signed-out rather than looping on refresh.</Scenario>
+    </V-M-REPO-GT7-AUTH>
+
+    <V-M-REPO-TRACK>
+      <TestFiles>
+        <File>test/track_catalog_test.dart</File>
+      </TestFiles>
+      <Command>flutter test test/track_catalog_test.dart</Command>
+      <Scenario kind="success">The course catalogue loads and answers a track name for a known lap length.</Scenario>
+    </V-M-REPO-TRACK>
+
+    <!-- Pages and shell. -->
+    <V-M-PAGE-LOGIN>
+      <Scenario kind="success">The WebView completes the PSN consent flow, the session is exchanged for a token and the page pops true.</Scenario>
+      <Scenario kind="failure">A cancelled or failed login pops false and leaves no partial session.</Scenario>
+    </V-M-PAGE-LOGIN>
+
+    <V-M-PAGE-WISHLIST>
+      <Scenario kind="success">The wishlist screen renders the cars the player saved and survives an empty list.</Scenario>
+    </V-M-PAGE-WISHLIST>
+
+    <V-M-SHELL-HOME>
+      <Scenario kind="success">The home hub composes the telemetry panel, the daily races section and the service tile grid at phone and desktop widths.</Scenario>
+      <Scenario kind="failure">A section whose repository is still loading does not block the rest of the hub.</Scenario>
+    </V-M-SHELL-HOME>
+
+    <V-M-SHELL-TABS>
+      <Scenario kind="success">The tab shell switches between home, wishlist, profile and telemetry while keeping each tab's state.</Scenario>
+    </V-M-SHELL-TABS>
+
+    <V-M-NAVBAR>
+      <Scenario kind="success">The navbar marks the active tab and switches it through TabsRouter.</Scenario>
+      <Scenario kind="failure">When no TabsRouter is available the navbar falls back to popping back to the home route instead of throwing.</Scenario>
+    </V-M-NAVBAR>
+
+    <V-M-DI-APPSCOPE>
+      <Scenario kind="success">Every provider in the scope resolves and depends only on providers registered above it.</Scenario>
+      <Scenario kind="failure">Removing a provider surfaces as a ProviderNotFoundError in the widget that consumes it, not as a null service.</Scenario>
+    </V-M-DI-APPSCOPE>
+
+    <V-M-ROUTER>
+      <Scenario kind="success">Every route in app_router.dart resolves and the generated app_router.gr.dart matches the declarations.</Scenario>
+      <Scenario kind="failure">A missing @RoutePage() shows up as a failed generation step rather than a runtime route miss.</Scenario>
+    </V-M-ROUTER>
+
+    <V-M-THEME>
+      <Scenario kind="success">gt7Theme() builds a dark ColorScheme with the full text theme and the graph ThemeExtension registered.</Scenario>
+      <Scenario kind="failure">A widget asking for a ColorScheme slot that the theme does not define falls back to the surface colour instead of throwing.</Scenario>
+    </V-M-THEME>
+
+    <!-- Profile feature (foreign author, kept for coverage completeness). -->
+    <V-M-FEATURE-PROFILE>
+      <TestFiles>
+        <File>test/profile_bloc_test.dart</File>
+        <File>test/profile_repository_test.dart</File>
+        <File>test/gt7_stats_test.dart</File>
+      </TestFiles>
+      <Command>flutter test test/profile_bloc_test.dart test/profile_repository_test.dart test/gt7_stats_test.dart</Command>
+      <Scenario kind="success">Profile loading moves through loading to a populated state, and stats parse from the enveloped API shape.</Scenario>
+      <Scenario kind="failure">A failed profile fetch ends in an error state instead of an empty success.</Scenario>
+    </V-M-FEATURE-PROFILE>
+
+  </VD-MAIN>
+</GraceVerificationDocument>

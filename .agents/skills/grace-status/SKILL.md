@@ -1,69 +1,26 @@
 ---
 name: grace-status
-description: "Show the current health status of a GRACE project. Use to get an overview of project artifacts, codebase metrics, knowledge graph health, verification coverage, and suggested next actions."
+description: Show GRACE 4 project health across .grace context, graph, verification, active changes, scopes, and migration boundaries.
 ---
 
-Show the current state of the GRACE project, including whether it is safe to hand to a longer autonomous run.
+<skill>
+<task>Run `grace status --path PROJECT --json` and report current GRACE 4 state without mutating artifacts. Module-health summary counts are always evaluated; add `--with modules` only when detailed module records are needed.</task>
 
-When the optional CLI is available, prefer `grace status --path <project-root>` for the initial report. Use `grace status --with modules --path <project-root>` when project-level health is not enough and you need module summaries before deeper investigation.
+<must_report>
+- Project kind: GRACE 4, legacy GRACE 3 migration candidate, or missing GRACE; plus context completeness.
+- Graph/verification projection integrity, routed coverage, and module counts.
+- Active/archive bundle statuses and derived states.
+- `needs-plan`, `needs-plan-approval`, `stale-plan`, `integrity-issues`, and `ready-to-execute` with readiness mutually exclusive from stale/integrity states.
+- Route-aware explained/unexplained drift, scope coexistence warnings, and parallel blockers.
+- Module-health load failure as integrity/degraded status rather than a crash.
+- The next safe action: lint, migrate, specify, plan, or execute.
+</must_report>
 
-## Report Contents
+<commands>
+- Pre-implementation active-baseline integrity: `grace lint --path PROJECT --assertions current`
+- Parallel decision: `grace lint --path PROJECT --parallel-preflight`
+- Status snapshot: `grace status --path PROJECT --with modules --json --fail-on errors`
+</commands>
 
-### 1. Artifacts Status
-Check existence and version of:
-- [ ] `AGENTS.md` — GRACE principles
-- [ ] `docs/knowledge-graph.xml` — version and module count
-- [ ] `docs/requirements.xml` — version and UseCase count
-- [ ] `docs/technology.xml` — version and stack summary
-- [ ] `docs/development-plan.xml` — version and module count
-- [ ] `docs/verification-plan.xml` — version and verification entry count
-- [ ] `docs/operational-packets.xml` — optional packet template version
-
-### 2. Codebase Metrics
-Scan source files and report:
-- Total source files
-- Files WITH MODULE_CONTRACT
-- Files WITHOUT MODULE_CONTRACT (warning)
-- Total test files
-- Test files WITH MODULE_CONTRACT
-- Total semantic blocks (START_BLOCK / END_BLOCK pairs)
-- Unpaired blocks (integrity violation)
-- Files with stable log markers
-- Test files that assert log markers or traces when relevant
-
-### 3. Knowledge Graph and Verification Health
-Quick check:
-- Modules in graph vs modules in codebase
-- Any orphaned or missing entries
-- Modules in verification plan vs modules in development plan
-- Missing or stale verification refs
-- Pending phases and steps that still need execution
-- Autonomy blockers from `grace lint --profile autonomous`
-
-If the optional `grace` CLI is available, you may also run `grace lint --path <project-root>` as a fast integrity snapshot and include any relevant findings in the report.
-
-If the report is specifically about autonomous execution readiness, also run `grace lint --profile autonomous --path <project-root>` and summarize blockers versus warnings.
-
-When the report needs focused navigation instead of raw artifact dumps, you may also use:
-- `grace module find <query> --path <project-root>` to resolve the relevant module from names, IDs, dependencies, or changed paths
-- `grace module show M-XXX --path <project-root> --with verification,health` for the shared/public module snapshot
-- `grace module health M-XXX --path <project-root>` for the module-scoped blockers, warnings, and next action
-- `grace verification show V-M-XXX --path <project-root>` for the linked verification entry itself
-- `grace file show <path> --path <project-root> --contracts --blocks` for the file-local/private markup snapshot
-
-### 4. Recent Changes
-List the 5 most recent CHANGE_SUMMARY entries across source and substantive test files.
-
-### 5. Suggested Next Action
-Based on the status, suggest what to do next:
-- If no requirements — "Define requirements in docs/requirements.xml"
-- If requirements but no plan — "Run `$grace-plan`"
-- If plan exists but verification is still thin — "Run `$grace-verification`"
-- If plan and verification are ready but modules are missing — "Run `$grace-execute` or `$grace-multiagent-execute`"
-- If drift detected — "Run `$grace-refresh`"
-- If fast integrity signals are needed before deeper review — "Run `grace lint --path <project-root>`"
-- If one lint code needs direct remediation guidance — "Run `grace lint --explain <code>`"
-- If the next step is targeted investigation of one module or file — "Run `grace module show M-XXX --path <project-root> --with verification` or `grace file show <path> --path <project-root> --contracts --blocks`"
-- If tests or logs are too weak for autonomous work — "Run `$grace-verification`"
-- If autonomy blockers are present — "Run `grace lint --profile autonomous --path <project-root>` and strengthen verification or packet quality before execution"
-- If everything synced — "Project is healthy"
+<hard_rules>Do not edit XML statuses. A draft spec without a plan is normal; an approved spec without a plan needs planning. A stale or integrity-invalid approved plan is never ready.</hard_rules>
+</skill>

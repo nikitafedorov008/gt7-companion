@@ -1,0 +1,12 @@
+<GraceTechnology graceVersion="4.0">
+  <Language>Dart 3.x</Language>
+  <Runtime>Flutter SDK stable, pinned with FVM (.fvm/flutter_sdk, .fvmrc)</Runtime>
+  <Framework>Flutter with Material 3 (dark theme only), auto_route for navigation, Provider/ChangeNotifier for app state, flutter_bloc in two foreign features (profile, throttle_brake_graph)</Framework>
+  <TestingStack>flutter test driven by dart_test.yaml; tests that fetch third-party sites carry the `network` tag and are skipped by default (run with `flutter test --tags network --run-skipped`). Existing suites cover the site parsers (dg-edge, gt-sh), models and widget behaviour (daily_races_display, car_catalog, car_type_enum).</TestingStack>
+  <Observability>debugPrint with a class-name prefix in services and repositories, plus the Gt7AuthTrace singleton (kDebugMode-gated, masks secrets) for the PSN login flow. No remote telemetry or crash reporting.</Observability>
+  <OperationalConstraints>
+    <Constraint>Prefer existing project libraries and established repository patterns.</Constraint>
+    <Constraint>Network transport is package:http plus graphql for GTDB, with the http.Client injected (three legacy services still call static http.get/post; do not copy that).</Constraint>
+    <Constraint>Caching is manual (boolean flags and forceRefresh); there is no TTL layer.</Constraint>
+  </OperationalConstraints>
+</GraceTechnology>

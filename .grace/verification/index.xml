@@ -1,0 +1,41 @@
+<GraceVerificationIndex graceVersion="4.0">
+  <VerificationDocuments>
+    <VD-MAIN>
+      <Path>verification/main.xml</Path>
+      <Owns>
+        <V-M-SERVICE-TELEMETRY />
+        <V-M-SERVICE-UDP />
+        <V-M-MODEL-TELEMETRY />
+        <V-M-MODEL-TRACK-TRACE />
+        <V-M-WIDGET-TELEMETRY />
+        <V-M-BLOC-THROTTLE-BRAKE />
+        <V-M-SERVICE-DG-EDGE />
+        <V-M-SERVICE-GTSH-RANK />
+        <V-M-REPO-SPORT />
+        <V-M-MODEL-DAILY />
+        <V-M-WIDGET-DAILY />
+        <V-M-SERVICE-GT7INFO />
+        <V-M-SERVICE-GTDB />
+        <V-M-REPO-CAR />
+        <V-M-MODEL-CAR />
+        <V-M-WIDGET-CAR-DEALER />
+        <V-M-MODEL-GT-AUTO />
+        <V-M-WIDGET-GT-AUTO />
+        <V-M-SERVICE-GT7-AUTH />
+        <V-M-SERVICE-GT7-API />
+        <V-M-SERVICE-NETWORK-SCANNER />
+        <V-M-REPO-GT7-AUTH />
+        <V-M-REPO-TRACK />
+        <V-M-PAGE-LOGIN />
+        <V-M-PAGE-WISHLIST />
+        <V-M-SHELL-HOME />
+        <V-M-SHELL-TABS />
+        <V-M-NAVBAR />
+        <V-M-DI-APPSCOPE />
+        <V-M-ROUTER />
+        <V-M-THEME />
+        <V-M-FEATURE-PROFILE />
+      </Owns>
+    </VD-MAIN>
+  </VerificationDocuments>
+</GraceVerificationIndex>

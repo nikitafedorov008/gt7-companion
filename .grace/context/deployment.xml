@@ -1,0 +1,5 @@
+<GraceDeployment graceVersion="4.0">
+  <Applicability>applicable</Applicability>
+  <Target>Mobile (iOS, Android) and desktop (macOS, Windows, Linux) from the same Flutter codebase; the repository also carries a web/ folder but web is not a primary target.</Target>
+  <Notes>No release pipeline in the repository: builds are local (flutter build with a platform argument, or flutter run -d with a device id), and the app is distributed outside the stores. Platform-specific code is limited to host integration for UDP and filesystem access; the PSN login flow uses an in-app WebView. Rollback expectation is a local rebuild from the previous commit; there is no staged rollout or remote configuration surface.</Notes>
+</GraceDeployment>

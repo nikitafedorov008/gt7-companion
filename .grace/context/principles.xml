@@ -1,0 +1,9 @@
+<GracePrinciples graceVersion="4.0">
+  <Principle>Contract-first changes: clarify scope and verification before implementation.</Principle>
+  <Principle>Keep semantic anchors stable and grep-friendly.</Principle>
+  <Principle>Use assertions, scopes, and tests as fresh completion evidence.</Principle>
+  <Principle>Layers stay separate: services own one external source each, repositories compose sources and own domain merging, widgets render only, and every provider is registered in lib/dependency_injection/app_scope.dart.</Principle>
+  <Principle>UI follows the documented style: docs/CODE_STYLE.md and the gt7-* skills are the reference for screen skeleton, spacing scale, card shell, states and colour rules.</Principle>
+  <Principle>Two widget generations coexist; edit a legacy file in its own style and write new code in the canon, rather than restyling unrelated files.</Principle>
+  <Principle>Telemetry is the one subsystem whose tokens live in lib/theme/gt7_theme.dart; other UI reads Theme.of(context) and must not pull those helpers in.</Principle>
+</GracePrinciples>

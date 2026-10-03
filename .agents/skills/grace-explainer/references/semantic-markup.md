@@ -23,7 +23,9 @@ Every important source file must begin with:
 // END_MODULE_MAP
 ```
 
-Adapt comment syntax to the project language (`#` for Python, `//` for Go/TS/Java, `--` for SQL).
+Adapt comment syntax to the project language (`#` for Python, `//` for Dart/Go/TS/Java, `--` for SQL). Marker grammar is strict: canonical marker tokens and field labels must appear at the start of the normalized comment payload, not inside prose, strings, or unrelated code.
+
+The CLI bundles TypeScript/JavaScript analysis and can enforce exact compiler-derived export parity there. Governed Python and Dart files use runtime-backed adapters and therefore require `python3`/`python` or `dart` on `PATH`. Python exports are exact when the source declares a static `__all__`, including Unicode identifiers; otherwise Python analysis emits `analysis.heuristic-confidence`. A missing runtime fails closed with actionable `analysis.runtime-missing`; a present adapter that fails emits `analysis.adapter-failed`. Neither diagnostic can count as parity success.
 
 Substantial test files should use the same structure when tests are the fastest way for future agents to understand behavior, fixtures, and expected evidence.
 
@@ -43,7 +45,7 @@ Recommended defaults:
 
 Shared-docs boundary rule:
 
-- `docs/development-plan.xml` and `docs/knowledge-graph.xml` should describe only the module's public contract and public interface
+- `.grace/graph/*` and `.grace/verification/*` should describe only the module's public contract and public interface
 - internal helpers, private types, and implementation-only orchestration belong in the file header markup and local function contracts instead of shared XML artifacts
 
 Canonical grep-stable naming rule:
@@ -88,8 +90,8 @@ Every exported function or component must have a contract placed before function
 ## Granularity Rules
 
 1. Around 500 tokens per block. Too large and the model loses locality. Too small and the markup becomes noise.
-2. Block names must be unique inside the file.
-3. Every `START_BLOCK_X` must have a matching `END_BLOCK_X`.
+2. Block names must be canonical uppercase snake identifiers and unique inside the file.
+3. Every `START_BLOCK_X` must have a matching exact `END_BLOCK_X`; orphan, crossed, malformed, or mismatched markers are integrity errors.
 4. Block names describe WHAT, not HOW.
 
 ## Logging Convention

@@ -1,0 +1,209 @@
+<GraceGraphDocument graceVersion="4.0">
+  <GD-MAIN>
+
+    <!-- Telemetry: the UDP path the app exists for. -->
+    <M-SERVICE-TELEMETRY>
+      <Summary>(ENTRY_POINT) Joins the GT7 UDP broadcast, decrypts Salsa20 packets and exposes live vehicle state plus a heartbeat.</Summary>
+      <Path>lib/services/telemetry_service.dart</Path>
+      <M-SERVICE-UDP />
+      <M-MODEL-TELEMETRY />
+    </M-SERVICE-TELEMETRY>
+
+    <M-SERVICE-UDP>
+      <Summary>(INTEGRATION) Socket binding, packet reception and local address discovery for the telemetry listener.</Summary>
+      <Path>lib/services/udp_service.dart</Path>
+    </M-SERVICE-UDP>
+
+    <M-MODEL-TELEMETRY>
+      <Summary>(DATA_LAYER) Decoded telemetry values: speed, RPM, gears, tyres, fuel, lap and throttle/brake traces.</Summary>
+      <Path>lib/models/telemetry/telemetry_data.dart</Path>
+    </M-MODEL-TELEMETRY>
+
+    <M-MODEL-TRACK-TRACE>
+      <Summary>(DATA_LAYER) Records positions from telemetry packets so the HUD can draw a track map.</Summary>
+      <Path>lib/models/telemetry/track_trace.dart</Path>
+      <M-MODEL-TELEMETRY />
+    </M-MODEL-TRACK-TRACE>
+
+    <M-WIDGET-TELEMETRY>
+      <Summary>(UI_COMPONENT) Telemetry presentation: HUD layout, gauges, tyre panel, throttle/brake graph, motion workspace, 3D car and track map.</Summary>
+      <Path>lib/widgets/telemetry/telemetry_screen.dart</Path>
+      <M-MODEL-TELEMETRY />
+    </M-WIDGET-TELEMETRY>
+
+    <M-BLOC-THROTTLE-BRAKE>
+      <Summary>(CORE_LOGIC) Windowed throttle/brake/clutch history for the graph widget.</Summary>
+      <Path>lib/blocs/throttle_brake_graph/throttle_brake_graph_bloc.dart</Path>
+      <M-SERVICE-TELEMETRY />
+    </M-BLOC-THROTTLE-BRAKE>
+
+    <!-- Sport / daily races: two scraped sources merged in one repository. -->
+    <M-SERVICE-DG-EDGE>
+      <Summary>(INTEGRATION) Scrapes dg-edge daily race cards and detail pages with a fixed timeout and crawl delay.</Summary>
+      <Path>lib/services/dg_edge_service.dart</Path>
+      <M-MODEL-DAILY />
+    </M-SERVICE-DG-EDGE>
+
+    <M-SERVICE-GTSH-RANK>
+      <Summary>(INTEGRATION) Scrapes gt-sh ranking cards, including leader and slipstream data.</Summary>
+      <Path>lib/services/gtsh_rank_service.dart</Path>
+      <M-MODEL-DAILY />
+    </M-SERVICE-GTSH-RANK>
+
+    <M-REPO-SPORT>
+      <Summary>(DATA_LAYER) Merges both daily-race sources on the game's own board id, tolerates one source failing, and orders future before current before past.</Summary>
+      <Path>lib/repositories/sport_repository.dart</Path>
+      <M-SERVICE-DG-EDGE />
+      <M-SERVICE-GTSH-RANK />
+      <M-MODEL-DAILY />
+    </M-REPO-SPORT>
+
+    <M-MODEL-DAILY>
+      <Summary>(DATA_LAYER) Unified daily race plus the per-source models it is built from.</Summary>
+      <Path>lib/models/daily_races/daily_race.dart</Path>
+    </M-MODEL-DAILY>
+
+    <M-WIDGET-DAILY>
+      <Summary>(UI_COMPONENT) Daily races screen: cards, detail sheet and the field histogram, with skeletons while loading.</Summary>
+      <Path>lib/widgets/daily_races/daily_races_display.dart</Path>
+      <M-REPO-SPORT />
+      <M-MODEL-DAILY />
+    </M-WIDGET-DAILY>
+
+    <!-- Car dealer: gt7info plus GTDB merged into one car list. -->
+    <M-SERVICE-GT7INFO>
+      <Summary>(INTEGRATION) Reads the gt7info used/legendary car lists and their price history.</Summary>
+      <Path>lib/services/gt7info_service.dart</Path>
+      <M-MODEL-CAR />
+    </M-SERVICE-GT7INFO>
+
+    <M-SERVICE-GTDB>
+      <Summary>(INTEGRATION) GraphQL client for the community car database, including AVIF artwork identifiers.</Summary>
+      <Path>lib/services/gtdb_service.dart</Path>
+      <M-MODEL-CAR />
+    </M-SERVICE-GTDB>
+
+    <M-REPO-CAR>
+      <Summary>(DATA_LAYER) Merges gt7info and GTDB cars, owns the used/legendary split and the refresh flags.</Summary>
+      <Path>lib/repositories/car_repository.dart</Path>
+      <M-SERVICE-GT7INFO />
+      <M-SERVICE-GTDB />
+      <M-MODEL-CAR />
+    </M-REPO-CAR>
+
+    <M-MODEL-CAR>
+      <Summary>(DATA_LAYER) Car record with its derived presentation: status text, price formatting, region flag and image URL priority.</Summary>
+      <Path>lib/models/car_dealer/car.dart</Path>
+    </M-MODEL-CAR>
+
+    <M-WIDGET-CAR-DEALER>
+      <Summary>(UI_COMPONENT) Used and legendary dealership screens and their car cards.</Summary>
+      <Path>lib/widgets/car_dealer/used/used_car_display.dart</Path>
+      <M-REPO-CAR />
+      <M-MODEL-CAR />
+    </M-WIDGET-CAR-DEALER>
+
+    <!-- GT Auto. -->
+    <M-MODEL-GT-AUTO>
+      <Summary>(DATA_LAYER) Static catalogue of GT Auto counters with their icons and multipliers.</Summary>
+      <Path>lib/models/gt_auto/gt_auto_catalog.dart</Path>
+    </M-MODEL-GT-AUTO>
+
+    <M-WIDGET-GT-AUTO>
+      <Summary>(UI_COMPONENT) GT Auto screen: counter tiles and the counter detail view.</Summary>
+      <Path>lib/widgets/gt_auto/gt_auto_display.dart</Path>
+      <M-MODEL-GT-AUTO />
+    </M-WIDGET-GT-AUTO>
+
+    <!-- PSN authentication and the official API surface. -->
+    <M-SERVICE-GT7-AUTH>
+      <Summary>(INTEGRATION) PSN login flow: in-app WebView session, token exchange, persistence and platform-specific cookie clearing.</Summary>
+      <Path>lib/services/gt7_auth_service.dart</Path>
+    </M-SERVICE-GT7-AUTH>
+
+    <M-SERVICE-GT7-API>
+      <Summary>(INTEGRATION) Official GT7 API calls with one retry after a token refresh, returning null instead of throwing.</Summary>
+      <Path>lib/services/gt7_api_service.dart</Path>
+      <M-SERVICE-GT7-AUTH />
+    </M-SERVICE-GT7-API>
+
+    <M-SERVICE-NETWORK-SCANNER>
+      <Summary>(INTEGRATION) Finds a PlayStation on the local network for Remote Play setup.</Summary>
+      <Path>lib/services/network_scanner.dart</Path>
+    </M-SERVICE-NETWORK-SCANNER>
+
+    <M-REPO-GT7-AUTH>
+      <Summary>(DATA_LAYER) Bridge between the auth service, the API service and the UI-facing login state.</Summary>
+      <Path>lib/repositories/gt7_auth_repository.dart</Path>
+      <M-SERVICE-GT7-AUTH />
+      <M-SERVICE-GT7-API />
+    </M-REPO-GT7-AUTH>
+
+    <M-REPO-TRACK>
+      <Summary>(DATA_LAYER) Course catalogue plus the recorded lap trace, so a circuit name can be attached to a measured lap.</Summary>
+      <Path>lib/repositories/track_repository.dart</Path>
+      <M-SERVICE-TELEMETRY />
+    </M-REPO-TRACK>
+
+    <!-- Pages and shell. -->
+    <M-PAGE-LOGIN>
+      <Summary>(UI_COMPONENT) PSN sign-in screen: WebView orchestration, progress reporting and the result it returns to the profile page.</Summary>
+      <Path>lib/pages/login_page.dart</Path>
+      <M-REPO-GT7-AUTH />
+    </M-PAGE-LOGIN>
+
+    <M-PAGE-WISHLIST>
+      <Summary>(UI_COMPONENT) Wishlist screen for cars the player is tracking.</Summary>
+      <Path>lib/pages/wishlist_page.dart</Path>
+    </M-PAGE-WISHLIST>
+
+    <M-SHELL-HOME>
+      <Summary>(UI_COMPONENT) Home hub: telemetry panel, daily races section and the grid of service tiles.</Summary>
+      <Path>lib/pages/home_page.dart</Path>
+      <M-WIDGET-TELEMETRY />
+      <M-WIDGET-DAILY />
+    </M-SHELL-HOME>
+
+    <M-SHELL-TABS>
+      <Summary>(UI_COMPONENT) Bottom tab shell (home, wishlist, profile, telemetry) built on AutoTabsRouter.</Summary>
+      <Path>lib/widgets/nested_widget.dart</Path>
+      <M-NAVBAR />
+    </M-SHELL-TABS>
+
+    <M-NAVBAR>
+      <Summary>(UI_COMPONENT) Responsive navigation bar that switches tabs and falls back to a route pop when tabs are unavailable.</Summary>
+      <Path>lib/widgets/adaptive_navbar.dart</Path>
+    </M-NAVBAR>
+
+    <!-- Infrastructure everything else depends on. -->
+    <M-DI-APPSCOPE>
+      <Summary>(UTILITY) The single provider registration point for services, repositories and blocs.</Summary>
+      <Path>lib/dependency_injection/app_scope.dart</Path>
+      <M-SERVICE-TELEMETRY />
+      <M-REPO-SPORT />
+      <M-REPO-CAR />
+      <M-REPO-GT7-AUTH />
+    </M-DI-APPSCOPE>
+
+    <M-ROUTER>
+      <Summary>(UTILITY) auto_route configuration: nested tab shell plus the vertical screens.</Summary>
+      <Path>lib/router/app_router.dart</Path>
+      <M-SHELL-TABS />
+      <M-WIDGET-CAR-DEALER />
+      <M-WIDGET-GT-AUTO />
+    </M-ROUTER>
+
+    <M-THEME>
+      <Summary>(UTILITY) Dark-only GT7 theme: colour scheme, full text theme, one ThemeExtension and the gt7* helpers telemetry uses.</Summary>
+      <Path>lib/theme/gt7_theme.dart</Path>
+    </M-THEME>
+
+    <!-- Profile feature (written by another author; kept in the projection for completeness). -->
+    <M-FEATURE-PROFILE>
+      <Summary>(CORE_LOGIC) Player profile loading through BLoC over the auth repository, including stats history models.</Summary>
+      <Path>lib/blocs/profile/profile_bloc.dart</Path>
+      <M-REPO-GT7-AUTH />
+    </M-FEATURE-PROFILE>
+
+  </GD-MAIN>
+</GraceGraphDocument>

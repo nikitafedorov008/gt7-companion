@@ -1,0 +1,49 @@
+<GraceChangeSpec graceVersion="4.0" status="applied">
+  <C-FIX-CAR-DEALER-ALPHA-AND-PRINT>
+    <Summary>Make the car-dealer card's out-of-range alpha explicit without changing a single rendered pixel, and drop the debug print that runs on every decoration repaint.</Summary>
+
+    <Problem>lib/widgets/car_dealer/used/used_car_grid_item.dart:23 paints the card background with Colors.grey.withAlpha(280). The value is outside the documented 0..255 range and there is no assertion guarding it: in the pinned SDK, withAlpha delegates to Color.fromARGB, which masks the channel with `&amp; 0xff`, so 280 silently becomes 24 and the card renders at alpha 24/255 (about 9.4%) — the look the screen has today, reached through undocumented modulo behaviour that the SDK documents as "unexpected effects". Anyone who later "corrects" 280 to 255, or reads the line as a typo for 28, changes the design with no test to catch it. Separately, lib/widgets/car_dealer/legendary/legendary_car_grid_item.dart:363 calls print(configuration.size!.height) as the first statement of CustomDecorationPainter.paint, so every repaint of the legendary card's decoration writes a line to stdout on the build host.</Problem>
+
+    <Goals>
+      <Goal>Replace the out-of-range alpha with an in-range value that renders identically, so the visible result is provably unchanged.</Goal>
+      <Goal>Leave a comment recording that 280 was the historical value and what it evaluated to, so the intent cannot be re-litigated by accident.</Goal>
+      <Goal>Remove the per-repaint debug print from the decoration painter.</Goal>
+      <Goal>Govern both touched files with GRACE file-local markup, since the graph already declares M-WIDGET-CAR-DEALER but no source file carries its module contract.</Goal>
+    </Goals>
+
+    <Constraints>
+      <Constraint>The rendered colour must stay identical: alpha 24/255 after the change, exactly as before it.</Constraint>
+      <Constraint>Both files are legacy-generation code; keep their existing style (withAlpha rather than withValues, no restyling) so the diff stays reviewable.</Constraint>
+      <Constraint>No behavioural change to the used or legendary screens, their sorting, images or price-history launch.</Constraint>
+    </Constraints>
+
+    <NonGoals>
+      <NonGoal>The duplicated _buildStatusBadge in the two grid items and the duplicated error block in the two displays are left alone; de-duplication is a refactor with a placement decision and belongs in its own change.</NonGoal>
+      <NonGoal>The print calls in lib/services/network_scanner.dart (40), lib/utils/crypto_utils.dart (10), lib/services/telemetry_service.dart (9) and lib/services/udp_service.dart (4) are out of scope; those subsystems are governed separately.</NonGoal>
+      <NonGoal>No change to gt7_theme.dart, the telemetry tokens or the app's colour scheme.</NonGoal>
+    </NonGoals>
+
+    <AcceptanceCriteria>
+      <Criterion>No withAlpha argument greater than 255 remains anywhere under lib/.</Criterion>
+      <Criterion>The used-car card decoration still resolves to alpha 24/255.</Criterion>
+      <Criterion>No print call remains inside any paint method under lib/widgets/car_dealer/.</Criterion>
+      <Criterion>Both touched files open with a GRACE module contract, so grace lint reports at least one governed file.</Criterion>
+      <Criterion>flutter analyze reports at most 178 issues and still zero errors (measured baseline before the change: 179 issues, of which 0 errors, 24 warnings, 155 infos; the info at legendary_car_grid_item.dart:363 is avoid_print and disappears with the print).</Criterion>
+      <Criterion>grace lint --path . --assertions current reports zero errors.</Criterion>
+    </AcceptanceCriteria>
+
+    <AffectedAreas>
+      <M-WIDGET-CAR-DEALER />
+    </AffectedAreas>
+
+    <VerificationIntent>
+      <ExpectedCommand>! grep -rnoE 'withAlpha\([0-9]+\)' lib/ | grep -E 'withAlpha\((2[6-9][0-9]|[3-9][0-9]{2}|[0-9]{4,})\)' ; test "$(flutter analyze 2&gt;&amp;1 | grep -cE '^ *(error|warning|info) • ')" -le 178 ; grace lint --path . --assertions current</ExpectedCommand>
+      <ExpectedEvidence>The sweep finds no withAlpha argument above 255, the analyzer issue count drops to 178 with zero errors, and grace lint reports zero errors with a non-zero governed-file count. The alpha equivalence is shown by evaluating (24 &amp; 0xff) / 255 = 0.0941176... against the previous (280 &amp; 0xff) / 255 = 0.0941176...</ExpectedEvidence>
+    </VerificationIntent>
+
+    <Assumptions>
+      <Assumption>The 9.4% grey veil is the intended design, since it is what the author sees today; the change preserves it rather than reinterpreting the value as 28 or 255.</Assumption>
+      <Assumption>Dart is on PATH for the pinned SDK, which the Dart adapter needs to analyse the newly governed files.</Assumption>
+    </Assumptions>
+  </C-FIX-CAR-DEALER-ALPHA-AND-PRINT>
+</GraceChangeSpec>

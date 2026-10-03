@@ -1,4 +1,17 @@
-// used_car_grid_item.dart
+// FILE: lib/widgets/car_dealer/used/used_car_grid_item.dart
+// VERSION: 1.0.0
+// START_MODULE_CONTRACT
+//   PURPOSE: Render one used-dealer car as a tappable card with its photo, name, price and stock state.
+//   SCOPE: Card layout, image fallback chain, price-history launch.
+//   DEPENDS: M-MODEL-CAR, M-REPO-CAR
+//   LINKS: M-WIDGET-CAR-DEALER, V-M-WIDGET-CAR-DEALER
+//   ROLE: RUNTIME
+//   MAP_MODE: EXPORTS
+// END_MODULE_CONTRACT
+//
+// START_MODULE_MAP
+//   UsedCarCardItem - used-dealer car card with photo, price and stock badge.
+// END_MODULE_MAP
 
 import 'package:flutter/material.dart';
 import 'package:extended_image/extended_image.dart';
@@ -20,7 +33,9 @@ class UsedCarCardItem extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
-          color: Colors.grey.withAlpha(280),
+          // 280 was out of range: Color.fromARGB masks the channel with & 0xff, so the
+          // card has always rendered at alpha 24/255 (9.4%). Keep that value explicit.
+          color: Colors.grey.withAlpha(24),
           borderRadius: BorderRadius.circular(8.0),
           border: Border.all(color: Colors.grey[300]!, width: 1),
         ),

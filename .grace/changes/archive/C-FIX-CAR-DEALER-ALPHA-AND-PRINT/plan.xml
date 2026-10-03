@@ -1,0 +1,94 @@
+<GraceChangePlan graceVersion="4.0" status="applied">
+  <C-FIX-CAR-DEALER-ALPHA-AND-PRINT>
+    <IntentSummary>Make the used-car card's alpha explicit at the value it already renders (24/255), delete the per-repaint print from the legendary card's decoration painter, and govern both files so the graph's M-WIDGET-CAR-DEALER exists in code rather than only on paper.</IntentSummary>
+
+    <BaselineAssertions>
+      <MustExist>
+        <Value>lib/widgets/car_dealer/used/used_car_grid_item.dart</Value>
+        <Value>lib/widgets/car_dealer/legendary/legendary_car_grid_item.dart</Value>
+      </MustExist>
+      <MustPassCommand>
+        <Command budgetSeconds="15">test -n "$(grep -rnoE 'withAlpha\([0-9]+\)' lib/ | grep -E 'withAlpha\((2[6-9][0-9]|[3-9][0-9]{2}|[0-9]{4,})\)')"</Command>
+        <Command budgetSeconds="180">test "$(flutter analyze 2&gt;&amp;1 | grep -cE '^ *(error|warning|info) • ')" -eq 179</Command>
+      </MustPassCommand>
+    </BaselineAssertions>
+
+    <TargetAssertions>
+      <MustVerify>
+        <Module>M-WIDGET-CAR-DEALER</Module>
+      </MustVerify>
+      <MustPassCommand>
+        <Command budgetSeconds="15">test -z "$(grep -rnoE 'withAlpha\([0-9]+\)' lib/ | grep -E 'withAlpha\((2[6-9][0-9]|[3-9][0-9]{2}|[0-9]{4,})\)')"</Command>
+        <Command budgetSeconds="15">test -z "$(grep -rn -A6 'void paint(Canvas' lib/widgets/car_dealer/ | grep 'print(')"</Command>
+        <Command budgetSeconds="15">grep -q 'START_MODULE_CONTRACT' lib/widgets/car_dealer/used/used_car_grid_item.dart &amp;&amp; grep -q 'START_MODULE_CONTRACT' lib/widgets/car_dealer/legendary/legendary_car_grid_item.dart</Command>
+        <Command budgetSeconds="180">test "$(flutter analyze 2&gt;&amp;1 | grep -cE '^ *(error|warning|info) • ')" -le 178</Command>
+      </MustPassCommand>
+    </TargetAssertions>
+
+    <DurableScope>
+      <VerificationAnchors>
+        <V-M-WIDGET-CAR-DEALER />
+      </VerificationAnchors>
+    </DurableScope>
+
+    <ObservedWriteScope>
+      <File>lib/widgets/car_dealer/used/used_car_grid_item.dart</File>
+      <File>lib/widgets/car_dealer/legendary/legendary_car_grid_item.dart</File>
+      <File>.grace/verification/main.xml</File>
+    </ObservedWriteScope>
+
+    <ImplementationPlan>
+      <T-001>
+        <Title>Replace the out-of-range alpha with the value it already renders, and record why</Title>
+        <DependsOn></DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>The line reads withAlpha(24) instead of withAlpha(280).</Criterion>
+          <Criterion>A comment states that 280 was the historical value and evaluated to 24 through the 0xff mask, so nobody restores 255 or reads it as a typo for 28.</Criterion>
+          <Criterion>The file keeps its legacy style: withAlpha is kept, no restyling, no withValues.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -n "withAlpha(24)" lib/widgets/car_dealer/used/used_car_grid_item.dart</Command>
+          <Command>test -z "$(grep -rnoE 'withAlpha\([0-9]+\)' lib/ | grep -E 'withAlpha\((2[6-9][0-9]|[3-9][0-9]{2}|[0-9]{4,})\)')"</Command>
+        </Verification>
+      </T-001>
+
+      <T-002>
+        <Title>Delete the debug print from the decoration painter</Title>
+        <DependsOn></DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>CustomDecorationPainter.paint no longer calls print.</Criterion>
+          <Criterion>No other statement of that painter changes.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>test -z "$(grep -rn -A6 'void paint(Canvas' lib/widgets/car_dealer/ | grep 'print(')"</Command>
+          <Command>test -z "$(flutter analyze 2&gt;&amp;1 | grep 'legendary_car_grid_item.dart:363')"</Command>
+        </Verification>
+      </T-002>
+
+      <T-003>
+        <Title>Govern both files with their module contract and map</Title>
+        <DependsOn>T-001, T-002</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>Each file opens with START_MODULE_CONTRACT / END_MODULE_CONTRACT naming M-WIDGET-CAR-DEALER, its purpose and its links.</Criterion>
+          <Criterion>Both files carry a module contract and a module map, so the outer final gate sees them as governed files rather than unmarked sources.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -c 'START_MODULE_CONTRACT' lib/widgets/car_dealer/used/used_car_grid_item.dart lib/widgets/car_dealer/legendary/legendary_car_grid_item.dart</Command>
+          <Command>grep -q 'START_MODULE_MAP' lib/widgets/car_dealer/used/used_car_grid_item.dart &amp;&amp; grep -q 'START_MODULE_MAP' lib/widgets/car_dealer/legendary/legendary_car_grid_item.dart</Command>
+        </Verification>
+      </T-003>
+
+      <T-004>
+        <Title>Record the alpha invariant in the durable verification entry</Title>
+        <DependsOn>T-001</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>V-M-WIDGET-CAR-DEALER carries a scenario stating that a colour literal in this vertical stays inside 0..255 and that the card decoration resolves to alpha 24/255.</Criterion>
+          <Criterion>The durable edit leaves the project's GRACE artifacts error-free, which the outer final gate confirms.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -n "24/255" .grace/verification/main.xml</Command>
+        </Verification>
+      </T-004>
+    </ImplementationPlan>
+  </C-FIX-CAR-DEALER-ALPHA-AND-PRINT>
+</GraceChangePlan>

@@ -1,4 +1,19 @@
-// legendary_car_grid_item.dart
+// FILE: lib/widgets/car_dealer/legendary/legendary_car_grid_item.dart
+// VERSION: 1.0.0
+// START_MODULE_CONTRACT
+//   PURPOSE: Render one legendary-dealer car as a card, including the tilted frame it is painted with, and launch its price history.
+//   SCOPE: Card layout, custom frame decoration and painter, image fallback chain.
+//   DEPENDS: M-MODEL-CAR, M-REPO-CAR
+//   LINKS: M-WIDGET-CAR-DEALER, V-M-WIDGET-CAR-DEALER
+//   ROLE: RUNTIME
+//   MAP_MODE: EXPORTS
+// END_MODULE_CONTRACT
+//
+// START_MODULE_MAP
+//   LegendaryCarCardItem - legendary-dealer car card with its tilted frame.
+//   CustomDecoration - decoration that paints the tilted legendary frame around the card.
+//   CustomDecorationPainter - box painter behind CustomDecoration.
+// END_MODULE_MAP
 
 import 'package:flutter/material.dart';
 import 'package:extended_image/extended_image.dart';
@@ -360,8 +375,6 @@ class CustomDecorationPainter extends BoxPainter {
 
   @override
   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
-    print(configuration.size!.height);
-
     final Rect bounds = offset & configuration.size!;
     final frameHWidth = configuration.size!.width * frameSFactor;
 

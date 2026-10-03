@@ -1,0 +1,48 @@
+<GraceChangeSpec graceVersion="4.0" status="applied">
+  <C-DROP-PROJECT-INDEX-EXPERIMENT>
+    <Summary>Retire the unreferenced tools/index_project.py experiment instead of porting it to GRACE 4, because .grace/graph and .grace/verification already are the project index.</Summary>
+
+    <Problem>tools/index_project.py (last touched 2026-05-11) walks the repository and writes .graph/project-features.xml. That output path does not exist in the working tree, is absent from .gitignore, and is read by no file in the repository — README.md, AGENTS.md, CI and every other tool never mention it. Half of its feature list was built from openspec/changes/*/proposal.md and openspec/changes/*/specs/**/*.md, which this branch deleted, so those branches can no longer contribute anything; parse_proposal_md and parse_spec_md are now uncalled. The remaining lib/** indexing duplicates what .grace/graph/main.xml (32 modules) and .grace/verification/main.xml (32 entries) declare as durable state. The file also carries a dead stub, scan_paths(), whose loop body is `pass`.</Problem>
+
+    <Goals>
+      <Goal>Remove the unreferenced indexer so that no tool in the repository claims a second, divergent project index.</Goal>
+      <Goal>Keep the two live data-fetch scripts untouched: they regenerate the assets the app loads at runtime.</Goal>
+      <Goal>Leave the repository with a single index of record, .grace/graph plus .grace/verification, validated by the GRACE CLI.</Goal>
+    </Goals>
+
+    <Constraints>
+      <Constraint>GRACE 4 durable state changes only through the approved change lifecycle; no generator script may write files inside .grace/.</Constraint>
+      <Constraint>The repository has no Python test harness or Python tooling configuration, so verification must be a compile check plus repository greps.</Constraint>
+      <Constraint>tools/fetch_gt7_cars.py and tools/fetch_gt7_tracks.py are live tooling and stay byte-identical.</Constraint>
+    </Constraints>
+
+    <NonGoals>
+      <NonGoal>No replacement indexer is written. .grace/graph/main.xml (modules M-*) and .grace/verification/main.xml (entries V-M-*) already answer what index_project.py tried to answer.</NonGoal>
+      <NonGoal>No generated file is added under .grace/, because the CLI validates that directory's grammar and projections.</NonGoal>
+      <NonGoal>No change to the app's lib/**, test/** or asset content; this is tooling hygiene only.</NonGoal>
+    </NonGoals>
+
+    <AcceptanceCriteria>
+      <Criterion>tools/index_project.py is gone from the working tree and from the git index.</Criterion>
+      <Criterion>No tracked file references index_project, .graph/ or project-features.</Criterion>
+      <Criterion>tools/fetch_gt7_cars.py and tools/fetch_gt7_tracks.py are byte-identical to the baseline commit.</Criterion>
+      <Criterion>The two fetch scripts still compile under python3 -m py_compile.</Criterion>
+      <Criterion>grace lint --path . --assertions current still reports zero errors and zero warnings.</Criterion>
+    </AcceptanceCriteria>
+
+    <AffectedAreas>
+      <M-TOOLS-INDEX />
+    </AffectedAreas>
+
+    <VerificationIntent>
+      <ExpectedCommand>ls tools/index_project.py ; git grep -n "index_project\|project-features" ; python3 -m py_compile tools/fetch_gt7_cars.py tools/fetch_gt7_tracks.py ; grace lint --path . --assertions current</ExpectedCommand>
+      <ExpectedEvidence>The ls exits non-zero (file absent), the grep returns no tracked match, py_compile exits zero for both fetch scripts, and grace lint prints "Errors: 0 / Warnings: 0".</ExpectedEvidence>
+    </VerificationIntent>
+
+    <Assumptions>
+      <Assumption>The tool's only entry point is main() under __main__; no module imports tools/index_project.</Assumption>
+      <Assumption>tools/__pycache__ is local build noise and untracked.</Assumption>
+      <Assumption>The user confirmed index_project.py and the .graph idea were an experiment whose remaining value is covered by .grace.</Assumption>
+    </Assumptions>
+  </C-DROP-PROJECT-INDEX-EXPERIMENT>
+</GraceChangeSpec>

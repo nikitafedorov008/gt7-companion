@@ -1,0 +1,73 @@
+<GraceChangePlan graceVersion="4.0" status="applied">
+  <C-DROP-PROJECT-INDEX-EXPERIMENT>
+    <IntentSummary>Delete the unreferenced tools/index_project.py experiment so that .grace/graph and .grace/verification stay the only project index, while proving the two live fetch scripts and every .grace projection are untouched.</IntentSummary>
+
+    <BaselineAssertions>
+      <MustExist>
+        <Value>tools/index_project.py</Value>
+        <Value>tools/fetch_gt7_cars.py</Value>
+        <Value>tools/fetch_gt7_tracks.py</Value>
+      </MustExist>
+    </BaselineAssertions>
+
+    <TargetAssertions>
+      <MustNotExist>
+        <Value>tools/index_project.py</Value>
+      </MustNotExist>
+      <MustExist>
+        <Value>tools/fetch_gt7_cars.py</Value>
+        <Value>tools/fetch_gt7_tracks.py</Value>
+      </MustExist>
+      <MustPassCommand>
+        <Command budgetSeconds="15">python3 -m py_compile tools/fetch_gt7_cars.py tools/fetch_gt7_tracks.py</Command>
+      </MustPassCommand>
+    </TargetAssertions>
+
+    <DurableScope>
+      <None />
+    </DurableScope>
+
+    <ObservedWriteScope>
+      <File>tools/index_project.py</File>
+    </ObservedWriteScope>
+
+    <ImplementationPlan>
+      <T-001>
+        <Title>Remove the obsolete indexer from the working tree and the git index</Title>
+        <DependsOn></DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>tools/index_project.py no longer exists on disk.</Criterion>
+          <Criterion>The removal is staged, so git ls-files no longer reports the path.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>test ! -e tools/index_project.py</Command>
+          <Command>test -z "$(git ls-files -- tools/index_project.py)"</Command>
+        </Verification>
+      </T-001>
+
+      <T-002>
+        <Title>Prove no tracked file still references the removed indexer</Title>
+        <DependsOn>T-001</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>git grep finds no tracked match for index_project or project-features.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>test -z "$(git grep -n -e index_project -e project-features -- . || true)"</Command>
+        </Verification>
+      </T-002>
+
+      <T-003>
+        <Title>Confirm the live data-fetch scripts are untouched and still compile</Title>
+        <DependsOn></DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>Both fetch scripts are byte-identical to the baseline commit.</Criterion>
+          <Criterion>python3 compiles both scripts without error.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>test -z "$(git diff --name-only HEAD -- tools/fetch_gt7_cars.py tools/fetch_gt7_tracks.py)"</Command>
+          <Command>python3 -m py_compile tools/fetch_gt7_cars.py tools/fetch_gt7_tracks.py</Command>
+        </Verification>
+      </T-003>
+    </ImplementationPlan>
+  </C-DROP-PROJECT-INDEX-EXPERIMENT>
+</GraceChangePlan>

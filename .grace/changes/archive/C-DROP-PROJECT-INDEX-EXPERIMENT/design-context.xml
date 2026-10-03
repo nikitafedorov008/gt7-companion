@@ -1,0 +1,31 @@
+<GraceChangeDesignContext graceVersion="4.0">
+  <Change>C-DROP-PROJECT-INDEX-EXPERIMENT</Change>
+  <NormativeStatus>non-normative</NormativeStatus>
+
+  <Rationale>
+    The opening question for this change was "what replaces the index that OpenSpec used to feed?" Two answers were on the table: teach index_project.py to read .grace/graph/main.xml, or retire the tool. Retiring it is the answer that follows the GRACE 4 model, for three reasons.
+
+    First, the tool and the model produce the same artifact. .grace/graph/main.xml plus .grace/verification/main.xml are the durable, lint-validated projection of every module and its verification; index_project.py produced a second, unchecked XML listing of features derived by directory name. Keeping both means two indexes that can disagree, and the unchecked one would win by being easier to regenerate.
+
+    Second, the tool's own reason to exist partly died with OpenSpec. Its most specific parsing — proposal.md and specs/**/*.md — fed from openspec/changes/**, which this branch removed. What remained was a lib/** directory listing.
+
+    Third, writing its output into .grace/ (the option first selected in the interview) contradicts the model: .grace holds normative, hand-maintained state that the CLI parses, and a generated file there would be an artifact the linter does not know and the change lifecycle does not own. That option was dropped rather than implemented.
+  </Rationale>
+
+  <Alternatives>
+    <Alternative>Port the indexer to read .grace/graph/main.xml and .grace/verification/main.xml. Rejected: it duplicates the graph in a second format and adds a generator whose output must then be kept in sync with .grace.</Alternative>
+    <Alternative>Keep the tool and merely delete its dead OpenSpec branches. Rejected: the tool would still be unreferenced, still write to a directory that does not exist, and still present itself as an index of record.</Alternative>
+    <Alternative>Write the generated index inside .grace/. Rejected: the CLI validates .grace contents, and the model reserves that directory for lifecycle-managed state.</Alternative>
+    <Alternative>Remove tools/ entirely, including the two fetch scripts. Rejected: fetch_gt7_cars.py and fetch_gt7_tracks.py are dated the same day as the generated assets and produce assets/cars/cars.json, assets/cars/car_images.json and assets/tracks/tracks.json, which CarCatalog and TrackCatalog load at runtime.</Alternative>
+  </Alternatives>
+
+  <DeferredDecisions>
+    <Decision>Whether the two fetch scripts deserve GRACE modules (they are live tooling outside lib/**: M-TOOLS-GT7-DATA-FETCH would give them graph coverage and a verification entry, which today they lack).</Decision>
+    <Decision>Whether .graph/ should be added to .gitignore as defence against a future run of an older checkout of the tool.</Decision>
+  </DeferredDecisions>
+
+  <Scenarios>
+    <Scenario>An agent asked to find the project's modules reads .grace/graph/index.xml and the routed graph document, and finds no competing index to reconcile.</Scenario>
+    <Scenario>A contributor looking for how assets/cars/cars.json is produced finds tools/fetch_gt7_cars.py; nothing about that path changes in this change.</Scenario>
+  </Scenarios>
+</GraceChangeDesignContext>

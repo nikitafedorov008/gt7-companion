@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import '../../../models/car_dealer/car.dart';
 import '../../../repositories/car_repository.dart';
+import '../car_dealer_error_panel.dart';
 import 'used_car_grid_item.dart';
 
 @RoutePage()
@@ -42,27 +43,10 @@ class _UsedCarDisplayState extends State<UsedCarDisplay> {
           }
 
           if (repository.errorMessage != null) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.error_outline, color: Colors.red, size: 48),
-                  const SizedBox(height: 16),
-                  Text(
-                    'Error Loading Used Car Data',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(repository.errorMessage!, textAlign: TextAlign.center),
-                  const SizedBox(height: 24),
-                  ElevatedButton.icon(
-                    onPressed: () =>
-                        repository.fetchAllCars(forceRefresh: true),
-                    icon: const Icon(Icons.refresh),
-                    label: const Text('Retry'),
-                  ),
-                ],
-              ),
+            return CarDealerErrorPanel(
+              title: 'Error Loading Used Car Data',
+              message: repository.errorMessage!,
+              onRetry: () => repository.fetchAllCars(forceRefresh: true),
             );
           }
 

@@ -1,0 +1,125 @@
+<GraceChangePlan graceVersion="4.0" status="applied">
+  <C-UNIFY-CAR-DEALER-BADGE-AND-ERROR-PANEL>
+    <IntentSummary>Give the car-dealer vertical one definition each of its status badge and its error panel, adopt them in both dealership screens, and keep the rendered result identical.</IntentSummary>
+
+    <BaselineAssertions>
+      <MustExist>
+        <Value>lib/widgets/car_dealer/used/used_car_grid_item.dart</Value>
+        <Value>lib/widgets/car_dealer/legendary/legendary_car_grid_item.dart</Value>
+        <Value>lib/widgets/car_dealer/used/used_car_display.dart</Value>
+        <Value>lib/widgets/car_dealer/legendary/legendary_car_display.dart</Value>
+      </MustExist>
+      <MustPassCommand>
+        <Command budgetSeconds="15">test "$(grep -rho '_buildStatusBadge' lib/widgets/car_dealer/used/used_car_grid_item.dart lib/widgets/car_dealer/legendary/legendary_car_grid_item.dart | wc -l | tr -d ' ')" -eq 6</Command>
+        <Command budgetSeconds="15">test "$(grep -rho 'Icons.error_outline' lib/widgets/car_dealer/used/used_car_display.dart lib/widgets/car_dealer/legendary/legendary_car_display.dart | wc -l | tr -d ' ')" -eq 2</Command>
+        <Command budgetSeconds="180">test "$(flutter analyze 2&gt;&amp;1 | grep -cE '^ *(error|warning|info) • ')" -eq 178</Command>
+      </MustPassCommand>
+    </BaselineAssertions>
+
+    <TargetAssertions>
+      <MustVerify>
+        <Module>M-WIDGET-CAR-DEALER</Module>
+      </MustVerify>
+      <MustPassCommand>
+        <Command budgetSeconds="15">test -z "$(grep -rho '_buildStatusBadge' lib/widgets/car_dealer/)"</Command>
+        <Command budgetSeconds="15">grep -q 'class CarStatusBadge' lib/widgets/car_dealer/car_status_badge.dart &amp;&amp; test "$(grep -rho 'CarStatusBadge(' lib/widgets/car_dealer/used/used_car_grid_item.dart lib/widgets/car_dealer/legendary/legendary_car_grid_item.dart | wc -l | tr -d ' ')" -eq 4</Command>
+        <Command budgetSeconds="15">grep -q 'class CarDealerErrorPanel' lib/widgets/car_dealer/car_dealer_error_panel.dart &amp;&amp; test "$(grep -rho 'CarDealerErrorPanel(' lib/widgets/car_dealer/used/used_car_display.dart lib/widgets/car_dealer/legendary/legendary_car_display.dart | wc -l | tr -d ' ')" -eq 2</Command>
+        <Command budgetSeconds="15">test "$(grep -rho 'Icons.error_outline' lib/widgets/car_dealer/ | wc -l | tr -d ' ')" -eq 1</Command>
+        <Command budgetSeconds="15">grep -q 'Error Loading Used Car Data' lib/widgets/car_dealer/used/used_car_display.dart &amp;&amp; grep -q 'Error Loading Legend Car Data' lib/widgets/car_dealer/legendary/legendary_car_display.dart</Command>
+        <Command budgetSeconds="15">grep -q 'horizontal: 6, vertical: 2' lib/widgets/car_dealer/car_status_badge.dart &amp;&amp; grep -q 'BorderRadius.circular(4)' lib/widgets/car_dealer/car_status_badge.dart &amp;&amp; grep -q 'fontSize: 10' lib/widgets/car_dealer/car_status_badge.dart &amp;&amp; grep -q 'FontWeight.bold' lib/widgets/car_dealer/car_status_badge.dart</Command>
+        <Command budgetSeconds="180">test "$(flutter analyze 2&gt;&amp;1 | grep -cE '^ *(error|warning|info) • ')" -le 178</Command>
+      </MustPassCommand>
+    </TargetAssertions>
+
+    <DurableScope>
+      <VerificationAnchors>
+        <V-M-WIDGET-CAR-DEALER />
+      </VerificationAnchors>
+    </DurableScope>
+
+    <ObservedWriteScope>
+      <File>lib/widgets/car_dealer/car_status_badge.dart</File>
+      <File>lib/widgets/car_dealer/car_dealer_error_panel.dart</File>
+      <File>lib/widgets/car_dealer/used/used_car_grid_item.dart</File>
+      <File>lib/widgets/car_dealer/legendary/legendary_car_grid_item.dart</File>
+      <File>lib/widgets/car_dealer/used/used_car_display.dart</File>
+      <File>lib/widgets/car_dealer/legendary/legendary_car_display.dart</File>
+      <File>.grace/verification/main.xml</File>
+    </ObservedWriteScope>
+
+    <ImplementationPlan>
+      <T-001>
+        <Title>Create the shared status badge with named parameters and the current visual values</Title>
+        <DependsOn></DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>lib/widgets/car_dealer/car_status_badge.dart declares CarStatusBadge with required named text, background and foreground parameters.</Criterion>
+          <Criterion>It renders exactly what the duplicated methods rendered: horizontal padding 6, vertical padding 2, radius 4, fontSize 10, FontWeight.bold.</Criterion>
+          <Criterion>The file opens with its GRACE module contract and map.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -q 'class CarStatusBadge' lib/widgets/car_dealer/car_status_badge.dart &amp;&amp; grep -q 'required this.text' lib/widgets/car_dealer/car_status_badge.dart &amp;&amp; grep -q 'required this.background' lib/widgets/car_dealer/car_status_badge.dart &amp;&amp; grep -q 'required this.foreground' lib/widgets/car_dealer/car_status_badge.dart</Command>
+          <Command>grep -q 'horizontal: 6, vertical: 2' lib/widgets/car_dealer/car_status_badge.dart &amp;&amp; grep -q 'BorderRadius.circular(4)' lib/widgets/car_dealer/car_status_badge.dart &amp;&amp; grep -q 'fontSize: 10' lib/widgets/car_dealer/car_status_badge.dart</Command>
+          <Command>grep -q 'START_MODULE_CONTRACT' lib/widgets/car_dealer/car_status_badge.dart</Command>
+        </Verification>
+      </T-001>
+
+      <T-002>
+        <Title>Create the shared error panel that takes title, message and a retry callback</Title>
+        <DependsOn></DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>lib/widgets/car_dealer/car_dealer_error_panel.dart declares CarDealerErrorPanel with required named title and message plus a required VoidCallback onRetry.</Criterion>
+          <Criterion>It keeps the current layout: error_outline at size 48 in red, titleLarge title, gaps of 16, 8 and 24, and an ElevatedButton.icon with a refresh icon labelled Retry.</Criterion>
+          <Criterion>It imports no repository or model, so it stays a leaf that a widget test can build without the data layer.</Criterion>
+          <Criterion>The file opens with its GRACE module contract and map.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -q 'class CarDealerErrorPanel' lib/widgets/car_dealer/car_dealer_error_panel.dart &amp;&amp; grep -q 'required this.onRetry' lib/widgets/car_dealer/car_dealer_error_panel.dart &amp;&amp; grep -q 'VoidCallback' lib/widgets/car_dealer/car_dealer_error_panel.dart</Command>
+          <Command>grep -q 'Icons.error_outline' lib/widgets/car_dealer/car_dealer_error_panel.dart &amp;&amp; grep -q 'ElevatedButton.icon' lib/widgets/car_dealer/car_dealer_error_panel.dart &amp;&amp; grep -q 'START_MODULE_CONTRACT' lib/widgets/car_dealer/car_dealer_error_panel.dart</Command>
+          <Command>test -z "$(grep -E 'repositories/|models/' lib/widgets/car_dealer/car_dealer_error_panel.dart)"</Command>
+        </Verification>
+      </T-002>
+
+      <T-003>
+        <Title>Adopt the badge in both grid items and delete their private copies</Title>
+        <DependsOn>T-001</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>Neither grid item defines _buildStatusBadge any more.</Criterion>
+          <Criterion>Both call CarStatusBadge twice, passing the same colours as before through named arguments.</Criterion>
+          <Criterion>The comment above the status lines stays, so the SOLD OUT / LIMITED STOCK intent is still readable.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>test -z "$(grep -rho '_buildStatusBadge' lib/widgets/car_dealer/)"</Command>
+          <Command>test "$(grep -rho 'CarStatusBadge(' lib/widgets/car_dealer/used/used_car_grid_item.dart lib/widgets/car_dealer/legendary/legendary_car_grid_item.dart | wc -l | tr -d ' ')" -eq 4</Command>
+          <Command>grep -q 'Colors.red\[100\]' lib/widgets/car_dealer/used/used_car_grid_item.dart &amp;&amp; grep -q 'Colors.orange\[100\]' lib/widgets/car_dealer/legendary/legendary_car_grid_item.dart</Command>
+        </Verification>
+      </T-003>
+
+      <T-004>
+        <Title>Adopt the error panel in both displays, keeping each screen's title</Title>
+        <DependsOn>T-002</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>Both displays build CarDealerErrorPanel, passing their own title and the same retry call: fetchAllCars(forceRefresh: true).</Criterion>
+          <Criterion>The inline Center/Column error trees are gone, so Icons.error_outline appears only inside the shared panel.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>test "$(grep -rho 'CarDealerErrorPanel(' lib/widgets/car_dealer/used/used_car_display.dart lib/widgets/car_dealer/legendary/legendary_car_display.dart | wc -l | tr -d ' ')" -eq 2</Command>
+          <Command>test "$(grep -rho 'Icons.error_outline' lib/widgets/car_dealer/ | wc -l | tr -d ' ')" -eq 1</Command>
+          <Command>grep -q 'Error Loading Used Car Data' lib/widgets/car_dealer/used/used_car_display.dart &amp;&amp; grep -q 'Error Loading Legend Car Data' lib/widgets/car_dealer/legendary/legendary_car_display.dart</Command>
+          <Command>test "$(grep -rho 'fetchAllCars(forceRefresh: true)' lib/widgets/car_dealer/used/used_car_display.dart lib/widgets/car_dealer/legendary/legendary_car_display.dart | wc -l | tr -d ' ')" -eq 2</Command>
+        </Verification>
+      </T-004>
+
+      <T-005>
+        <Title>Record the single-source invariant in the durable verification entry</Title>
+        <DependsOn>T-003, T-004</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>V-M-WIDGET-CAR-DEALER carries a scenario stating that the vertical defines its status badge and its error panel once and that screens adopt them rather than copying them.</Criterion>
+          <Criterion>The durable edit leaves the project's GRACE artifacts error-free, which the outer final gate confirms.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -n "single definition" .grace/verification/main.xml</Command>
+        </Verification>
+      </T-005>
+    </ImplementationPlan>
+  </C-UNIFY-CAR-DEALER-BADGE-AND-ERROR-PANEL>
+</GraceChangePlan>

@@ -129,6 +129,7 @@
 
     <V-M-WIDGET-CAR-DEALER>
       <Scenario kind="success">Used and legendary screens render their grids at phone and desktop widths and open the price history on tap.</Scenario>
+      <Scenario kind="failure">The vertical keeps a single definition of each shared fragment: the stock badge and the error panel live once and both screens adopt them, so a change to their padding, radius or copy cannot drift between the used and legendary cards.</Scenario>
       <Scenario kind="failure">A colour literal in this vertical stays inside 0..255: the used-card decoration resolves to alpha 24/255, and an out-of-range argument such as the historical withAlpha(280) counts as a defect even though the SDK masks it silently with &amp; 0xff.</Scenario>
       <Scenario kind="failure">A missing car image renders the placeholder instead of collapsing the card.</Scenario>
     </V-M-WIDGET-CAR-DEALER>

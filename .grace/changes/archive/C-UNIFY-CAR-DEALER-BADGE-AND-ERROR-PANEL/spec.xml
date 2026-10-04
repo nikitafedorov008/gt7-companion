@@ -1,0 +1,51 @@
+<GraceChangeSpec graceVersion="4.0" status="applied">
+  <C-UNIFY-CAR-DEALER-BADGE-AND-ERROR-PANEL>
+    <Summary>Single-source the two car-dealer UI fragments that exist twice: the status badge is byte-identical in both grid items, and the error panel differs between the two displays by one word in its title.</Summary>
+
+    <Problem>lib/widgets/car_dealer/used/used_car_grid_item.dart:203 and lib/widgets/car_dealer/legendary/legendary_car_grid_item.dart:206 define _buildStatusBadge with identical bodies — verified by extracting both 17-line methods and diffing them, which reports no difference at all. Four call sites pass the same two pairs of colours ('SOLD OUT' with red[100]/red[800], 'LIMITED STOCK' with orange[100]/orange[800]) through positional arguments, against the project's named-parameter convention. Separately, lib/widgets/car_dealer/used/used_car_display.dart:44 and lib/widgets/car_dealer/legendary/legendary_car_display.dart:65 each build the same error state — Center, error_outline icon at size 48, titleLarge title, message, ElevatedButton.icon retry calling fetchAllCars(forceRefresh: true) — differing only in the title string and indentation. Any future change to the badge padding, radius or type size, or to the error layout, has to be made twice and can silently drift.</Problem>
+
+    <Goals>
+      <Goal>One definition each for the badge and the error panel, adopted by both dealership screens.</Goal>
+      <Goal>Give the badge named required parameters, matching the project's constructor convention, without changing what it renders.</Goal>
+      <Goal>Keep the two screens' current appearance pixel for pixel: same padding, radius, font size and weight, same icon, gaps and retry affordance.</Goal>
+      <Goal>Govern the two new files with GRACE module contracts, as the vertical's existing files now are.</Goal>
+    </Goals>
+
+    <Constraints>
+      <Constraint>The error panel stays a leaf: it receives title, message and a retry callback rather than a repository, so it can be built in a test without the data layer.</Constraint>
+      <Constraint>Both grid items and displays are legacy-generation files; the extracted widgets keep the same literal colours and TextStyle values rather than switching to Theme.of(context).</Constraint>
+      <Constraint>The extraction must not change which widget rebuilds or when: no new Listenable, no StatefulWidget.</Constraint>
+    </Constraints>
+
+    <NonGoals>
+      <NonGoal>No restyling to the newer canon error panel used by lib/widgets/daily_races/daily_races_display.dart (colorScheme.error tint, IconButton retry). That is a design decision for the vertical, not a de-duplication.</NonGoal>
+      <NonGoal>The error panels elsewhere in the app are untouched; the only two Icons.error_outline usages in lib/ are these car-dealer ones.</NonGoal>
+      <NonGoal>No change to the graph's module list: the new files are parts of M-WIDGET-CAR-DEALER, which already names the vertical.</NonGoal>
+      <NonGoal>The 39 deprecated withOpacity calls and the remaining prints elsewhere stay out of scope.</NonGoal>
+    </NonGoals>
+
+    <AcceptanceCriteria>
+      <Criterion>No _buildStatusBadge definition or call remains under lib/widgets/car_dealer/.</Criterion>
+      <Criterion>CarStatusBadge is defined once and called exactly four times, two per grid item.</Criterion>
+      <Criterion>Icons.error_outline appears exactly once under lib/widgets/car_dealer/ — inside the shared panel.</Criterion>
+      <Criterion>CarDealerErrorPanel is defined once and used by both displays.</Criterion>
+      <Criterion>Both original titles still appear verbatim: 'Error Loading Used Car Data' and 'Error Loading Legend Car Data'.</Criterion>
+      <Criterion>The badge still renders horizontal padding 6, vertical padding 2, radius 4, fontSize 10 and bold text.</Criterion>
+      <Criterion>flutter analyze reports at most 178 issues with zero errors (measured baseline after C-FIX-CAR-DEALER-ALPHA-AND-PRINT: 178, 0 errors).</Criterion>
+    </AcceptanceCriteria>
+
+    <AffectedAreas>
+      <M-WIDGET-CAR-DEALER />
+    </AffectedAreas>
+
+    <VerificationIntent>
+      <ExpectedCommand>grep -rc '_buildStatusBadge' lib/widgets/car_dealer/ ; grep -rc 'CarStatusBadge' lib/widgets/car_dealer/ ; grep -rc 'Icons.error_outline' lib/widgets/car_dealer/ ; test "$(flutter analyze 2&gt;&amp;1 | grep -cE '^ *(error|warning|info) • ')" -le 178</ExpectedCommand>
+      <ExpectedEvidence>The first grep finds nothing, the badge count shows one definition plus four call sites across the shared file and the two grid items, Icons.error_outline counts one, and the analyzer count stays at or below 178 with zero errors.</ExpectedEvidence>
+    </VerificationIntent>
+
+    <Assumptions>
+      <Assumption>Two files, one widget each, is the right granularity: the project gives cross-file reusable widgets their own file (race_field_histogram.dart, adaptive_navbar.dart), and the two fragments are unrelated to each other, so a single car_dealer_widgets.dart would be a grab-bag name the codebase does not otherwise use.</Assumption>
+      <Assumption>The screens' current appearance is the intent; the extraction preserves it rather than taking the opportunity to restyle.</Assumption>
+    </Assumptions>
+  </C-UNIFY-CAR-DEALER-BADGE-AND-ERROR-PANEL>
+</GraceChangeSpec>

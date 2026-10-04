@@ -17,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter_avif/flutter_avif.dart';
 import '../../../models/car_dealer/car.dart';
+import '../car_status_badge.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UsedCarCardItem extends StatelessWidget {
@@ -115,16 +116,16 @@ class UsedCarCardItem extends StatelessWidget {
 
                         // Status: SOLD OUT / LIMITED STOCK
                         if (car.isSoldOut)
-                          _buildStatusBadge(
-                            'SOLD OUT',
-                            Colors.red[100]!,
-                            Colors.red[800]!,
+                          CarStatusBadge(
+                            text: 'SOLD OUT',
+                            background: Colors.red[100]!,
+                            foreground: Colors.red[800]!,
                           )
                         else if (car.isLimitedStock)
-                          _buildStatusBadge(
-                            'LIMITED STOCK',
-                            Colors.orange[100]!,
-                            Colors.orange[800]!,
+                          CarStatusBadge(
+                            text: 'LIMITED STOCK',
+                            background: Colors.orange[100]!,
+                            foreground: Colors.orange[800]!,
                           ),
 
                         const SizedBox(height: 8),
@@ -195,24 +196,6 @@ class UsedCarCardItem extends StatelessWidget {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildStatusBadge(String text, Color bgColor, Color textColor) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-      decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 10,
-          fontWeight: FontWeight.bold,
-          color: textColor,
         ),
       ),
     );

@@ -1,0 +1,54 @@
+<GraceChangeSpec graceVersion="4.0" status="applied">
+  <C-LAND-AGENT-TOOLING-FROM-BRANCH>
+    <Summary>Land the agent tooling stranded on chore/agent-config-and-theme — the Dart MCP server registration and the flutter-run skill — onto main, adapted so every harness used with this repository can follow it, then delete the branch.</Summary>
+
+    <Problem>chore/agent-config-and-theme had its PR (#2) merged on 2026-08-13T14:02Z, but three commits landed on the branch around that merge and never got a PR of their own: 4252313 registers the Dart MCP server (.mcp.json plus enabledMcpjsonServers in .claude/settings.json), 0e53a3d adds a 151-line flutter-run skill, and 803228c is a local-only commit that was never even pushed. None of that content is on main: .mcp.json is absent, .agents/skills/flutter-run/ is absent, and the 'Live app inspection (Dart MCP server)' section is absent from AGENTS.md. The skill itself names the problem in its last paragraph — it is only on the branch that introduced it, so every other branch is missing the setup and the file. It is the only copy: nothing equivalent exists outside the repository.</Problem>
+
+    <Goals>
+      <Goal>Put the Dart MCP registration on main so every branch and every harness inherits it: .mcp.json at the repository root plus the Claude Code opt-in in .claude/settings.json.</Goal>
+      <Goal>Land the flutter-run skill where this repository's agents actually read skills — .agents/skills/flutter-run/SKILL.md — without losing any of the operational knowledge it carries.</Goal>
+      <Goal>Adapt the skill's tool references to every harness in use here, with the plain-CLI path as the universal floor that works with no MCP at all.</Goal>
+      <Goal>Bring the live-app-inspection guidance into the current AGENTS.md and CLAUDE.md, which were rewritten for GRACE 4 and no longer contain it.</Goal>
+      <Goal>Only then delete the branch, so the rescue is what makes the deletion safe.</Goal>
+    </Goals>
+
+    <Constraints>
+      <Constraint>The skill must keep its harness-independent content verbatim in substance: the SIGUSR1/SIGUSR2 CLI loop, the JSON-RPC probe of dart mcp-server, the 21-tool inventory, the traps (plain path not file://, boot devices first, pass udid, hot reload resets scroll and navigation, swipe-from-card, python3 -u) and the app-specific layout knowledge (nav bar overlay needing ~110 pt, DailyRacesDisplay is a content block, cards carry no fixed size).</Constraint>
+      <Constraint>Tool names must be verifiable in this workspace, not invented: DSH exposes the server as dart-mcp-server (hot_reload, hot_restart, get_runtime_errors, widget_inspector, pub, dtd) and device screenshots through the ios_sim tools; Claude Code reaches the same server as its dart MCP entry.</Constraint>
+      <Constraint>No application code changes: the diff must touch only .mcp.json, .claude/settings.json, AGENTS.md, CLAUDE.md and the new skill file.</Constraint>
+      <Constraint>JSON files must stay valid JSON, and AGENTS.md/CLAUDE.md must stay byte-identical to each other, as the repository keeps them mirrored.</Constraint>
+    </Constraints>
+
+    <NonGoals>
+      <NonGoal>No change to the graph's module list: M-WIDGET-CAR-DEALER and friends describe the app, while this is repository tooling. The change names M-AGENT-TOOLING as its affected area and records that it is an area, not a graph module.</NonGoal>
+      <NonGoal>The branch's commit history is not cherry-picked; the content is landed in an adapted form, so main..chore/agent-config-and-theme will still list three commits after this change. That is expected and is recorded in the commit message.</NonGoal>
+      <NonGoal>No DSH profile edits: registering the server in ~/.dsh is a separate operation that requires the app to be closed.</NonGoal>
+      <NonGoal>The repo's other agent directories (.opencode, .mimosa, .zcode and similar) are untouched.</NonGoal>
+    </NonGoals>
+
+    <AcceptanceCriteria>
+      <Criterion>.mcp.json exists at the repository root, is valid JSON, and registers a dart server that runs `dart mcp-server`.</Criterion>
+      <Criterion>.claude/settings.json still parses as JSON and carries "dart" in enabledMcpjsonServers.</Criterion>
+      <Criterion>.agents/skills/flutter-run/SKILL.md exists with frontmatter name: flutter-run and a description naming when to use it.</Criterion>
+      <Criterion>The skill names the CLI fallback with SIGUSR1/SIGUSR2, the JSON-RPC probe, and the harness-specific routes for Claude Code and DSH.</Criterion>
+      <Criterion>AGENTS.md and CLAUDE.md both carry the live-app-inspection section and remain identical to each other.</Criterion>
+      <Criterion>No file outside the declared write scope changes: git diff --name-only lists only the five expected paths.</Criterion>
+      <Criterion>The chore/agent-config-and-theme branch exists on neither the local repository nor origin after the change.</Criterion>
+    </AcceptanceCriteria>
+
+    <AffectedAreas>
+      <M-AGENT-TOOLING />
+    </AffectedAreas>
+
+    <VerificationIntent>
+      <ExpectedCommand>python3 -c 'json.load(open(".mcp.json"))' ; python3 -c 'json.load(open(".claude/settings.json"))' ; head -3 .agents/skills/flutter-run/SKILL.md ; diff -q AGENTS.md CLAUDE.md ; git diff --name-only --diff-filter=ACM $(git rev-parse HEAD)</ExpectedCommand>
+      <ExpectedEvidence>Both JSON files parse, the skill opens with name: flutter-run, AGENTS.md and CLAUDE.md are identical, and the changed-path list contains only .mcp.json, .claude/settings.json, AGENTS.md, CLAUDE.md and the skill.</ExpectedEvidence>
+    </VerificationIntent>
+
+    <Assumptions>
+      <Assumption>The branch's skill content is still accurate; the August timings and traps are presented as measured then, and the tool-name route is what needed updating, not the knowledge.</Assumption>
+      <Assumption>One copy of the skill in .agents/skills/ is enough: that is the directory this repository's agent sessions read, and the user chose not to mirror it into .claude/skills/.</Assumption>
+      <Assumption>Deleting the branch is safe only after this change lands, which is why the deletion is the last task rather than a preliminary.</Assumption>
+    </Assumptions>
+  </C-LAND-AGENT-TOOLING-FROM-BRANCH>
+</GraceChangeSpec>

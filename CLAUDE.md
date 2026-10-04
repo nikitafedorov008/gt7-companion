@@ -55,6 +55,33 @@
 - When introducing network or service dependencies, register them in DI and keep them decoupled from widgets.
 - Read `docs/CODE_STYLE.md` (or the `gt7-*` skills) before writing UI: the screen skeleton, spacing scale, card shell, state handling and colour rules are fixed there.
 
+## Live app inspection (Dart MCP server)
+
+`.mcp.json` registers `dart mcp-server`, which ships with the Dart SDK — nothing
+to install. It talks to the Dart Tooling Daemon, the same daemon DevTools uses,
+so an agent can run the app and look at it rather than asking the user to. The
+`.agents/skills/flutter-run/` skill carries the full procedure, per harness.
+
+Typical loop:
+
+1. `list_devices` → pick a target
+2. `launch_app` with `root` as a **plain path** (not a `file://` URI — passing a
+   URI makes the launch fail with a confusing `ProcessException`) — returns a
+   PID and a DTD URI
+3. `connect_dart_tooling_daemon` with that URI
+4. `hot_reload` after edits, then `get_runtime_errors` / `get_widget_tree`
+5. `stop_app` with the PID
+
+Verified on this project: macOS launches in ~25 s, the iOS simulator in ~50 s,
+and hot reload plus widget-tree inspection work on both. Android needs
+`flutter emulators --launch Pixel_9_Pro` first; iOS simulators need
+`xcrun simctl boot <udid>` before they appear in `list_devices`.
+
+Prefer the server's `run_tests` over `flutter test` when the tools are available.
+
+Run the SDK this project pins (`.fvm/flutter_sdk/bin/flutter`), not whichever
+`flutter` is on `PATH` — a different SDK silently rewrites `pubspec.lock`.
+
 ## Notes for automation
 - `docs/CODE_STYLE.md` and the `gt7-*` skills are the primary references for code and UI conventions; `README.md` for setup.
 - Avoid broad refactors unless the user requests them explicitly.

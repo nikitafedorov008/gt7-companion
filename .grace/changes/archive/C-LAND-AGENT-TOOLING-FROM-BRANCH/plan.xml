@@ -1,0 +1,119 @@
+<GraceChangePlan graceVersion="4.0" status="applied">
+  <C-LAND-AGENT-TOOLING-FROM-BRANCH>
+    <IntentSummary>Rescue the agent tooling stranded on chore/agent-config-and-theme onto main — the Dart MCP registration and the flutter-run skill adapted for every harness in use — and only then delete the branch.</IntentSummary>
+
+    <BaselineAssertions>
+      <MustExist>
+        <Value>AGENTS.md</Value>
+        <Value>CLAUDE.md</Value>
+        <Value>.claude/settings.json</Value>
+      </MustExist>
+      <MustPassCommand>
+        <Command budgetSeconds="15">test ! -e .mcp.json</Command>
+        <Command budgetSeconds="15">test ! -e .agents/skills/flutter-run/SKILL.md</Command>
+        <Command budgetSeconds="30">test "$(git log --oneline main..chore/agent-config-and-theme | wc -l | tr -d ' ')" -eq 3</Command>
+        <Command budgetSeconds="15">git cat-file -e chore/agent-config-and-theme:.claude/skills/flutter-run/SKILL.md</Command>
+        <Command budgetSeconds="15">diff -q AGENTS.md CLAUDE.md</Command>
+      </MustPassCommand>
+    </BaselineAssertions>
+
+    <TargetAssertions>
+      <MustPassCommand>
+        <Command budgetSeconds="15">python3 -c 'import json;d=json.load(open(".mcp.json"));assert d["mcpServers"]["dart"]["args"]==["mcp-server"]'</Command>
+        <Command budgetSeconds="15">python3 -c 'import json;d=json.load(open(".claude/settings.json"));assert "dart" in d.get("enabledMcpjsonServers",[])'</Command>
+        <Command budgetSeconds="15">head -2 .agents/skills/flutter-run/SKILL.md | grep -q "name: flutter-run"</Command>
+        <Command budgetSeconds="15">grep -q 'SIGUSR1' .agents/skills/flutter-run/SKILL.md &amp;&amp; grep -q 'Claude Code' .agents/skills/flutter-run/SKILL.md &amp;&amp; grep -q 'dart-mcp-server' .agents/skills/flutter-run/SKILL.md</Command>
+        <Command budgetSeconds="15">grep -q 'Live app inspection' AGENTS.md &amp;&amp; grep -q 'Live app inspection' CLAUDE.md &amp;&amp; diff -q AGENTS.md CLAUDE.md</Command>
+        <Command budgetSeconds="15">test -z "$(git diff --name-only --diff-filter=ACM | grep -vE '^(\.mcp\.json|\.claude/settings\.json|AGENTS\.md|CLAUDE\.md|\.agents/skills/flutter-run/SKILL\.md)$')"</Command>
+        <Command budgetSeconds="60">test -z "$(git branch --list chore/agent-config-and-theme)" &amp;&amp; test -z "$(git ls-remote --heads origin chore/agent-config-and-theme)"</Command>
+      </MustPassCommand>
+    </TargetAssertions>
+
+    <DurableScope>
+      <None />
+    </DurableScope>
+
+    <ObservedWriteScope>
+      <File>.mcp.json</File>
+      <File>.claude/settings.json</File>
+      <File>.agents/skills/flutter-run/SKILL.md</File>
+      <File>AGENTS.md</File>
+      <File>CLAUDE.md</File>
+    </ObservedWriteScope>
+
+    <ImplementationPlan>
+      <T-001>
+        <Title>Register the Dart MCP server for the repository and opt Claude Code into it</Title>
+        <DependsOn></DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>.mcp.json exists at the root and declares a dart server whose command runs `dart mcp-server` with no environment overrides.</Criterion>
+          <Criterion>.claude/settings.json keeps its existing enabledPlugins key and gains enabledMcpjsonServers with "dart".</Criterion>
+          <Criterion>Both files parse as JSON.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>python3 -c 'import json;d=json.load(open(".mcp.json"));assert d["mcpServers"]["dart"]["command"]=="dart" and d["mcpServers"]["dart"]["args"]==["mcp-server"]'</Command>
+          <Command>python3 -c 'import json;d=json.load(open(".claude/settings.json"));assert "dart" in d["enabledMcpjsonServers"] and "enabledPlugins" in d'</Command>
+        </Verification>
+      </T-001>
+
+      <T-002>
+        <Title>Write the flutter-run skill where this repository's sessions read skills</Title>
+        <DependsOn></DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>.agents/skills/flutter-run/SKILL.md carries frontmatter with name: flutter-run and a description that says when to use it.</Criterion>
+          <Criterion>Every piece of operational knowledge from the branch survives: the SIGUSR1/SIGUSR2 CLI loop, the JSON-RPC probe of the server, the 21-tool inventory, the traps (plain path rather than file://, boot devices first, pass udid, hot reload resets scroll and navigation, swipe from a card registers as a tap, python3 -u for buffered output) and the app layout knowledge (the floating nav bar needs about 110 pt of bottom padding, DailyRacesDisplay is a content block, cards carry no fixed size and take their shape from kDailyRaceCardAspectRatio).</Criterion>
+          <Criterion>The routes are named per harness with the plain-CLI path as the universal floor: Claude Code through its dart MCP entry, DSH through dart-mcp-server and its ios_sim tools, and no-MCP through the CLI.</Criterion>
+          <Criterion>No tool name is invented: each one named for DSH exists in this workspace.</Criterion>
+          <Criterion>The original's closing note is updated: the file is no longer branch-only, so it now says where the setup lives.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>head -4 .agents/skills/flutter-run/SKILL.md</Command>
+          <Command>for s in SIGUSR1 SIGUSR2 'tools/list' 'mcp-server' 'plain path' '110' 'DailyRacesDisplay' 'kDailyRaceCardAspectRatio' 'Claude Code' 'dart-mcp-server'; do grep -q "$s" .agents/skills/flutter-run/SKILL.md || echo "MISSING: $s"; done</Command>
+          <Command>grep -c '' .agents/skills/flutter-run/SKILL.md</Command>
+        </Verification>
+      </T-002>
+
+      <T-003>
+        <Title>Bring the live-app-inspection guidance into the current AGENTS.md and CLAUDE.md</Title>
+        <DependsOn>T-001</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>Both files carry a live-app-inspection section naming .mcp.json, the plain-path rule, the launch timings measured on this project, and the device boot steps.</Criterion>
+          <Criterion>The section is adapted to the rewritten files: it no longer points at openspec/config.yaml and it keeps the GRACE 4 protocol section intact.</Criterion>
+          <Criterion>AGENTS.md and CLAUDE.md remain byte-identical.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -q 'Live app inspection' AGENTS.md &amp;&amp; grep -q 'Live app inspection' CLAUDE.md &amp;&amp; diff -q AGENTS.md CLAUDE.md</Command>
+          <Command>grep -q '.mcp.json' AGENTS.md &amp;&amp; grep -q 'file://' AGENTS.md</Command>
+          <Command>grep -q 'GRACE 4 project protocol' AGENTS.md</Command>
+        </Verification>
+      </T-003>
+
+      <T-004>
+        <Title>Confirm the skill is loadable and the change touched nothing else</Title>
+        <DependsOn>T-002, T-003</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>The skill sits in .agents/skills/flutter-run/ with a parseable frontmatter block whose name matches its directory.</Criterion>
+          <Criterion>git diff --name-only lists only the five declared paths, proving no application code moved.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>test "$(basename "$(dirname .agents/skills/flutter-run/SKILL.md)")" = "flutter-run" &amp;&amp; sed -n '2p' .agents/skills/flutter-run/SKILL.md | grep -q 'name: flutter-run'</Command>
+          <Command>test -z "$(git diff --name-only --diff-filter=ACM | grep -vE '^(\.mcp\.json|\.claude/settings\.json|AGENTS\.md|CLAUDE\.md|\.agents/skills/flutter-run/SKILL\.md)$')"</Command>
+          <Command>test "$(git status --porcelain -- lib test assets | wc -l | tr -d ' ')" -eq 0</Command>
+        </Verification>
+      </T-004>
+
+      <T-005>
+        <Title>Delete the rescued branch locally and on origin</Title>
+        <DependsOn>T-001, T-002, T-003</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>The branch is deleted with `git branch -D chore/agent-config-and-theme` and `git push origin --delete chore/agent-config-and-theme`, so it is gone from the local repository and from origin.</Criterion>
+          <Criterion>The deletion happens only after the content is on main, which the dependency ordering enforces.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>test -z "$(git branch --list chore/agent-config-and-theme)"</Command>
+          <Command>test -z "$(git ls-remote --heads origin chore/agent-config-and-theme)"</Command>
+        </Verification>
+      </T-005>
+    </ImplementationPlan>
+  </C-LAND-AGENT-TOOLING-FROM-BRANCH>
+</GraceChangePlan>

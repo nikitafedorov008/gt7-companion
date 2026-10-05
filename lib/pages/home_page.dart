@@ -5,7 +5,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluid_background/fluid_background.dart';
 
+import '../models/sfx.dart';
 import '../router/app_router.dart';
+import '../services/sound_service.dart';
 import '../services/telemetry_service.dart';
 import '../widgets/daily_races/daily_races_display.dart';
 import '../widgets/telemetry/telemetry_screen.dart';
@@ -88,7 +90,13 @@ class _HomePageState extends State<HomePage> {
                     const TelemetryPanel(),
 
                     const SizedBox(height: 24),
-                    Text('Services', style: theme.textTheme.titleMedium),
+                    Row(
+                      children: [
+                        Text('Services', style: theme.textTheme.titleMedium),
+                        const Spacer(),
+                        const _SoundToggle(),
+                      ],
+                    ),
                     const SizedBox(height: 12),
 
                     LayoutBuilder(
@@ -259,7 +267,11 @@ class _AppTile extends StatelessWidget {
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
-        onTap: onTap,
+        onTap: () {
+          // Every hub tile is this widget, so the press sound lives here once.
+          context.sfx(Sfx.tap);
+          onTap();
+        },
         child: Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
@@ -316,6 +328,32 @@ class TelemetryDetailsScreen extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+}
+
+/// Switches the interface sound on and off.
+///
+/// It watches the service so the icon always reflects the stored preference, and
+/// switching sound on plays the toggle effect: the one control whose job is
+/// sound would otherwise be the only silent one.
+class _SoundToggle extends StatelessWidget {
+  const _SoundToggle();
+
+  @override
+  Widget build(BuildContext context) {
+    final sound = context.watch<SoundService>();
+    final theme = Theme.of(context);
+
+    return IconButton(
+      tooltip: sound.enabled ? 'Sound on' : 'Sound off',
+      onPressed: () {
+        final turnOn = !sound.enabled;
+        sound.setEnabled(turnOn);
+        if (turnOn) context.sfx(Sfx.toggle);
+      },
+      icon: Icon(sound.enabled ? Icons.volume_up : Icons.volume_off),
+      color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
     );
   }
 }

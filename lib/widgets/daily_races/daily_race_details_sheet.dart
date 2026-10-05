@@ -5,6 +5,9 @@
 // record holder, how the field breaks down by rating and by country — and this
 // is where that lands.
 import 'package:flutter/material.dart';
+
+import '../../models/sfx.dart';
+import '../../services/sound_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../models/daily_races/daily_race.dart';
@@ -29,7 +32,12 @@ class DailyRaceDetailsSheet extends StatelessWidget {
   static Future<void> show(BuildContext context, DailyRace race) {
     final wide = MediaQuery.sizeOf(context).width >= 700;
 
+    // Read before the await: both surfaces are popup routes, so the route
+    // observer leaves their open and close effects to this call.
+    final sound = context.sound;
+
     if (wide) {
+      sound.play(Sfx.open);
       return showDialog<void>(
         context: context,
         builder: (_) => Dialog(
@@ -40,9 +48,10 @@ class DailyRaceDetailsSheet extends StatelessWidget {
             child: DailyRaceDetailsSheet(race: race),
           ),
         ),
-      );
+      ).whenComplete(() => sound.play(Sfx.close));
     }
 
+    sound.play(Sfx.open);
     return showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
@@ -55,7 +64,7 @@ class DailyRaceDetailsSheet extends StatelessWidget {
         builder: (_, controller) =>
             DailyRaceDetailsSheet(race: race, scrollController: controller),
       ),
-    );
+    ).whenComplete(() => sound.play(Sfx.close));
   }
 
   @override

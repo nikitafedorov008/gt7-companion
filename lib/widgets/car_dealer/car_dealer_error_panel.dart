@@ -15,6 +15,9 @@
 
 import 'package:flutter/material.dart';
 
+import '../../models/sfx.dart';
+import '../../services/sound_service.dart';
+
 /// The error state both dealership screens show when loading fails.
 ///
 /// Extracted from two copies that differed only in their title string. It stays
@@ -46,7 +49,10 @@ class CarDealerErrorPanel extends StatelessWidget {
           Text(message, textAlign: TextAlign.center),
           const SizedBox(height: 24),
           ElevatedButton.icon(
-            onPressed: onRetry,
+            onPressed: () {
+              context.sfx(Sfx.tap);
+              onRetry();
+            },
             icon: const Icon(Icons.refresh),
             label: const Text('Retry'),
           ),

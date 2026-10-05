@@ -60,6 +60,9 @@ dependencies:
   flutter_inappwebview: ^6.1.5
   shared_preferences: ^2.3.5
   marionette_flutter: ^0.6.0
+
+  # For interface sounds (assets are CC0, see assets/sfx/SOURCES.md)
+  audioplayers: ^6.8.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -74,6 +77,7 @@ flutter:
     - assets/images/
     - assets/cars/
     - assets/tracks/
+    - assets/sfx/
     - schemas/
 
   # example:

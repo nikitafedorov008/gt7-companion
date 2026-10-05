@@ -34,6 +34,7 @@
         <V-M-DI-APPSCOPE />
         <V-M-ROUTER />
         <V-M-THEME />
+        <V-M-SOUND />
         <V-M-FEATURE-PROFILE />
       </Owns>
     </VD-MAIN>

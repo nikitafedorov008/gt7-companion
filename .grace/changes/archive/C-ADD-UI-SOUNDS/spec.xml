@@ -1,0 +1,62 @@
+<GraceChangeSpec graceVersion="4.0" status="applied">
+  <C-ADD-UI-SOUNDS>
+    <Summary>Give the interface sound: one SoundService behind an injectable player, wired at two seams — a navigator observer for transitions and an explicit context call for primary interactions — with a persisted on/off toggle in the hub and CC0 assets.</Summary>
+
+    <Problem>The app is a dark, game-styled companion and it is completely silent: `pubspec.yaml` has no audio dependency, there is no `assets/` folder for sound, and `lib/`, `test/` contain not one use of SystemSound, HapticFeedback or any audio player. Every interaction gives visual feedback only. Two facts shape the design. First, Flutter's built-in SystemSound cannot deliver this: in the pinned SDK only `click` works cross-platform, `tick` is documented as "ignored on all platforms except iOS", `alert` as "desktop platforms only", and web plays nothing at all — so there is no framework-only path to a Gran Turismo-like interface. Second, `lib/services/settings_service.dart` already exists as a zero-byte stub, so the obvious home for a persisted preference is currently dead code rather than a home.</Problem>
+
+    <Goals>
+      <Goal>One owner for sound: a SoundService that decides whether, what and how loudly to play, registered in AppScope like every other app service.</Goal>
+      <Goal>No screen knows audio exists. Route transitions are sounded by a NavigatorObserver, so pushing and popping screens needs no per-screen code.</Goal>
+      <Goal>Primary interactions (hub tiles, tab switches, cards, sheets, retry) ask for a sound through a one-line context call instead of importing the player.</Goal>
+      <Goal>A persisted on/off toggle reachable from the app's own interface, defaulting to on at a low volume.</Goal>
+      <Goal>Sound never breaks tests: with the service disabled or a fake player injected, nothing touches a platform channel.</Goal>
+    </Goals>
+
+    <Constraints>
+      <Constraint>Follow the project's conventions: `ChangeNotifier` + `AppScope` registration in dependency order, an `enum` plus `extension` for the sound catalogue, named required parameters, and the same low-churn approach used for the other verticals.</Constraint>
+      <Constraint>Assets must be redistributable. The Kenney Interface Sounds pack is CC0 ("free to use in personal, educational and commercial projects", crediting optional), so it may be committed with an attribution note; game-ripped GT7 audio is not eligible and is not used.</Constraint>
+      <Constraint>Keep the audio surface tiny: eight short effects, roughly 80 KB, no music, no ambient loops.</Constraint>
+      <Constraint>Debounce each sound by at least 40 ms so a fast tapper cannot machine-gun clicks, and keep default volume low (about 0.35) so a companion app running next to a game is not obnoxious.</Constraint>
+      <Constraint>Widget tests must keep working: the player must be injectable and the service must make no platform call when it is disabled, or the suite starts throwing MissingPluginException.</Constraint>
+      <Constraint>Neither the telemetry path nor the profile feature is touched; the realtime engine sound is the game's job, not this app's.</Constraint>
+    </Constraints>
+
+    <NonGoals>
+      <NonGoal>No engine, tyre or race audio: this change is interface feedback only.</NonGoal>
+      <NonGoal>Not every tap is sounded. Haptic-and-sound on dead areas, empty space and scroll gestures is explicitly out of scope; only deliberate interactions make a noise.</NonGoal>
+      <NonGoal>No per-sound volume mixer UI, no sound themes, no custom file picker.</NonGoal>
+      <NonGoal>The empty `settings_service.dart` is not resurrected as a second settings home; if it stays dead it should be deleted in a separate change.</NonGoal>
+      <NonGoal>No changes to the profile page or telemetry widgets, which were written by another author.</NonGoal>
+    </NonGoals>
+
+    <AcceptanceCriteria>
+      <Criterion>pubspec.yaml declares the audioplayers dependency and registers assets/sfx/.</Criterion>
+      <Criterion>assets/sfx/ holds the eight effects named in the sound catalogue, plus a note recording the pack, its CC0 license and its source URL.</Criterion>
+      <Criterion>lib/models/sfx.dart defines an Sfx enum with an extension mapping each value to its asset and to a per-sound volume multiplier.</Criterion>
+      <Criterion>lib/services/sfx_player.dart defines the playback seam (preload, play, dispose) with the audioplayers implementation kept behind it, so tests inject a fake.</Criterion>
+      <Criterion>lib/services/sound_service.dart exposes enabled, volume, play(Sfx), preload() and setEnabled(bool), persists the preference through SharedPreferences, and debounces repeats.</Criterion>
+      <Criterion>AppScope registers the service, and lib/app.dart passes the navigator observer, so transitions sound without touching any screen.</Criterion>
+      <Criterion>The home hub shows a toggle that flips SoundService.enabled, and the toggle itself plays the toggle sound when switching on.</Criterion>
+      <Criterion>Primary interactions in the hub, the tab bar, the car-dealer cards, the daily-race sheet and the retry buttons ask for their sound through the context call.</Criterion>
+      <Criterion>A unit test proves that a disabled service calls the player zero times, that an enabled one calls it once per sound, and that a repeat inside the debounce window is dropped.</Criterion>
+      <Criterion>The existing widget suite still passes, and flutter analyze reports no new issues on the pinned SDK.</Criterion>
+    </AcceptanceCriteria>
+
+    <AffectedAreas>
+      <M-SOUND />
+      <M-SHELL-HOME />
+      <M-DI-APPSCOPE />
+    </AffectedAreas>
+
+    <VerificationIntent>
+      <ExpectedCommand>.fvm/flutter_sdk/bin/flutter analyze ; .fvm/flutter_sdk/bin/flutter test ; .fvm/flutter_sdk/bin/flutter test test/sound_service_test.dart</ExpectedCommand>
+      <ExpectedEvidence>The analyzer reports no new issues, the existing suite stays green, and the new unit test proves the three service behaviours above. Actual audible output cannot be asserted headlessly: the on-device confirmation is a run of the app on macOS or an iPad simulator through the flutter-run skill, listening for a click on tap, a transition sound on navigation and silence after the toggle is switched off.</ExpectedEvidence>
+    </VerificationIntent>
+
+    <Assumptions>
+      <Assumption>audioplayers is the right engine: MIT, verified publisher, 1.33M downloads, all six platforms, and no native toolchain in the build — with our own thin player seam the engine can be replaced later by editing one file.</Assumption>
+      <Assumption>One preloaded player per effect with ReleaseMode.stop is enough for interface feedback; layering the same effect over itself is deliberately not supported, since restarting is what a tap should do.</Assumption>
+      <Assumption>Kenney's pack files sound close enough to the game's digital interface style to serve as the final choice, not just a placeholder.</Assumption>
+    </Assumptions>
+  </C-ADD-UI-SOUNDS>
+</GraceChangeSpec>

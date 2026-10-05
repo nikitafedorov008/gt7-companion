@@ -5,7 +5,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'window_navigation_safe_area.dart';
+import '../models/sfx.dart';
 import '../router/app_router.dart';
+import '../services/sound_service.dart';
 
 /// Adaptive navigation bar used across the app.
 /// - Desktop / Web: renders a top navigation bar.
@@ -45,12 +47,16 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
       tabs = null;
     }
     if (tabs != null) {
+      // A tab switch swaps the view without a route push, so the route observer
+      // never sees it: this is the one place that can sound it.
+      context.sfx(Sfx.navigate);
       tabs.setActiveIndex(0);
       return;
     }
 
     final router = context.router;
     bool foundHome = false;
+    context.sfx(Sfx.back);
     router.popUntil((r) {
       if (r.settings.name == '/home') foundHome = true;
       return r.isFirst || foundHome;

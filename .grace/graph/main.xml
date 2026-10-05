@@ -198,6 +198,12 @@
       <Path>lib/theme/gt7_theme.dart</Path>
     </M-THEME>
 
+    <!-- Interface sound: the app's own feedback layer. -->
+    <M-SOUND>
+      <Summary>(UTILITY) The interface sound layer: the effect catalogue, the playback seam behind which the audio engine sits, the service that owns the preference, volume and debounce, and the route observer that sounds transitions.</Summary>
+      <Path>lib/services/sound_service.dart</Path>
+    </M-SOUND>
+
     <!-- Profile feature (written by another author; kept in the projection for completeness). -->
     <M-FEATURE-PROFILE>
       <Summary>(CORE_LOGIC) Player profile loading through BLoC over the auth repository, including stats history models.</Summary>

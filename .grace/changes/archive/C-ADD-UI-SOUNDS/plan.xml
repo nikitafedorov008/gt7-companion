@@ -1,0 +1,214 @@
+<GraceChangePlan graceVersion="4.0" status="applied">
+  <C-ADD-UI-SOUNDS>
+    <IntentSummary>Add interface sound through one SoundService behind an injectable player, wired by a route observer and a context call, with CC0 assets, a persisted hub toggle and a unit test that proves the service's three behaviours.</IntentSummary>
+
+    <BaselineAssertions>
+      <MustExist>
+        <Value>pubspec.yaml</Value>
+        <Value>lib/app.dart</Value>
+        <Value>lib/pages/home_page.dart</Value>
+        <Value>lib/dependency_injection/app_scope.dart</Value>
+        <Value>lib/widgets/adaptive_navbar.dart</Value>
+        <Value>.grace/graph/main.xml</Value>
+        <Value>.grace/verification/main.xml</Value>
+      </MustExist>
+      <MustPassCommand>
+        <Command budgetSeconds="15">test -z "$(grep -n audioplayers pubspec.yaml)"</Command>
+        <Command budgetSeconds="15">test ! -d assets/sfx</Command>
+        <Command budgetSeconds="15">test ! -e lib/services/sound_service.dart</Command>
+        <Command budgetSeconds="300">test "$(.fvm/flutter_sdk/bin/flutter analyze 2&gt;&amp;1 | grep -cE '^ *(error|warning|info) • ')" -eq 179</Command>
+        <Command budgetSeconds="300">.fvm/flutter_sdk/bin/flutter test</Command>
+      </MustPassCommand>
+    </BaselineAssertions>
+
+    <TargetAssertions>
+      <MustPassCommand>
+        <Command budgetSeconds="15">grep -q 'audioplayers' pubspec.yaml &amp;&amp; grep -q 'assets/sfx/' pubspec.yaml</Command>
+        <Command budgetSeconds="15">test "$(ls assets/sfx/*.ogg | wc -l | tr -d ' ')" -eq 8 &amp;&amp; grep -qi 'CC0' assets/sfx/SOURCES.md &amp;&amp; grep -q 'kenney.nl' assets/sfx/SOURCES.md</Command>
+        <Command budgetSeconds="15">test -e lib/models/sfx.dart &amp;&amp; test -e lib/services/sfx_player.dart &amp;&amp; test -e lib/services/sound_service.dart &amp;&amp; test -e lib/router/sound_navigator_observer.dart</Command>
+        <Command budgetSeconds="15">grep -q 'SoundService' lib/dependency_injection/app_scope.dart &amp;&amp; grep -q 'navigatorObservers' lib/app.dart</Command>
+        <Command budgetSeconds="15">grep -q 'SoundService' lib/pages/home_page.dart</Command>
+        <Command budgetSeconds="15">test "$(grep -rho 'context.sfx(' lib/ | wc -l | tr -d ' ')" -ge 10</Command>
+        <Command budgetSeconds="15">grep -q '&lt;M-SOUND&gt;' .grace/graph/main.xml &amp;&amp; grep -q '&lt;V-M-SOUND' .grace/verification/main.xml</Command>
+        <Command budgetSeconds="15">test -e test/sound_service_test.dart &amp;&amp; grep -q 'FakeSfxPlayer\|fake' test/sound_service_test.dart</Command>
+        <Command budgetSeconds="300">.fvm/flutter_sdk/bin/flutter test</Command>
+        <Command budgetSeconds="300">test "$(.fvm/flutter_sdk/bin/flutter analyze 2&gt;&amp;1 | grep -cE '^ *(error|warning|info) • ')" -le 179</Command>
+      </MustPassCommand>
+    </TargetAssertions>
+
+    <DurableScope>
+      <GraphAnchors>
+        <M-SOUND />
+      </GraphAnchors>
+      <VerificationAnchors>
+        <V-M-SOUND />
+      </VerificationAnchors>
+    </DurableScope>
+
+    <ObservedWriteScope>
+      <File>pubspec.yaml</File>
+      <File>pubspec.lock</File>
+      <Glob>assets/sfx/*</Glob>
+      <File>lib/models/sfx.dart</File>
+      <File>lib/services/sfx_player.dart</File>
+      <File>lib/services/sound_service.dart</File>
+      <File>lib/router/sound_navigator_observer.dart</File>
+      <File>lib/app.dart</File>
+      <File>lib/dependency_injection/app_scope.dart</File>
+      <File>lib/pages/home_page.dart</File>
+      <File>lib/widgets/adaptive_navbar.dart</File>
+      <File>lib/widgets/car_dealer/car_dealer_error_panel.dart</File>
+      <File>lib/widgets/car_dealer/used/used_car_grid_item.dart</File>
+      <File>lib/widgets/car_dealer/legendary/legendary_car_grid_item.dart</File>
+      <File>lib/widgets/daily_races/daily_race_card.dart</File>
+      <File>lib/widgets/daily_races/daily_race_details_sheet.dart</File>
+      <File>lib/widgets/daily_races/daily_races_display.dart</File>
+      <File>test/sound_service_test.dart</File>
+      <File>.grace/graph/index.xml</File>
+      <File>.grace/graph/main.xml</File>
+      <File>.grace/verification/index.xml</File>
+      <File>.grace/verification/main.xml</File>
+    </ObservedWriteScope>
+
+    <ImplementationPlan>
+      <T-001>
+        <Title>Declare the dependency and lay out the CC0 sound assets</Title>
+        <DependsOn></DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>pubspec.yaml depends on audioplayers and registers assets/sfx/ next to the existing asset folders.</Criterion>
+          <Criterion>Eight effects are committed: tap, navigate, back, open, close, toggle, confirm and error, each taken from the CC0 Interface Sounds pack.</Criterion>
+          <Criterion>assets/sfx/SOURCES.md records the pack name, the CC0 license and the kenney.nl URL, so the provenance travels with the files.</Criterion>
+          <Criterion>Dependencies resolve on the pinned SDK, and pubspec.lock is regenerated by that SDK rather than by whatever flutter is on PATH.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>ls -la assets/sfx/ | sed -n '1,12p'</Command>
+          <Command>grep -n 'audioplayers\|assets/sfx/' pubspec.yaml</Command>
+          <Command>test "$(ls assets/sfx/*.ogg | wc -l | tr -d ' ')" -eq 8 &amp;&amp; grep -qi CC0 assets/sfx/SOURCES.md</Command>
+          <Command>.fvm/flutter_sdk/bin/flutter pub get</Command>
+        </Verification>
+      </T-001>
+
+      <T-002>
+        <Title>Define the sound catalogue as an enum with an extension</Title>
+        <DependsOn></DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>lib/models/sfx.dart declares Sfx with the eight values and an extension mapping each to its asset path and a volume multiplier.</Criterion>
+          <Criterion>The file follows the repository's model style: a doc comment at the top, no codegen, the asset paths in one place.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -c '' lib/models/sfx.dart</Command>
+          <Command>grep -q 'enum Sfx' lib/models/sfx.dart &amp;&amp; grep -q 'extension SfxX' lib/models/sfx.dart &amp;&amp; test "$(grep -c 'assets/sfx/' lib/models/sfx.dart)" -ge 8</Command>
+        </Verification>
+      </T-002>
+
+      <T-003>
+        <Title>Put the playback behind a swappable player seam</Title>
+        <DependsOn>T-001, T-002</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>lib/services/sfx_player.dart declares the interface (preload, play, dispose) and an audioplayers implementation that keeps one player per effect with ReleaseMode.stop.</Criterion>
+          <Criterion>Each effect's source is set once during preload, and playing reuses that source by stopping at position zero and resuming, as the package documents stop() to do.</Criterion>
+          <Criterion>The implementation catches platform failures so a missing audio backend degrades to silence instead of crashing the UI.</Criterion>
+          <Criterion>The audioplayers import appears in this file only.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -n 'class SfxPlayer\|abstract\|ReleaseMode\|setSource\|resume\|stop()' lib/services/sfx_player.dart | head -20</Command>
+          <Command>test "$(grep -rl 'package:audioplayers' lib/ | wc -l | tr -d ' ')" -eq 1</Command>
+        </Verification>
+      </T-003>
+
+      <T-004>
+        <Title>Add the SoundService that owns the preference, the volume and the debounce</Title>
+        <DependsOn>T-002, T-003</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>SoundService extends ChangeNotifier and exposes enabled, volume, play(Sfx), preload() and setEnabled(bool).</Criterion>
+          <Criterion>The preference persists through SharedPreferences, following the pattern already used by the auth service.</Criterion>
+          <Criterion>Repeats of the same effect inside a 40 ms window are dropped, and a disabled service makes no call to the player at all.</Criterion>
+          <Criterion>Haptics accompany an effect on mobile, and the service never blocks a tap on I/O: play is fire-and-forget.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -n 'class SoundService\|bool get enabled\|Future&lt;void&gt; play\|setEnabled\|SharedPreferences\|_minGap' lib/services/sound_service.dart | head -20</Command>
+          <Command>grep -q 'ChangeNotifier' lib/services/sound_service.dart &amp;&amp; grep -q 'HapticFeedback' lib/services/sound_service.dart</Command>
+        </Verification>
+      </T-004>
+
+      <T-005>
+        <Title>Wire the service, the route observer and the app root</Title>
+        <DependsOn>T-004</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>AppScope registers SoundService as a ChangeNotifierProvider in dependency order, with a comment only if the order is not obvious.</Criterion>
+          <Criterion>lib/router/sound_navigator_observer.dart plays the navigate effect on push and the back effect on pop, and holds no other logic.</Criterion>
+          <Criterion>lib/app.dart passes the observer through navigatorObservers, which is currently absent, so no screen file changes for transitions.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -n 'SoundService' lib/dependency_injection/app_scope.dart lib/app.dart lib/router/sound_navigator_observer.dart | head -10</Command>
+          <Command>grep -q 'navigatorObservers' lib/app.dart &amp;&amp; grep -q 'didPush\|didPop' lib/router/sound_navigator_observer.dart</Command>
+        </Verification>
+      </T-005>
+
+      <T-006>
+        <Title>Give the hub a sound toggle that reads and writes the service</Title>
+        <DependsOn>T-004, T-005</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>The home hub shows an icon that reflects SoundService.enabled and flips it on tap.</Criterion>
+          <Criterion>Switching sound on plays the toggle effect, so the user hears what they just enabled; switching it off does not.</Criterion>
+          <Criterion>The icon placement does not disturb the existing hub layout at phone or desktop widths.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -n 'SoundService\|Icons.volume' lib/pages/home_page.dart | head -10</Command>
+        </Verification>
+      </T-006>
+
+      <T-007>
+        <Title>Sound the hub tiles and the tab bar</Title>
+        <DependsOn>T-004, T-005</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>Pressing a hub tile and switching a tab each ask for their sound through the context call, so no screen imports the service for this.</Criterion>
+          <Criterion>The dead-space and scroll gestures of those widgets stay silent.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -c 'context.sfx(' lib/pages/home_page.dart lib/widgets/adaptive_navbar.dart</Command>
+        </Verification>
+      </T-007>
+
+      <T-008>
+        <Title>Sound the dealership cards, the error retry and the daily-race surfaces</Title>
+        <DependsOn>T-004, T-005</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>The two dealership cards, the shared error panel's retry button and the daily-race card ask for their sound through the context call.</Criterion>
+          <Criterion>Opening and closing the daily-race details sheet use the open and close effects rather than a generic tap.</Criterion>
+          <Criterion>The refresh buttons in the daily-races screen stay silent when they are refreshed by a timer rather than by a press.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -rn 'context.sfx(' lib/widgets/car_dealer/ lib/widgets/daily_races/ | sed 's/^/  /'</Command>
+          <Command>test "$(grep -rho 'context.sfx(' lib/ | wc -l | tr -d ' ')" -ge 10</Command>
+        </Verification>
+      </T-008>
+
+      <T-009>
+        <Title>Prove the service's three behaviours with a fake player</Title>
+        <DependsOn>T-004</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>test/sound_service_test.dart injects a fake player and asserts that a disabled service calls it zero times, that an enabled service calls it once per play, and that a second play inside the debounce window is dropped.</Criterion>
+          <Criterion>The test touches no platform channel, so it runs in the normal suite without a device.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>.fvm/flutter_sdk/bin/flutter test test/sound_service_test.dart</Command>
+        </Verification>
+      </T-009>
+
+      <T-010>
+        <Title>Project the new module into the durable graph and verification</Title>
+        <DependsOn>T-004</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>M-SOUND joins .grace/graph/main.xml and is listed in the graph index's Owns block, with its summary, path and dependencies.</Criterion>
+          <Criterion>V-M-SOUND joins .grace/verification/main.xml and its index, carrying the command that proves the service's behaviour and the scenarios the module must satisfy.</Criterion>
+          <Criterion>The scenario set records that silence is a valid outcome when sound is disabled, so a future check does not treat it as a failure.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -n 'M-SOUND' .grace/graph/index.xml .grace/graph/main.xml | head -6</Command>
+          <Command>grep -n 'V-M-SOUND' .grace/verification/index.xml .grace/verification/main.xml | head -6</Command>
+        </Verification>
+      </T-010>
+    </ImplementationPlan>
+  </C-ADD-UI-SOUNDS>
+</GraceChangePlan>

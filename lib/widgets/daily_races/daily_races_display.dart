@@ -4,7 +4,9 @@ import 'package:skeletonizer/skeletonizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../models/daily_races/daily_race.dart';
+import '../../models/sfx.dart';
 import '../../repositories/sport_repository.dart';
+import '../../services/sound_service.dart';
 import 'daily_race_card.dart';
 
 /// Combined widget that displays daily races from all categories (upcoming, current, past)
@@ -91,8 +93,10 @@ class _DailyRacesDisplayState extends State<DailyRacesDisplay> {
                   children: [
                     Text('Daily races', style: theme.textTheme.titleMedium),
                     IconButton(
-                      onPressed: () =>
-                          service.fetchDailyRaces(forceRefresh: true),
+                      onPressed: () {
+                        context.sfx(Sfx.tap);
+                        service.fetchDailyRaces(forceRefresh: true);
+                      },
                       icon: const Icon(Icons.refresh),
                     ),
                   ],
@@ -170,7 +174,13 @@ class _DailyRacesDisplayState extends State<DailyRacesDisplay> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('Daily races', style: theme.textTheme.titleMedium),
-                IconButton(onPressed: _load, icon: const Icon(Icons.refresh)),
+                IconButton(
+                onPressed: () {
+                  context.sfx(Sfx.tap);
+                  _load();
+                },
+                icon: const Icon(Icons.refresh),
+              ),
               ],
             ),
             const SizedBox(height: 8),
@@ -219,7 +229,13 @@ class _DailyRacesDisplayState extends State<DailyRacesDisplay> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text('Daily races', style: theme.textTheme.titleMedium),
-              IconButton(onPressed: _load, icon: const Icon(Icons.refresh)),
+              IconButton(
+                onPressed: () {
+                  context.sfx(Sfx.tap);
+                  _load();
+                },
+                icon: const Icon(Icons.refresh),
+              ),
             ],
           ),
           const SizedBox(height: 8),
@@ -399,6 +415,7 @@ class _PoweredByFooter extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () async {
+                    context.sfx(Sfx.tap);
                     final url = Uri.parse(
                       'https://www.dg-edge.com/events/dailies',
                     );
@@ -411,6 +428,7 @@ class _PoweredByFooter extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: () async {
+                    context.sfx(Sfx.tap);
                     final url = Uri.parse('https://gtsh-rank.com/daily/');
                     if (await canLaunchUrl(url)) await launchUrl(url);
                   },

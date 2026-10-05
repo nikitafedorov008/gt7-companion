@@ -1,4 +1,4 @@
-import 'package:flutter/gestures.dart' show kTouchSlop;
+import 'package:flutter/gestures.dart' show PointerDeviceKind, kTouchSlop;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gt7_companion/models/sfx.dart';
@@ -99,6 +99,84 @@ void main() {
     );
 
     await tester.tapAt(const Offset(100, 100));
+    await tester.pump();
+
+    expect(player.played, isEmpty);
+  });
+
+  testWidgets('a press whose release never arrives does not silence the next '
+      'tap', (tester) async {
+    await pumpArea(tester);
+
+    // A press whose release never arrived: the window lost focus mid-press, or
+    // the system cancelled the gesture without saying so. Before the recovery
+    // this left the tracked pointer occupied and silenced every press that
+    // followed, until the app restarted.
+    tester.binding.handlePointerEvent(
+      const PointerDownEvent(
+        position: Offset(50, 50),
+        kind: PointerDeviceKind.mouse,
+        pointer: 41,
+      ),
+    );
+    await tester.pump();
+
+    final click = await tester.startGesture(
+      const Offset(200, 200),
+      kind: PointerDeviceKind.mouse,
+    );
+    await click.up();
+    await tester.pump();
+
+    expect(
+      player.played,
+      [Sfx.tap],
+      reason: 'a lost release must cost one gesture, not every gesture',
+    );
+  });
+
+  testWidgets('a touch that goes quiet is taken over too', (tester) async {
+    await pumpArea(tester);
+
+    tester.binding.handlePointerEvent(
+      const PointerDownEvent(
+        position: Offset(50, 50),
+        kind: PointerDeviceKind.touch,
+        pointer: 42,
+      ),
+    );
+    await tester.pump();
+
+    // Touch waits out the staleness window, because a second finger held down is
+    // a real possibility; a mouse does not have to wait at all.
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 1100)),
+    );
+
+    final press = await tester.startGesture(
+      const Offset(200, 200),
+      kind: PointerDeviceKind.touch,
+    );
+    await press.up();
+    await tester.pump();
+
+    expect(player.played, [Sfx.tap]);
+  });
+
+  testWidgets('a mouse press that drifts is not a tap, as the buttons see it', (
+    tester,
+  ) async {
+    await pumpArea(tester);
+
+    // Six logical pixels: further than the precise pointer's one-pixel slop, far
+    // short of the touch slop. Flutter's own buttons reject that press, so this
+    // layer must not click for it either.
+    final press = await tester.startGesture(
+      const Offset(100, 100),
+      kind: PointerDeviceKind.mouse,
+    );
+    await press.moveBy(const Offset(6, 0));
+    await press.up();
     await tester.pump();
 
     expect(player.played, isEmpty);

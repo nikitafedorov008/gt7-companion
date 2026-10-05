@@ -1,4 +1,4 @@
-<GraceChangePlan graceVersion="4.0" status="approved">
+<GraceChangePlan graceVersion="4.0" status="applied">
   <C-FIX-TAP-POINTER-RECOVERY>
     <IntentSummary>Let the interceptor recover from a release that never arrives, and take its tap threshold from the framework's device-aware slop, with a regression test for the exact sequence that caused permanent deafness.</IntentSummary>
 
@@ -21,7 +21,7 @@
       </MustVerify>
       <MustPassCommand>
         <Command budgetSeconds="15">grep -q 'computeHitSlop' lib/widgets/tap_sound_area.dart &amp;&amp; test -z "$(grep -n 'kTouchSlop' lib/widgets/tap_sound_area.dart)"</Command>
-        <Command budgetSeconds="15">grep -q 'staleAfter\|_isStale\|_downAt' lib/widgets/tap_sound_area.dart</Command>
+        <Command budgetSeconds="15">test -z "$(grep -n 'if (_pointer != null) return;' lib/widgets/tap_sound_area.dart)" &amp;&amp; grep -q 'PointerDeviceKind.mouse' lib/widgets/tap_sound_area.dart</Command>
         <Command budgetSeconds="15">grep -q 'no up\|без отпускания\|lost release' test/tap_sound_area_test.dart</Command>
         <Command budgetSeconds="15">grep -q 'silent after a lost release\|after a lost release' .grace/verification/main.xml</Command>
         <Command budgetSeconds="300">.fvm/flutter_sdk/bin/flutter test</Command>

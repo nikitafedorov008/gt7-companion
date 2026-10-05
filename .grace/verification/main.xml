@@ -249,6 +249,9 @@
       <Scenario kind="failure">The eight effects must be loudness-matched and every one must clear the music bed by at least eight decibels. A flat set of sounds is a failure here, not a matter of taste: the press effect once sat eight decibels BELOW the music and most buttons therefore sounded silent while the player was faithfully playing them.</Scenario>
       <Scenario kind="failure">No effect may ask for a volume the player would clamp, or the arithmetic above it stops describing what is heard.</Scenario>
       <Marker>LEVELS.md:</Marker>
+      <Scenario kind="failure">A press whose release never arrives must not silence the presses that follow: after a lost release one gesture is lost, never every gesture until the app restarts. This regressed once and it made the whole application quiet.</Scenario>
+      <Scenario kind="success">The threshold that separates a tap from a drag is the framework's device-aware one, so the interceptor and the button underneath agree on what a tap is — a mouse press that drifts is not one, while a finger's may be.</Scenario>
+      <Marker>TapSoundArea._lostAfter:</Marker>
 
     </V-M-SOUND>
 

@@ -1,4 +1,4 @@
-<GraceChangeSpec graceVersion="4.0" status="approved">
+<GraceChangeSpec graceVersion="4.0" status="applied">
   <C-FIX-TAP-POINTER-RECOVERY>
     <Summary>Make the tap interceptor unable to go permanently deaf after a press whose release never arrives, and make its tap threshold the same one the framework uses for the device at hand.</Summary>
 

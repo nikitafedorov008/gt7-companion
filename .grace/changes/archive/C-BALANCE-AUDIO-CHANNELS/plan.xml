@@ -1,0 +1,109 @@
+<GraceChangePlan graceVersion="4.0" status="applied">
+  <C-BALANCE-AUDIO-CHANNELS>
+    <IntentSummary>Normalise the eight effect gains from measured file loudness, lower the music bed so a click clears it by nine decibels, record the measurement, and pin the mix with a test that reads the shipped numbers.</IntentSummary>
+
+    <BaselineAssertions>
+      <MustExist>
+        <Value>lib/models/sfx.dart</Value>
+        <Value>lib/services/sound_service.dart</Value>
+        <Value>lib/services/music_service.dart</Value>
+      </MustExist>
+      <MustPassCommand>
+        <Command budgetSeconds="15">grep -q 'Sfx.tap => 1.0' lib/models/sfx.dart &amp;&amp; grep -q 'Sfx.navigate => 0.7' lib/models/sfx.dart &amp;&amp; grep -q 'Sfx.confirm => 0.9' lib/models/sfx.dart</Command>
+        <Command budgetSeconds="15">grep -q 'defaultVolume = 0.35' lib/services/sound_service.dart &amp;&amp; grep -q 'defaultVolume = 0.25' lib/services/music_service.dart</Command>
+        <Command budgetSeconds="15">test ! -e test/audio_mix_test.dart &amp;&amp; test ! -e assets/sfx/LEVELS.md</Command>
+        <Command budgetSeconds="300">test "$(.fvm/flutter_sdk/bin/flutter analyze 2&gt;&amp;1 | grep -cE '^ *(error|warning|info) • ')" -eq 179</Command>
+        <Command budgetSeconds="300">.fvm/flutter_sdk/bin/flutter test</Command>
+      </MustPassCommand>
+    </BaselineAssertions>
+
+    <TargetAssertions>
+      <MustVerify>
+        <Module>M-SOUND</Module>
+      </MustVerify>
+      <MustPassCommand>
+        <Command budgetSeconds="15">grep -q 'Sfx.tap => 1.0' lib/models/sfx.dart &amp;&amp; grep -q 'Sfx.back => 0.55' lib/models/sfx.dart &amp;&amp; grep -q 'Sfx.confirm => 0.18' lib/models/sfx.dart</Command>
+        <Command budgetSeconds="15">grep -q 'defaultVolume = 1.0' lib/services/sound_service.dart &amp;&amp; grep -q 'defaultVolume = 0.10' lib/services/music_service.dart</Command>
+        <Command budgetSeconds="15">test -e assets/sfx/LEVELS.md &amp;&amp; grep -q 'volumedetect' assets/sfx/LEVELS.md &amp;&amp; grep -q '\-26.4' assets/sfx/LEVELS.md</Command>
+        <Command budgetSeconds="15">test -e test/audio_mix_test.dart &amp;&amp; grep -q 'SoundService.defaultVolume' test/audio_mix_test.dart &amp;&amp; grep -q 'MusicService.defaultVolume' test/audio_mix_test.dart</Command>
+        <Command budgetSeconds="15">grep -q 'nine decibels\|loudness-matched' .grace/verification/main.xml</Command>
+        <Command budgetSeconds="300">.fvm/flutter_sdk/bin/flutter test</Command>
+        <Command budgetSeconds="300">test "$(.fvm/flutter_sdk/bin/flutter analyze 2&gt;&amp;1 | grep -cE '^ *(error|warning|info) • ')" -le 179</Command>
+      </MustPassCommand>
+    </TargetAssertions>
+
+    <DurableScope>
+      <GraphAnchors>
+        <M-SOUND />
+      </GraphAnchors>
+      <VerificationAnchors>
+        <V-M-SOUND />
+      </VerificationAnchors>
+    </DurableScope>
+
+    <ObservedWriteScope>
+      <File>assets/sfx/LEVELS.md</File>
+      <File>lib/models/sfx.dart</File>
+      <File>lib/services/sound_service.dart</File>
+      <File>lib/services/music_service.dart</File>
+      <File>test/audio_mix_test.dart</File>
+      <File>.grace/graph/main.xml</File>
+      <File>.grace/verification/main.xml</File>
+    </ObservedWriteScope>
+
+    <ImplementationPlan>
+      <T-001>
+        <Title>Record how loud the shipped sounds actually are</Title>
+        <DependsOn></DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>assets/sfx/LEVELS.md lists each of the eight effects with its mean and peak level as measured by ffmpeg's volumedetect, the music tracks alongside them for comparison, and the exact command that produced the numbers.</Criterion>
+          <Criterion>It states the conclusion the numbers support: the pack is not loudness-matched, and the press effect is twelve decibels quieter than the pack's loudest sound.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -n 'volumedetect\|-26.4\|tap' assets/sfx/LEVELS.md | head -8</Command>
+        </Verification>
+      </T-001>
+
+      <T-002>
+        <Title>Set the gains from the measurement and rebalance the two channels</Title>
+        <DependsOn>T-001</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>Each effect's gain is one that brings its file to the reference level of the quietest effect, so all eight play within a fraction of a decibel of each other and no gain exceeds 1.0.</Criterion>
+          <Criterion>The interface-sound channel plays at full scale — the pack has no headroom left to give — and the music bed drops to 0.10, placing a click about nine decibels above it.</Criterion>
+          <Criterion>The gain table carries a comment pointing at the measurement, so the values read as derived rather than arbitrary.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -n -A12 'double get gain' lib/models/sfx.dart</Command>
+          <Command>grep -n 'defaultVolume' lib/services/sound_service.dart lib/services/music_service.dart</Command>
+        </Verification>
+      </T-002>
+
+      <T-003>
+        <Title>Pin the mix so it cannot silently drift again</Title>
+        <DependsOn>T-002</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>test/audio_mix_test.dart carries the measured file levels and reads the shipped gains, the interface-sound volume and the music volume from the production code rather than copying them.</Criterion>
+          <Criterion>It asserts the eight effects land within a decibel and a half of one another, and that every one clears the music by at least eight decibels.</Criterion>
+          <Criterion>The test fails if a gain, the interface volume or the music volume is moved, which is the regression it exists to catch.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>.fvm/flutter_sdk/bin/flutter test test/audio_mix_test.dart</Command>
+          <Command>grep -n 'defaultVolume\|lessThan\|greaterThanOrEqualTo' test/audio_mix_test.dart | head -8</Command>
+        </Verification>
+      </T-003>
+
+      <T-004>
+        <Title>Record the balance in the durable projection</Title>
+        <DependsOn>T-002</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>V-M-SOUND gains the mix test and a scenario stating that the effects are loudness-matched and each clears the music bed, so a flat set of sounds is a failure and not a taste.</Criterion>
+          <Criterion>M-SOUND's summary notes that the levels are derived from measurement rather than chosen by ear.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -n 'loudness-matched' .grace/verification/main.xml</Command>
+          <Command>grep -n 'measured' .grace/graph/main.xml | head -3</Command>
+        </Verification>
+      </T-004>
+    </ImplementationPlan>
+  </C-BALANCE-AUDIO-CHANNELS>
+</GraceChangePlan>

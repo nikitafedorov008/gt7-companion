@@ -1,0 +1,52 @@
+<GraceChangeSpec graceVersion="4.0" status="applied">
+  <C-BALANCE-AUDIO-CHANNELS>
+    <Summary>Balance the two audio channels against each other and normalise the eight effects among themselves, so an interface sound is actually audible over the ambient music.</Summary>
+
+    <Problem>Every click reaches the service — a trace of eleven presses showed the player asked for the effect each time — yet most buttons sound silent to the user, and reproducibly so across restarts. Measured with ffmpeg's volumedetect, the cause is the mix. The ambient bed sits at −27.6 dB effective, while the press effect, taken over its own hundred milliseconds, is at −35.5 dB: eight decibels BELOW the music it plays against, so it is masked throughout its own duration. The other effects fare no better — back is 5.8 dB below, error, open, navigate and close sit within two decibels of the bed — and only toggle (+4.5) and confirm (+6.3) rise above it. Those two are exactly the effects a user hears, and tap with navigate, the two that sit lowest, are exactly the surfaces reported silent: the hub tiles, the cards, the telemetry controls and the header tabs. A second cause compounds the first: the Kenney pack is not loudness-matched, and tap.ogg is inherently 12 dB quieter than the pack's loudest sound, while the per-effect gains shipped (0.7 to 1.0) nudged the levels without ever measuring them. Both mistakes are mine: the channel volumes were chosen by ear against no reference, and the effects were never compared to each other at all.</Problem>
+
+    <Goals>
+      <Goal>Make the eight effects play at the same loudness, so which effect a surface asks for never decides whether it can be heard.</Goal>
+      <Goal>Give an interface sound a clear margin over the ambient bed, so it reads as a click rather than as a change in the music.</Goal>
+      <Goal>Derive the numbers from measurement rather than taste, and record the measurement so the values are auditable instead of magical.</Goal>
+      <Goal>Pin the mix with a test that fails when the channels or the gains drift apart again, because nothing in the suite could have caught this.</Goal>
+      <Goal>Keep every file's peak below full scale: the fix must not clip a sound that is already peak-normalised.</Goal>
+    </Goals>
+
+    <Constraints>
+      <Constraint>Do not re-encode the assets: they are peak-normalised already, and raising them would clip. The balance is achieved by gains and channel volumes.</Constraint>
+      <Constraint>The player clamps volume to 1.0, so a per-effect gain above 1.0 would be silently capped; the chosen reference level must make every gain at most 1.0.</Constraint>
+      <Constraint>The interface sounds must not become unpleasant: the reference is the quietest effect, not an arbitrary boost.</Constraint>
+      <Constraint>Music stays audible as a bed; it is lowered, not silenced.</Constraint>
+      <Constraint>The ambient rotation, the rotation logic, the fades and the interface-sound debounce are unchanged.</Constraint>
+    </Constraints>
+
+    <NonGoals>
+      <NonGoal>No music ducking on top of the click: that is a larger mechanism and a separate decision, kept out of this change.</NonGoal>
+      <NonGoal>No new effects, no re-sourcing of the asset pack, no change to the catalogue.</NonGoal>
+      <NonGoal>No user-facing volume sliders: the channels keep their fixed, now measured, levels.</NonGoal>
+    </NonGoals>
+
+    <AcceptanceCriteria>
+      <Criterion>Every effect's gain is derived from the measured loudness of its file, so the eight land within a decibel and a half of one another, and no gain exceeds 1.0.</Criterion>
+      <Criterion>The measurement that produced those gains is recorded in the repository alongside the assets, with the command that produced it.</Criterion>
+      <Criterion>The interface-sound channel's default volume and the music channel's default volume place a click at least eight decibels above the bed.</Criterion>
+      <Criterion>A test reads the shipped gains and channel volumes and asserts both properties — the eight effects matched, and each comfortably above the music — so a future change to any of those numbers is caught.</Criterion>
+      <Criterion>The whole suite stays green and flutter analyze reports no new issues on the pinned SDK.</Criterion>
+    </AcceptanceCriteria>
+
+    <AffectedAreas>
+      <M-SOUND />
+    </AffectedAreas>
+
+    <VerificationIntent>
+      <ExpectedCommand>.fvm/flutter_sdk/bin/flutter analyze ; .fvm/flutter_sdk/bin/flutter test</ExpectedCommand>
+      <ExpectedEvidence>The analyzer reports no new issues and the whole suite passes, including the new mixing test and the existing audio tests. Whether a click now reads clearly over the music can only be judged by listening: the numbers give an eight-decibel margin, and the app running on macOS is how that is confirmed.</ExpectedEvidence>
+    </VerificationIntent>
+
+    <Assumptions>
+      <Assumption>Mean level over a file's own duration is the right comparison for a short click against a continuous bed; the click's energy in its hundred milliseconds is what competes with the music, not its peak sample.</Assumption>
+      <Assumption>Eight decibels of margin is enough for a transient click to read over a steady bed; if listening says otherwise the volume is a single constant.</Assumption>
+      <Assumption>The measured levels of the shipped files stay valid because the files do not change.</Assumption>
+    </Assumptions>
+  </C-BALANCE-AUDIO-CHANNELS>
+</GraceChangeSpec>

@@ -228,8 +228,9 @@
         <File>test/music_service_test.dart</File>
         <File>test/tap_sound_area_test.dart</File>
         <File>test/sound_navigator_observer_test.dart</File>
+        <File>test/audio_mix_test.dart</File>
       </TestFiles>
-      <Command>.fvm/flutter_sdk/bin/flutter test test/sound_service_test.dart test/music_service_test.dart test/tap_sound_area_test.dart test/sound_navigator_observer_test.dart</Command>
+      <Command>.fvm/flutter_sdk/bin/flutter test test/sound_service_test.dart test/music_service_test.dart test/tap_sound_area_test.dart test/sound_navigator_observer_test.dart test/audio_mix_test.dart</Command>
       <Scenario kind="success">With sound switched on, each effect the interface asks for is played exactly once.</Scenario>
       <Scenario kind="success">With sound switched off the service calls the player zero times: silence is the expected outcome here, not a failure.</Scenario>
       <Scenario kind="success">A press, a route push and a route pop each make their own sound, and the app's first route is excluded because it is not a navigation the user made.</Scenario>
@@ -245,6 +246,9 @@
       <Scenario kind="failure">A drag stays silent on a drag beyond the framework's own tap threshold, however far it travels and even if it returns to where it began: scrolling a list must never click.</Scenario>
       <Scenario kind="success">Popups sound their own opening and closing, so a popup added later needs no sound code: a sheet or a dialog needs no call, and a page keeps navigate and back while the app's first route stays silent.</Scenario>
       <Marker>TapSoundArea:</Marker>
+      <Scenario kind="failure">The eight effects must be loudness-matched and every one must clear the music bed by at least eight decibels. A flat set of sounds is a failure here, not a matter of taste: the press effect once sat eight decibels BELOW the music and most buttons therefore sounded silent while the player was faithfully playing them.</Scenario>
+      <Scenario kind="failure">No effect may ask for a volume the player would clamp, or the arithmetic above it stops describing what is heard.</Scenario>
+      <Marker>LEVELS.md:</Marker>
 
     </V-M-SOUND>
 

@@ -1,0 +1,85 @@
+<GraceChangePlan graceVersion="4.0" status="approved">
+  <C-FIX-TAP-POINTER-RECOVERY>
+    <IntentSummary>Let the interceptor recover from a release that never arrives, and take its tap threshold from the framework's device-aware slop, with a regression test for the exact sequence that caused permanent deafness.</IntentSummary>
+
+    <BaselineAssertions>
+      <MustExist>
+        <Value>lib/widgets/tap_sound_area.dart</Value>
+        <Value>test/tap_sound_area_test.dart</Value>
+      </MustExist>
+      <MustPassCommand>
+        <Command budgetSeconds="15">grep -q 'kTouchSlop' lib/widgets/tap_sound_area.dart &amp;&amp; test -z "$(grep -n 'computeHitSlop' lib/widgets/tap_sound_area.dart)"</Command>
+        <Command budgetSeconds="15">grep -q 'if (_pointer != null) return;' lib/widgets/tap_sound_area.dart</Command>
+        <Command budgetSeconds="300">test "$(.fvm/flutter_sdk/bin/flutter analyze 2&gt;&amp;1 | grep -cE '^ *(error|warning|info) • ')" -eq 179</Command>
+        <Command budgetSeconds="300">.fvm/flutter_sdk/bin/flutter test</Command>
+      </MustPassCommand>
+    </BaselineAssertions>
+
+    <TargetAssertions>
+      <MustVerify>
+        <Module>M-SOUND</Module>
+      </MustVerify>
+      <MustPassCommand>
+        <Command budgetSeconds="15">grep -q 'computeHitSlop' lib/widgets/tap_sound_area.dart &amp;&amp; test -z "$(grep -n 'kTouchSlop' lib/widgets/tap_sound_area.dart)"</Command>
+        <Command budgetSeconds="15">grep -q 'staleAfter\|_isStale\|_downAt' lib/widgets/tap_sound_area.dart</Command>
+        <Command budgetSeconds="15">grep -q 'no up\|без отпускания\|lost release' test/tap_sound_area_test.dart</Command>
+        <Command budgetSeconds="15">grep -q 'silent after a lost release\|after a lost release' .grace/verification/main.xml</Command>
+        <Command budgetSeconds="300">.fvm/flutter_sdk/bin/flutter test</Command>
+        <Command budgetSeconds="300">test "$(.fvm/flutter_sdk/bin/flutter analyze 2&gt;&amp;1 | grep -cE '^ *(error|warning|info) • ')" -le 179</Command>
+      </MustPassCommand>
+    </TargetAssertions>
+
+    <DurableScope>
+      <VerificationAnchors>
+        <V-M-SOUND />
+      </VerificationAnchors>
+    </DurableScope>
+
+    <ObservedWriteScope>
+      <File>lib/widgets/tap_sound_area.dart</File>
+      <File>test/tap_sound_area_test.dart</File>
+      <File>.grace/verification/main.xml</File>
+    </ObservedWriteScope>
+
+    <ImplementationPlan>
+      <T-001>
+        <Title>Recover from a lost release and use the device's own threshold</Title>
+        <DependsOn></DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>A press arriving while a stale pointer is tracked adopts the new pointer instead of being ignored, so no sequence of events can silence the interceptor indefinitely.</Criterion>
+          <Criterion>Staleness is judged by the time since the tracked pointer was last heard from, and a mouse — which cannot be mid-gesture with a second pointer — is adopted on every press without waiting.</Criterion>
+          <Criterion>The drag threshold comes from computeHitSlop for the event's device kind, so a mouse press beyond its precise slop is not a tap while touch keeps the touch slop.</Criterion>
+          <Criterion>A genuine two-finger touch gesture still produces one sound, not two.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -n 'computeHitSlop\|stale\|_downAt\|PointerDeviceKind' lib/widgets/tap_sound_area.dart | head -12</Command>
+          <Command>.fvm/flutter_sdk/bin/flutter test test/tap_sound_area_test.dart</Command>
+        </Verification>
+      </T-001>
+
+      <T-002>
+        <Title>Pin the lost release and the device threshold</Title>
+        <DependsOn>T-001</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>A test sends a down whose up never arrives and then a genuine tap, and asserts the second press still clicks once — the sequence that proved the deafness.</Criterion>
+          <Criterion>A test drives a mouse-kind press that moves past the precise slop but far short of the touch slop and asserts silence, because the framework would not call that a tap either.</Criterion>
+          <Criterion>The existing tap, drag and sound-off tests keep passing unchanged.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>.fvm/flutter_sdk/bin/flutter test test/tap_sound_area_test.dart</Command>
+        </Verification>
+      </T-002>
+
+      <T-003>
+        <Title>Record the recovery in the durable verification</Title>
+        <DependsOn>T-001</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>V-M-SOUND states that a press whose release never arrives must not silence the presses that follow, and that the interceptor's threshold is the device-aware one the framework uses.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -n 'lost release' .grace/verification/main.xml</Command>
+        </Verification>
+      </T-003>
+    </ImplementationPlan>
+  </C-FIX-TAP-POINTER-RECOVERY>
+</GraceChangePlan>

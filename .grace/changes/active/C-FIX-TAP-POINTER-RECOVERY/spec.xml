@@ -1,0 +1,47 @@
+<GraceChangeSpec graceVersion="4.0" status="approved">
+  <C-FIX-TAP-POINTER-RECOVERY>
+    <Summary>Make the tap interceptor unable to go permanently deaf after a press whose release never arrives, and make its tap threshold the same one the framework uses for the device at hand.</Summary>
+
+    <Problem>The interceptor tracks one pointer and ignores every press while it believes that pointer is still down. A release that never arrives — the window losing focus mid-press, a gesture the system cancels without a PointerCancel, a press dragging out of the window — therefore leaves the tracked pointer occupied and silences the whole application until it restarts. This is not a theory: a probe test sends one down with no matching up and then a full, genuine tap, and the interceptor records nothing at all. The user's own report ruled this out as the cause of what they hear, since their silent buttons stay silent across restarts, but a per-press failure that disables every future press has no recovery path and is worth closing on its own. A second, quieter defect sits in the same file: the threshold is a flat kTouchSlop for every device, while Flutter uses computeHitSlop, which is eighteen logical pixels for touch and trackpad but one pixel for a mouse. On a desktop, where this app is used, the interceptor can therefore click for a press that the button underneath refuses — a sound with no action behind it.</Problem>
+
+    <Goals>
+      <Goal>Recover from a release that never arrives, with no path left that silences the interceptor indefinitely.</Goal>
+      <Goal>Use the framework's own device-aware threshold, so the interceptor agrees with the buttons about what counts as a tap.</Goal>
+      <Goal>Keep what the guard exists for: a drag is still silent, and one gesture still makes one sound.</Goal>
+      <Goal>Pin both behaviours with tests, including the exact sequence that produced the deafness.</Goal>
+    </Goals>
+
+    <Constraints>
+      <Constraint>The recovery must not turn a genuine two-finger gesture into two sounds on touch devices.</Constraint>
+      <Constraint>Nothing about the loudness, the volumes, the effects or the surfaces that play them changes here.</Constraint>
+      <Constraint>The drag guard keeps its meaning: a press that moves beyond the device's slop is still not a tap.</Constraint>
+    </Constraints>
+
+    <NonGoals>
+      <NonGoal>No ducking, no mixing changes: this change is only about which presses produce a request at all.</NonGoal>
+      <NonGoal>No new preferences or configuration surface for the interceptor.</NonGoal>
+      <NonGoal>No attempt to make the interceptor aware of which widget was pressed: the meaning of a surface stays with the surfaces that have meaning.</NonGoal>
+    </NonGoals>
+
+    <AcceptanceCriteria>
+      <Criterion>A press that arrives while a stale pointer is still tracked is treated as a fresh press, so a lost release costs at most one gesture rather than every gesture that follows.</Criterion>
+      <Criterion>The threshold comes from the framework's device-aware hit slop rather than a fixed constant, and a mouse press moving more than its slop no longer counts as a tap.</Criterion>
+      <Criterion>test/tap_sound_area_test.dart proves that a down with no up does not silence the next genuine tap, and keeps proving that a drag stays silent and a genuine tap clicks once.</Criterion>
+      <Criterion>The whole suite stays green and flutter analyze reports no new issues on the pinned SDK.</Criterion>
+    </AcceptanceCriteria>
+
+    <AffectedAreas>
+      <M-SOUND />
+    </AffectedAreas>
+
+    <VerificationIntent>
+      <ExpectedCommand>.fvm/flutter_sdk/bin/flutter analyze ; .fvm/flutter_sdk/bin/flutter test</ExpectedCommand>
+      <ExpectedEvidence>The analyzer reports no new issues and the whole suite passes. The recovery test fails against the current code with an empty list of effects, which is how the deafness was found; it must pass against the fix. The device threshold is checked by driving a mouse-kind pointer with a movement larger than the precise slop but smaller than the touch slop.</ExpectedEvidence>
+    </VerificationIntent>
+
+    <Assumptions>
+      <Assumption>A mouse has exactly one pointer, so adopting a new pointer while one is tracked cannot merge two simultaneous gestures on desktop.</Assumption>
+      <Assumption>For touch, a short staleness window is enough to distinguish a lost release from a second finger held down deliberately.</Assumption>
+    </Assumptions>
+  </C-FIX-TAP-POINTER-RECOVERY>
+</GraceChangeSpec>

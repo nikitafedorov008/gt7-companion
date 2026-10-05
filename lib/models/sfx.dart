@@ -61,18 +61,22 @@ extension SfxX on Sfx {
         Sfx.error => 'assets/sfx/error.ogg',
       };
 
-  /// Multiplier over the service volume.
+  /// Multiplier that brings each effect to the same loudness.
   ///
-  /// Transitions and sheets sit below a press so that navigating away from a card
-  /// does not double the loudness of the tap that started it.
+  /// The pack is not loudness-matched — the press effect is 12 dB quieter than
+  /// the pack's loudest sound — and every file is already peak-normalised, so
+  /// there is no headroom to raise them. These gains normalise downwards instead,
+  /// taking the quietest effect as the reference, so which effect a surface asks
+  /// for never decides whether it can be heard. The measurements behind the
+  /// numbers, and the command that produced them, are in assets/sfx/LEVELS.md.
   double get gain => switch (this) {
         Sfx.tap => 1.0,
-        Sfx.navigate => 0.7,
-        Sfx.back => 0.7,
-        Sfx.open => 0.8,
-        Sfx.close => 0.8,
-        Sfx.toggle => 1.0,
-        Sfx.confirm => 0.9,
-        Sfx.error => 1.0,
+        Sfx.back => 0.55,
+        Sfx.error => 0.43,
+        Sfx.open => 0.32,
+        Sfx.close => 0.26,
+        Sfx.navigate => 0.26,
+        Sfx.toggle => 0.24,
+        Sfx.confirm => 0.18,
       };
 }

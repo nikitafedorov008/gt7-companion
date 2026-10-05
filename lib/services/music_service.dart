@@ -47,8 +47,10 @@ class MusicService extends ChangeNotifier with WidgetsBindingObserver {
   /// Key under which the preference is stored.
   static const String prefsKey = 'ui_music_enabled';
 
-  /// A bed sits far below a click: this is music to work next to, not a concert.
-  static const double defaultVolume = 0.25;
+  /// A bed, and a measured one: at this level the music sits about nine decibels
+  /// below an interface sound, the margin that keeps a click audible over it.
+  /// Measured file levels are in assets/sfx/LEVELS.md.
+  static const double defaultVolume = 0.10;
 
   /// How many steps a fade takes, and how far the volume moves in total.
   static const int fadeSteps = 8;

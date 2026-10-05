@@ -42,8 +42,10 @@ class SoundService extends ChangeNotifier {
   /// Key under which the preference is stored.
   static const String prefsKey = 'ui_sound_enabled';
 
-  /// Quiet on purpose: this app usually runs next to a game that is already loud.
-  static const double defaultVolume = 0.35;
+  /// Full scale, because the pack leaves no headroom: every effect file is
+  /// already peak-normalised, so this channel cannot be made louder without
+  /// clipping. The music is what gives way instead.
+  static const double defaultVolume = 1.0;
 
   /// Repeats of the same effect faster than this are dropped, so a quick tapper
   /// cannot machine-gun clicks.

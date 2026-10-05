@@ -1,0 +1,135 @@
+<GraceChangePlan graceVersion="4.0" status="applied">
+  <C-AUTOMATE-TAP-SOUND>
+    <IntentSummary>Add one root interceptor that clicks on genuine taps and stays silent on drags, teach the route observer to sound popups, and delete the thirteen hand-written calls that automation makes redundant, keeping only the four that carry meaning.</IntentSummary>
+
+    <BaselineAssertions>
+      <MustExist>
+        <Value>lib/app.dart</Value>
+        <Value>lib/router/sound_navigator_observer.dart</Value>
+        <Value>lib/services/sound_service.dart</Value>
+        <Value>lib/widgets/daily_races/daily_race_details_sheet.dart</Value>
+      </MustExist>
+      <MustPassCommand>
+        <Command budgetSeconds="15">test ! -e lib/widgets/tap_sound_area.dart</Command>
+        <Command budgetSeconds="15">test "$(grep -rho 'context.sfx(Sfx.tap)' lib/ | wc -l | tr -d ' ')" -eq 10</Command>
+        <Command budgetSeconds="15">test -z "$(grep -n 'PopupRoute' lib/router/sound_navigator_observer.dart)" &amp;&amp; grep -q 'Sfx.open' lib/widgets/daily_races/daily_race_details_sheet.dart</Command>
+        <Command budgetSeconds="300">test "$(.fvm/flutter_sdk/bin/flutter analyze 2&gt;&amp;1 | grep -cE '^ *(error|warning|info) • ')" -eq 179</Command>
+        <Command budgetSeconds="300">.fvm/flutter_sdk/bin/flutter test</Command>
+      </MustPassCommand>
+    </BaselineAssertions>
+
+    <TargetAssertions>
+      <MustVerify>
+        <Module>M-SOUND</Module>
+      </MustVerify>
+      <MustPassCommand>
+        <Command budgetSeconds="15">test -e lib/widgets/tap_sound_area.dart &amp;&amp; grep -q 'kTouchSlop' lib/widgets/tap_sound_area.dart &amp;&amp; grep -q 'TapSoundArea' lib/app.dart</Command>
+        <Command budgetSeconds="15">test "$(grep -rho 'context.sfx(Sfx.tap)' lib/ | wc -l | tr -d ' ')" -eq 1 &amp;&amp; test "$(grep -rl 'context.sfx(Sfx.tap)' lib/ | wc -l | tr -d ' ')" -eq 1 &amp;&amp; grep -q 'context.sfx(Sfx.tap)' lib/widgets/tap_sound_area.dart</Command>
+        <Command budgetSeconds="15">test "$(grep -rho 'context.sfx(' lib/ | wc -l | tr -d ' ')" -eq 5</Command>
+        <Command budgetSeconds="15">grep -q 'PopupRoute' lib/router/sound_navigator_observer.dart &amp;&amp; grep -q 'Sfx.open' lib/router/sound_navigator_observer.dart</Command>
+        <Command budgetSeconds="15">test -z "$(grep -n 'Sfx.open\|Sfx.close' lib/widgets/daily_races/daily_race_details_sheet.dart)"</Command>
+        <Command budgetSeconds="15">test -e test/tap_sound_area_test.dart &amp;&amp; test -e test/sound_navigator_observer_test.dart</Command>
+        <Command budgetSeconds="15">grep -q 'silent on a drag' .grace/verification/main.xml &amp;&amp; grep -q 'popup' .grace/verification/main.xml</Command>
+        <Command budgetSeconds="300">.fvm/flutter_sdk/bin/flutter test</Command>
+        <Command budgetSeconds="300">test "$(.fvm/flutter_sdk/bin/flutter analyze 2&gt;&amp;1 | grep -cE '^ *(error|warning|info) • ')" -le 179</Command>
+      </MustPassCommand>
+    </TargetAssertions>
+
+    <DurableScope>
+      <GraphAnchors>
+        <M-SOUND />
+      </GraphAnchors>
+      <VerificationAnchors>
+        <V-M-SOUND />
+      </VerificationAnchors>
+    </DurableScope>
+
+    <ObservedWriteScope>
+      <File>lib/widgets/tap_sound_area.dart</File>
+      <File>lib/app.dart</File>
+      <File>lib/router/sound_navigator_observer.dart</File>
+      <File>lib/widgets/daily_races/daily_race_details_sheet.dart</File>
+      <File>lib/widgets/daily_races/daily_races_display.dart</File>
+      <File>lib/widgets/car_dealer/used/used_car_grid_item.dart</File>
+      <File>lib/widgets/car_dealer/legendary/legendary_car_grid_item.dart</File>
+      <File>lib/widgets/car_dealer/car_dealer_error_panel.dart</File>
+      <File>lib/pages/home_page.dart</File>
+      <File>lib/services/sound_service.dart</File>
+      <File>test/tap_sound_area_test.dart</File>
+      <File>test/sound_navigator_observer_test.dart</File>
+      <File>.grace/graph/main.xml</File>
+      <File>.grace/verification/main.xml</File>
+    </ObservedWriteScope>
+
+    <ImplementationPlan>
+      <T-001>
+        <Title>Add the root tap interceptor and wrap the app in it</Title>
+        <DependsOn></DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>lib/widgets/tap_sound_area.dart watches pointer down, move and up, and plays the press effect only when the pointer lifted within kTouchSlop of where it landed.</Criterion>
+          <Criterion>Input passes straight through: the interceptor uses a translucent hit-test behaviour, so no gesture, scroll or drag changes.</Criterion>
+          <Criterion>Only the first pointer of a multi-touch gesture can fire, and a fresh press resets the tracking.</Criterion>
+          <Criterion>app.dart wraps the router with it, so dialogs and sheets are covered too — they render inside the wrapped app.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -n 'kTouchSlop\|HitTestBehavior.translucent\|onPointerDown\|onPointerMove\|onPointerUp' lib/widgets/tap_sound_area.dart | head -10</Command>
+          <Command>grep -n 'TapSoundArea' lib/app.dart</Command>
+        </Verification>
+      </T-001>
+
+      <T-002>
+        <Title>Teach the route observer to sound popups</Title>
+        <DependsOn></DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>A pushed popup route plays the open effect and a popped one plays close, while page routes keep navigate and back.</Criterion>
+          <Criterion>The first route is still silent, since opening the app is not something the user did.</Criterion>
+          <Criterion>The daily-race sheet stops playing its own open and close, so one sheet opening makes one sound rather than two.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -n 'PopupRoute\|Sfx.open\|Sfx.close\|Sfx.navigate\|Sfx.back' lib/router/sound_navigator_observer.dart</Command>
+          <Command>test -z "$(grep -n 'Sfx.open\|Sfx.close' lib/widgets/daily_races/daily_race_details_sheet.dart)"</Command>
+        </Verification>
+      </T-002>
+
+      <T-003>
+        <Title>Delete the press calls automation replaces</Title>
+        <DependsOn>T-001</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>The nine context.sfx(Sfx.tap) calls are gone from the hub, both dealership cards, the error retry and the five daily-races buttons, along with any import or wrapper that existed only to play them.</Criterion>
+          <Criterion>The only press call left in the app is the interceptor's own; what remains beside it is the four calls carrying a meaning automation cannot infer — the tab switch, the back path and the two menu entries of the sound toggle.</Criterion>
+          <Criterion>The doc comment that used a press call as its example now describes the automatic layer instead.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>test "$(grep -rl 'context.sfx(Sfx.tap)' lib/ | wc -l | tr -d ' ')" -eq 1</Command>
+          <Command>grep -rn 'context.sfx(' lib/ | sed 's|lib/||'</Command>
+        </Verification>
+      </T-003>
+
+      <T-004>
+        <Title>Prove the tap, the drag and the popup</Title>
+        <DependsOn>T-001, T-002</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>test/tap_sound_area_test.dart pumps a real tap through the interceptor and asserts one press effect, then drags further than kTouchSlop and asserts nothing.</Criterion>
+          <Criterion>test/sound_navigator_observer_test.dart pumps a navigator carrying the observer, opens and closes a dialog, and asserts open then close; it also checks a page push and pop give navigate then back.</Criterion>
+          <Criterion>Both tests drive a real SoundService over a fake player, so no platform channel is touched.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>.fvm/flutter_sdk/bin/flutter test test/tap_sound_area_test.dart test/sound_navigator_observer_test.dart</Command>
+        </Verification>
+      </T-004>
+
+      <T-005>
+        <Title>Record the automatic layer in the durable projection</Title>
+        <DependsOn>T-001, T-002, T-003</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>M-SOUND's summary states that the press sound is automatic across every surface and that popups sound themselves.</Criterion>
+          <Criterion>V-M-SOUND gains the two test files, its command covers all four audio test files, and its scenarios state that a genuine tap clicks once while a drag stays silent, and that popups sound their own opening and closing.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -n 'automatic\|popup' .grace/graph/main.xml | head -4</Command>
+          <Command>grep -n 'silent on a drag' .grace/verification/main.xml</Command>
+        </Verification>
+      </T-005>
+    </ImplementationPlan>
+  </C-AUTOMATE-TAP-SOUND>
+</GraceChangePlan>

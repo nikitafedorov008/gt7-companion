@@ -8,6 +8,7 @@ import 'theme/gt7_theme.dart';
 import 'router/app_router.dart';
 import 'router/sound_navigator_observer.dart';
 import 'services/sound_service.dart';
+import 'widgets/tap_sound_area.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -30,14 +31,18 @@ class _AppView extends StatelessWidget {
     final appRouter = AppRouter();
     final sound = context.read<SoundService>();
 
-    return MaterialApp.router(
-      title: 'Gran Turismo 7 Companion',
-      theme: gt7Theme(),
-      // Transitions make a sound from here, so screens never mention audio.
-      // auto_route takes observers through its own config: MaterialApp.router
-      // does not accept them when a routerConfig is supplied.
-      routerConfig: appRouter.config(
-        navigatorObservers: () => [SoundNavigatorObserver(sound)],
+    return TapSoundArea(
+      // Wraps the whole app, so taps that land on dialogs and sheets count too:
+      // overlays render inside the app this interceptor covers.
+      child: MaterialApp.router(
+        title: 'Gran Turismo 7 Companion',
+        theme: gt7Theme(),
+        // Transitions make a sound from here, so screens never mention audio.
+        // auto_route takes observers through its own config: MaterialApp.router
+        // does not accept them when a routerConfig is supplied.
+        routerConfig: appRouter.config(
+          navigatorObservers: () => [SoundNavigatorObserver(sound)],
+        ),
       ),
     );
   }

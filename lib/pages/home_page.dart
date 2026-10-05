@@ -5,9 +5,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluid_background/fluid_background.dart';
 
-import '../models/sfx.dart';
 import '../router/app_router.dart';
-import '../services/sound_service.dart';
 import '../services/telemetry_service.dart';
 import '../widgets/daily_races/daily_races_display.dart';
 import '../widgets/telemetry/telemetry_screen.dart';
@@ -261,11 +259,7 @@ class _AppTile extends StatelessWidget {
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
-        onTap: () {
-          // Every hub tile is this widget, so the press sound lives here once.
-          context.sfx(Sfx.tap);
-          onTap();
-        },
+        onTap: onTap,
         child: Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(

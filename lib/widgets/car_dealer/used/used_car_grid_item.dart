@@ -17,8 +17,6 @@ import 'package:flutter/material.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter_avif/flutter_avif.dart';
 import '../../../models/car_dealer/car.dart';
-import '../../../models/sfx.dart';
-import '../../../services/sound_service.dart';
 import '../car_status_badge.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -32,10 +30,7 @@ class UsedCarCardItem extends StatelessWidget {
     String carImageUrl = _getCarImageUrl();
 
     return GestureDetector(
-      onTap: () {
-        context.sfx(Sfx.tap);
-        _launchPriceHistory(car.id);
-      },
+      onTap: () => _launchPriceHistory(car.id),
       child: Container(
         margin: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(

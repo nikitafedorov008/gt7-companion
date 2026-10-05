@@ -124,7 +124,7 @@ class SoundService extends ChangeNotifier {
   }
 }
 
-/// The call sites' entry point: `context.sfx(Sfx.tap)`.
+/// The entry point for a sound whose meaning automation cannot infer.
 extension SoundContextX on BuildContext {
   /// The sound service registered above this context.
   SoundService get sound => read<SoundService>();

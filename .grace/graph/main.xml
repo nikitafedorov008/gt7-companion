@@ -200,7 +200,7 @@
 
     <!-- Interface sound: the app's own feedback layer. -->
     <M-SOUND>
-      <Summary>(UTILITY) The audio layer, in two channels: interface sounds (the effect catalogue, the player seam behind which the engine sits, the service owning preference, volume and debounce, and the route observer that sounds transitions) and ambient music (a looping rotation of shipped tracks with its own preference, fades, and a pause whenever the app leaves the foreground).</Summary>
+      <Summary>(UTILITY) The audio layer, in two channels: interface sounds (the effect catalogue, the player seam behind which the engine sits, the service owning preference, volume and debounce, the route observer that sounds pages and popups alike, and one root interceptor that makes the press sound automatic across every surface by telling a tap from a drag) and ambient music (a looping rotation of shipped tracks with its own preference, fades, and a pause whenever the app leaves the foreground).</Summary>
       <Path>lib/services/sound_service.dart</Path>
     </M-SOUND>
 

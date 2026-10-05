@@ -1,0 +1,58 @@
+<GraceChangeSpec graceVersion="4.0" status="applied">
+  <C-AUTOMATE-TAP-SOUND>
+    <Summary>Make the generic press sound automatic — every surface clicks without a call site, drags stay silent — and make route popups sound themselves, keeping the explicit calls only where the meaning is not a plain tap.</Summary>
+
+    <Problem>A generic press sound is written by hand at nine places today (the hub tiles, both dealership cards, the error retry, the five buttons in the daily-races screen), and a route popup is written by hand at four more (the sheet's open and close). Two consequences, both real. First, coverage depends on memory: a button added next year clicks only if whoever adds it knows the convention, and nothing fails when they do not — the app simply goes quietly deaf in that corner. Second, the hand-written sites duplicate a decision the app already makes centrally: the setting, the volume and the debounce live in SoundService, so each call site is really only saying "a press happened here", which the framework can know by itself. What the framework cannot know is meaning — that a tab switch is a navigation, that the sound toggle is the toggle — so those calls must stay.</Problem>
+
+    <Goals>
+      <Goal>Every genuine tap anywhere in the app plays the press sound, with no call site, including surfaces that are not Material ink.</Goal>
+      <Goal>A drag, a scroll or a long press plays nothing: the sound marks a press, not a pointer touching the glass.</Goal>
+      <Goal>Popups — bottom sheets and dialogs — sound their own opening and closing, so a sheet added later needs no sound code at all.</Goal>
+      <Goal>Remove the nine generic press calls and the four popup calls, leaving only the calls that carry a meaning the automation cannot infer.</Goal>
+      <Goal>Keep the gate where it already is: switching sound off silences the automatic layer exactly as it silences the explicit one.</Goal>
+    </Goals>
+
+    <Constraints>
+      <Constraint>The tap-versus-drag threshold must be the framework's own kTouchSlop rather than an invented number: Flutter already defines what counts as a tap.</Constraint>
+      <Constraint>The interceptor must not swallow or alter input: it observes and passes through, so every existing gesture, scroll and drag keeps working.</Constraint>
+      <Constraint>Secondary pointers of a multi-touch gesture must not each fire a sound.</Constraint>
+      <Constraint>The explicit calls that remain must not double with the automatic one — the interface must not click twice for one press. The per-effect debounce is not a defence here, since two different effects within the window both play.</Constraint>
+      <Constraint>The settings, the volumes and the rotation are unchanged.</Constraint>
+    </Constraints>
+
+    <NonGoals>
+      <NonGoal>No automatic sound for failures: an error is not a press, so Sfx.error keeps needing a site that knows the outcome.</NonGoal>
+      <NonGoal>No per-widget sound configuration, no sound themes, no volume sliders.</NonGoal>
+      <NonGoal>No change to what the explicit calls mean: navigate, back, toggle and the popup effects keep their roles.</NonGoal>
+    </NonGoals>
+
+    <AcceptanceCriteria>
+      <Criterion>A single interceptor wraps the app, plays the press effect on a tap, and plays nothing when the pointer moved further than kTouchSlop before lifting.</Criterion>
+      <Criterion>Every generic context.sfx(Sfx.tap) call site is gone, and the app still clicks on those surfaces through the interceptor.</Criterion>
+      <Criterion>The route observer sounds open and close for popup routes by itself, and the sheet no longer plays them.</Criterion>
+      <Criterion>The explicit calls left in the code are only the ones with a meaning the automation cannot know: the tab switch, the back path, the sound toggle menu.</Criterion>
+      <Criterion>Tests prove that a tap plays once, that a drag plays nothing, and that opening and closing a dialog sounds open and close.</Criterion>
+      <Criterion>The whole suite stays green and flutter analyze reports no new issues on the pinned SDK.</Criterion>
+    </AcceptanceCriteria>
+
+    <AffectedAreas>
+      <M-SOUND />
+      <M-ROUTER />
+      <M-NAVBAR />
+      <M-WIDGET-DAILY />
+      <M-WIDGET-CAR-DEALER />
+      <M-SHELL-HOME />
+    </AffectedAreas>
+
+    <VerificationIntent>
+      <ExpectedCommand>.fvm/flutter_sdk/bin/flutter analyze ; .fvm/flutter_sdk/bin/flutter test</ExpectedCommand>
+      <ExpectedEvidence>The analyzer reports no new issues and the whole suite passes, including two new test files: one drives the interceptor with a real tap and a real drag and asserts what the player was asked for, the other pumps a navigator with the observer and asserts that a dialog opening and closing sound the popup effects. Whether the result feels right — a click on every button, silence while scrolling — needs the app running, which is the same on-device check the earlier sound work used.</ExpectedEvidence>
+    </VerificationIntent>
+
+    <Assumptions>
+      <Assumption>A Listener above MaterialApp sees every pointer in the app, including those that land on dialogs and sheets, because overlays render inside the app it wraps.</Assumption>
+      <Assumption>Firing on pointer up rather than down is the right moment: it is what a real control does, and it keeps a cancelled gesture silent.</Assumption>
+      <Assumption>One click per press is what the nine hand-written sites produced, so the automatic layer is a replacement rather than a new behaviour.</Assumption>
+    </Assumptions>
+  </C-AUTOMATE-TAP-SOUND>
+</GraceChangeSpec>

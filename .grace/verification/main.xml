@@ -226,8 +226,10 @@
       <TestFiles>
         <File>test/sound_service_test.dart</File>
         <File>test/music_service_test.dart</File>
+        <File>test/tap_sound_area_test.dart</File>
+        <File>test/sound_navigator_observer_test.dart</File>
       </TestFiles>
-      <Command>.fvm/flutter_sdk/bin/flutter test test/sound_service_test.dart test/music_service_test.dart</Command>
+      <Command>.fvm/flutter_sdk/bin/flutter test test/sound_service_test.dart test/music_service_test.dart test/tap_sound_area_test.dart test/sound_navigator_observer_test.dart</Command>
       <Scenario kind="success">With sound switched on, each effect the interface asks for is played exactly once.</Scenario>
       <Scenario kind="success">With sound switched off the service calls the player zero times: silence is the expected outcome here, not a failure.</Scenario>
       <Scenario kind="success">A press, a route push and a route pop each make their own sound, and the app's first route is excluded because it is not a navigation the user made.</Scenario>
@@ -239,6 +241,10 @@
       <Scenario kind="failure">Two concurrent starts of the same track must yield one player only: asking for a track that is already playing must not restart it. This regressed once and the symptom was one track audible in two voices.</Scenario>
       <Scenario kind="failure">A return to the foreground must not start the track over: resume continues it from the position the pause left, so the listener does not lose their place.</Scenario>
       <Marker>MusicService:</Marker>
+      <Scenario kind="success">A genuine tap anywhere in the app clicks once through the root interceptor, so a surface added later needs no sound code, and a surface that is not Material ink is covered too.</Scenario>
+      <Scenario kind="failure">A drag stays silent on a drag beyond the framework's own tap threshold, however far it travels and even if it returns to where it began: scrolling a list must never click.</Scenario>
+      <Scenario kind="success">Popups sound their own opening and closing, so a popup added later needs no sound code: a sheet or a dialog needs no call, and a page keeps navigate and back while the app's first route stays silent.</Scenario>
+      <Marker>TapSoundArea:</Marker>
 
     </V-M-SOUND>
 

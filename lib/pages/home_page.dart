@@ -90,13 +90,7 @@ class _HomePageState extends State<HomePage> {
                     const TelemetryPanel(),
 
                     const SizedBox(height: 24),
-                    Row(
-                      children: [
-                        Text('Services', style: theme.textTheme.titleMedium),
-                        const Spacer(),
-                        const _SoundToggle(),
-                      ],
-                    ),
+                    Text('Services', style: theme.textTheme.titleMedium),
                     const SizedBox(height: 12),
 
                     LayoutBuilder(
@@ -328,32 +322,6 @@ class TelemetryDetailsScreen extends StatelessWidget {
           );
         },
       ),
-    );
-  }
-}
-
-/// Switches the interface sound on and off.
-///
-/// It watches the service so the icon always reflects the stored preference, and
-/// switching sound on plays the toggle effect: the one control whose job is
-/// sound would otherwise be the only silent one.
-class _SoundToggle extends StatelessWidget {
-  const _SoundToggle();
-
-  @override
-  Widget build(BuildContext context) {
-    final sound = context.watch<SoundService>();
-    final theme = Theme.of(context);
-
-    return IconButton(
-      tooltip: sound.enabled ? 'Sound on' : 'Sound off',
-      onPressed: () {
-        final turnOn = !sound.enabled;
-        sound.setEnabled(turnOn);
-        if (turnOn) context.sfx(Sfx.toggle);
-      },
-      icon: Icon(sound.enabled ? Icons.volume_up : Icons.volume_off),
-      color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
     );
   }
 }

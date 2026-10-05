@@ -18,6 +18,7 @@ import '../repositories/car_repository.dart';
 import '../repositories/track_catalog.dart';
 import '../repositories/track_repository.dart';
 import '../services/sound_service.dart';
+import '../services/music_service.dart';
 
 /// Top-level provider scope used by the application.
 ///
@@ -36,6 +37,9 @@ class AppScope extends StatelessWidget {
         // Interface sound: the stored preference, the volume and the debounce.
         // It depends on nothing, so it can be built first.
         ChangeNotifierProvider(create: (context) => SoundService()..load()),
+        // Ambient music is a channel of its own: separate preference, separate
+        // volume, and it stops when the app leaves the foreground.
+        ChangeNotifierProvider(create: (context) => MusicService()..load()),
         ChangeNotifierProvider(create: (context) => TelemetryService()),
         // Records the route from the packet positions so the HUD can draw a
         // track map. It follows the telemetry service, so it needs it first.

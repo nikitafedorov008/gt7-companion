@@ -1,0 +1,167 @@
+<GraceChangePlan graceVersion="4.0" status="applied">
+  <C-ADD-AMBIENT-MUSIC>
+    <IntentSummary>Add a looping ambient music channel beside the interface sounds, with its own service, preference, life-cycle pause and fades, and move the audio control from the hub into the shared header as one icon opening a two-switch menu.</IntentSummary>
+
+    <BaselineAssertions>
+      <MustExist>
+        <Value>pubspec.yaml</Value>
+        <Value>lib/services/sound_service.dart</Value>
+        <Value>lib/services/sfx_player.dart</Value>
+        <Value>lib/widgets/adaptive_navbar.dart</Value>
+        <Value>lib/pages/home_page.dart</Value>
+        <Value>lib/dependency_injection/app_scope.dart</Value>
+        <Value>.grace/graph/main.xml</Value>
+        <Value>.grace/verification/main.xml</Value>
+      </MustExist>
+      <MustPassCommand>
+        <Command budgetSeconds="15">test ! -d assets/music</Command>
+        <Command budgetSeconds="15">test ! -e lib/services/music_service.dart &amp;&amp; test ! -e lib/services/music_player.dart</Command>
+        <Command budgetSeconds="15">grep -q '_SoundToggle' lib/pages/home_page.dart</Command>
+        <Command budgetSeconds="15">grep -q 'class SoundService' lib/services/sound_service.dart &amp;&amp; grep -q 'class SfxPlayer' lib/services/sfx_player.dart</Command>
+        <Command budgetSeconds="300">test "$(.fvm/flutter_sdk/bin/flutter analyze 2&gt;&amp;1 | grep -cE '^ *(error|warning|info) • ')" -eq 179</Command>
+        <Command budgetSeconds="300">.fvm/flutter_sdk/bin/flutter test</Command>
+      </MustPassCommand>
+    </BaselineAssertions>
+
+    <TargetAssertions>
+      <MustVerify>
+        <Module>M-SOUND</Module>
+      </MustVerify>
+      <MustPassCommand>
+        <Command budgetSeconds="15">grep -q 'assets/music/' pubspec.yaml &amp;&amp; test "$(ls assets/music/*.mp3 | wc -l | tr -d ' ')" -eq 2</Command>
+        <Command budgetSeconds="15">grep -qi 'CC0' assets/music/SOURCES.md &amp;&amp; grep -q 'open-lofi' assets/music/SOURCES.md</Command>
+        <Command budgetSeconds="15">test -e lib/services/music_player.dart &amp;&amp; test -e lib/services/music_service.dart</Command>
+        <Command budgetSeconds="15">test "$(grep -rl 'package:audioplayers' lib/ | wc -l | tr -d ' ')" -eq 2</Command>
+        <Command budgetSeconds="15">grep -q 'MusicService' lib/dependency_injection/app_scope.dart</Command>
+        <Command budgetSeconds="15">grep -q 'ui_music_enabled' lib/services/music_service.dart &amp;&amp; grep -q 'didChangeAppLifecycleState' lib/services/music_service.dart</Command>
+        <Command budgetSeconds="15">grep -q 'MusicService' lib/widgets/adaptive_navbar.dart &amp;&amp; grep -q 'SoundService' lib/widgets/adaptive_navbar.dart</Command>
+        <Command budgetSeconds="15">test -z "$(grep -n '_SoundToggle' lib/pages/home_page.dart)"</Command>
+        <Command budgetSeconds="15">test -e test/music_service_test.dart &amp;&amp; grep -q 'class _FakeMusicPlayer\|FakeMusicPlayer' test/music_service_test.dart</Command>
+        <Command budgetSeconds="300">.fvm/flutter_sdk/bin/flutter test</Command>
+        <Command budgetSeconds="300">test "$(.fvm/flutter_sdk/bin/flutter analyze 2&gt;&amp;1 | grep -cE '^ *(error|warning|info) • ')" -le 179</Command>
+      </MustPassCommand>
+    </TargetAssertions>
+
+    <DurableScope>
+      <GraphAnchors>
+        <M-SOUND />
+      </GraphAnchors>
+      <VerificationAnchors>
+        <V-M-SOUND />
+      </VerificationAnchors>
+    </DurableScope>
+
+    <ObservedWriteScope>
+      <File>pubspec.yaml</File>
+      <Glob>assets/music/*</Glob>
+      <File>lib/services/music_player.dart</File>
+      <File>lib/services/music_service.dart</File>
+      <File>lib/widgets/adaptive_navbar.dart</File>
+      <File>lib/pages/home_page.dart</File>
+      <File>lib/dependency_injection/app_scope.dart</File>
+      <File>test/music_service_test.dart</File>
+      <File>.grace/graph/main.xml</File>
+      <File>.grace/verification/main.xml</File>
+    </ObservedWriteScope>
+
+    <ImplementationPlan>
+      <T-001>
+        <Title>Lay out the two music tracks and record their provenance</Title>
+        <DependsOn></DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>assets/music/ holds almost-floating.mp3 and deep-space-loop.mp3, checked with the system tooling as valid stereo MP3 at 48 kHz and about 3-4 minutes each.</Criterion>
+          <Criterion>assets/music/SOURCES.md names Open Lo-Fi, the CC0-1.0 license, the release URL, and both titles with their durations.</Criterion>
+          <Criterion>pubspec registers assets/music/ alongside the existing asset folders.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>ls -la assets/music/</Command>
+          <Command>for f in assets/music/*.mp3; do afinfo "$f" | grep -E 'estimated duration|Data format'; done</Command>
+          <Command>grep -n 'assets/music/' pubspec.yaml</Command>
+        </Verification>
+      </T-001>
+
+      <T-002>
+        <Title>Add the music playback seam</Title>
+        <DependsOn></DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>lib/services/music_player.dart declares a MusicPlayer interface that can start a looping track, set the volume, stop, and report when a track finishes.</Criterion>
+          <Criterion>The audioplayers implementation sets ReleaseMode.loop for a single track and exposes completion so the service can advance; failures degrade to silence instead of throwing.</Criterion>
+          <Criterion>Nothing else in the app learns about the engine: audioplayers is imported by exactly the two adapter files.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -n 'abstract class MusicPlayer\|ReleaseMode\|onPlayerComplete\|Future' lib/services/music_player.dart | head -12</Command>
+          <Command>test "$(grep -rl 'package:audioplayers' lib/ | wc -l | tr -d ' ')" -eq 2</Command>
+        </Verification>
+      </T-002>
+
+      <T-003>
+        <Title>Add the music service: preference, rotation, fades and life cycle</Title>
+        <DependsOn>T-002</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>MusicService extends ChangeNotifier with enabled, volume, load, setEnabled and dispose, persisting to the ui_music_enabled key.</Criterion>
+          <Criterion>It rotates: when a track finishes, the next one starts, wrapping around.</Criterion>
+          <Criterion>It observes the app life cycle, pausing when the state is not resumed and returning only if music is enabled.</Criterion>
+          <Criterion>Volume eases in and out rather than jumping, and the track never plays when music is off or in tests.</Criterion>
+          <Criterion>The default is on at 0.25, and the observer is removed in dispose.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -n 'class MusicService\|ui_music_enabled\|didChangeAppLifecycleState\|WidgetsBinding\|_nextTrack\|defaultVolume' lib/services/music_service.dart | head -14</Command>
+          <Command>grep -q 'addObserver' lib/services/music_service.dart &amp;&amp; grep -q 'removeObserver' lib/services/music_service.dart</Command>
+        </Verification>
+      </T-003>
+
+      <T-004>
+        <Title>Register the music service in the app scope</Title>
+        <DependsOn>T-003</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>AppScope provides MusicService and calls its load, next to the interface sound service, with a comment only if the order is not obvious.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -n 'SoundService\|MusicService' lib/dependency_injection/app_scope.dart | head -6</Command>
+        </Verification>
+      </T-004>
+
+      <T-005>
+        <Title>Move the audio control into the shared header as a two-switch menu</Title>
+        <DependsOn>T-003, T-004</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>AdaptiveNavBar carries one control, placed with the existing header actions near the clock, that opens a menu with a switch for interface sounds and a switch for ambient music, each reading and writing its own service.</Criterion>
+          <Criterion>The control's icon reflects whether either channel is on, so a glance says whether the app is muted.</Criterion>
+          <Criterion>The layout survives both the desktop top bar and the phone bottom bar: tabs, the central button and the clock keep their places.</Criterion>
+          <Criterion>lib/pages/home_page.dart loses its own switch and the hub's Services row returns to a plain title.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -n 'MusicService\|SoundService\|PopupMenu\|volume_' lib/widgets/adaptive_navbar.dart | head -12</Command>
+          <Command>test -z "$(grep -n '_SoundToggle' lib/pages/home_page.dart)"</Command>
+          <Command>.fvm/flutter_sdk/bin/flutter test test/motion_panel_layout_test.dart test/daily_races_display_test.dart</Command>
+        </Verification>
+      </T-005>
+
+      <T-006>
+        <Title>Prove the music service's four behaviours with a fake player</Title>
+        <DependsOn>T-003</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>test/music_service_test.dart injects a fake player and asserts that a disabled service never starts a track, that enabling starts it, that disabling stops it, and that finishing a track advances to the next one.</Criterion>
+          <Criterion>The test touches no platform channel and needs no device.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>.fvm/flutter_sdk/bin/flutter test test/music_service_test.dart</Command>
+        </Verification>
+      </T-006>
+
+      <T-007>
+        <Title>Extend the durable audio module and its verification</Title>
+        <DependsOn>T-003</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>M-SOUND's summary in the graph describes the audio layer as two channels — interface sounds and ambient music — rather than sounds alone.</Criterion>
+          <Criterion>V-M-SOUND gains the music command and scenarios, including that silence when music is switched off is a valid outcome and that playback stops when the app leaves the foreground.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -n 'M-SOUND' .grace/graph/main.xml | head -3</Command>
+          <Command>grep -n 'V-M-SOUND' .grace/verification/main.xml | head -3</Command>
+          <Command>grep -n 'music' .grace/verification/main.xml | head -6</Command>
+        </Verification>
+      </T-007>
+    </ImplementationPlan>
+  </C-ADD-AMBIENT-MUSIC>
+</GraceChangePlan>

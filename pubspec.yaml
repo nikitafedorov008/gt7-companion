@@ -78,6 +78,7 @@ flutter:
     - assets/cars/
     - assets/tracks/
     - assets/sfx/
+    - assets/music/
     - schemas/
 
   # example:

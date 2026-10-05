@@ -225,13 +225,19 @@
     <V-M-SOUND>
       <TestFiles>
         <File>test/sound_service_test.dart</File>
+        <File>test/music_service_test.dart</File>
       </TestFiles>
-      <Command>.fvm/flutter_sdk/bin/flutter test test/sound_service_test.dart</Command>
+      <Command>.fvm/flutter_sdk/bin/flutter test test/sound_service_test.dart test/music_service_test.dart</Command>
       <Scenario kind="success">With sound switched on, each effect the interface asks for is played exactly once.</Scenario>
       <Scenario kind="success">With sound switched off the service calls the player zero times: silence is the expected outcome here, not a failure.</Scenario>
       <Scenario kind="success">A press, a route push and a route pop each make their own sound, and the app's first route is excluded because it is not a navigation the user made.</Scenario>
       <Scenario kind="failure">A repeat of the same effect inside the 40 ms window is dropped, so a fast tapper cannot machine-gun clicks.</Scenario>
       <Marker>SoundService:</Marker>
+      <Scenario kind="success">With music switched on, a track starts when the service loads and the next one follows when the current one finishes, wrapping back to the first at the end of the rotation.</Scenario>
+      <Scenario kind="success">With music switched off the player is never asked to start: silence is the expected outcome, not a failure, and the same holds for the track-completion path.</Scenario>
+      <Scenario kind="success">The music pauses when the app leaves the foreground and returns only while the channel is enabled, so a backgrounded companion is silent.</Scenario>
+      <Marker>MusicService:</Marker>
+
     </V-M-SOUND>
 
     <!-- Profile feature (foreign author, kept for coverage completeness). -->

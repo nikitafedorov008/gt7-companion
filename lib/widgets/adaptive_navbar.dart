@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart'
     show kIsWeb, defaultTargetPlatform, TargetPlatform;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
@@ -8,6 +9,7 @@ import 'window_navigation_safe_area.dart';
 import '../models/sfx.dart';
 import '../router/app_router.dart';
 import '../services/sound_service.dart';
+import '../services/music_service.dart';
 
 /// Adaptive navigation bar used across the app.
 /// - Desktop / Web: renders a top navigation bar.
@@ -172,6 +174,7 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
                                   ).colorScheme.onSurface.withOpacity(0.9),
                           ),
                         ),
+                        const _AudioMenu(),
                       ],
                     ),
                   ),
@@ -403,6 +406,9 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
                 },
               ),
               // end StreamBuilder
+
+              const SizedBox(width: 6),
+              const _AudioMenu(),
             ],
           ), // Row
         ), // Container
@@ -421,5 +427,48 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
       return const Size.fromHeight(_kMobileBarHeight);
     }
     return const Size.fromHeight(_kDesktopBarHeight);
+  }
+}
+
+/// One control for both audio channels, in the header where a global setting belongs.
+///
+/// It reads both services, so each switch shows the stored state, and the icon
+/// answers the only question worth a glance: is this app about to make a sound?
+class _AudioMenu extends StatelessWidget {
+  const _AudioMenu();
+
+  @override
+  Widget build(BuildContext context) {
+    final sound = context.watch<SoundService>();
+    final music = context.watch<MusicService>();
+    final anyChannelOn = sound.enabled || music.enabled;
+
+    return PopupMenuButton<String>(
+      tooltip: 'Sound',
+      icon: Icon(anyChannelOn ? Icons.volume_up : Icons.volume_off),
+      onSelected: (channel) {
+        if (channel == 'sound') {
+          final turnOn = !sound.enabled;
+          sound.setEnabled(turnOn);
+          if (turnOn) context.sfx(Sfx.toggle);
+        } else {
+          final turnOn = !music.enabled;
+          music.setEnabled(turnOn);
+          if (turnOn) context.sfx(Sfx.toggle);
+        }
+      },
+      itemBuilder: (context) => [
+        CheckedPopupMenuItem(
+          value: 'sound',
+          checked: sound.enabled,
+          child: const Text('Interface sounds'),
+        ),
+        CheckedPopupMenuItem(
+          value: 'music',
+          checked: music.enabled,
+          child: const Text('Ambient music'),
+        ),
+      ],
+    );
   }
 }

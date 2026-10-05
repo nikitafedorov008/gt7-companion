@@ -1,0 +1,63 @@
+<GraceChangeSpec graceVersion="4.0" status="applied">
+  <C-ADD-AMBIENT-MUSIC>
+    <Summary>Add a second audio channel — looping ambient music — beside the interface sounds, and move the audio control out of the hub into the shared header where a global setting belongs.</Summary>
+
+    <Problem>The app gained interface sound in C-ADD-UI-SOUNDS, but it is silent between interactions, and the single sound switch sits in the hub's "Services" row: it scrolls away with the content and it is not the place a global preference belongs. Music is not a bigger version of an interface blip and cannot ride the same channel: it loops instead of firing once, it must stop when the app is not in front of the user, it needs its own volume (a menu bed sits far below a click), its own stored preference, and it must not be throttled by the 40 ms UI debounce. GT Sport's menus had exactly this shape — separate channels with separate volumes — which is also why the control belongs in the header rather than in a content block.</Problem>
+
+    <Goals>
+      <Goal>Loop ambient music in the background, rotating through the shipped tracks, so a long session does not repeat one two-minute loop forever.</Goal>
+      <Goal>Keep it a separate service with its own player seam, its own preference key and its own volume, so the interface-sound policy stays untouched.</Goal>
+      <Goal>Stop the music when the app is not foregrounded and bring it back when it is, because a companion app must not play to an empty room.</Goal>
+      <Goal>Ease the volume in and out instead of cutting, so starting and stopping does not click against the game's own audio.</Goal>
+      <Goal>Move the audio control into the shared header next to the clock, as one icon that opens a menu with two switches — interface sounds and ambient music — each reflecting its own stored state.</Goal>
+      <Goal>Delete the hub's own switch, so there is exactly one place to control audio.</Goal>
+    </Goals>
+
+    <Constraints>
+      <Constraint>Assets must be redistributable and their provenance recorded. Two tracks come from Open Lo-Fi, whose manifest and README declare CC0-1.0 ("without asking permission or giving credit"); game-ripped GT music remains out of bounds.</Constraint>
+      <Constraint>Keep the bundle honest: two tracks, about 8 MB together. No download at runtime, no streaming.</Constraint>
+      <Constraint>Music must never play in tests: the player is injected and a disabled service makes no call, as with the interface sounds.</Constraint>
+      <Constraint>The header is also the phone's bottom navigation bar, so the control must fit the existing row at both widths without disturbing the tabs, the central button or the clock.</Constraint>
+      <Constraint>Leave the interface-sound behaviour exactly as shipped: same sounds, same 40 ms debounce, same volume, same toggle semantics. This change adds a channel; it does not revise the old one.</Constraint>
+      <Constraint>The service lifecycle hook must be registered and removed cleanly, so no observer leaks when the scope is torn down.</Constraint>
+    </Constraints>
+
+    <NonGoals>
+      <NonGoal>No volume sliders: both channels stay on/off with fixed, deliberately low levels. A mixer is a separate design.</NonGoal>
+      <NonGoal>No track picker, no playlists, no per-screen music cues, no crossfade between tracks.</NonGoal>
+      <NonGoal>No music in the telemetry dashboard's own code, and no change to the telemetry or profile features.</NonGoal>
+      <NonGoal>The empty `lib/services/settings_service.dart` is still not resurrected.</NonGoal>
+    </NonGoals>
+
+    <AcceptanceCriteria>
+      <Criterion>assets/music/ holds the two tracks and a provenance note naming Open Lo-Fi, the CC0-1.0 license and the release URL, and pubspec registers the folder.</Criterion>
+      <Criterion>lib/services/music_player.dart defines the playback seam — start a looping track, set volume, stop, dispose — with the audioplayers implementation behind it and the audioplayers import appearing in no other service file.</Criterion>
+      <Criterion>lib/services/music_service.dart extends ChangeNotifier, exposes enabled, volume, load, setEnabled and dispose, persists to a ui_music_enabled key, and advances to the next track when one finishes.</Criterion>
+      <Criterion>The service observes the app lifecycle and pauses playback when the state is not resumed, resuming only if music is enabled.</Criterion>
+      <Criterion>AppScope registers the music service in dependency order.</Criterion>
+      <Criterion>AdaptiveNavBar carries one audio control that opens a menu with two switches, each reading and writing its own service, and the control's icon reflects whether any channel is on.</Criterion>
+      <Criterion>lib/pages/home_page.dart no longer contains the sound switch.</Criterion>
+      <Criterion>test/music_service_test.dart proves with a fake player that a disabled service never starts playback, that enabling starts it, that disabling stops it, and that finishing a track moves to the next one.</Criterion>
+      <Criterion>The whole suite stays green and flutter analyze reports no new issues on the pinned SDK.</Criterion>
+    </AcceptanceCriteria>
+
+    <AffectedAreas>
+      <M-SOUND />
+      <M-NAVBAR />
+      <M-SHELL-HOME />
+      <M-DI-APPSCOPE />
+    </AffectedAreas>
+
+    <VerificationIntent>
+      <ExpectedCommand>.fvm/flutter_sdk/bin/flutter analyze ; .fvm/flutter_sdk/bin/flutter test ; .fvm/flutter_sdk/bin/flutter test test/music_service_test.dart</ExpectedCommand>
+      <ExpectedEvidence>The analyzer reports no new issues, the whole suite passes, and the new unit test proves the four behaviours above. Whether the music is actually audible, loops without a gap, and ducks out when the app loses focus can only be confirmed by running the app: the same instrumented-run technique used for the interface sounds (temporary logging inside the player's error-swallowing blocks, then reverted) is the intended evidence path, followed by listening on macOS.</ExpectedEvidence>
+    </VerificationIntent>
+
+    <Assumptions>
+      <Assumption>Open Lo-Fi's CC0 dedication holds: the author states the tracks were generated with Suno v5 and donated to the public domain, and the manifest records license CC0-1.0.</Assumption>
+      <Assumption>Two tracks are enough for rotation in this version; more can be added by dropping files into assets/music/ once the user listens and chooses.</Assumption>
+      <Assumption>Music is on by default at 0.25 because the app's stated character is a Gran Turismo companion, and the header control is always visible.</Assumption>
+      <Assumption>MP3 is acceptable on every platform this app targets; the interface sounds already proved asset loading works on macOS with OGG.</Assumption>
+    </Assumptions>
+  </C-ADD-AMBIENT-MUSIC>
+</GraceChangeSpec>

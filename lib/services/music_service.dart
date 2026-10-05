@@ -60,6 +60,11 @@ class MusicService extends ChangeNotifier with WidgetsBindingObserver {
   bool _enabled;
   bool _isLoaded = false;
   bool _isForeground = true;
+
+  /// Whether a track is playing or paused mid-track. Kept explicitly rather than
+  /// inferred from the life-cycle state, because it is what stops a second start
+  /// from doubling the playback.
+  bool _isPlaying = false;
   int _index = 0;
 
   bool get enabled => _enabled;
@@ -103,24 +108,29 @@ class MusicService extends ChangeNotifier with WidgetsBindingObserver {
     }
 
     if (value) {
+      _isPlaying = false;
       await _start();
     } else {
       await _fadeOut();
       await _player.stop();
+      _isPlaying = false;
     }
   }
 
   /// Falls silent when the app is not in front of the user, and comes back when
   /// it is — a companion app must not play to an empty room.
+  ///
+  /// Leaving pauses and returning resumes, so the track carries on from where it
+  /// was instead of starting over.
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     _isForeground = state == AppLifecycleState.resumed;
     if (!_enabled) return;
 
     if (_isForeground) {
-      unawaited(_start());
+      unawaited(_resumeOrStart());
     } else {
-      unawaited(_player.stop());
+      unawaited(_player.pause());
     }
   }
 
@@ -128,29 +138,47 @@ class MusicService extends ChangeNotifier with WidgetsBindingObserver {
   void _advance() {
     if (!_enabled || !_isForeground) return;
     _index = (_index + 1) % tracks.length;
+    _isPlaying = false;
     unawaited(_start());
   }
 
   Future<void> _start() async {
+    // Asking again for the track that is already playing is not a restart. The
+    // observer's first resumed notification arrives while load() is still
+    // preparing that very track, and without this guard the second call built a
+    // second player, so one track came out of two speakers at once.
+    if (_isPlaying) return;
+    _isPlaying = true;
+
     await _player.play(currentTrack, volume: 0);
     await _fadeIn();
+  }
+
+  /// Carries on where the track was paused, starting one if nothing is playing.
+  Future<void> _resumeOrStart() async {
+    if (_isPlaying) {
+      await _player.resume();
+    } else {
+      await _start();
+    }
   }
 
   Future<void> _fadeIn() async {
     for (var step = 1; step <= fadeSteps; step++) {
       await _player.setVolume(_volume * step / fadeSteps);
-      await _pause();
+      await _waitFadeStep();
     }
   }
 
   Future<void> _fadeOut() async {
     for (var step = fadeSteps - 1; step >= 0; step--) {
       await _player.setVolume(_volume * step / fadeSteps);
-      await _pause();
+      await _waitFadeStep();
     }
   }
 
-  Future<void> _pause() async {
+  /// Waits out one fade step; a zero-length fade makes this a no-op.
+  Future<void> _waitFadeStep() async {
     final step = fadeDuration ~/ fadeSteps;
     if (step > Duration.zero) await Future<void>.delayed(step);
   }

@@ -1,0 +1,106 @@
+<GraceChangePlan graceVersion="4.0" status="applied">
+  <C-FIX-MUSIC-START-RACE>
+    <IntentSummary>Close the start race in the music channel, make starting idempotent, and keep the track's position across foreground changes, with tests that pin each behaviour.</IntentSummary>
+
+    <BaselineAssertions>
+      <MustExist>
+        <Value>lib/services/music_player.dart</Value>
+        <Value>lib/services/music_service.dart</Value>
+        <Value>test/music_service_test.dart</Value>
+      </MustExist>
+      <MustPassCommand>
+        <Command budgetSeconds="15">grep -q '_playerFor' lib/services/music_player.dart &amp;&amp; grep -q 'Future&lt;AudioPlayer&gt; _playerFor' lib/services/music_player.dart</Command>
+        <Command budgetSeconds="15">test -z "$(grep -n 'Future&lt;void&gt; pause' lib/services/music_player.dart)"</Command>
+        <Command budgetSeconds="15">grep -q 'unawaited(_player.stop())' lib/services/music_service.dart</Command>
+        <Command budgetSeconds="300">test "$(.fvm/flutter_sdk/bin/flutter analyze 2&gt;&amp;1 | grep -cE '^ *(error|warning|info) • ')" -eq 179</Command>
+        <Command budgetSeconds="300">.fvm/flutter_sdk/bin/flutter test</Command>
+      </MustPassCommand>
+    </BaselineAssertions>
+
+    <TargetAssertions>
+      <MustVerify>
+        <Module>M-SOUND</Module>
+      </MustVerify>
+      <MustPassCommand>
+        <Command budgetSeconds="15">grep -q 'Future&lt;AudioPlayer&gt;' lib/services/music_player.dart &amp;&amp; grep -q 'Map&lt;String, Future&lt;AudioPlayer&gt;&gt;' lib/services/music_player.dart</Command>
+        <Command budgetSeconds="15">grep -q 'Future&lt;void&gt; pause' lib/services/music_player.dart &amp;&amp; grep -q 'Future&lt;void&gt; resume' lib/services/music_player.dart</Command>
+        <Command budgetSeconds="15">grep -q '_isPlaying' lib/services/music_service.dart &amp;&amp; grep -q '_player.pause()' lib/services/music_service.dart</Command>
+        <Command budgetSeconds="15">test -z "$(grep -n 'unawaited(_player.stop())' lib/services/music_service.dart)"</Command>
+        <Command budgetSeconds="15">grep -q 'one player' test/music_service_test.dart &amp;&amp; grep -q 'does not restart' test/music_service_test.dart</Command>
+        <Command budgetSeconds="15">grep -q 'concurrent' .grace/verification/main.xml &amp;&amp; grep -q 'resume continues' .grace/verification/main.xml</Command>
+        <Command budgetSeconds="300">.fvm/flutter_sdk/bin/flutter test</Command>
+        <Command budgetSeconds="300">test "$(.fvm/flutter_sdk/bin/flutter analyze 2&gt;&amp;1 | grep -cE '^ *(error|warning|info) • ')" -le 179</Command>
+      </MustPassCommand>
+    </TargetAssertions>
+
+    <DurableScope>
+      <VerificationAnchors>
+        <V-M-SOUND />
+      </VerificationAnchors>
+    </DurableScope>
+
+    <ObservedWriteScope>
+      <File>lib/services/music_player.dart</File>
+      <File>lib/services/music_service.dart</File>
+      <File>test/music_service_test.dart</File>
+      <File>.grace/verification/main.xml</File>
+    </ObservedWriteScope>
+
+    <ImplementationPlan>
+      <T-001>
+        <Title>Share the pending player load and add pause to the seam</Title>
+        <DependsOn></DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>The player map holds futures rather than finished players, so concurrent callers for one asset await the same creation and only one AudioPlayer is ever built.</Criterion>
+          <Criterion>A failed load is dropped from the map, so a later attempt can retry instead of awaiting a broken future forever.</Criterion>
+          <Criterion>The interface gains pause and resume beside stop, and the implementation maps them to the plugin's own pause and resume.</Criterion>
+          <Criterion>Failures still degrade to silence.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -n 'Map&lt;String, Future&lt;AudioPlayer&gt;&gt;\|Future&lt;AudioPlayer&gt; _playerFor\|catchError\|remove(' lib/services/music_player.dart | head -10</Command>
+          <Command>grep -n 'Future&lt;void&gt; pause\|Future&lt;void&gt; resume' lib/services/music_player.dart</Command>
+        </Verification>
+      </T-001>
+
+      <T-002>
+        <Title>Make starting idempotent and keep the position across foreground changes</Title>
+        <DependsOn>T-001</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>Starting a track that is already playing does nothing, so the first resumed notification after registration cannot double playback or restart the track.</Criterion>
+          <Criterion>Leaving the foreground pauses the track; returning resumes it; neither restarts it.</Criterion>
+          <Criterion>Switching the channel off still stops and resets, and a finished track still advances the rotation.</Criterion>
+          <Criterion>The controller tracks what is playing explicitly, rather than inferring it from the life-cycle state.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -n '_isPlaying\|Future&lt;void&gt; _start\|_player.pause()\|_player.resume()\|_player.stop()' lib/services/music_service.dart | head -14</Command>
+          <Command>grep -q 'didChangeAppLifecycleState' lib/services/music_service.dart</Command>
+        </Verification>
+      </T-002>
+
+      <T-003>
+        <Title>Pin the two behaviours that let this through</Title>
+        <DependsOn>T-002</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>A test starts the service twice without awaiting in between and asserts the player was asked for the track exactly once and built exactly one player.</Criterion>
+          <Criterion>A test sends paused and resumed through the life-cycle hook and asserts the track was neither restarted nor advanced, and that the player was paused and resumed.</Criterion>
+          <Criterion>The existing four music tests still pass unchanged.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>.fvm/flutter_sdk/bin/flutter test test/music_service_test.dart</Command>
+        </Verification>
+      </T-003>
+
+      <T-004>
+        <Title>Record the two scenarios in the durable verification</Title>
+        <DependsOn>T-002</DependsOn>
+        <AcceptanceCriteria>
+          <Criterion>V-M-SOUND gains a scenario stating that concurrent starts yield one player for a track, and one stating that resume continues rather than restarts.</Criterion>
+          <Criterion>The entry still carries one command covering both audio test files.</Criterion>
+        </AcceptanceCriteria>
+        <Verification>
+          <Command>grep -n 'concurrent\|resume continues' .grace/verification/main.xml</Command>
+        </Verification>
+      </T-004>
+    </ImplementationPlan>
+  </C-FIX-MUSIC-START-RACE>
+</GraceChangePlan>

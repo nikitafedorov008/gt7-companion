@@ -1,0 +1,50 @@
+<GraceChangeSpec graceVersion="4.0" status="applied">
+  <C-FIX-MUSIC-START-RACE>
+    <Summary>Fix the two defects the first on-device run of the music channel exposed: a start race that builds two players for one track, and a life-cycle path that restarts the track instead of resuming it.</Summary>
+
+    <Problem>Running the app on macOS with temporary logging inside the music player produced every line twice — "prepared assets/music/almost-floating.mp3", "playing ... at 0.0" and "faded in to 0.25" each appeared twice for a single launch. Two causes compound. First, AudioPlayersMusicPlayer._playerFor checks the player map and only publishes the new player after `await setSource(...)` completes, so two callers arriving before that await finishes both miss the map entry and each builds a player: one track, two players, the music audible in two voices. Second, nothing prevents those two callers: MusicService.load() starts the track and the very first AppLifecycleState.resumed notification, delivered right after the observer is registered, starts it again. The same life-cycle path has a third, quieter defect: returning to the foreground calls _start(), which stops and resumes, so the track begins from the beginning rather than continuing — wrong for a channel whose whole purpose is to fall silent and come back. Neither the unit tests nor the analyzer can see any of this: they do not run two concurrent callers, and they do not listen.</Problem>
+
+    <Goals>
+      <Goal>Make player creation single-instance even under concurrent callers, by sharing the pending load rather than the finished player.</Goal>
+      <Goal>Make starting idempotent: asking for the track that is already playing must not restart it.</Goal>
+      <Goal>Keep the position across foreground changes: pause when the app leaves, resume when it returns, and reserve stop for switching the channel off.</Goal>
+      <Goal>Pin all three behaviours with tests, so the holes this slipped through are closed.</Goal>
+    </Goals>
+
+    <Constraints>
+      <Constraint>The public shape of MusicService does not change: same enabled, volume, load, setEnabled, dispose and prefs key. This is a defect fix, not a redesign.</Constraint>
+      <Constraint>The interface-sound channel, the header control and the assets are untouched.</Constraint>
+      <Constraint>Tests stay device-free and fast: no real audio, no waiting on the fade.</Constraint>
+      <Constraint>Pause must not be confused with stop: disable resets the track, a foreground change does not.</Constraint>
+    </Constraints>
+
+    <NonGoals>
+      <NonGoal>No change to the fade length, the volumes or the rotation order.</NonGoal>
+      <NonGoal>No new preferences, no track picker, no changes to the header menu.</NonGoal>
+      <NonGoal>No attempt to also rework how the app handles life cycle elsewhere; only the music channel is in scope.</NonGoal>
+    </NonGoals>
+
+    <AcceptanceCriteria>
+      <Criterion>MusicPlayer exposes pause and resume beside stop, and AudioPlayersMusicPlayer implements them against the plugin.</Criterion>
+      <Criterion>AudioPlayersMusicPlayer hands out one player per asset even when several callers ask for the same asset at the same time.</Criterion>
+      <Criterion>MusicService does not restart the current track when it is asked for it again, so the initial resumed notification cannot double the playback.</Criterion>
+      <Criterion>A foreground change pauses and resumes; only switching the channel off stops and resets.</Criterion>
+      <Criterion>test/music_service_test.dart proves that two overlapping starts create one player, and that a pause/resume cycle neither restarts the track nor advances it.</Criterion>
+      <Criterion>The whole suite stays green and flutter analyze reports no new issues on the pinned SDK.</Criterion>
+    </AcceptanceCriteria>
+
+    <AffectedAreas>
+      <M-SOUND />
+    </AffectedAreas>
+
+    <VerificationIntent>
+      <ExpectedCommand>.fvm/flutter_sdk/bin/flutter analyze ; .fvm/flutter_sdk/bin/flutter test ; .fvm/flutter_sdk/bin/flutter test test/music_service_test.dart</ExpectedCommand>
+      <ExpectedEvidence>The analyzer reports no new issues, the whole suite passes, and the new tests fail against the old code and pass against the new one. The on-device check is the same instrumented run that found the bug: after the fix, a single launch must log one prepared player and one start, and a return to the foreground must not log a fresh start.</ExpectedEvidence>
+    </VerificationIntent>
+
+    <Assumptions>
+      <Assumption>Two players for one track is audible as doubling and worth fixing even though the discarded first tree is torn down: the fade runs for 600 ms, which is long enough for both to be heard.</Assumption>
+      <Assumption>audioplayers' pause keeps the position, so resume continues the track; the plugin documents pause separately from stop, which resets to the beginning.</Assumption>
+    </Assumptions>
+  </C-FIX-MUSIC-START-RACE>
+</GraceChangeSpec>

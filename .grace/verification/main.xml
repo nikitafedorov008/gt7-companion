@@ -236,6 +236,8 @@
       <Scenario kind="success">With music switched on, a track starts when the service loads and the next one follows when the current one finishes, wrapping back to the first at the end of the rotation.</Scenario>
       <Scenario kind="success">With music switched off the player is never asked to start: silence is the expected outcome, not a failure, and the same holds for the track-completion path.</Scenario>
       <Scenario kind="success">The music pauses when the app leaves the foreground and returns only while the channel is enabled, so a backgrounded companion is silent.</Scenario>
+      <Scenario kind="failure">Two concurrent starts of the same track must yield one player only: asking for a track that is already playing must not restart it. This regressed once and the symptom was one track audible in two voices.</Scenario>
+      <Scenario kind="failure">A return to the foreground must not start the track over: resume continues it from the position the pause left, so the listener does not lose their place.</Scenario>
       <Marker>MusicService:</Marker>
 
     </V-M-SOUND>

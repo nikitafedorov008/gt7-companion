@@ -15,6 +15,7 @@
 // END_MODULE_MAP
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/foundation.dart';
 
 import '../models/sfx.dart';
 
@@ -64,8 +65,8 @@ class AudioPlayersSfxPlayer implements SfxPlayer {
           AssetSource(sound.asset.replaceFirst(_enginePrefix, '')),
         );
         _players[sound] = player;
-      } catch (_) {
-        // No audio backend here: this effect stays silent.
+      } catch (error) {
+        debugPrint('SfxPlayer: failed to load ${sound.name}: $error');
       }
     }
   }
@@ -79,8 +80,8 @@ class AudioPlayersSfxPlayer implements SfxPlayer {
       await player.setVolume(volume.clamp(0.0, 1.0));
       await player.stop();
       await player.resume();
-    } catch (_) {
-      // Silence is an acceptable outcome; a sound is never worth an exception.
+    } catch (error) {
+      debugPrint('SfxPlayer: failed to play ${sound.name}: $error');
     }
   }
 

@@ -1,0 +1,41 @@
+<GraceChangeSpec graceVersion="4.0" status="applied">
+  <C-APEX-RESPONSIVE-SERVICES>
+    <Summary>Add Beyond the Apex magazine beside GT Auto and make the home Services section responsive.</Summary>
+    <Problem>Services reserves oversized grid cells while the visible cards retain content-sized heights, creating a large empty gap before Daily Races. A fourth service and an in-app Apex reader are missing.</Problem>
+    <Goals>
+      <Goal>Show Auto Market, Hagerty, GT Auto and Beyond the Apex in that order with consistent visual card proportions and content-driven section height.</Goal>
+      <Goal>Provide a Flutter magazine reader based on the official Russian Beyond the Apex: five chapter groups, article navigation, readable text and original illustrations.</Goal>
+    </Goals>
+    <Constraints>
+      <Constraint>Use the FVM SDK, existing Provider architecture and auto_route; new feature UI belongs under lib/widgets/apex and external fetching belongs in a service.</Constraint>
+      <Constraint>Use available width for breakpoints, preserve image aspect ratios and allow wrapped labels and increased text scale.</Constraint>
+      <Constraint>Keep official content attribution and a link to https://www.gran-turismo.com/ru/gt7/apex/; do not invent article content.</Constraint>
+      <Constraint>Preserve existing uncommitted audio work and keep crash investigation outside this change.</Constraint>
+    </Constraints>
+    <NonGoals>
+      <NonGoal>No redesign of telemetry, Profile, Wishlist or Daily Races, no authentication changes, no offline download library.</NonGoal>
+    </NonGoals>
+    <AcceptanceCriteria>
+      <Criterion>Four service cards appear without horizontal overflow or a reserved empty grid row, with consistent card artwork areas and readable labels.</Criterion>
+      <Criterion>Layout uses one column where two cards cannot fit, two columns on intermediate widths and four on wide widths; all available row width is distributed evenly.</Criterion>
+      <Criterion>Apex opens from its card inside the home navigation branch and supports chapter/article selection and returning home.</Criterion>
+      <Criterion>Wide reader uses side-by-side contents and article; narrow reader exposes contents through a drawer or sheet. Loading, network errors and retry are visible.</Criterion>
+      <Criterion>Widget checks cover widths 320, 390, 600, 768, 1024, 1280 and 1920 and increased text scale, including real navigation taps.</Criterion>
+      <Criterion>Run the app and visually inspect narrow and wide layouts and Apex article navigation; do not claim untested platforms are verified.</Criterion>
+    </AcceptanceCriteria>
+    <AffectedAreas>
+      <M-SHELL-HOME />
+      <M-ROUTER />
+      <M-DI-APPSCOPE />
+    </AffectedAreas>
+    <VerificationIntent>
+      <ExpectedCommand>.fvm/flutter_sdk/bin/flutter analyze</ExpectedCommand>
+      <ExpectedCommand>.fvm/flutter_sdk/bin/flutter test test/service_menu_test.dart test/apex_service_test.dart test/apex_display_test.dart</ExpectedCommand>
+      <ExpectedEvidence>Layout bounds and overflow checks, fixture-based official-content parser tests, reader selection and retry tests, live application screenshots at narrow and wide widths.</ExpectedEvidence>
+    </VerificationIntent>
+    <Assumptions>
+      <Assumption>Apex is a native in-app reader with the official site's chapter-and-article structure, adapted to the existing dark application theme.</Assumption>
+      <Assumption>Reading official content requires network access; errors provide retry and a link to the original.</Assumption>
+    </Assumptions>
+  </C-APEX-RESPONSIVE-SERVICES>
+</GraceChangeSpec>

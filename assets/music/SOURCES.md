@@ -1,28 +1,25 @@
-# Ambient background music
+# Menu music
 
-Two tracks from **Open Lo-Fi**, a collection of 166 lo-fi tracks that its author
-btahir generated with Suno v5 and donated to the public domain.
+Original recordings by **Kevin MacLeod**, from the author's official catalog:
+https://incompetech.com/music/royalty-free/pieces.json
 
-- Collection: https://github.com/btahir/open-lofi
-- License: **CC0 1.0 Universal** — stated in the repository README and its
-  `catalog.json` (`"license": "CC0-1.0"`), and in the release archive's own
-  license file: "you can copy, modify, distribute, and use them for any purpose,
-  including commercial, without asking permission or giving credit."
-- Archive: https://github.com/btahir/open-lofi/releases/latest/download/openlofi.zip
+License: **Creative Commons Attribution 4.0**
+https://creativecommons.org/licenses/by/4.0/
 
-Both files were taken out of that archive by byte range rather than by
-downloading all 528 MB of it, and each was verified with `afinfo`: stereo,
-48 kHz, about 180 kbps.
+| Shipped file | Title | ISRC | Mood |
+| --- | --- | --- | --- |
+| airport-lounge.mp3 | Airport Lounge | USUAN1100806 | Electric piano, vibraphone, light lounge jazz |
+| chill-wave.mp3 | Chill Wave | USUAN1600048 | Relaxed electronic groove with synths, bass and guitar |
+| bossa-antigua.mp3 | Bossa Antigua | USUAN1700069 | Guitar, bass and drums; relaxed bossa nova |
 
-| File | Title | Category | Duration | Size |
-| --- | --- | --- | --- | --- |
-| `almost-floating.mp3` | Almost Floating | Ambient Drift & Dreamscapes | 3:22 | 4.3 MB |
-| `deep-space-loop.mp3` | Deep Space Loop | Ambient Drift & Dreamscapes | 2:40 | 3.4 MB |
+Source audio: https://incompetech.com/music/royalty-free/mp3-royaltyfree/
+with original filenames Airport%20Lounge.mp3, Chill%20Wave.mp3 and
+Bossa%20Antigua.mp3. Catalog and license were checked on 2026-10-25.
 
-They are played as a rotation: when one finishes, the next starts, wrapping back
-to the first. The order and the volume live in `lib/services/music_service.dart`;
-swapping a track is dropping a file here and naming it there.
+Changes: loudness normalised using ffmpeg `loudnorm=I=-18:TP=-2:LRA=9`,
+resampled to 44.1 kHz and encoded as 128 kbps MP3. Attribution is also visible
+inside the app: Sound menu → Music credits.
 
-The other 19 ambient tracks in the collection (and 145 more in other categories)
-are candidates if these two do not fit — the choice was made from titles and
-categories, not by listening.
+The playlist is selected to evoke relaxed racing-game menus. These tracks are
+not recordings from Gran Turismo and have no affiliation with Sony or
+Polyphony Digital. The former CC0 ambient tracks are replaced by this mix.

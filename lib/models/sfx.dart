@@ -20,7 +20,7 @@
 /// exactly what `pubspec.yaml` declares and what the bundle answers to — so the
 /// playback engine's own conventions stay inside [SfxPlayer].
 ///
-/// The files come from Kenney's CC0 Interface Sounds pack; see
+/// The files are an original synthesised soft menu bank; see
 /// `assets/sfx/SOURCES.md` for provenance and for how to swap one.
 enum Sfx {
   /// A press that does not leave the current screen.
@@ -51,32 +51,17 @@ enum Sfx {
 extension SfxX on Sfx {
   /// Asset bundle key for this sound, as declared under `assets:` in pubspec.
   String get asset => switch (this) {
-        Sfx.tap => 'assets/sfx/tap.ogg',
-        Sfx.navigate => 'assets/sfx/navigate.ogg',
-        Sfx.back => 'assets/sfx/back.ogg',
-        Sfx.open => 'assets/sfx/open.ogg',
-        Sfx.close => 'assets/sfx/close.ogg',
-        Sfx.toggle => 'assets/sfx/toggle.ogg',
-        Sfx.confirm => 'assets/sfx/confirm.ogg',
-        Sfx.error => 'assets/sfx/error.ogg',
-      };
+    Sfx.tap => 'assets/sfx/tap.wav',
+    Sfx.navigate => 'assets/sfx/navigate.wav',
+    Sfx.back => 'assets/sfx/back.wav',
+    Sfx.open => 'assets/sfx/open.wav',
+    Sfx.close => 'assets/sfx/close.wav',
+    Sfx.toggle => 'assets/sfx/toggle.wav',
+    Sfx.confirm => 'assets/sfx/confirm.wav',
+    Sfx.error => 'assets/sfx/error.wav',
+  };
 
-  /// Multiplier that brings each effect to the same loudness.
-  ///
-  /// The pack is not loudness-matched — the press effect is 12 dB quieter than
-  /// the pack's loudest sound — and every file is already peak-normalised, so
-  /// there is no headroom to raise them. These gains normalise downwards instead,
-  /// taking the quietest effect as the reference, so which effect a surface asks
-  /// for never decides whether it can be heard. The measurements behind the
-  /// numbers, and the command that produced them, are in assets/sfx/LEVELS.md.
-  double get gain => switch (this) {
-        Sfx.tap => 1.0,
-        Sfx.back => 0.55,
-        Sfx.error => 0.43,
-        Sfx.open => 0.32,
-        Sfx.close => 0.26,
-        Sfx.navigate => 0.26,
-        Sfx.toggle => 0.24,
-        Sfx.confirm => 0.18,
-      };
+  /// The bank is matched to -24 dBFS RMS; leave a little channel headroom.
+  /// See assets/sfx/LEVELS.md for the reproducible measurements.
+  double get gain => 0.8;
 }

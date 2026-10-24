@@ -1,28 +1,13 @@
-# Interface sound effects
+# Soft menu sound bank
 
-All eight effects come from Kenney's **Interface Sounds** pack (version 1.0, 2020).
-The pack is released under **Creative Commons Zero (CC0)**: its own `License.txt`
-states the content is "free to use in personal, educational and commercial
-projects" and that crediting is not mandatory. We credit anyway.
+Eight original synthesised cues, inspired by the restrained, tonal character of
+Gran Turismo menu feedback. No audio sampled from Gran Turismo or third-party
+sound packs. Replaces Kenney Interface Sounds throughout the app.
 
-- Pack: https://kenney.nl/assets/interface-sounds
-- License: https://creativecommons.org/publicdomain/zero/1.0/
-- Author: Kenney — https://kenney.nl
+Reproduce with `python3 tools/generate_menu_sfx.py` (Python standard library).
+The source defines every note, envelope and partial. Rounded sine tones with
+quiet piano-like harmonics, a 6ms attack and a 25ms release avoid sharp clicks,
+noise bursts and abrasive buzzing. Navigation rises, back descends, confirmation
+resolves upwards, error uses a gentle low descending pair.
 
-| File here | Original in the pack | Used for |
-| --- | --- | --- |
-| `tap.ogg` | `click_001.ogg` | a press that does not navigate |
-| `navigate.ogg` | `open_001.ogg` | a route push |
-| `back.ogg` | `back_001.ogg` | a route pop |
-| `open.ogg` | `open_002.ogg` | a bottom sheet opening |
-| `close.ogg` | `close_001.ogg` | a bottom sheet closing |
-| `toggle.ogg` | `toggle_001.ogg` | switching a setting |
-| `confirm.ogg` | `confirmation_001.ogg` | an action that succeeded |
-| `error.ogg` | `error_001.ogg` | a failure state appearing |
-
-Replacing any file with another CC0 sound needs no code change: the mapping from
-each effect to its asset lives in `lib/models/sfx.dart`.
-
-Files are kept in OGG Vorbis, the smallest format the pack ships and one the
-audioplayers plugin plays on every platform this app targets. Each effect is
-under 15 KB, so the whole set costs about 64 KB.
+Format: 44.1kHz mono 16-bit PCM WAV, generated directly (no codec conversion).

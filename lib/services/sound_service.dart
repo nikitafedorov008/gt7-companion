@@ -35,16 +35,14 @@ class SoundService extends ChangeNotifier {
     SfxPlayer? player,
     bool enabled = true,
     double volume = defaultVolume,
-  })  : _player = player ?? AudioPlayersSfxPlayer(),
-        _enabled = enabled,
-        _volume = volume;
+  }) : _player = player ?? AudioPlayersSfxPlayer(),
+       _enabled = enabled,
+       _volume = volume;
 
   /// Key under which the preference is stored.
   static const String prefsKey = 'ui_sound_enabled';
 
-  /// Full scale, because the pack leaves no headroom: every effect file is
-  /// already peak-normalised, so this channel cannot be made louder without
-  /// clipping. The music is what gives way instead.
+  /// Per-effect gain and the matched asset levels set the interface loudness.
   static const double defaultVolume = 1.0;
 
   /// Repeats of the same effect faster than this are dropped, so a quick tapper

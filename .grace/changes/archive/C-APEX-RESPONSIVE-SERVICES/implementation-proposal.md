@@ -1,0 +1,12 @@
+# План для согласования
+
+1. Вынести блок Services в самостоятельный виджет. Убрать GridView с искусственной высотой ячейки; использовать LayoutBuilder и Wrap с рассчитанной шириной карточки. Минимальная ширина карточки 160 logical px; 4 колонки от 960 px, 2 от 344 px, иначе 1. Между карточками 12 px. Изображение в AspectRatio, подпись под ним с переносом. Высота секции следует фактическому содержимому.
+2. Добавить четвёртую карточку Beyond the Apex после GT Auto с журнальной типографикой. Существующие три логотипа сохранить с BoxFit.contain. Переход зарегистрировать в ветке HomeShell auto_route.
+3. Описать модели главы/статьи/блоков и сервис официального Apex с внедряемым HTTP client, timeout, загрузкой, ошибкой и повтором. Отдельно проверить структуру исходного сайта и ограничить загрузку официальными ресурсами; разметку и абсолютные URL изображений проверять фикстурами.
+4. Реализовать Flutter-читатель: на широком экране оглавление около 280 px слева, статья с ограниченной шириной справа; на узком оглавление в drawer, статья одной колонкой. Сохранить заголовки, иллюстрации и подписи, выделение текущей статьи, ссылку на источник. Контент и функции не подменять декоративными заглушками.
+5. Проверить сетку и читатель на ширинах 320/390/600/768/1024/1280/1920 и text scale 1.0/1.5. Проверить реальные нажатия на карточки и статьи, загрузку/ошибку/повтор. Затем analyze, целевые тесты и live app через Dart MCP/Marionette с узким и широким окном.
+6. В утверждённом GRACE lifecycle добавить M-WIDGET-SERVICE-MENU, M-MODEL-APEX, M-SERVICE-APEX, M-WIDGET-APEX и соответствующие verification entries; обновить связи home/router/DI и архивировать change после проверки.
+
+Исходные области записи: lib/pages/home_page.dart; lib/widgets/home/service_menu.dart; lib/widgets/apex/**; lib/models/apex/**; lib/services/apex_service.dart; lib/dependency_injection/app_scope.dart; lib/router/app_router.dart и app_router.gr.dart; test/service_menu_test.dart, apex_service_test.dart, apex_display_test.dart и fixtures/apex/**; assets/images/apex* и pubspec.yaml только если понадобится локальная обложка; соответствующие .grace graph/verification/context artifacts.
+
+Исходные assertions: M-SHELL-HOME, M-ROUTER и M-DI-APPSCOPE существуют; существующий home использует GridView.count и три сервиса. Целевые assertions: новые модули и verification entries существуют; целевые тесты и анализатор проходят. После согласования эти пункты переносятся в plan.xml с точными границами записи и командами, перед source edits выполняется baseline gate.

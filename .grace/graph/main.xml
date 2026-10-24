@@ -105,15 +105,18 @@
 
     <!-- GT Auto. -->
     <M-MODEL-GT-AUTO>
-      <Summary>(DATA_LAYER) Static catalogue of GT Auto counters with their icons and multipliers.</Summary>
-      <Path>lib/models/gt_auto/gt_auto_catalog.dart</Path>
+      <Summary>(DATA_LAYER) Source-labelled stock specifications, engine swaps, tri-state special parts and user build plans; legacy game-service reference remains available.</Summary>
+      <Path>lib/models/gt_auto/gt_auto_data.dart</Path>
     </M-MODEL-GT-AUTO>
-
     <M-WIDGET-GT-AUTO>
-      <Summary>(UI_COMPONENT) GT Auto screen: counter tiles and the counter detail view.</Summary>
+      <Summary>(UI_COMPONENT) Responsive Workshop with persistent car hero, search, specifications, engine comparisons, special parts and build plans.</Summary>
       <Path>lib/widgets/gt_auto/gt_auto_display.dart</Path>
       <M-MODEL-GT-AUTO />
+      <M-REPO-GT-AUTO />
     </M-WIDGET-GT-AUTO>
+    <M-SERVICE-GTPLUS><Summary>(INTEGRATION) Public GTPlus Flight parser for confirmed engine swaps and community stock specifications.</Summary><Path>lib/services/gtplus_service.dart</Path><M-MODEL-GT-AUTO /></M-SERVICE-GTPLUS>
+    <M-SERVICE-GT-AUTO-PARTS><Summary>(INTEGRATION) HRC Rolls CSV compatibility with schema validation and unknown cells.</Summary><Path>lib/services/gt_auto_parts_service.dart</Path><M-MODEL-GT-AUTO /></M-SERVICE-GT-AUTO-PARTS>
+    <M-REPO-GT-AUTO><Summary>(DATA_LAYER) Official car selection, exact source joins, partial failures and per-car persisted build plans.</Summary><Path>lib/repositories/gt_auto_repository.dart</Path><M-MODEL-GT-AUTO /><M-SERVICE-GTPLUS /><M-SERVICE-GT-AUTO-PARTS /></M-REPO-GT-AUTO>
 
     <!-- PSN authentication and the official API surface. -->
     <M-SERVICE-GT7-AUTH>
@@ -158,10 +161,11 @@
     </M-PAGE-WISHLIST>
 
     <M-SHELL-HOME>
-      <Summary>(UI_COMPONENT) Home hub: telemetry panel, daily races section and the grid of service tiles.</Summary>
+      <Summary>(UI_COMPONENT) Home hub: telemetry panel, daily races and the responsive four-service menu.</Summary>
       <Path>lib/pages/home_page.dart</Path>
       <M-WIDGET-TELEMETRY />
       <M-WIDGET-DAILY />
+      <M-WIDGET-SERVICE-MENU />
     </M-SHELL-HOME>
 
     <M-SHELL-TABS>
@@ -183,6 +187,8 @@
       <M-REPO-SPORT />
       <M-REPO-CAR />
       <M-REPO-GT7-AUTH />
+      <M-SERVICE-APEX />
+      <M-REPO-GT-AUTO />
     </M-DI-APPSCOPE>
 
     <M-ROUTER>
@@ -191,6 +197,7 @@
       <M-SHELL-TABS />
       <M-WIDGET-CAR-DEALER />
       <M-WIDGET-GT-AUTO />
+      <M-WIDGET-APEX />
     </M-ROUTER>
 
     <M-THEME>
@@ -210,6 +217,29 @@
       <Path>lib/blocs/profile/profile_bloc.dart</Path>
       <M-REPO-GT7-AUTH />
     </M-FEATURE-PROFILE>
+
+    <M-WIDGET-SERVICE-MENU>
+      <Summary>(UI_COMPONENT) Width-driven 1/2/4-column service cards with content-height rows and stable artwork proportions.</Summary>
+      <Path>lib/widgets/home/service_menu.dart</Path>
+    </M-WIDGET-SERVICE-MENU>
+
+    <M-MODEL-APEX>
+      <Summary>(DATA_MODEL) Official Apex chapters, sections, article references and ordered reading blocks.</Summary>
+      <Path>lib/models/apex/apex_content.dart</Path>
+    </M-MODEL-APEX>
+
+    <M-SERVICE-APEX>
+      <Summary>(CORE_LOGIC) Official Russian Apex API client, article parser, observable selection, request ordering, retry and in-memory cache.</Summary>
+      <Path>lib/services/apex_service.dart</Path>
+      <M-MODEL-APEX />
+    </M-SERVICE-APEX>
+
+    <M-WIDGET-APEX>
+      <Summary>(UI_COMPONENT) Native magazine reader with chapter sidebar or narrow drawer, article illustrations, source attribution, retry and adjacent-article navigation.</Summary>
+      <Path>lib/widgets/apex/apex_display.dart</Path>
+      <M-SERVICE-APEX />
+      <M-MODEL-APEX />
+    </M-WIDGET-APEX>
 
   </GD-MAIN>
 </GraceGraphDocument>

@@ -32,22 +32,32 @@ class MusicService extends ChangeNotifier with WidgetsBindingObserver {
     bool enabled = true,
     double volume = defaultVolume,
     this.fadeDuration = const Duration(milliseconds: 600),
-  })  : _player = player ?? AudioPlayersMusicPlayer(),
-        _enabled = enabled,
-        _volume = volume {
+  }) : _player = player ?? AudioPlayersMusicPlayer(),
+       _enabled = enabled,
+       _volume = volume {
     _player.onComplete(_advance);
   }
 
   /// The rotation, in play order. Asset bundle keys, as pubspec declares them.
   static const List<String> tracks = [
-    'assets/music/almost-floating.mp3',
-    'assets/music/deep-space-loop.mp3',
+    'assets/music/airport-lounge.mp3',
+    'assets/music/chill-wave.mp3',
+    'assets/music/bossa-antigua.mp3',
   ];
+
+  static const String credits =
+      'Airport Lounge, Chill Wave, Bossa Antigua\n'
+      'Kevin MacLeod — incompetech.com\n\n'
+      'Licensed under Creative Commons Attribution 4.0\n'
+      'https://creativecommons.org/licenses/by/4.0/\n\n'
+      'Source: https://incompetech.com/music/royalty-free/\n'
+      'Audio normalised and re-encoded for this app.\n'
+      'These recordings are not from the Gran Turismo soundtrack.';
 
   /// Key under which the preference is stored.
   static const String prefsKey = 'ui_music_enabled';
 
-  /// A bed, and a measured one: at this level the music sits about nine decibels
+  /// A bed, and a measured one: at this level the music sits about thirteen decibels
   /// below an interface sound, the margin that keeps a click audible over it.
   /// Measured file levels are in assets/sfx/LEVELS.md.
   static const double defaultVolume = 0.10;

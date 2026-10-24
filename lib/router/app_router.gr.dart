@@ -11,6 +11,22 @@
 part of 'app_router.dart';
 
 /// generated route for
+/// [ApexDisplay]
+class ApexDisplayRoute extends PageRouteInfo<void> {
+  const ApexDisplayRoute({List<PageRouteInfo>? children})
+    : super(ApexDisplayRoute.name, initialChildren: children);
+
+  static const String name = 'ApexDisplayRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ApexDisplay();
+    },
+  );
+}
+
+/// generated route for
 /// [EmptyPage]
 class EmptyPageRoute extends PageRouteInfo<EmptyPageRouteArgs> {
   EmptyPageRoute({

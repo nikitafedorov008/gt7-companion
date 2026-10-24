@@ -19,6 +19,10 @@ import '../repositories/track_catalog.dart';
 import '../repositories/track_repository.dart';
 import '../services/sound_service.dart';
 import '../services/music_service.dart';
+import '../services/apex_service.dart';
+import '../services/gtplus_service.dart';
+import '../services/gt_auto_parts_service.dart';
+import '../repositories/gt_auto_repository.dart';
 
 /// Top-level provider scope used by the application.
 ///
@@ -41,6 +45,7 @@ class AppScope extends StatelessWidget {
         // volume, and it stops when the app leaves the foreground.
         ChangeNotifierProvider(create: (context) => MusicService()..load()),
         ChangeNotifierProvider(create: (context) => TelemetryService()),
+        ChangeNotifierProvider(create: (context) => ApexService()),
         // Records the route from the packet positions so the HUD can draw a
         // track map. It follows the telemetry service, so it needs it first.
         ChangeNotifierProvider(
@@ -51,6 +56,29 @@ class AppScope extends StatelessWidget {
         // The catalogue of cars the telemetry packet can refer to: loads the two
         // bundled assets once and answers id → name / photo.
         ChangeNotifierProvider(create: (context) => CarCatalog()..load()),
+        // Independent workshop sources, composed after the official car catalogue.
+        Provider(
+          create: (_) => GtPlusService(),
+          dispose: (_, service) => service.dispose(),
+        ),
+        Provider(
+          create: (_) => GtAutoPartsService(),
+          dispose: (_, service) => service.dispose(),
+        ),
+        ChangeNotifierProxyProvider3<
+          CarCatalog,
+          GtPlusService,
+          GtAutoPartsService,
+          GtAutoRepository
+        >(
+          create: (context) => GtAutoRepository(
+            context.read<CarCatalog>(),
+            context.read<GtPlusService>(),
+            context.read<GtAutoPartsService>(),
+          ),
+          update: (_, catalog, plus, parts, repository) =>
+              repository ?? GtAutoRepository(catalog, plus, parts),
+        ),
         // The course database, for naming a circuit from the lap we measured:
         // GT7 never sends a track id.
         ChangeNotifierProvider(create: (context) => TrackCatalog()..load()),
@@ -68,8 +96,11 @@ class AppScope extends StatelessWidget {
             return apiService ?? Gt7ApiService(authService);
           },
         ),
-        ChangeNotifierProxyProvider2<Gt7AuthService, Gt7ApiService,
-            Gt7AuthRepositoryImpl>(
+        ChangeNotifierProxyProvider2<
+          Gt7AuthService,
+          Gt7ApiService,
+          Gt7AuthRepositoryImpl
+        >(
           create: (context) => Gt7AuthRepositoryImpl(
             Provider.of<Gt7AuthService>(context, listen: false),
             Provider.of<Gt7ApiService>(context, listen: false),

@@ -35,7 +35,14 @@
         <V-M-ROUTER />
         <V-M-THEME />
         <V-M-SOUND />
+        <V-M-WIDGET-SERVICE-MENU />
+        <V-M-MODEL-APEX />
+        <V-M-SERVICE-APEX />
+        <V-M-WIDGET-APEX />
         <V-M-FEATURE-PROFILE />
+        <V-M-SERVICE-GTPLUS />
+        <V-M-SERVICE-GT-AUTO-PARTS />
+        <V-M-REPO-GT-AUTO />
       </Owns>
     </VD-MAIN>
   </VerificationDocuments>

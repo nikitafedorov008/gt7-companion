@@ -58,16 +58,19 @@ class CarCatalog extends ChangeNotifier {
 
   Map<String, CarInfo> _cars = const {};
   Map<String, String> _photos = const {};
-  bool _isLoading = false;
   bool _isLoaded = false;
+  Future<void>? _loadFuture;
 
   bool get isLoaded => _isLoaded;
   int get carCount => _cars.length;
+  List<CarInfo> get cars => List.unmodifiable(_cars.values);
+  CarInfo? byId(String id) => _cars[id];
 
   /// Loads both assets once; safe to call repeatedly.
-  Future<void> load() async {
-    if (_isLoading || _isLoaded) return;
-    _isLoading = true;
+  Future<void> load() => _loadFuture ??= _load();
+
+  Future<void> _load() async {
+    if (_isLoaded) return;
 
     try {
       final results = await Future.wait([
@@ -78,35 +81,31 @@ class CarCatalog extends ChangeNotifier {
       final carsJson = json.decode(results[0]) as Map<String, dynamic>;
       final photosJson = json.decode(results[1]) as Map<String, dynamic>;
 
-      _cars = carsJson.map(
-        (id, value) {
-          final car = value as Map<String, dynamic>;
-          return MapEntry(
-            id,
-            CarInfo(
-              id: id,
-              name: (car['name'] as String?) ?? '',
-              shortName: (car['short'] as String?) ?? '',
-              manufacturerId: (car['maker'] as String?) ?? '',
-              carClass: (car['class'] as String?) ?? '',
-              power: (car['power'] as String?) ?? '',
-              weight: (car['weight'] as String?) ?? '',
-              performancePoints: (car['pp'] as String?) ?? '',
-              driveTrain: (car['drive'] as String?) ?? '',
-              aspiration: (car['aspiration'] as String?) ?? '',
-            ),
-          );
-        },
-      );
-      _photos = photosJson.map(
-        (id, value) => MapEntry(id, value as String),
-      );
+      _cars = carsJson.map((id, value) {
+        final car = value as Map<String, dynamic>;
+        return MapEntry(
+          id,
+          CarInfo(
+            id: id,
+            name: (car['name'] as String?) ?? '',
+            shortName: (car['short'] as String?) ?? '',
+            manufacturerId: (car['maker'] as String?) ?? '',
+            carClass: (car['class'] as String?) ?? '',
+            power: (car['power'] as String?) ?? '',
+            weight: (car['weight'] as String?) ?? '',
+            performancePoints: (car['pp'] as String?) ?? '',
+            driveTrain: (car['drive'] as String?) ?? '',
+            aspiration: (car['aspiration'] as String?) ?? '',
+          ),
+        );
+      });
+      _photos = photosJson.map((id, value) => MapEntry(id, value as String));
 
       _isLoaded = true;
     } catch (error) {
+      _loadFuture = null;
       debugPrint('CarCatalog: failed to load the car catalogue: $error');
     } finally {
-      _isLoading = false;
       notifyListeners();
     }
   }

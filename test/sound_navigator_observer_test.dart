@@ -1,3 +1,5 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:gt7_companion/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gt7_companion/models/sfx.dart';
@@ -30,6 +32,43 @@ void main() {
   });
 
   tearDown(() => sound.dispose());
+
+  TabPageRoute tab(int index) {
+    final pages = [
+      HomePageRoute.page,
+      WishlistPageRoute.page,
+      ProfilePageRoute.page,
+    ];
+    return TabPageRoute(
+      routeInfo: RouteMatch(
+        config: AutoRoute(page: pages[index], path: 'tab$index'),
+        segments: ['tab$index'],
+        stringMatch: 'tab$index',
+        key: ValueKey(index),
+      ),
+      index: index,
+    );
+  }
+
+  test('initial tab is silent', () {
+    SoundNavigatorObserver(sound).didInitTabRoute(tab(0), null);
+    expect(player.played, isEmpty);
+  });
+
+  test('first visit to Wishlist sounds navigation', () {
+    SoundNavigatorObserver(sound).didInitTabRoute(tab(1), tab(0));
+    expect(player.played, [Sfx.navigate]);
+  });
+
+  test('revisiting Profile sounds navigation', () {
+    SoundNavigatorObserver(sound).didChangeTabRoute(tab(2), tab(1));
+    expect(player.played, [Sfx.navigate]);
+  });
+
+  test('selecting the same tab stays silent', () {
+    SoundNavigatorObserver(sound).didChangeTabRoute(tab(1), tab(1));
+    expect(player.played, isEmpty);
+  });
 
   /// A navigator carrying the observer, with a page to push and a dialog to open.
   Future<void> pumpApp(WidgetTester tester) async {

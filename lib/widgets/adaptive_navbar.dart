@@ -49,9 +49,7 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
       tabs = null;
     }
     if (tabs != null) {
-      // A tab switch swaps the view without a route push, so the route observer
-      // never sees it: this is the one place that can sound it.
-      context.sfx(Sfx.navigate);
+      // Tab transitions are sounded centrally by SoundNavigatorObserver.
       tabs.setActiveIndex(0);
       return;
     }
@@ -102,9 +100,6 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final primary = Theme.of(context).colorScheme.primary;
-    final onPrimary = Theme.of(context).colorScheme.onPrimary;
-
     if (_isMobile) {
       // Bottom navigation with centered circular button. When inside a
       // TabsRouter, reflect and control the active index.
@@ -139,7 +134,7 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
                       borderRadius: BorderRadius.circular(32),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.25),
+                          color: Colors.black.withValues(alpha: 0.25),
                           blurRadius: 10,
                           offset: const Offset(0, 4),
                         ),
@@ -156,9 +151,8 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
                             Icons.flag,
                             color: active == 1
                                 ? Colors.pinkAccent
-                                : Theme.of(
-                                    context,
-                                  ).colorScheme.onSurface.withOpacity(0.9),
+                                : Theme.of(context).colorScheme.onSurface
+                                      .withValues(alpha: 0.9),
                           ),
                         ),
                         const SizedBox(width: 56), // spacer for central button
@@ -169,9 +163,8 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
                             Icons.person_outline,
                             color: active == 2
                                 ? Theme.of(context).colorScheme.primary
-                                : Theme.of(
-                                    context,
-                                  ).colorScheme.onSurface.withOpacity(0.9),
+                                : Theme.of(context).colorScheme.onSurface
+                                      .withValues(alpha: 0.9),
                           ),
                         ),
                         const _AudioMenu(),
@@ -199,8 +192,8 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
                         colors: [Colors.white70, Colors.grey],
                       ),
                       // color: active == 0
-                      //     ? primary.withOpacity(0.12)
-                      //     : primary.withOpacity(0.04),
+                      //     ? primary.withValues(alpha: 0.12)
+                      //     : primary.withValues(alpha: 0.04),
                     ),
                     child: ShaderMask(
                       blendMode: BlendMode.srcIn,
@@ -243,6 +236,48 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
     }
     final active = tabs?.activeIndex ?? -1;
 
+    final homeButton = InkWell(
+      onTap: () => _goHome(context),
+      borderRadius: BorderRadius.circular(999),
+      child: Container(
+        padding: const EdgeInsets.all(3.2),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomRight,
+            colors: [Colors.white70, Colors.grey],
+          ),
+          // color: active == 0
+          //     ? primary.withValues(alpha: 0.12)
+          //     : primary.withValues(alpha: 0.04),
+        ),
+        child: ShaderMask(
+          blendMode: BlendMode.srcIn,
+          shaderCallback: (bounds) {
+            return LinearGradient(
+              colors: [Colors.black38, Colors.black],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ).createShader(bounds);
+          },
+          child: SvgPicture.asset(
+            'assets/images/gran_turismo_logotype.svg',
+            colorFilter: ColorFilter.mode(
+              Colors.black.withValues(alpha: 0.6),
+              BlendMode.srcIn,
+            ),
+            // colorFilter: ColorFilter.mode(
+            //   active == 0 ? primary : Theme.of(context).iconTheme.color!,
+            //   BlendMode.srcIn,
+            // ),
+            height: 36,
+            width: 36,
+          ),
+        ),
+      ),
+    );
+
     return DecoratedBox(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -270,147 +305,162 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
           ),
-          child: Row(
-            children: [
-              // circular home button on the left
-              InkWell(
-                onTap: () => _goHome(context),
-                borderRadius: BorderRadius.circular(999),
-                child: Container(
-                  padding: const EdgeInsets.all(3.2),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomRight,
-                      colors: [Colors.white70, Colors.grey],
-                    ),
-                    // color: active == 0
-                    //     ? primary.withOpacity(0.12)
-                    //     : primary.withOpacity(0.04),
-                  ),
-                  child: ShaderMask(
-                    blendMode: BlendMode.srcIn,
-                    shaderCallback: (bounds) {
-                      return LinearGradient(
-                        colors: [Colors.black38, Colors.black],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ).createShader(bounds);
-                    },
-                    child: SvgPicture.asset(
-                      'assets/images/gran_turismo_logotype.svg',
-                      colorFilter: ColorFilter.mode(
-                        Colors.black.withValues(alpha: 0.6),
-                        BlendMode.srcIn,
-                      ),
-                      // colorFilter: ColorFilter.mode(
-                      //   active == 0 ? primary : Theme.of(context).iconTheme.color!,
-                      //   BlendMode.srcIn,
-                      // ),
-                      height: 36,
-                      width: 36,
-                    ),
-                  ),
-                ),
-              ),
-
-              const SizedBox(width: 6),
-
-              VerticalDivider(indent: 12, endIndent: 12, thickness: 0.4),
-
-              const SizedBox(width: 6),
-              // app title / spacer
-              Text(
-                'Gran Turismo 7 Companion',
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              const Spacer(),
-
-              VerticalDivider(indent: 12, endIndent: 12, thickness: 0.4),
-
-              const SizedBox(width: 6),
-
-              // two action buttons on the right (map to tabs when available)
-              TextButton.icon(
-                onPressed: () => _openPlaceholder(context, 'Wishlist'),
-                icon: Icon(
-                  Icons.flag_outlined,
-                  color: active == 1
-                      ? Colors.pinkAccent
-                      : Theme.of(
-                          context,
-                        ).colorScheme.onSurface.withOpacity(0.9),
-                ),
-                label: const Text('Wishlist'),
-                style: TextButton.styleFrom(
-                  foregroundColor: Theme.of(context).colorScheme.onSurface,
-                ),
-              ),
-              const SizedBox(width: 6),
-
-              VerticalDivider(indent: 12, endIndent: 12, thickness: 0.4),
-
-              const SizedBox(width: 6),
-
-              TextButton.icon(
-                onPressed: () => _openPlaceholder(context, 'Profile'),
-                icon: Icon(
-                  Icons.person_outline,
-                  color: active == 2
-                      ? Theme.of(context).colorScheme.primary
-                      : Theme.of(
-                          context,
-                        ).colorScheme.onSurface.withOpacity(0.9),
-                ),
-                label: const Text('Profile'),
-                style: TextButton.styleFrom(
-                  foregroundColor: Theme.of(context).colorScheme.onSurface,
-                ),
-              ),
-
-              const SizedBox(width: 6),
-
-              VerticalDivider(indent: 12, endIndent: 12, thickness: 0.4),
-
-              const SizedBox(width: 6),
-
-              // Live clock: HH:mm on top, "D Mon" (Russian short month) below
-              StreamBuilder<DateTime>(
-                stream: Stream<DateTime>.periodic(
-                  const Duration(minutes: 1),
-                  (_) => DateTime.now(),
-                ),
-                initialData: DateTime.now(),
-                builder: (context, snapshot) {
-                  final now = snapshot.data ?? DateTime.now();
-                  final locale = Localizations.localeOf(context).toString();
-                  final time = DateFormat.Hm(locale).format(now);
-                  final date = DateFormat('d MMM', locale).format(now);
-
-                  return Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        time,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final compact =
+                  constraints.maxWidth < 740 ||
+                  MediaQuery.textScalerOf(context).scale(14) > 17;
+              if (compact) {
+                return Row(
+                  children: [
+                    homeButton,
+                    if (constraints.maxWidth >= 260) ...[
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          constraints.maxWidth < 500
+                              ? 'GT7 Companion'
+                              : 'Gran Turismo 7 Companion',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.titleMedium,
                         ),
                       ),
-                      Text(date, style: Theme.of(context).textTheme.bodySmall),
-                    ],
-                  );
-                },
-              ),
-              // end StreamBuilder
+                    ] else
+                      const Spacer(),
+                    IconButton(
+                      tooltip: 'Wishlist',
+                      onPressed: () => _openPlaceholder(context, 'Wishlist'),
+                      icon: Icon(
+                        Icons.flag_outlined,
+                        color: active == 1
+                            ? Colors.pinkAccent
+                            : Theme.of(context).colorScheme.onSurface,
+                      ),
+                    ),
+                    IconButton(
+                      tooltip: 'Profile',
+                      onPressed: () => _openPlaceholder(context, 'Profile'),
+                      icon: Icon(
+                        Icons.person_outline,
+                        color: active == 2
+                            ? Theme.of(context).colorScheme.primary
+                            : Theme.of(context).colorScheme.onSurface,
+                      ),
+                    ),
+                    const _AudioMenu(),
+                  ],
+                );
+              }
+              return Row(
+                children: [
+                  homeButton,
 
-              const SizedBox(width: 6),
-              const _AudioMenu(),
-            ],
-          ), // Row
+                  const SizedBox(width: 6),
+
+                  VerticalDivider(indent: 12, endIndent: 12, thickness: 0.4),
+
+                  const SizedBox(width: 6),
+                  // app title / spacer
+                  Expanded(
+                    child: Text(
+                      'Gran Turismo 7 Companion',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  ),
+
+                  VerticalDivider(indent: 12, endIndent: 12, thickness: 0.4),
+
+                  const SizedBox(width: 6),
+
+                  // two action buttons on the right (map to tabs when available)
+                  TextButton.icon(
+                    onPressed: () => _openPlaceholder(context, 'Wishlist'),
+                    icon: Icon(
+                      Icons.flag_outlined,
+                      color: active == 1
+                          ? Colors.pinkAccent
+                          : Theme.of(
+                              context,
+                            ).colorScheme.onSurface.withValues(alpha: 0.9),
+                    ),
+                    label: const Text('Wishlist'),
+                    style: TextButton.styleFrom(
+                      foregroundColor: Theme.of(context).colorScheme.onSurface,
+                    ),
+                  ),
+                  const SizedBox(width: 6),
+
+                  VerticalDivider(indent: 12, endIndent: 12, thickness: 0.4),
+
+                  const SizedBox(width: 6),
+
+                  TextButton.icon(
+                    onPressed: () => _openPlaceholder(context, 'Profile'),
+                    icon: Icon(
+                      Icons.person_outline,
+                      color: active == 2
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(
+                              context,
+                            ).colorScheme.onSurface.withValues(alpha: 0.9),
+                    ),
+                    label: const Text('Profile'),
+                    style: TextButton.styleFrom(
+                      foregroundColor: Theme.of(context).colorScheme.onSurface,
+                    ),
+                  ),
+
+                  const SizedBox(width: 6),
+
+                  VerticalDivider(indent: 12, endIndent: 12, thickness: 0.4),
+
+                  const SizedBox(width: 6),
+
+                  // Live clock: HH:mm on top, "D Mon" (Russian short month) below
+                  StreamBuilder<DateTime>(
+                    stream: Stream<DateTime>.periodic(
+                      const Duration(minutes: 1),
+                      (_) => DateTime.now(),
+                    ),
+                    initialData: DateTime.now(),
+                    builder: (context, snapshot) {
+                      final now = snapshot.data ?? DateTime.now();
+                      final locale = Localizations.localeOf(context).toString();
+                      final time = DateFormat.Hm(locale).format(now);
+                      final date = DateFormat('d MMM', locale).format(now);
+
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            time,
+                            style: Theme.of(context).textTheme.bodyMedium
+                                ?.copyWith(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                          Text(
+                            date,
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                  // end StreamBuilder
+
+                  const SizedBox(width: 6),
+                  const _AudioMenu(),
+                ],
+              );
+            },
+          ), // LayoutBuilder
         ), // Container
       ),
     );
@@ -447,6 +497,24 @@ class _AudioMenu extends StatelessWidget {
       tooltip: 'Sound',
       icon: Icon(anyChannelOn ? Icons.volume_up : Icons.volume_off),
       onSelected: (channel) {
+        if (channel == 'credits') {
+          showDialog<void>(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Music credits'),
+              content: const SingleChildScrollView(
+                child: SelectableText(MusicService.credits),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Close'),
+                ),
+              ],
+            ),
+          );
+          return;
+        }
         if (channel == 'sound') {
           final turnOn = !sound.enabled;
           sound.setEnabled(turnOn);
@@ -468,6 +536,7 @@ class _AudioMenu extends StatelessWidget {
           checked: music.enabled,
           child: const Text('Ambient music'),
         ),
+        const PopupMenuItem(value: 'credits', child: Text('Music credits')),
       ],
     );
   }

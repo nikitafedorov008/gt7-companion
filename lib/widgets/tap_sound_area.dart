@@ -1,5 +1,5 @@
 // FILE: lib/widgets/tap_sound_area.dart
-// VERSION: 1.1.0
+// VERSION: 1.2.0
 // START_MODULE_CONTRACT
 //   PURPOSE: Make the generic press sound automatic, so a surface added later clicks without anyone remembering the convention.
 //   SCOPE: Telling a tap from a drag, recovering from a lost release, and asking for the press effect. Nothing else.
@@ -13,13 +13,20 @@
 //   TapSoundArea - one root interceptor that turns genuine taps into the press effect.
 // END_MODULE_MAP
 
-import 'package:flutter/gestures.dart' show PointerDeviceKind, computeHitSlop;
+import 'package:flutter/gestures.dart'
+    show
+        DeviceGestureSettings,
+        GestureBinding,
+        HitTestResult,
+        PointerDeviceKind,
+        kTouchSlop;
 import 'package:flutter/widgets.dart';
+import 'package:flutter/rendering.dart';
 
 import '../models/sfx.dart';
 import '../services/sound_service.dart';
 
-/// Plays the press sound for every genuine tap in the app.
+/// Plays the press sound for genuine taps on interactive controls.
 ///
 /// One interceptor rather than a call at every button: coverage stops depending
 /// on memory, and the decision about whether sound is on stays where it already
@@ -27,9 +34,9 @@ import '../services/sound_service.dart';
 /// silences an explicit call.
 ///
 /// A press that becomes a drag is not a tap, and the threshold is the
-/// framework's own device-aware hit slop rather than a fixed number: it is the
-/// same measure Flutter's buttons use, so this layer and the button underneath
-/// agree about what counts as a tap on a mouse, a trackpad and a finger alike.
+/// tap recognizer's gesture-settings tolerance, falling back to [kTouchSlop].
+/// In particular, a mouse uses that tolerance too: computeHitSlop's smaller
+/// mouse threshold is not the default used by Flutter's tap recognizer.
 /// The sound fires on release, as a real control does, which also keeps a
 /// cancelled gesture quiet.
 ///
@@ -60,6 +67,7 @@ class _TapSoundAreaState extends State<TapSoundArea> {
   int? _pointer;
   Offset? _origin;
   bool _moved = false;
+  bool _interactive = false;
   DateTime? _heardAt;
 
   void _forget() {
@@ -67,6 +75,7 @@ class _TapSoundAreaState extends State<TapSoundArea> {
     _origin = null;
     _moved = false;
     _heardAt = null;
+    _interactive = false;
   }
 
   bool get _trackedIsStale {
@@ -80,11 +89,21 @@ class _TapSoundAreaState extends State<TapSoundArea> {
     // its release was lost, and refusing this press would silence every press
     // that followed until the app restarted. A mouse is taken at its word
     // straight away, since it cannot be holding a second pointer.
-    final adopt = _pointer == null ||
+    final adopt =
+        _pointer == null ||
         event.kind == PointerDeviceKind.mouse ||
         _trackedIsStale;
     if (!adopt) return;
 
+    final hit = HitTestResult();
+    GestureBinding.instance.hitTestInView(hit, event.position, event.viewId);
+    _interactive = hit.path.any((entry) {
+      final target = entry.target;
+      return (target is RenderSemanticsGestureHandler &&
+              target.onTap != null) ||
+          (target is RenderSemanticsAnnotations &&
+              target.properties.onTap != null);
+    });
     _pointer = event.pointer;
     _origin = event.position;
     _moved = false;
@@ -96,10 +115,12 @@ class _TapSoundAreaState extends State<TapSoundArea> {
 
     _heardAt = DateTime.now();
     final origin = _origin;
-    final slop = computeHitSlop(
-      event.kind,
-      MediaQuery.maybeOf(context)?.gestureSettings,
-    );
+    // This interceptor sits above MaterialApp and its MediaQuery. Read the
+    // view's settings there, just as MediaQuery.fromView does for buttons.
+    final settings =
+        MediaQuery.maybeGestureSettingsOf(context) ??
+        DeviceGestureSettings.fromView(View.of(context));
+    final slop = settings.touchSlop ?? kTouchSlop;
     if (origin != null && (event.position - origin).distance > slop) {
       _moved = true;
     }
@@ -109,8 +130,9 @@ class _TapSoundAreaState extends State<TapSoundArea> {
     if (event.pointer != _pointer) return;
 
     final wasDrag = _moved;
+    final wasInteractive = _interactive;
     _forget();
-    if (wasDrag) return;
+    if (wasDrag || !wasInteractive) return;
 
     context.sfx(Sfx.tap);
   }

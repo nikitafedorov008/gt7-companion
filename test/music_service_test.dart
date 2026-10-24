@@ -57,10 +57,10 @@ void main() {
 
   /// A service whose fade takes no time, so the tests never wait.
   MusicService buildService({bool enabled = true}) => MusicService(
-        player: player,
-        enabled: enabled,
-        fadeDuration: Duration.zero,
-      );
+    player: player,
+    enabled: enabled,
+    fadeDuration: Duration.zero,
+  );
 
   test('music switched off never starts a track', () async {
     final music = buildService(enabled: false);
@@ -101,13 +101,14 @@ void main() {
     await music.load();
     expect(music.currentTrack, MusicService.tracks.first);
 
-    player.finishTrack();
-    await Future<void>.delayed(Duration.zero);
-    expect(player.played.last, MusicService.tracks[1]);
-
-    player.finishTrack();
-    await Future<void>.delayed(Duration.zero);
-    expect(player.played.last, MusicService.tracks.first);
+    for (var i = 1; i <= MusicService.tracks.length; i++) {
+      player.finishTrack();
+      await Future<void>.delayed(Duration.zero);
+      expect(
+        player.played.last,
+        MusicService.tracks[i % MusicService.tracks.length],
+      );
+    }
   });
 
   test('a finished track does nothing while music is off', () async {

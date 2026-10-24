@@ -7,19 +7,16 @@ import 'package:gt7_companion/services/sound_service.dart';
 
 /// Mean level of each effect file over its own duration, measured with ffmpeg's
 /// volumedetect. The command and the full table live in assets/sfx/LEVELS.md.
-const Map<Sfx, double> _fileLevels = {
-  Sfx.tap: -26.4,
-  Sfx.back: -21.2,
-  Sfx.error: -19.0,
-  Sfx.open: -16.4,
-  Sfx.close: -14.8,
-  Sfx.navigate: -14.8,
-  Sfx.toggle: -14.0,
-  Sfx.confirm: -11.3,
+final Map<Sfx, double> _fileLevels = {
+  for (final effect in Sfx.values) effect: -24.0,
 };
 
-/// The music track's own level, from the same measurement.
-const double _musicFileLevel = -15.6;
+/// The shipped music tracks' measured means after loudness normalisation.
+const Map<String, double> _musicFileLevels = {
+  'assets/music/airport-lounge.mp3': -19.7,
+  'assets/music/chill-wave.mp3': -19.5,
+  'assets/music/bossa-antigua.mp3': -19.9,
+};
 
 /// How far apart the eight effects may sit, in decibels.
 const double _maxSpread = 1.5;
@@ -47,7 +44,10 @@ void main() {
   });
 
   test('every effect clears the music bed', () {
-    final music = _level(_musicFileLevel, MusicService.defaultVolume);
+    final loudestTrack = MusicService.tracks
+        .map((track) => _musicFileLevels[track]!)
+        .reduce(math.max);
+    final music = _level(loudestTrack, MusicService.defaultVolume);
 
     for (final effect in Sfx.values) {
       expect(

@@ -20,7 +20,7 @@ import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 
 BASE = "https://www.gran-turismo.com/common/dist/gt7/carlist"
-ENTRY = f"{BASE}/assets/index-BxejHdeX.js"
+CAR_LIST = "https://www.gran-turismo.com/us/gt7/carlist/"
 
 
 def get(url: str, attempts: int = 4) -> bytes:
@@ -65,7 +65,11 @@ def _object_literal(module: str) -> str:
 
 
 def main() -> None:
-    bundle = get(ENTRY).decode("utf-8", "ignore")
+    page = get(CAR_LIST).decode("utf-8", "ignore")
+    entry = re.search(r'(/common/dist/gt7/carlist/assets/index-[A-Za-z0-9_-]+\.js)', page)
+    if not entry:
+        raise RuntimeError("Official catalogue entrypoint changed")
+    bundle = get("https://www.gran-turismo.com" + entry.group(1)).decode("utf-8", "ignore")
 
     # 1. car records: var e={car102:{...},...}
     cars_chunk = re.search(r"cars\.us-([A-Za-z0-9_\-]+)\.js", bundle)

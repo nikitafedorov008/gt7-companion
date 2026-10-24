@@ -4,8 +4,9 @@
   <Keywords>gt7, telemetry, flutter, dart, racing, udp, salsa20, daily-races, car-dealer</Keywords>
   <Goals>
     <Goal>Display live GT7 telemetry (speed, gears, tyres, lap and throttle/brake traces) with low latency and no perceptible stutter.</Goal>
-    <Goal>Show the game's service side in the same app: daily races from two independent sources, used and legendary car dealerships, and GT Auto counters.</Goal>
+    <Goal>Show the game's service side in the same app: daily races from two independent sources, used and legendary car dealerships, and a car-centred GT Auto workshop with official specifications, confirmed community engine swaps, special-part compatibility and local build plans.</Goal>
     <Goal>Keep the same feature set on mobile and desktop from one Dart codebase, with the app running alongside the game on a second screen.</Goal>
+    <Goal>Offer the official Beyond the Apex magazine through an adaptive native reader with chapter navigation and original illustrations.</Goal>
   </Goals>
   <Users>
     <User>Gran Turismo 7 players who run this app on a phone, tablet or desktop next to the console while racing.</User>

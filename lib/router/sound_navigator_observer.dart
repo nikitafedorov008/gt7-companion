@@ -1,8 +1,8 @@
 // FILE: lib/router/sound_navigator_observer.dart
-// VERSION: 1.0.0
+// VERSION: 1.1.0
 // START_MODULE_CONTRACT
 //   PURPOSE: Sound route transitions from one place, so no screen has to know that sound exists.
-//   SCOPE: Page pushes and pops only; it holds no other logic.
+//   SCOPE: Page, popup and tab transitions; it holds no other logic.
 //   DEPENDS: M-SOUND
 //   LINKS: M-SOUND, V-M-SOUND
 //   ROLE: RUNTIME
@@ -14,22 +14,35 @@
 // END_MODULE_MAP
 
 import 'package:flutter/widgets.dart';
+import 'package:auto_route/auto_route.dart';
 
 import '../models/sfx.dart';
 import '../services/sound_service.dart';
 
-/// Sounds route transitions.
+/// Sounds page, popup and tab transitions.
 ///
 /// Registered through auto_route's config, so pushing and popping screens makes
 /// a noise without a single screen importing audio.
 ///
-/// Both kinds of route are covered, each with the effect that fits it: a page is
+/// Route transitions use the effect that fits: a page is
 /// a navigation, a popup — a bottom sheet or a dialog — opens and closes. A sheet
 /// added later therefore sounds itself, and no caller has to remember.
-class SoundNavigatorObserver extends NavigatorObserver {
+class SoundNavigatorObserver extends AutoRouterObserver {
   SoundNavigatorObserver(this._sound);
 
   final SoundService _sound;
+
+  @override
+  void didInitTabRoute(TabPageRoute route, TabPageRoute? previousRoute) {
+    if (previousRoute != null && route.index != previousRoute.index) {
+      _sound.play(Sfx.navigate);
+    }
+  }
+
+  @override
+  void didChangeTabRoute(TabPageRoute route, TabPageRoute previousRoute) {
+    if (route.index != previousRoute.index) _sound.play(Sfx.navigate);
+  }
 
   @override
   void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {

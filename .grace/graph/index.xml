@@ -35,7 +35,14 @@
         <M-ROUTER />
         <M-THEME />
         <M-SOUND />
+        <M-WIDGET-SERVICE-MENU />
+        <M-MODEL-APEX />
+        <M-SERVICE-APEX />
+        <M-WIDGET-APEX />
         <M-FEATURE-PROFILE />
+        <M-SERVICE-GTPLUS />
+        <M-SERVICE-GT-AUTO-PARTS />
+        <M-REPO-GT-AUTO />
       </Owns>
     </GD-MAIN>
   </GraphDocuments>

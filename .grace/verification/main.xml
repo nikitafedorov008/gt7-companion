@@ -135,18 +135,12 @@
     </V-M-WIDGET-CAR-DEALER>
 
     <!-- GT Auto. -->
-    <V-M-MODEL-GT-AUTO>
-      <TestFiles>
-        <File>test/gt_auto_catalog_test.dart</File>
-      </TestFiles>
-      <Command>flutter test test/gt_auto_catalog_test.dart</Command>
-      <Scenario kind="success">The GT Auto catalogue exposes the counters used by the screen.</Scenario>
-    </V-M-MODEL-GT-AUTO>
+    <V-M-MODEL-GT-AUTO><TestFiles><File>test/gt_auto_data_test.dart</File></TestFiles><Command>.fvm/flutter_sdk/bin/flutter test test/gt_auto_data_test.dart</Command><Scenario kind="success">Missing values remain unknown; source labels and units are retained.</Scenario></V-M-MODEL-GT-AUTO>
+    <V-M-WIDGET-GT-AUTO><TestFiles><File>test/gt_auto_workshop_test.dart</File></TestFiles><Command>.fvm/flutter_sdk/bin/flutter test test/gt_auto_workshop_test.dart</Command><Scenario kind="success">Actual service taps, car search and plan editing work at 320/390/600/820/1024/1280/1920 and text scale 1.5 without overflow.</Scenario></V-M-WIDGET-GT-AUTO>
+    <V-M-SERVICE-GTPLUS><TestFiles><File>test/gt_auto_data_test.dart</File></TestFiles><Command>.fvm/flutter_sdk/bin/flutter test test/gt_auto_data_test.dart</Command><Scenario kind="success">Split Flight scripts and referenced repeated target cars resolve to official numeric car codes; changed markup fails visibly.</Scenario></V-M-SERVICE-GTPLUS>
+    <V-M-SERVICE-GT-AUTO-PARTS><TestFiles><File>test/gt_auto_data_test.dart</File></TestFiles><Command>.fvm/flutter_sdk/bin/flutter test test/gt_auto_data_test.dart</Command><Scenario kind="success">Real multiline CSV and escaped quotes parse; blanks stay unknown and explicit No differs from Yes.</Scenario></V-M-SERVICE-GT-AUTO-PARTS>
+    <V-M-REPO-GT-AUTO><TestFiles><File>test/gt_auto_data_test.dart</File></TestFiles><Command>.fvm/flutter_sdk/bin/flutter test test/gt_auto_data_test.dart</Command><Scenario kind="success">Partial failure retains good data, refresh retries, exact names preserve variants, rapid per-car plans persist independently.</Scenario></V-M-REPO-GT-AUTO>
 
-    <V-M-WIDGET-GT-AUTO>
-      <Scenario kind="success">The GT Auto screen lists counters and opens a counter view with its multiplier.</Scenario>
-      <Scenario kind="failure">Selecting a counter that has no data keeps the previous selection instead of rendering an empty view.</Scenario>
-    </V-M-WIDGET-GT-AUTO>
 
     <!-- Auth and the official API. -->
     <V-M-SERVICE-GT7-AUTH>
@@ -193,6 +187,8 @@
     </V-M-PAGE-WISHLIST>
 
     <V-M-SHELL-HOME>
+      <TestFiles><File>test/service_menu_test.dart</File></TestFiles>
+      <Command>.fvm/flutter_sdk/bin/flutter test test/service_menu_test.dart</Command>
       <Scenario kind="success">The home hub composes the telemetry panel, the daily races section and the service tile grid at phone and desktop widths.</Scenario>
       <Scenario kind="failure">A section whose repository is still loading does not block the rest of the hub.</Scenario>
     </V-M-SHELL-HOME>
@@ -202,16 +198,20 @@
     </V-M-SHELL-TABS>
 
     <V-M-NAVBAR>
-      <Scenario kind="success">The navbar marks the active tab and switches it through TabsRouter.</Scenario>
+      <TestFiles><File>test/adaptive_navbar_test.dart</File></TestFiles><Command>.fvm/flutter_sdk/bin/flutter test test/adaptive_navbar_test.dart</Command><Scenario kind="success">Desktop navigation fits 320 through 1920 pixels and text scale 1.5 with all actions accessible. The navbar marks the active tab and switches it through TabsRouter.</Scenario>
       <Scenario kind="failure">When no TabsRouter is available the navbar falls back to popping back to the home route instead of throwing.</Scenario>
     </V-M-NAVBAR>
 
     <V-M-DI-APPSCOPE>
+      <TestFiles><File>test/apex_display_test.dart</File></TestFiles>
+      <Command>.fvm/flutter_sdk/bin/flutter test test/apex_display_test.dart</Command>
       <Scenario kind="success">Every provider in the scope resolves and depends only on providers registered above it.</Scenario>
       <Scenario kind="failure">Removing a provider surfaces as a ProviderNotFoundError in the widget that consumes it, not as a null service.</Scenario>
     </V-M-DI-APPSCOPE>
 
     <V-M-ROUTER>
+      <TestFiles><File>test/apex_display_test.dart</File></TestFiles>
+      <Command>.fvm/flutter_sdk/bin/flutter test test/apex_display_test.dart</Command>
       <Scenario kind="success">Every route in app_router.dart resolves and the generated app_router.gr.dart matches the declarations.</Scenario>
       <Scenario kind="failure">A missing @RoutePage() shows up as a failed generation step rather than a runtime route miss.</Scenario>
     </V-M-ROUTER>
@@ -266,6 +266,30 @@
       <Scenario kind="success">Profile loading moves through loading to a populated state, and stats parse from the enveloped API shape.</Scenario>
       <Scenario kind="failure">A failed profile fetch ends in an error state instead of an empty success.</Scenario>
     </V-M-FEATURE-PROFILE>
+
+    <V-M-WIDGET-SERVICE-MENU>
+      <TestFiles><File>test/service_menu_test.dart</File></TestFiles>
+      <Command>.fvm/flutter_sdk/bin/flutter test test/service_menu_test.dart</Command>
+      <Scenario kind="success">Service cards fit 320-1920 logical px at 1.0 and 1.5 text scale, retain equal row widths and stable artwork, invoke all four real controls and leave no reserved blank row.</Scenario>
+    </V-M-WIDGET-SERVICE-MENU>
+
+    <V-M-MODEL-APEX>
+      <TestFiles><File>test/apex_service_test.dart</File></TestFiles>
+      <Command>.fvm/flutter_sdk/bin/flutter test test/apex_service_test.dart</Command>
+      <Scenario kind="success">Official fixtures map five chapters and 93 articles with ordered text, captions and resolved original illustrations.</Scenario>
+    </V-M-MODEL-APEX>
+
+    <V-M-SERVICE-APEX>
+      <TestFiles><File>test/apex_service_test.dart</File></TestFiles>
+      <Command>.fvm/flutter_sdk/bin/flutter test test/apex_service_test.dart</Command>
+      <Scenario kind="success">Official API loading, cache and explicit refresh work; network or invalid markup errors are recoverable; timeout, disposal, unsafe paths and stale responses are handled.</Scenario>
+    </V-M-SERVICE-APEX>
+
+    <V-M-WIDGET-APEX>
+      <TestFiles><File>test/apex_display_test.dart</File></TestFiles>
+      <Command>.fvm/flutter_sdk/bin/flutter test test/apex_display_test.dart</Command>
+      <Scenario kind="success">Reader fits 320-1920 px and increased text scale, opens the drawer on narrow widths, selects real chapter entries, retries failures, and supports generated route, back and adjacent article navigation.</Scenario>
+    </V-M-WIDGET-APEX>
 
   </VD-MAIN>
 </GraceVerificationDocument>

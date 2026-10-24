@@ -1,0 +1,677 @@
+
+[
+	{
+		"title": "Глава 1: Автомобильная инженерия",
+		"url": "/engineering_for_automotive/",
+		"children": [
+			{
+				"title": "Предисловие",
+				"url": "/engineering_for_automotive/preface/",
+				"grandChildren": [
+					{
+						"title": "Автомобильная инженерия",
+						"url": "/engineering_for_automotive/preface/01"
+					}
+				]
+			}
+			,
+			{
+				"title": "Сила, энергия и колебания",
+				"url": "/engineering_for_automotive/force_energy_vibration/",
+				"grandChildren": [
+					{
+						"title": "1-1 : Понятия силы и момента",
+						"url": "/engineering_for_automotive/force_energy_vibration/01"
+					}
+					,
+					{
+						"title": "1-2 : Концепция энергии",
+						"url": "/engineering_for_automotive/force_energy_vibration/02"
+					}
+					,
+					{
+						"title": "1-3 : Механика колебаний",
+						"url": "/engineering_for_automotive/force_energy_vibration/03"
+					}
+					,
+					{
+						"title": "1-4 : Явление резонанса",
+						"url": "/engineering_for_automotive/force_energy_vibration/04"
+					}
+					,
+					{
+						"title": "1-5 : Влияние демпфирующего усилия",
+						"url": "/engineering_for_automotive/force_energy_vibration/05"
+					}
+					,
+					{
+						"title": "1-6 : Разность фаз",
+						"url": "/engineering_for_automotive/force_energy_vibration/06"
+					}
+					,
+					{
+						"title": "1-7 : Частотная характеристика",
+						"url": "/engineering_for_automotive/force_energy_vibration/07"
+					}
+					,
+					{
+						"title": "1-8 : Колебания в подвеске",
+						"url": "/engineering_for_automotive/force_energy_vibration/08"
+					}
+				]
+			}
+			,
+			{
+				"title": "Характеристики машины",
+				"url": "/engineering_for_automotive/vehicle_performance/",
+				"grandChildren": [
+					{
+						"title": "2-1 : Динамика шин",
+						"url": "/engineering_for_automotive/vehicle_performance/01"
+					}
+					,
+					{
+						"title": "2-2 : Движение по установившейся круговой траектории",
+						"url": "/engineering_for_automotive/vehicle_performance/02"
+					}
+					,
+					{
+						"title": "2-3 : Реакция машины на изменение угла поворота рулевого колеса",
+						"url": "/engineering_for_automotive/vehicle_performance/03"
+					}
+					,
+					{
+						"title": "2-4 : Реакция автомобиля на периодические воздействия руля",
+						"url": "/engineering_for_automotive/vehicle_performance/04"
+					}
+					,
+					{
+						"title": "2-5 : Крен кузова и движение автомобиля",
+						"url": "/engineering_for_automotive/vehicle_performance/05"
+					}
+					,
+					{
+						"title": "2-6 : Колебания подрессоренной и неподрессоренной массы",
+						"url": "/engineering_for_automotive/vehicle_performance/06"
+					}
+					,
+					{
+						"title": "2-7 : Что такое эффективный автомобиль?",
+						"url": "/engineering_for_automotive/vehicle_performance/07"
+					}
+				]
+			}
+			,
+			{
+				"title": "Эффективный двигатель",
+				"url": "/engineering_for_automotive/the_efficient_engine/",
+				"grandChildren": [
+					{
+						"title": "3-1 : Температура и давление",
+						"url": "/engineering_for_automotive/the_efficient_engine/01"
+					}
+					,
+					{
+						"title": "3-2 : Идеальный тепловой двигатель",
+						"url": "/engineering_for_automotive/the_efficient_engine/02"
+					}
+					,
+					{
+						"title": "3-3 : Выводы Карно",
+						"url": "/engineering_for_automotive/the_efficient_engine/03"
+					}
+					,
+					{
+						"title": "3-4 : Теоретический КПД автомобильных двигателей",
+						"url": "/engineering_for_automotive/the_efficient_engine/04"
+					}
+					,
+					{
+						"title": "3-5 : Обратимые и необратимые изменения",
+						"url": "/engineering_for_automotive/the_efficient_engine/05"
+					}
+					,
+					{
+						"title": "3-6 : Обращение теплового двигателя",
+						"url": "/engineering_for_automotive/the_efficient_engine/06"
+					}
+					,
+					{
+						"title": "3-7 : Потеря энергии в двигателе",
+						"url": "/engineering_for_automotive/the_efficient_engine/07"
+					}
+				]
+			}
+			,
+			{
+				"title": "Аэродинамика",
+				"url": "/engineering_for_automotive/aerodynamics/",
+				"grandChildren": [
+					{
+						"title": "4-1 : Закон Бернулли",
+						"url": "/engineering_for_automotive/aerodynamics/01"
+					}
+					,
+					{
+						"title": "4-2 : Закон движения жидкости",
+						"url": "/engineering_for_automotive/aerodynamics/02"
+					}
+					,
+					{
+						"title": "4-3 : Поверхность разрыва и вихревая нить",
+						"url": "/engineering_for_automotive/aerodynamics/03"
+					}
+					,
+					{
+						"title": "4-4 : Теорема Кутты - Жуковского",
+						"url": "/engineering_for_automotive/aerodynamics/04"
+					}
+					,
+					{
+						"title": "4-5 : Теория пограничного слоя Прандтля",
+						"url": "/engineering_for_automotive/aerodynamics/05"
+					}
+					,
+					{
+						"title": "4-6 : Теория несущей линии Прандтля",
+						"url": "/engineering_for_automotive/aerodynamics/06"
+					}
+				]
+			}
+			,
+			{
+				"title": "Вычислительная гидродинамика",
+				"url": "/engineering_for_automotive/computational_fluid_dynamics/",
+				"grandChildren": [
+					{
+						"title": "5-1 : Мир CFD",
+						"url": "/engineering_for_automotive/computational_fluid_dynamics/01"
+					}
+					,
+					{
+						"title": "5-2 : Метод конечных объемов",
+						"url": "/engineering_for_automotive/computational_fluid_dynamics/02"
+					}
+					,
+					{
+						"title": "5-3 : Особенности схемы",
+						"url": "/engineering_for_automotive/computational_fluid_dynamics/03"
+					}
+					,
+					{
+						"title": "5-4 : Совместимость аппроксимации первого и высокого порядка",
+						"url": "/engineering_for_automotive/computational_fluid_dynamics/04"
+					}
+					,
+					{
+						"title": "5-5 : Расчет турбулентности",
+						"url": "/engineering_for_automotive/computational_fluid_dynamics/05"
+					}
+				]
+			}
+		]
+	}
+,
+	{
+		"title": "Глава 2: Механизм",
+		"url": "/review_mechanism/",
+		"children": [
+			{
+				"title": "Базовые характеристики",
+				"url": "/review_mechanism/packaging/",
+				"grandChildren": [
+					{
+						"title": "Габариты",
+						"url": "/review_mechanism/packaging/01"
+					}
+					,
+					{
+						"title": "Тип компоновки и развесовка",
+						"url": "/review_mechanism/packaging/02"
+					}
+				]
+			}
+			,
+			{
+				"title": "Сердце автомобиля",
+				"url": "/review_mechanism/engine/",
+				"grandChildren": [
+					{
+						"title": "Механизмы и принципы работы",
+						"url": "/review_mechanism/engine/01"
+					}
+					,
+					{
+						"title": "Конфигурации клапанов",
+						"url": "/review_mechanism/engine/02"
+					}
+					,
+					{
+						"title": "Роторные двигатели",
+						"url": "/review_mechanism/engine/03"
+					}
+					,
+					{
+						"title": "Наддув",
+						"url": "/review_mechanism/engine/04"
+					}
+					,
+					{
+						"title": "Гибридные системы",
+						"url": "/review_mechanism/engine/05"
+					}
+					,
+					{
+						"title": "Ключевые характеристики двигателя",
+						"url": "/review_mechanism/engine/06"
+					}
+				]
+			}
+			,
+			{
+				"title": "Превращение мощности в скорость",
+				"url": "/review_mechanism/drivetrain/",
+				"grandChildren": [
+					{
+						"title": "Коробка переключения передач",
+						"url": "/review_mechanism/drivetrain/01"
+					}
+					,
+					{
+						"title": "Дифференциал",
+						"url": "/review_mechanism/drivetrain/02"
+					}
+				]
+			}
+			,
+			{
+				"title": "Каркас, на котором держится все",
+				"url": "/review_mechanism/body/",
+				"grandChildren": [
+					{
+						"title": "Требования к кузову",
+						"url": "/review_mechanism/body/01"
+					}
+				]
+			}
+			,
+			{
+				"title": "Теплообменники, снижающие скорость",
+				"url": "/review_mechanism/brakes/",
+				"grandChildren": [
+					{
+						"title": "Конструкция и принципы",
+						"url": "/review_mechanism/brakes/01"
+					}
+					,
+					{
+						"title": "Тормозные диски и суппорты",
+						"url": "/review_mechanism/brakes/02"
+					}
+				]
+			}
+			,
+			{
+				"title": "Амортизаторы для контроля колебаний кузова",
+				"url": "/review_mechanism/suspensions/",
+				"grandChildren": [
+					{
+						"title": "Конструкция и принципы",
+						"url": "/review_mechanism/suspensions/01"
+					}
+					,
+					{
+						"title": "Типы подвески",
+						"url": "/review_mechanism/suspensions/02"
+					}
+					,
+					{
+						"title": "Углы установки колес",
+						"url": "/review_mechanism/suspensions/03"
+					}
+				]
+			}
+			,
+			{
+				"title": "Связь между автомобилем и дорогой",
+				"url": "/review_mechanism/tires/",
+				"grandChildren": [
+					{
+						"title": "Эффективные шины",
+						"url": "/review_mechanism/tires/01"
+					}
+				]
+			}
+			,
+			{
+				"title": "Алюминиевые шоссейные диски",
+				"url": "/review_mechanism/wheels/",
+				"grandChildren": [
+					{
+						"title": "Неподрессоренная масса",
+						"url": "/review_mechanism/wheels/01"
+					}
+				]
+			}
+			,
+			{
+				"title": "Влияние воздуха на кузов",
+				"url": "/review_mechanism/aerodynamics/",
+				"grandChildren": [
+					{
+						"title": "Сопротивление воздуха и прижимающая сила",
+						"url": "/review_mechanism/aerodynamics/01"
+					}
+				]
+			}
+		]
+	}
+,
+	{
+		"title": "Глава 3: Тюнинг и регулировка",
+		"url": "/review_tuning_and_settings/",
+		"children": [
+			{
+				"title": "Улучшение характеристик двигателя",
+				"url": "/review_tuning_and_settings/engine/",
+				"grandChildren": [
+					{
+						"title": "Тонкая настройка",
+						"url": "/review_tuning_and_settings/engine/01"
+					}
+					,
+					{
+						"title": "Переборка двигателя",
+						"url": "/review_tuning_and_settings/engine/02"
+					}
+					,
+					{
+						"title": "Повышение оборотов",
+						"url": "/review_tuning_and_settings/engine/03"
+					}
+					,
+					{
+						"title": "Повышение степени сжатия",
+						"url": "/review_tuning_and_settings/engine/04"
+					}
+					,
+					{
+						"title": "Системы наддува",
+						"url": "/review_tuning_and_settings/engine/05"
+					}
+					,
+					{
+						"title": "Роторные двигатели",
+						"url": "/review_tuning_and_settings/engine/06"
+					}
+				]
+			}
+			,
+			{
+				"title": "Тюнинг трансмиссии",
+				"url": "/review_tuning_and_settings/drive_system/",
+				"grandChildren": [
+					{
+						"title": "Передаточные числа",
+						"url": "/review_tuning_and_settings/drive_system/01"
+					}
+					,
+					{
+						"title": "Сцепление, маховики и карданные валы",
+						"url": "/review_tuning_and_settings/drive_system/02"
+					}
+					,
+					{
+						"title": "Дифференциал повышенного трения",
+						"url": "/review_tuning_and_settings/drive_system/03"
+					}
+				]
+			}
+			,
+			{
+				"title": "Формы кузова",
+				"url": "/review_tuning_and_settings/boby/",
+				"grandChildren": [
+					{
+						"title": "Уменьшение веса и повышение жесткости",
+						"url": "/review_tuning_and_settings/boby/01"
+					}
+				]
+			}
+			,
+			{
+				"title": "Повышение эффективности тормозов",
+				"url": "/review_tuning_and_settings/stopping_power/",
+				"grandChildren": [
+					{
+						"title": "Увеличение мощности тормозов и борьба с фейдингом",
+						"url": "/review_tuning_and_settings/stopping_power/01"
+					}
+				]
+			}
+			,
+			{
+				"title": "Улучшение подвески",
+				"url": "/review_tuning_and_settings/footwork/",
+				"grandChildren": [
+					{
+						"title": "Настройка управляемости",
+						"url": "/review_tuning_and_settings/footwork/01"
+					}
+				]
+			}
+			,
+			{
+				"title": "Использование спортивных шин",
+				"url": "/review_tuning_and_settings/tires/",
+				"grandChildren": [
+					{
+						"title": "Повышенное сцепление и жесткость",
+						"url": "/review_tuning_and_settings/tires/01"
+					}
+				]
+			}
+			,
+			{
+				"title": "Улучшение аэродинамики",
+				"url": "/review_tuning_and_settings/aerodynamics/",
+				"grandChildren": [
+					{
+						"title": "Тюнинг аэродинамики",
+						"url": "/review_tuning_and_settings/aerodynamics/01"
+					}
+				]
+			}
+			,
+			{
+				"title": "Регулировка с учетом характеристик автомобиля",
+				"url": "/review_tuning_and_settings/vehicle_qualities/",
+				"grandChildren": [
+					{
+						"title": "Компоновка трансмиссии",
+						"url": "/review_tuning_and_settings/vehicle_qualities/01"
+					}
+				]
+			}
+			,
+			{
+				"title": "Основные параметры: шаг за шагом",
+				"url": "/review_tuning_and_settings/basic_settings/",
+				"grandChildren": [
+					{
+						"title": "Подвеска ①",
+						"url": "/review_tuning_and_settings/basic_settings/01"
+					}
+					,
+					{
+						"title": "Подвеска ②",
+						"url": "/review_tuning_and_settings/basic_settings/02"
+					}
+					,
+					{
+						"title": "Трансмиссия",
+						"url": "/review_tuning_and_settings/basic_settings/03"
+					}
+					,
+					{
+						"title": "Аэродинамика",
+						"url": "/review_tuning_and_settings/basic_settings/04"
+					}
+				]
+			}
+			,
+			{
+				"title": "Настройка для особых ситуаций",
+				"url": "/review_tuning_and_settings/advanced_settings/",
+				"grandChildren": [
+					{
+						"title": "Скоростные и техничные трассы",
+						"url": "/review_tuning_and_settings/advanced_settings/01"
+					}
+					,
+					{
+						"title": "Борьба с недостаточной и избыточной поворачиваемостью",
+						"url": "/review_tuning_and_settings/advanced_settings/02"
+					}
+					,
+					{
+						"title": "Мокрая трасса, гравий",
+						"url": "/review_tuning_and_settings/advanced_settings/03"
+					}
+				]
+			}
+		]
+	}
+,
+	{
+		"title": "Глава 4: Первые шаги в Gran Turismo",
+		"url": "/how_to_get_started/",
+		"children": [
+			{
+				"title": "Советы новичкам",
+				"url": "/how_to_get_started/advice_for_beginners/",
+				"grandChildren": [
+					{
+						"title": "Знакомство с контроллером",
+						"url": "/how_to_get_started/advice_for_beginners/01"
+					}
+					,
+					{
+						"title": "Учитесь чувствовать габариты",
+						"url": "/how_to_get_started/advice_for_beginners/02"
+					}
+					,
+					{
+						"title": "Выбор ориентиров на трассе",
+						"url": "/how_to_get_started/advice_for_beginners/03"
+					}
+					,
+					{
+						"title": "Учимся точности",
+						"url": "/how_to_get_started/advice_for_beginners/04"
+					}
+					,
+					{
+						"title": "Прохождение поворотов",
+						"url": "/how_to_get_started/advice_for_beginners/05"
+					}
+				]
+			}
+			,
+			{
+				"title": "Использование помощи при вождении",
+				"url": "/how_to_get_started/using_driver_assistance/",
+				"grandChildren": [
+					{
+						"title": "Использование помощи при вождении ① – торможение",
+						"url": "/how_to_get_started/using_driver_assistance/01"
+					}
+					,
+					{
+						"title": "Использование помощи при вождении ② – управление автомобилем",
+						"url": "/how_to_get_started/using_driver_assistance/02"
+					}
+				]
+			}
+			,
+			{
+				"title": "Параметры машины в игре",
+				"url": "/how_to_get_started/in_game/",
+				"grandChildren": [
+					{
+						"title": "Параметры машины в игре ① – основные принципы",
+						"url": "/how_to_get_started/in_game/01"
+					}
+					,
+					{
+						"title": "Параметры машины в игре ② – подвеска",
+						"url": "/how_to_get_started/in_game/02"
+					}
+					,
+					{
+						"title": "Параметры машины в игре ③ – аэродинамика и передаточные числа",
+						"url": "/how_to_get_started/in_game/03"
+					}
+				]
+			}
+			,
+			{
+				"title": "Гоночный этикет",
+				"url": "/how_to_get_started/race_etiquette/",
+				"grandChildren": [
+					{
+						"title": "Организация безопасных и приятных гонок",
+						"url": "/how_to_get_started/race_etiquette/01"
+					}
+				]
+			}
+		]
+	}
+,
+	{
+		"title": "Глава 5: Фотосъемка автомобилей",
+		"url": "/photographing_cars/",
+		"children": [
+			{
+				"title": "Режим Scapes",
+				"url": "/photographing_cars/scapes/",
+				"grandChildren": [
+					{
+						"title": "Ракурс",
+						"url": "/photographing_cars/scapes/01"
+					}
+					,
+					{
+						"title": "Освещение",
+						"url": "/photographing_cars/scapes/02"
+					}
+					,
+					{
+						"title": "Глубина резкости",
+						"url": "/photographing_cars/scapes/03"
+					}
+					,
+					{
+						"title": "Объективы",
+						"url": "/photographing_cars/scapes/04"
+					}
+					,
+					{
+						"title": "Цветовая температура",
+						"url": "/photographing_cars/scapes/05"
+					}
+					,
+					{
+						"title": "Экспозиция",
+						"url": "/photographing_cars/scapes/06"
+					}
+					,
+					{
+						"title": "Как снимать красиво",
+						"url": "/photographing_cars/scapes/07"
+					}
+				]
+			}
+		]
+	}
+]

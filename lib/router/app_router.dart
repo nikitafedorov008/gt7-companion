@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/gt_auto/gt_auto_display.dart';
+import '../widgets/apex/apex_display.dart';
 import '../pages/home_page.dart';
 import '../widgets/nested_widget.dart';
 import '../widgets/car_dealer/used/used_car_display.dart';
@@ -36,6 +37,7 @@ class AppRouter extends RootStackRouter {
             AutoRoute(page: UsedCarDisplayRoute.page, path: 'used'),
             AutoRoute(page: LegendaryCarDisplayRoute.page, path: 'legendary'),
             AutoRoute(page: GTAutoDisplayRoute.page, path: 'gtauto'),
+            AutoRoute(page: ApexDisplayRoute.page, path: 'apex'),
           ],
         ),
         AutoRoute(page: WishlistPageRoute.page, path: 'wishlist'),

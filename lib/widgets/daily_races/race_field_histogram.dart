@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'package:flutter/material.dart';
 
 /// Collapsible breakdown of who is entered in a race.
@@ -48,7 +49,7 @@ class RaceFieldHistogram extends StatelessWidget {
         tilePadding: EdgeInsets.zero,
         childrenPadding: const EdgeInsets.only(bottom: 8),
         title: Text(
-          '$title · ${_formatCount(total)}',
+          context.tr('$title · ${_formatCount(total)}'),
           style: theme.textTheme.labelMedium?.copyWith(
             color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
           ),
@@ -65,8 +66,10 @@ class RaceFieldHistogram extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 6),
               child: Text(
-                '+${hidden.length} more, '
-                '${_formatCount(hidden.fold<int>(0, (s, e) => s + e.value))} entrants',
+                context.tr(
+                  '+${hidden.length} more, '
+                  '${_formatCount(hidden.fold<int>(0, (s, e) => s + e.value))} entrants',
+                ),
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                 ),
@@ -115,7 +118,7 @@ class _HistogramRow extends StatelessWidget {
           SizedBox(
             width: 92,
             child: Text(
-              label,
+              context.tr(label),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: theme.textTheme.bodySmall,
@@ -140,7 +143,7 @@ class _HistogramRow extends StatelessWidget {
           SizedBox(
             width: 58,
             child: Text(
-              '${percent.toStringAsFixed(1)}%',
+              context.tr('${percent.toStringAsFixed(1)}%'),
               textAlign: TextAlign.right,
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurface.withValues(alpha: 0.6),

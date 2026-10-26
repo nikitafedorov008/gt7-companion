@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 // Everything about a daily race that does not belong on the card.
 //
 // The card is a copy of the in-game panel and deliberately shows only what GT7
@@ -151,7 +152,7 @@ class DailyRaceDetailsSheet extends StatelessWidget {
         if (dg?.lastUpdate != null) ...[
           const SizedBox(height: 16),
           Text(
-            'Updated ${dg!.lastUpdate!.toLocal()}',
+            context.tr('Updated ${dg!.lastUpdate!.toLocal()}'),
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurface.withValues(alpha: 0.45),
             ),
@@ -207,7 +208,8 @@ class _Header extends StatelessWidget {
                   Image.network(
                     race.trackBackgroundImage!,
                     fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) => Container(color: Colors.white10),
+                    errorBuilder: (_, __, ___) =>
+                        Container(color: Colors.white10),
                   ),
                   if (race.trackImage != null)
                     Align(
@@ -232,7 +234,7 @@ class _Header extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 10),
                 child: Text(
-                  'RACE ${race.label}',
+                  context.tr('RACE ${race.label}'),
                   style: theme.textTheme.labelLarge?.copyWith(
                     fontWeight: FontWeight.w700,
                     letterSpacing: 1.2,
@@ -242,7 +244,7 @@ class _Header extends StatelessWidget {
               ),
             if (race.weekLabel != null)
               Text(
-                race.weekLabel!,
+                context.tr(race.weekLabel!),
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: theme.colorScheme.onSurface.withValues(alpha: 0.55),
                 ),
@@ -251,7 +253,7 @@ class _Header extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         Text(
-          race.trackName ?? '—',
+          context.tr(race.trackName ?? '—'),
           style: theme.textTheme.headlineSmall?.copyWith(
             fontWeight: FontWeight.w600,
           ),
@@ -270,7 +272,7 @@ class _Header extends StatelessWidget {
                   border: Border.all(color: Colors.white70),
                 ),
                 child: Text(
-                  category,
+                  context.tr(category),
                   style: theme.textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
@@ -332,7 +334,7 @@ class _LeaderPanel extends StatelessWidget {
                     ],
                     Flexible(
                       child: Text(
-                        race.leaderName!,
+                        context.tr(race.leaderName!),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: theme.textTheme.titleSmall?.copyWith(
@@ -344,7 +346,7 @@ class _LeaderPanel extends StatelessWidget {
                 ),
                 if (race.leaderCarName != null)
                   Text(
-                    race.leaderCarName!,
+                    context.tr(race.leaderCarName!),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: theme.textTheme.bodySmall?.copyWith(
@@ -358,7 +360,7 @@ class _LeaderPanel extends StatelessWidget {
           ),
           if (race.leadTime != null)
             Text(
-              race.leadTime!,
+              context.tr(race.leadTime!),
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w700,
                 fontFeatures: const [FontFeature.tabularFigures()],
@@ -393,7 +395,7 @@ class _Section extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 8, top: 8),
           child: Text(
-            title.toUpperCase(),
+            context.tr(title.toUpperCase()),
             style: theme.textTheme.labelSmall?.copyWith(
               letterSpacing: 1.1,
               fontWeight: FontWeight.w700,
@@ -409,7 +411,7 @@ class _Section extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    e.key,
+                    context.tr(e.key),
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: theme.colorScheme.onSurface.withValues(
                         alpha: 0.65,
@@ -419,7 +421,7 @@ class _Section extends StatelessWidget {
                 ),
                 const SizedBox(width: 12),
                 Text(
-                  e.value!,
+                  context.tr(e.value!),
                   textAlign: TextAlign.right,
                   style: theme.textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.w600,
@@ -452,7 +454,7 @@ class _SourceLink extends StatelessWidget {
         }
       },
       icon: const Icon(Icons.open_in_new, size: 16),
-      label: Text(label),
+      label: Text(context.tr(label)),
     );
   }
 }

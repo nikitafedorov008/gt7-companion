@@ -176,28 +176,32 @@
 
     <M-NAVBAR>
       <Summary>(UI_COMPONENT) Responsive navigation bar that switches tabs and falls back to a route pop when tabs are unavailable.</Summary>
-      <Path>lib/widgets/adaptive_navbar.dart</Path>
+      <Path>lib/widgets/adaptive_navbar.dart</Path><Path>lib/widgets/window_navigation_safe_area.dart</Path><M-SETTINGS/><M-LOCALIZATION/>
     </M-NAVBAR>
 
+    <M-SETTINGS><Summary>(UI_COMPONENT) Persisted System/RU/EN application language, GT7 category settings and existing audio controls.</Summary><Path>lib/services/app_settings_service.dart</Path><Path>lib/widgets/settings/settings_display.dart</Path><M-LOCALIZATION/><M-SOUND/></M-SETTINGS>
+    <M-LOCALIZATION><Summary>(UTILITY) Generated RU/EN resources, typed templates, legacy UI label adapter and coverage audit.</Summary><Path>lib/l10n/app_en.arb</Path><Path>lib/l10n/app_ru.arb</Path><Path>lib/l10n/ui_messages.dart</Path><Path>tools/audit_localization.py</Path></M-LOCALIZATION>
     <!-- Infrastructure everything else depends on. -->
     <M-DI-APPSCOPE>
       <Summary>(UTILITY) The single provider registration point for services, repositories and blocs.</Summary>
-      <Path>lib/dependency_injection/app_scope.dart</Path>
+      <Path>lib/dependency_injection/app_scope.dart</Path><M-SETTINGS/>
       <M-SERVICE-TELEMETRY />
       <M-REPO-SPORT />
       <M-REPO-CAR />
       <M-REPO-GT7-AUTH />
       <M-SERVICE-APEX />
       <M-REPO-GT-AUTO />
+      <M-REPO-BRAND-CENTRAL />
     </M-DI-APPSCOPE>
 
     <M-ROUTER>
       <Summary>(UTILITY) auto_route configuration: nested tab shell plus the vertical screens.</Summary>
-      <Path>lib/router/app_router.dart</Path>
+      <Path>lib/router/app_router.dart</Path><M-SETTINGS/>
       <M-SHELL-TABS />
       <M-WIDGET-CAR-DEALER />
       <M-WIDGET-GT-AUTO />
       <M-WIDGET-APEX />
+      <M-WIDGET-BRAND-CENTRAL />
     </M-ROUTER>
 
     <M-THEME>
@@ -219,7 +223,7 @@
     </M-FEATURE-PROFILE>
 
     <M-WIDGET-SERVICE-MENU>
-      <Summary>(UI_COMPONENT) Width-driven 1/2/4-column service cards with content-height rows and stable artwork proportions.</Summary>
+      <Summary>(UI_COMPONENT) Width-driven 1/2/3/5-column service cards with content-height rows and stable artwork proportions.</Summary>
       <Path>lib/widgets/home/service_menu.dart</Path>
     </M-WIDGET-SERVICE-MENU>
 
@@ -230,7 +234,7 @@
 
     <M-SERVICE-APEX>
       <Summary>(CORE_LOGIC) Official Russian Apex API client, article parser, observable selection, request ordering, retry and in-memory cache.</Summary>
-      <Path>lib/services/apex_service.dart</Path>
+      <Path>lib/services/apex_service.dart</Path><M-SETTINGS/>
       <M-MODEL-APEX />
     </M-SERVICE-APEX>
 
@@ -241,5 +245,9 @@
       <M-MODEL-APEX />
     </M-WIDGET-APEX>
 
+    <M-MODEL-BRAND-CENTRAL><Summary>(DATA_MODEL) Official localized cars, manufacturer and country joins, units and gallery indices.</Summary><Path>lib/models/brand_central/brand_central_data.dart</Path></M-MODEL-BRAND-CENTRAL>
+    <M-SERVICE-BRAND-CENTRAL><Summary>(CORE_LOGIC) Official bundled metadata and validated, cached photo module resolution.</Summary><Path>lib/services/brand_central_service.dart</Path><M-MODEL-BRAND-CENTRAL /></M-SERVICE-BRAND-CENTRAL>
+    <M-REPO-BRAND-CENTRAL><Summary>(DATA_LAYER) Brand and region search, sort, language, local back stack, independent gallery error and stale-request protection.</Summary><Path>lib/repositories/brand_central_repository.dart</Path><M-SETTINGS/><M-MODEL-BRAND-CENTRAL /><M-SERVICE-BRAND-CENTRAL /></M-REPO-BRAND-CENTRAL>
+    <M-WIDGET-BRAND-CENTRAL><Summary>(UI_COMPONENT) Independent adaptive Brand Central with a three-region lobby, country-grouped manufacturer logos, portrait and landscape escalator atrium plates, a flat world map, real history, specifications and full-screen photography.</Summary><Path>lib/widgets/brand_central/brand_central_display.dart</Path><M-MODEL-BRAND-CENTRAL /><M-REPO-BRAND-CENTRAL /></M-WIDGET-BRAND-CENTRAL>
   </GD-MAIN>
 </GraceGraphDocument>

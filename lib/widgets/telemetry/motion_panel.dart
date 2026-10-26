@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -63,7 +64,7 @@ class MotionPanel extends StatelessWidget {
           Row(
             children: [
               Text(
-                'MOTION',
+                context.tr('MOTION'),
                 style: gt7Caption(
                   color: gt7Text,
                   size: 11,
@@ -74,13 +75,15 @@ class MotionPanel extends StatelessWidget {
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  telemetry.hasMotionData
-                      ? 'THE LOAD VECTOR AND THE BODY ATTITUDE COME FROM PACKET '
-                            '${telemetry.packetType}; STEERING AND DRIFT ARE ON '
-                            'THE CAR\'S CARD BELOW'
-                      : 'LOAD AND ATTITUDE ARE NOT IN PACKET A — ASK THE '
-                            'CONSOLE FOR HEARTBEAT B OR C '
-                            '(SEE UdpService.packetType)',
+                  context.tr(
+                    telemetry.hasMotionData
+                        ? 'THE LOAD VECTOR AND THE BODY ATTITUDE COME FROM PACKET '
+                              '${telemetry.packetType}; STEERING AND DRIFT ARE ON '
+                              'THE CAR\'S CARD BELOW'
+                        : 'LOAD AND ATTITUDE ARE NOT IN PACKET A — ASK THE '
+                              'CONSOLE FOR HEARTBEAT B OR C '
+                              '(SEE UdpService.packetType)',
+                  ),
                   style: gt7Caption(
                     color: gt7TextMuted.withValues(alpha: 0.6),
                     size: 8,
@@ -114,11 +117,7 @@ class MotionPanel extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               if (showDial)
-                GForceBall(
-                  telemetry: data,
-                  size: small,
-                  trailSeconds: 2,
-                ),
+                GForceBall(telemetry: data, size: small, trailSeconds: 2),
               if (showDial) const SizedBox(width: 14),
               Expanded(
                 child: _readouts(
@@ -133,13 +132,11 @@ class MotionPanel extends StatelessWidget {
 
         // Stacked, the dial can use the width the column has: the readouts are
         // underneath it, not fighting it for the room.
-        final dialPx =
-            dialSize ?? math.min(constraints.maxWidth, 470.0);
+        final dialPx = dialSize ?? math.min(constraints.maxWidth, 470.0);
         // The dial draws the wheelbase itself once it is big enough for the
         // dimension to fit inside the rim, and the facts carry it until then.
         // One constant decides, so the number can never appear twice or vanish.
-        final dialHasWheelbase =
-            showDial && dialPx >= kGForceBallWheelbaseSize;
+        final dialHasWheelbase = showDial && dialPx >= kGForceBallWheelbaseSize;
 
         final dial = showDial
             ? GForceBall(
@@ -263,22 +260,25 @@ class _GReadout extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: gt7Caption(size: 9)),
+          Text(context.tr(label), style: gt7Caption(size: 9)),
           const SizedBox(height: 4),
           Row(
             crossAxisAlignment: CrossAxisAlignment.baseline,
             textBaseline: TextBaseline.alphabetic,
             children: [
               Text(
-                g == null ? '—' : g.abs().toStringAsFixed(2),
+                context.tr(g == null ? '—' : g.abs().toStringAsFixed(2)),
                 style: gt7Digital(size: 22),
               ),
               const SizedBox(width: 4),
-              Text('g', style: gt7Caption(color: gt7TextMuted, size: 10)),
+              Text(
+                context.tr('g'),
+                style: gt7Caption(color: gt7TextMuted, size: 10),
+              ),
               const SizedBox(width: 8),
               if (g != null)
                 Text(
-                  g >= 0 ? 'R' : 'L',
+                  context.tr(g >= 0 ? 'R' : 'L'),
                   style: gt7Caption(
                     color: g >= 0 ? gt7SlotA : gt7SlotB,
                     size: 10,
@@ -288,7 +288,7 @@ class _GReadout extends StatelessWidget {
           ),
           const SizedBox(height: 3),
           Text(
-            hint,
+            context.tr(hint),
             style: gt7Caption(
               color: gt7TextMuted.withValues(alpha: 0.5),
               size: 8,
@@ -340,6 +340,7 @@ class _DriftBar extends StatelessWidget {
             : null,
       ),
       footer: Text(
+        context.tr(
           calibrated
               ? scale == null
                     ? 'BODY ANGLE TAKEN FROM THE PACKET\'S ROTATION QUATERNION — '
@@ -351,11 +352,9 @@ class _DriftBar extends StatelessWidget {
               : slip == null
               ? 'DRIVE A LITTLE FURTHER: THE SLIP ANGLE NEEDS TWO POINTS'
               : 'MEASURING THE PACKET\'S YAW UNIT FROM THE DRIVE…',
-          style: gt7Caption(
-            color: gt7TextMuted.withValues(alpha: 0.5),
-            size: 8,
-          ),
         ),
+        style: gt7Caption(color: gt7TextMuted.withValues(alpha: 0.5), size: 8),
+      ),
     );
   }
 }
@@ -401,18 +400,21 @@ class _ChannelCard extends StatelessWidget {
               // pushes the value off the edge instead of giving way.
               Flexible(
                 child: Text(
-                  title,
+                  context.tr(title),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: gt7Caption(color: gt7TextMuted, size: 9),
                 ),
               ),
               const Spacer(),
-              Text(value, style: gt7Digital(size: 16, color: valueColor)),
+              Text(
+                context.tr(value),
+                style: gt7Digital(size: 16, color: valueColor),
+              ),
               if (note != null) ...[
                 const SizedBox(width: 10),
                 Text(
-                  note!,
+                  context.tr(note!),
                   maxLines: 1,
                   style: gt7Caption(color: gt7TextMuted, size: 8),
                 ),
@@ -427,10 +429,7 @@ class _ChannelCard extends StatelessWidget {
               painter: painter,
             ),
           ),
-          if (footer != null) ...[
-            const SizedBox(height: 4),
-            footer!,
-          ],
+          if (footer != null) ...[const SizedBox(height: 4), footer!],
         ],
       ),
     );
@@ -503,8 +502,9 @@ class _CarFactsRow extends StatelessWidget {
       runSpacing: 8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        _fact('CATEGORY', category.isEmpty ? '—' : category),
+        _fact(context, 'CATEGORY', category.isEmpty ? '—' : category),
         _fact(
+          context,
           // Measured down the left-hand side, so it only equals the car's
           // wheelbase when the wheels are straight.
           'LEFT WHEELBASE',
@@ -514,13 +514,16 @@ class _CarFactsRow extends StatelessWidget {
     );
   }
 
-  Widget _fact(String label, String value) {
+  Widget _fact(BuildContext context, String label, String value) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(label, style: gt7Caption(color: gt7TextMuted, size: 8)),
+        Text(
+          context.tr(label),
+          style: gt7Caption(color: gt7TextMuted, size: 8),
+        ),
         const SizedBox(width: 6),
-        Text(value, style: gt7Digital(size: 12)),
+        Text(context.tr(value), style: gt7Digital(size: 12)),
       ],
     );
   }

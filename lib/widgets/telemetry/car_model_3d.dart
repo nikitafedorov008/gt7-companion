@@ -75,11 +75,11 @@ class CarModel3D {
         final colour = wheelColours[i];
         if (colour == null) continue;
         _paintContactPatch(
-            canvas,
-            view,
-            wheelBasis,
-            wheels[i],
-            colour: colour,
+          canvas,
+          view,
+          wheelBasis,
+          wheels[i],
+          colour: colour,
           steering: wheels[i].front
               ? -(wheels[i].centre.x < 0 ? steeringLeft : steeringRight)
               : 0,
@@ -106,12 +106,15 @@ class CarModel3D {
             // lit more strongly than a plain black one: the whole point is to
             // be seen at a glance, and a tinted tyre at the usual tyre shade
             // comes out a muddy maroon nobody can read on a dial.
-            colour: wheelColours != null &&
+            colour:
+                wheelColours != null &&
                     i < wheelColours.length &&
                     wheelColours[i] != null
                 ? Color.lerp(_tyre, wheelColours[i], 0.78)!
                 : _tyre,
-            shade: wheelColours != null && i < wheelColours.length &&
+            shade:
+                wheelColours != null &&
+                    i < wheelColours.length &&
                     wheelColours[i] != null
                 ? 0.85
                 : 0.35,
@@ -134,16 +137,40 @@ class CarModel3D {
       ),
       _Part(
         _Prism.rounded(
-          bottom: const _Outline(width: 1.46, length: 3.5, radius: 0.44, y: 0.62, centreZ: 0.15),
-          top: const _Outline(width: 1.24, length: 2.1, radius: 0.4, y: 1.06, centreZ: 0.35),
+          bottom: const _Outline(
+            width: 1.46,
+            length: 3.5,
+            radius: 0.44,
+            y: 0.62,
+            centreZ: 0.15,
+          ),
+          top: const _Outline(
+            width: 1.24,
+            length: 2.1,
+            radius: 0.4,
+            y: 1.06,
+            centreZ: 0.35,
+          ),
           colour: _windscreen,
           shade: 1.05,
         ),
       ),
       _Part(
         _Prism.rounded(
-          bottom: const _Outline(width: 1.7, length: 0.34, radius: 0.12, y: 0.95, centreZ: 2.0),
-          top: const _Outline(width: 1.7, length: 0.34, radius: 0.12, y: 1.05, centreZ: 2.0),
+          bottom: const _Outline(
+            width: 1.7,
+            length: 0.34,
+            radius: 0.12,
+            y: 0.95,
+            centreZ: 2.0,
+          ),
+          top: const _Outline(
+            width: 1.7,
+            length: 0.34,
+            radius: 0.12,
+            y: 1.05,
+            centreZ: 2.0,
+          ),
           colour: _windscreen,
           shade: 1.1,
         ),
@@ -159,9 +186,7 @@ class CarModel3D {
         canvas.drawPath(
           shadow,
           Paint()
-            ..color = Colors.black.withValues(
-              alpha: translucent ? 0.28 : 0.45,
-            ),
+            ..color = Colors.black.withValues(alpha: translucent ? 0.28 : 0.45),
         );
       }
     }
@@ -186,8 +211,8 @@ class CarModel3D {
           // Wheels read better a little more solid than the glass body.
           opacity: part.onGround || translucent == false
               ? translucent
-                  ? (opacity + 0.25).clamp(0.0, 1.0)
-                  : 1.0
+                    ? (opacity + 0.25).clamp(0.0, 1.0)
+                    : 1.0
               : opacity,
           cull: !translucent,
         ),
@@ -210,7 +235,6 @@ class CarModel3D {
       canvas.drawPath(face.path, fill);
       if (outline || translucent) canvas.drawPath(face.path, edge);
     }
-
   }
 
   /// The basis the wheels and their patches share.
@@ -232,7 +256,8 @@ class CarModel3D {
       double radius,
       double width,
       bool front,
-    }) wheel, {
+    })
+    wheel, {
     required Color colour,
     required double steering,
   }) {
@@ -248,14 +273,8 @@ class CarModel3D {
     // A dark base first, so the colour reads against the dial's grid, then the
     // surface as a strong fill with an edge. All of it goes down before the
     // car: a patch outline drawn afterwards reads as if it were on the roof.
-    canvas.drawPath(
-      path,
-      Paint()..color = Colors.black.withValues(alpha: 0.4),
-    );
-    canvas.drawPath(
-      path,
-      Paint()..color = colour.withValues(alpha: 0.5),
-    );
+    canvas.drawPath(path, Paint()..color = Colors.black.withValues(alpha: 0.4));
+    canvas.drawPath(path, Paint()..color = colour.withValues(alpha: 0.5));
     canvas.drawPath(
       path,
       Paint()
@@ -293,7 +312,8 @@ class CarModel3D {
       double radius,
       double width,
       bool front,
-    }) wheel,
+    })
+    wheel,
     double steering,
   ) {
     // Slightly proud of the tyre so the colour shows around it, and 2 cm off
@@ -331,21 +351,23 @@ class CarModel3D {
           view.project(_V3(dx, 0.02, dz), const _Basis.identity()),
     ];
     if (corners.length != 4) return null;
-    var minX = corners.first.dx, maxX = minX, minY = corners.first.dy, maxY = minY;
+    var minX = corners.first.dx,
+        maxX = minX,
+        minY = corners.first.dy,
+        maxY = minY;
     for (final corner in corners) {
       minX = math.min(minX, corner.dx);
       maxX = math.max(maxX, corner.dx);
       minY = math.min(minY, corner.dy);
       maxY = math.max(maxY, corner.dy);
     }
-    return Path()
-      ..addOval(
-        Rect.fromCenter(
-          center: Offset((minX + maxX) / 2, (minY + maxY) / 2 + scale * 0.18),
-          width: (maxX - minX) * 1.05,
-          height: (maxY - minY) * 1.5,
-        ),
-      );
+    return Path()..addOval(
+      Rect.fromCenter(
+        center: Offset((minX + maxX) / 2, (minY + maxY) / 2 + scale * 0.18),
+        width: (maxX - minX) * 1.05,
+        height: (maxY - minY) * 1.5,
+      ),
+    );
   }
 
   /// Where a point in the car's own frame lands on the canvas, using the very
@@ -374,21 +396,25 @@ class CarModel3D {
       roll: onGround ? 0 : roll,
       pitch: onGround ? 0 : pitch,
     );
-    return _View(cameraTilt, metresToPixels, centre).project(
-      _V3(local.x, local.y, local.z),
-      basis,
-    );
+    return _View(
+      cameraTilt,
+      metresToPixels,
+      centre,
+    ).project(_V3(local.x, local.y, local.z), basis);
   }
 
   /// Every wheel, in one place: the painter builds its geometry from this list,
   /// so a test that walks it is walking the car. Front is -z, right is +x.
-  static const List<({
-    String name,
-    ({double x, double y, double z}) centre,
-    double radius,
-    double width,
-    bool front,
-  })> wheels = [
+  static const List<
+    ({
+      String name,
+      ({double x, double y, double z}) centre,
+      double radius,
+      double width,
+      bool front,
+    })
+  >
+  wheels = [
     (
       name: 'front-left',
       centre: frontLeftWheel,
@@ -420,18 +446,33 @@ class CarModel3D {
   ];
 
   /// The centre of the front-left wheel, in the car's own frame.
-  static const ({double x, double y, double z}) frontLeftWheel =
-      (x: -0.80, y: 0.34, z: -1.35);
-  static const ({double x, double y, double z}) frontRightWheel =
-      (x: 0.80, y: 0.34, z: -1.35);
-  static const ({double x, double y, double z}) rearLeftWheel =
-      (x: -0.80, y: 0.35, z: 1.32);
-  static const ({double x, double y, double z}) rearRightWheel =
-      (x: 0.80, y: 0.35, z: 1.32);
+  static const ({double x, double y, double z}) frontLeftWheel = (
+    x: -0.80,
+    y: 0.34,
+    z: -1.35,
+  );
+  static const ({double x, double y, double z}) frontRightWheel = (
+    x: 0.80,
+    y: 0.34,
+    z: -1.35,
+  );
+  static const ({double x, double y, double z}) rearLeftWheel = (
+    x: -0.80,
+    y: 0.35,
+    z: 1.32,
+  );
+  static const ({double x, double y, double z}) rearRightWheel = (
+    x: 0.80,
+    y: 0.35,
+    z: 1.32,
+  );
 
   /// A corner of the body's roof, for checking how the body moves.
-  static const ({double x, double y, double z}) bodyRoofRight =
-      (x: 0.89, y: 0.62, z: -2.05);
+  static const ({double x, double y, double z}) bodyRoofRight = (
+    x: 0.89,
+    y: 0.62,
+    z: -2.05,
+  );
 
   static const Color _tyre = Color(0xFF1B1E22);
   static const Color _windscreen = Color(0xFF5A6470);
@@ -464,10 +505,7 @@ class _V3 {
 class _Basis {
   _Basis({this.yaw = 0, this.roll = 0, this.pitch = 0});
 
-  const _Basis.identity()
-      : yaw = 0,
-        roll = 0,
-        pitch = 0;
+  const _Basis.identity() : yaw = 0, roll = 0, pitch = 0;
 
   final double yaw;
   final double roll;
@@ -524,8 +562,11 @@ class _View {
   _V3 normal(_V3 localNormal, _Basis basis) {
     final rotated = basis.apply(localNormal);
     final ct = math.cos(tilt), st = math.sin(tilt);
-    return _V3(rotated.x, rotated.y * ct - rotated.z * st, rotated.y * st + rotated.z * ct)
-        .normalised;
+    return _V3(
+      rotated.x,
+      rotated.y * ct - rotated.z * st,
+      rotated.y * st + rotated.z * ct,
+    ).normalised;
   }
 }
 
@@ -630,13 +671,13 @@ class _Prism {
     int segments = 12,
   }) {
     List<_V3> ring(double x) => [
-          for (var i = 0; i < segments; i++)
-            _V3(
-              centre.x + x,
-              centre.y + math.cos(i / segments * 2 * math.pi) * radius,
-              centre.z + math.sin(i / segments * 2 * math.pi) * radius,
-            ),
-        ];
+      for (var i = 0; i < segments; i++)
+        _V3(
+          centre.x + x,
+          centre.y + math.cos(i / segments * 2 * math.pi) * radius,
+          centre.z + math.sin(i / segments * 2 * math.pi) * radius,
+        ),
+    ];
 
     return _Prism(
       bottom: ring(-width / 2),
@@ -706,7 +747,11 @@ class _Prism {
         cy += point.y;
         cz += point.z;
       }
-      final centroid = _V3(cx / ring.length, cy / ring.length, cz / ring.length);
+      final centroid = _V3(
+        cx / ring.length,
+        cy / ring.length,
+        cz / ring.length,
+      );
 
       final worldNormal = view.normal(normal, basis);
       final away = worldNormal.z < -0.05;

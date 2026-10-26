@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -159,13 +160,7 @@ class TelemetryDisplay extends StatelessWidget {
 
     // Deliberately not `Expanded`: a vertical flex child inside a scrolling
     // column has unbounded main-axis constraints and asserts in debug.
-    return Column(
-      children: [
-        speed,
-        const SizedBox(height: 12),
-        rpm,
-      ],
-    );
+    return Column(children: [speed, const SizedBox(height: 12), rpm]);
   }
 }
 
@@ -186,7 +181,7 @@ class _StatusMessage extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                isError ? 'LINK ERROR' : 'WAITING FOR TELEMETRY',
+                context.tr(isError ? 'LINK ERROR' : 'WAITING FOR TELEMETRY'),
                 style: gt7Caption(
                   color: isError ? gt7Warn : gt7TextMuted,
                   size: 12,
@@ -196,7 +191,7 @@ class _StatusMessage extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                errorMessage ?? 'No packets received yet.',
+                context.tr(errorMessage ?? 'No packets received yet.'),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: gt7TextMuted.withValues(alpha: 0.8),
@@ -289,19 +284,21 @@ class GaugeDial extends StatelessWidget {
                   if (core != null) core!,
                   if (showValue) ...[
                     Text(
-                      animated.toStringAsFixed(0),
+                      context.tr(animated.toStringAsFixed(0)),
                       style: gt7Digital(size: valueSize),
                     ),
                     const SizedBox(height: 5),
                   ],
                   Text(
-                    unitCaption.toUpperCase(),
-                    style: gt7Caption(color: gt7TextMuted.withValues(alpha: 0.9)),
+                    context.tr(unitCaption.toUpperCase()),
+                    style: gt7Caption(
+                      color: gt7TextMuted.withValues(alpha: 0.9),
+                    ),
                   ),
                   if (caption != null) ...[
                     const SizedBox(height: 6),
                     Text(
-                      caption!,
+                      context.tr(caption!),
                       style: gt7Caption(
                         color: gt7TextMuted.withValues(alpha: 0.6),
                         size: 9,
@@ -441,7 +438,10 @@ class _DialPainter extends CustomPainter {
     // Needle: from just outside the value readout to the scale.
     final valueRatio = (value / maxValue).clamp(0.0, 1.0);
     final needleAngle = _startAngle + _sweepAngle * valueRatio;
-    final needleDirection = Offset(math.cos(needleAngle), math.sin(needleAngle));
+    final needleDirection = Offset(
+      math.cos(needleAngle),
+      math.sin(needleAngle),
+    );
     canvas.drawLine(
       center + needleDirection * (radius * 0.28),
       center + needleDirection * (radius - 10),
@@ -452,7 +452,11 @@ class _DialPainter extends CustomPainter {
     );
 
     // Hub.
-    canvas.drawCircle(center, 6.5, Paint()..color = hubColor.withValues(alpha: 0.35));
+    canvas.drawCircle(
+      center,
+      6.5,
+      Paint()..color = hubColor.withValues(alpha: 0.35),
+    );
     canvas.drawCircle(center, 2.6, Paint()..color = needleColor);
   }
 
@@ -494,13 +498,13 @@ class Gt7Readout extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label.toUpperCase(), style: gt7Caption()),
+          Text(context.tr(label.toUpperCase()), style: gt7Caption()),
           const SizedBox(height: 8),
           FittedBox(
             fit: BoxFit.scaleDown,
             alignment: Alignment.centerLeft,
             child: Text(
-              value,
+              context.tr(value),
               maxLines: 1,
               softWrap: false,
               style: gt7Digital(size: 22, color: valueColor),
@@ -509,7 +513,7 @@ class Gt7Readout extends StatelessWidget {
           if (sub != null) ...[
             const SizedBox(height: 6),
             Text(
-              sub!,
+              context.tr(sub!),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: gt7Caption(
@@ -593,11 +597,20 @@ class _SessionOverlay extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          _line('LAP', gt7Count(telemetry.currentLap, telemetry.totalLaps)),
-          const SizedBox(height: 4),
-          _line('POSITION', gt7Count(telemetry.currentPos, telemetry.totalPositions)),
+          _line(
+            context,
+            'LAP',
+            gt7Count(telemetry.currentLap, telemetry.totalLaps),
+          ),
           const SizedBox(height: 4),
           _line(
+            context,
+            'POSITION',
+            gt7Count(telemetry.currentPos, telemetry.totalPositions),
+          ),
+          const SizedBox(height: 4),
+          _line(
+            context,
             'TIME',
             telemetry.lapTimeMs >= 0
                 ? gt7LapTime(telemetry.lapTimeMs)
@@ -608,15 +621,18 @@ class _SessionOverlay extends StatelessWidget {
     );
   }
 
-  Widget _line(String label, String value) {
+  Widget _line(BuildContext context, String label, String value) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         SizedBox(
           width: 54,
-          child: Text(label, style: gt7Caption(color: gt7TextMuted, size: 8)),
+          child: Text(
+            context.tr(label),
+            style: gt7Caption(color: gt7TextMuted, size: 8),
+          ),
         ),
-        Text(value, style: gt7Digital(size: 15)),
+        Text(context.tr(value), style: gt7Digital(size: 15)),
       ],
     );
   }
@@ -651,29 +667,37 @@ class _SessionBestPanel extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
+          Wrap(
+            spacing: 10,
+            runSpacing: 8,
+            crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              Text('SESSION BEST', style: gt7Caption(color: gt7TextMuted)),
+              Text(
+                context.tr('SESSION BEST'),
+                style: gt7Caption(color: gt7TextMuted),
+              ),
               const SizedBox(width: 12),
               if (ghostLap != null)
                 Text(
-                  'GHOST: LAP ${ghostLap + 1} OF THE SESSION',
+                  context.tr('GHOST: LAP ${ghostLap + 1} OF THE SESSION'),
                   style: gt7Caption(
                     color: gt7Best.withValues(alpha: 0.9),
                     size: 8,
                   ),
                 ),
-              const Spacer(),
+
               if (liveDelta != null)
                 Row(
                   children: [
                     Text(
-                      'LIVE VS BEST  ',
+                      context.tr('LIVE VS BEST  '),
                       style: gt7Caption(color: gt7TextMuted, size: 8),
                     ),
                     Text(
-                      '${liveDelta < 0 ? '-' : '+'}'
-                      '${liveDelta.abs().toStringAsFixed(3)}',
+                      context.tr(
+                        '${liveDelta < 0 ? '-' : '+'}'
+                        '${liveDelta.abs().toStringAsFixed(3)}',
+                      ),
                       style: gt7Digital(
                         size: 15,
                         color: liveDelta < 0 ? gt7Gain : gt7Warn,
@@ -693,9 +717,11 @@ class _SessionBestPanel extends StatelessWidget {
           _TimingRow(label: 'BEST', time: best, highlight: true),
           const SizedBox(height: 10),
           Text(
-            hasBest && hasLast
-                ? 'DELTA TO BEST, ISOLATED LAP TIME'
-                : 'WAITING FOR A COMPLETED LAP',
+            context.tr(
+              hasBest && hasLast
+                  ? 'DELTA TO BEST, ISOLATED LAP TIME'
+                  : 'WAITING FOR A COMPLETED LAP',
+            ),
             style: gt7Caption(
               color: gt7TextMuted.withValues(alpha: 0.6),
               size: 9,
@@ -739,12 +765,15 @@ class _TimingRow extends StatelessWidget {
           ),
         ),
       ),
-      child: Row(
+      child: Wrap(
+        spacing: 10,
+        runSpacing: 8,
+        crossAxisAlignment: WrapCrossAlignment.center,
         children: [
           SizedBox(
             width: 52,
             child: Text(
-              label,
+              context.tr(label),
               style: gt7Caption(
                 color: highlight ? gt7Text : gt7TextMuted,
                 size: 11,
@@ -752,8 +781,8 @@ class _TimingRow extends StatelessWidget {
               ),
             ),
           ),
-          Text(time, style: gt7Digital(size: 19)),
-          const Spacer(),
+          Text(context.tr(time), style: gt7Digital(size: 19)),
+
           if (delta != null)
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
@@ -763,7 +792,9 @@ class _TimingRow extends StatelessWidget {
                 border: Border.all(color: deltaColor.withValues(alpha: 0.5)),
               ),
               child: Text(
-                '${isGain ? '-' : '+'}${delta.abs().toStringAsFixed(3)}',
+                context.tr(
+                  '${isGain ? '-' : '+'}${delta.abs().toStringAsFixed(3)}',
+                ),
                 style: gt7Digital(size: 13, color: deltaColor),
               ),
             ),
@@ -860,34 +891,64 @@ class _TrackMapPanelState extends State<_TrackMapPanel> {
           // first thing to go: it is a paragraph, and a paragraph in a 400 px
           // column is six lines of grey above the map.
           LayoutBuilder(
-            builder: (context, constraints) => Row(
-              children: [
-                Text(
-                  'TRACK MAP',
-                  style: gt7Caption(
-                    color: gt7Text,
-                    size: 11,
-                    letterSpacing: 1.8,
-                    weight: FontWeight.w700,
+            builder: (context, constraints) =>
+                constraints.maxWidth >=
+                    620 * MediaQuery.textScalerOf(context).scale(1)
+                ? Row(
+                    children: [
+                      Text(
+                        context.tr('TRACK MAP'),
+                        style: gt7Caption(
+                          color: gt7Text,
+                          size: 11,
+                          letterSpacing: 1.8,
+                          weight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(child: _TrackCaption(match: _match)),
+                      if (speed != null) ...[
+                        const SizedBox(width: 12),
+                        Text(
+                          context.tr(speed),
+                          style: gt7Caption(color: gt7TextMuted, size: 9),
+                        ),
+                      ],
+                      const SizedBox(width: 10),
+                      _MapModeButton(
+                        headingUp: _headingUp,
+                        onTap: () => setState(() => _headingUp = !_headingUp),
+                      ),
+                    ],
+                  )
+                : Wrap(
+                    spacing: 12,
+                    runSpacing: 8,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      Text(
+                        context.tr('TRACK MAP'),
+                        style: gt7Caption(
+                          color: gt7Text,
+                          size: 11,
+                          letterSpacing: 1.8,
+                          weight: FontWeight.w700,
+                        ),
+                      ),
+
+                      if (speed != null) ...[
+                        Text(
+                          context.tr(speed),
+                          style: gt7Caption(color: gt7TextMuted, size: 9),
+                        ),
+                      ],
+
+                      _MapModeButton(
+                        headingUp: _headingUp,
+                        onTap: () => setState(() => _headingUp = !_headingUp),
+                      ),
+                    ],
                   ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: constraints.maxWidth < 620
-                      ? const SizedBox.shrink()
-                      : _TrackCaption(match: _match),
-                ),
-                if (speed != null) ...[
-                  const SizedBox(width: 12),
-                  Text(speed, style: gt7Caption(color: gt7TextMuted, size: 9)),
-                ],
-                const SizedBox(width: 10),
-                _MapModeButton(
-                  headingUp: _headingUp,
-                  onTap: () => setState(() => _headingUp = !_headingUp),
-                ),
-              ],
-            ),
           ),
           const SizedBox(height: 10),
           SizedBox(
@@ -905,11 +966,7 @@ class _TrackMapPanelState extends State<_TrackMapPanel> {
                   ),
                 ),
                 if (widget.overlay != null)
-                  Positioned(
-                    left: 10,
-                    top: 10,
-                    child: widget.overlay!,
-                  ),
+                  Positioned(left: 10, top: 10, child: widget.overlay!),
               ],
             ),
           ),
@@ -925,7 +982,7 @@ class _TrackMapPanelState extends State<_TrackMapPanel> {
               _mapFact('POINTS', '${trace.length}'),
               _mapFact('LAPS', '${trace.laps}'),
               _mapFact('ELEVATION', '${trace.elevationRange.round()} m'),
-              const _SpeedLegend(),
+              const SizedBox(width: double.infinity, child: _SpeedLegend()),
             ],
           ),
         ],
@@ -937,9 +994,9 @@ class _TrackMapPanelState extends State<_TrackMapPanel> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: gt7Caption(size: 8)),
+        Text(context.tr(label), style: gt7Caption(size: 8)),
         const SizedBox(height: 3),
-        Text(value, style: gt7Digital(size: 14)),
+        Text(context.tr(value), style: gt7Digital(size: 14)),
       ],
     );
   }
@@ -973,7 +1030,7 @@ class _MapModeButton extends StatelessWidget {
             ),
             const SizedBox(width: 5),
             Text(
-              headingUp ? 'HEADING UP' : 'NORTH UP',
+              context.tr(headingUp ? 'HEADING UP' : 'NORTH UP'),
               style: gt7Caption(color: gt7TextMuted, size: 8),
             ),
           ],
@@ -997,17 +1054,22 @@ class _SpeedLegend extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Wrap(
+      spacing: 10,
+      runSpacing: 6,
       children: [
-        for (final (label, color) in _steps) ...[
-          Container(width: 14, height: 3, color: color),
-          const SizedBox(width: 4),
-          Text(
-            label,
-            style: gt7Caption(color: gt7TextMuted, size: 8),
+        for (final (label, color) in _steps)
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(width: 14, height: 3, color: color),
+              const SizedBox(width: 4),
+              Text(
+                context.tr(label),
+                style: gt7Caption(color: gt7TextMuted, size: 8),
+              ),
+            ],
           ),
-          const SizedBox(width: 10),
-        ],
       ],
     );
   }
@@ -1025,9 +1087,11 @@ class _TrackCaption extends StatelessWidget {
 
     if (match == null) {
       return Text(
-        'THE ROUTE COMES FROM THE POSITION GT7 SENDS IN EVERY PACKET (X/Z), SO '
-        'IT IS BUILT BY DRIVING — NO COURSE DATA, NO RIVALS. GT7 SENDS NO TRACK '
-        'ID, SO THE CIRCUIT IS NAMED ONLY WHEN A DRIVEN LAP MATCHES ONE',
+        context.tr(
+          'THE ROUTE COMES FROM THE POSITION GT7 SENDS IN EVERY PACKET (X/Z), SO '
+          'IT IS BUILT BY DRIVING — NO COURSE DATA, NO RIVALS. GT7 SENDS NO TRACK '
+          'ID, SO THE CIRCUIT IS NAMED ONLY WHEN A DRIVEN LAP MATCHES ONE',
+        ),
         style: gt7Caption(color: gt7TextMuted.withValues(alpha: 0.6), size: 8),
       );
     }
@@ -1039,7 +1103,7 @@ class _TrackCaption extends StatelessWidget {
     return Row(
       children: [
         Text(
-          track.name.toUpperCase(),
+          context.tr(track.name.toUpperCase()),
           style: gt7Caption(
             color: gt7Text,
             size: 10,
@@ -1049,11 +1113,13 @@ class _TrackCaption extends StatelessWidget {
         ),
         const SizedBox(width: 10),
         Text(
-          match.ambiguousWith == null
-              ? 'MATCHED FROM THE LAP · ${length} km · ${track.corners} CORNERS '
-                    '· $percent%'
-              : 'ALSO FITS ${match.ambiguousWith!.name.toUpperCase()} — '
-                    'TOO CLOSE TO CALL',
+          context.tr(
+            match.ambiguousWith == null
+                ? 'MATCHED FROM THE LAP · ${length} km · ${track.corners} CORNERS '
+                      '· $percent%'
+                : 'ALSO FITS ${match.ambiguousWith!.name.toUpperCase()} — '
+                      'TOO CLOSE TO CALL',
+          ),
           style: gt7Caption(
             color: match.ambiguousWith == null
                 ? gt7TextMuted.withValues(alpha: 0.6)

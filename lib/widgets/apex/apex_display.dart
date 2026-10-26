@@ -1,3 +1,5 @@
+import 'package:gt7_companion/widgets/window_navigation_safe_area.dart';
+import 'package:gt7_companion/l10n/ui_messages.dart';
 // START_MODULE_CONTRACT
 // PURPOSE: Read Beyond the Apex inside the application at any window width.
 // SCOPE: Chapter navigation, article rendering and loading/error presentation.
@@ -13,7 +15,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../models/apex/apex_content.dart';
-import '../../models/apex/apex_language.dart';
 import '../../services/apex_service.dart';
 
 @RoutePage()
@@ -53,30 +54,35 @@ class _ApexDisplayState extends State<ApexDisplay> with WidgetsBindingObserver {
         builder: (context, constraints) {
           final wide = constraints.maxWidth >= 880;
           return Scaffold(
-            appBar: AppBar(
-              leading: BackButton(onPressed: () => context.router.maybePop()),
-              title: const Text(
-                'Beyond the Apex',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              actions: [
-                _LanguageMenu(service: service),
-                if (!wide)
-                  Builder(
-                    builder: (context) => IconButton(
-                      key: const ValueKey('apex-contents-button'),
-                      tooltip: service.label('Содержание', 'Contents'),
-                      icon: const Icon(Icons.menu_book_outlined),
-                      onPressed: () => Scaffold.of(context).openEndDrawer(),
-                    ),
-                  ),
-                IconButton(
-                  tooltip: service.label('Открыть оригинал', 'Open original'),
-                  icon: const Icon(Icons.open_in_new),
-                  onPressed: () => _openOriginal(context, service),
+            appBar: WindowNavigationAppBar(
+              child: AppBar(
+                leading: BackButton(onPressed: () => context.router.maybePop()),
+                title: Text(
+                  context.tr('Beyond the Apex'),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-              ],
+                actions: [
+                  if (!wide)
+                    Builder(
+                      builder: (context) => IconButton(
+                        key: const ValueKey('apex-contents-button'),
+                        tooltip: context.tr(
+                          service.label('Содержание', 'Contents'),
+                        ),
+                        icon: const Icon(Icons.menu_book_outlined),
+                        onPressed: () => Scaffold.of(context).openEndDrawer(),
+                      ),
+                    ),
+                  IconButton(
+                    tooltip: context.tr(
+                      service.label('Открыть оригинал', 'Open original'),
+                    ),
+                    icon: const Icon(Icons.open_in_new),
+                    onPressed: () => _openOriginal(context, service),
+                  ),
+                ],
+              ),
             ),
             endDrawer: wide
                 ? null
@@ -140,46 +146,16 @@ Future<void> _openOriginal(BuildContext context, ApexService service) async {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          service.label(
-            'Не удалось открыть сайт. Попробуйте ещё раз.',
-            'Could not open the website. Please retry.',
+          context.tr(
+            service.label(
+              'Не удалось открыть сайт. Попробуйте ещё раз.',
+              'Could not open the website. Please retry.',
+            ),
           ),
         ),
       ),
     );
   }
-}
-
-class _LanguageMenu extends StatelessWidget {
-  const _LanguageMenu({required this.service});
-  final ApexService service;
-  @override
-  Widget build(BuildContext context) => PopupMenuButton<String>(
-    key: const ValueKey('apex-language'),
-    tooltip: service.label('Язык', 'Language'),
-    icon: const Icon(Icons.language),
-    onSelected: (code) => unawaited(
-      service.setLanguage(
-        code == 'system' ? null : ApexLanguage.fromSiteLocale(code),
-      ),
-    ),
-    itemBuilder: (context) => [
-      CheckedPopupMenuItem(
-        value: 'system',
-        checked: service.followsSystem,
-        child: Text(service.label('Как в системе', 'System default')),
-      ),
-      const PopupMenuDivider(),
-      for (final language in ApexLanguage.supported)
-        CheckedPopupMenuItem(
-          value: language.siteLocale,
-          checked:
-              !service.followsSystem &&
-              service.language.siteLocale == language.siteLocale,
-          child: Text(language.name),
-        ),
-    ],
-  );
 }
 
 class _ApexContents extends StatelessWidget {
@@ -196,15 +172,15 @@ class _ApexContents extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(8, 0, 8, 16),
           child: Text(
-            service.label('Содержание', 'Contents'),
+            context.tr(service.label('Содержание', 'Contents')),
             style: theme.textTheme.titleLarge,
           ),
         ),
         TextButton(
           onPressed: () => onSelect(ApexArticleRef.introduction),
-          child: const Align(
+          child: Align(
             alignment: Alignment.centerLeft,
-            child: Text('The Gran Turismo Magazine'),
+            child: Text(context.tr('The Gran Turismo Magazine')),
           ),
         ),
         const Divider(),
@@ -218,7 +194,7 @@ class _ApexContents extends StatelessWidget {
             ),
             tilePadding: const EdgeInsets.symmetric(horizontal: 8),
             title: Text(
-              service.chapters[i].title,
+              context.tr(service.chapters[i].title),
               style: theme.textTheme.titleSmall,
             ),
             children: [
@@ -228,7 +204,7 @@ class _ApexContents extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      section.title,
+                      context.tr(section.title),
                       style: theme.textTheme.labelLarge?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
@@ -256,7 +232,7 @@ class _ApexContents extends StatelessWidget {
                       onPressed: () => onSelect(article),
                       child: Align(
                         alignment: Alignment.centerLeft,
-                        child: Text(article.title),
+                        child: Text(context.tr(article.title)),
                       ),
                     ),
                   ),
@@ -285,7 +261,7 @@ class _ReaderError extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            service.error!,
+            context.tr(service.error!),
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyLarge,
           ),
@@ -293,7 +269,7 @@ class _ReaderError extends StatelessWidget {
           TextButton.icon(
             key: const ValueKey('apex-retry'),
             icon: const Icon(Icons.refresh),
-            label: Text(service.label('Повторить', 'Retry')),
+            label: Text(context.tr(service.label('Повторить', 'Retry'))),
             onPressed: () => service.chapters.isEmpty
                 ? service.load(forceRefresh: true)
                 : service.selectArticle(service.selected, forceRefresh: true),
@@ -301,9 +277,11 @@ class _ReaderError extends StatelessWidget {
           TextButton(
             onPressed: () => _openOriginal(context, service),
             child: Text(
-              service.label(
-                'Открыть официальный сайт',
-                'Open official website',
+              context.tr(
+                service.label(
+                  'Открыть официальный сайт',
+                  'Open official website',
+                ),
               ),
             ),
           ),
@@ -338,7 +316,7 @@ class _ArticleView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'THE GRAN TURISMO MAGAZINE',
+                      context.tr('THE GRAN TURISMO MAGAZINE'),
                       style: theme.textTheme.labelMedium?.copyWith(
                         letterSpacing: 2,
                         color: theme.colorScheme.primary,
@@ -346,7 +324,7 @@ class _ArticleView extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      service.selected.title,
+                      context.tr(service.selected.title),
                       style: theme.textTheme.headlineMedium?.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
@@ -364,7 +342,9 @@ class _ArticleView extends StatelessWidget {
                   const SizedBox(height: 24),
                   const Divider(),
                   Text(
-                    '${service.label('Источник', 'Source')}: gran-turismo.com · © Sony Interactive Entertainment / Polyphony Digital',
+                    context.tr(
+                      '${service.label('Источник', 'Source')}: gran-turismo.com · © Sony Interactive Entertainment / Polyphony Digital',
+                    ),
                     style: theme.textTheme.bodySmall,
                   ),
                   const SizedBox(height: 16),
@@ -377,7 +357,9 @@ class _ArticleView extends StatelessWidget {
                             onPressed: () =>
                                 service.selectArticle(articles[index - 1]),
                             icon: const Icon(Icons.arrow_back),
-                            label: Text(service.label('Назад', 'Previous')),
+                            label: Text(
+                              context.tr(service.label('Назад', 'Previous')),
+                            ),
                           ),
                         ),
                       if (index < articles.length - 1)
@@ -387,7 +369,9 @@ class _ArticleView extends StatelessWidget {
                             onPressed: () =>
                                 service.selectArticle(articles[index + 1]),
                             icon: const Icon(Icons.arrow_forward),
-                            label: Text(service.label('Далее', 'Next')),
+                            label: Text(
+                              context.tr(service.label('Далее', 'Next')),
+                            ),
                           ),
                         ),
                     ],
@@ -442,9 +426,11 @@ class _ArticleBlock extends StatelessWidget {
                   const Icon(Icons.image_not_supported_outlined),
                   const SizedBox(height: 8),
                   Text(
-                    context.read<ApexService>().label(
-                      'Иллюстрация недоступна',
-                      'Illustration unavailable',
+                    context.tr(
+                      context.read<ApexService>().label(
+                        'Иллюстрация недоступна',
+                        'Illustration unavailable',
+                      ),
                     ),
                     style: theme.textTheme.bodySmall,
                   ),
@@ -468,7 +454,7 @@ class _ArticleBlock extends StatelessWidget {
             color: theme.colorScheme.onSurfaceVariant,
           )
         : theme.textTheme.bodyLarge?.copyWith(height: 1.65);
-    final text = SelectableText(block.text, style: style);
+    final text = SelectableText(context.tr(block.text), style: style);
     return Padding(
       padding: EdgeInsets.only(
         top: heading ? 20 : 0,

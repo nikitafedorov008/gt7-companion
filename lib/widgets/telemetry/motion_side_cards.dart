@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/telemetry/telemetry_data.dart';
@@ -60,15 +61,15 @@ class MotionSideCards extends StatelessWidget {
 /// infinite height throws before anything is drawn. Intrinsic height costs a
 /// second layout pass on two small subtrees and gives the pair one height.
 Widget _pair(Widget left, Widget right) => IntrinsicHeight(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(child: left),
-          const SizedBox(width: 10),
-          Expanded(child: right),
-        ],
-      ),
-    );
+  child: Row(
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: [
+      Expanded(child: left),
+      const SizedBox(width: 10),
+      Expanded(child: right),
+    ],
+  ),
+);
 
 /// Where the driver is in the race: which lap, which place. The car's own state
 /// - gear, fuel, tyres, aids - is in the card below this one.
@@ -95,7 +96,6 @@ class _SessionTiles extends StatelessWidget {
     );
   }
 }
-
 
 class _TyresPanel extends StatelessWidget {
   const _TyresPanel({required this.telemetry, this.trace});
@@ -160,30 +160,40 @@ class _TyresPanel extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Row(
+          Wrap(
+            spacing: 10,
+            runSpacing: 8,
+            crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              Text('TYRES & VEHICLE', style: gt7Caption(color: gt7TextMuted)),
-              if (telemetry.carCategory.replaceAll('\u0000', '').isNotEmpty) ...[
+              Text(
+                context.tr('TYRES & VEHICLE'),
+                style: gt7Caption(color: gt7TextMuted),
+              ),
+              if (telemetry.carCategory
+                  .replaceAll('\u0000', '')
+                  .isNotEmpty) ...[
                 const SizedBox(width: 10),
                 Text(
-                  telemetry.carCategory.replaceAll('\u0000', ''),
+                  context.tr(telemetry.carCategory.replaceAll('\u0000', '')),
                   style: gt7Caption(color: gt7Text, size: 9),
                 ),
               ],
-              const Spacer(),
+
               // The summary the per-wheel surfaces add up to. The wheels say
               // *which* one is off the racing surface, this says that any is.
               if (telemetry.offTrack)
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 7,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: gt7Warn.withValues(alpha: 0.18),
                     border: Border.all(color: gt7Warn.withValues(alpha: 0.6)),
                     borderRadius: BorderRadius.circular(2),
                   ),
                   child: Text(
-                    'OFF TRACK',
+                    context.tr('OFF TRACK'),
                     style: gt7Caption(color: gt7Warn, size: 8),
                   ),
                 ),
@@ -282,12 +292,13 @@ class _AidsRow extends StatelessWidget {
     final regen = telemetry.energyRecovery;
 
     final children = <Widget>[
-      if (tcs > 0.05) _aidChip('TCS', tcs),
-      if (abs > 0.05) _aidChip('ABS', abs),
+      if (tcs > 0.05) _aidChip(context, 'TCS', tcs),
+      if (abs > 0.05) _aidChip(context, 'ABS', abs),
       if (!regen.isNaN && regen > 0)
-        _fact('ENERGY RECOVERY', regen.toStringAsFixed(1)),
+        _fact(context, 'ENERGY RECOVERY', regen.toStringAsFixed(1)),
       if (telemetry.hasExtendedData)
         _fact(
+          context,
           'PRE-AID INPUT',
           '${telemetry.throttleFiltered.round()}/255 · '
               '${telemetry.brakeFiltered.round()}/255',
@@ -296,7 +307,7 @@ class _AidsRow extends StatelessWidget {
 
     if (children.isEmpty) {
       return Text(
-        'NO AID DATA IN PACKET ${telemetry.packetType}',
+        context.tr('NO AID DATA IN PACKET ${telemetry.packetType}'),
         style: gt7Caption(color: gt7TextMuted.withValues(alpha: 0.5), size: 8),
       );
     }
@@ -306,7 +317,10 @@ class _AidsRow extends StatelessWidget {
       runSpacing: 8,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        Text('AIDS', style: gt7Caption(color: gt7TextMuted, size: 8)),
+        Text(
+          context.tr('AIDS'),
+          style: gt7Caption(color: gt7TextMuted, size: 8),
+        ),
         ...children,
       ],
     );
@@ -314,7 +328,7 @@ class _AidsRow extends StatelessWidget {
 
   /// How hard an aid is working right now, from the raw-versus-assisted
   /// difference the "~" packet makes visible.
-  Widget _aidChip(String label, double amount) {
+  Widget _aidChip(BuildContext context, String label, double amount) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
       decoration: BoxDecoration(
@@ -323,7 +337,7 @@ class _AidsRow extends StatelessWidget {
         borderRadius: BorderRadius.circular(2),
       ),
       child: Text(
-        '$label ${(amount * 100).round()}%',
+        context.tr('$label ${(amount * 100).round()}%'),
         style: gt7Caption(color: gt7SlotB, size: 8),
       ),
     );
@@ -334,15 +348,18 @@ class _AidsRow extends StatelessWidget {
   /// The value is [Flexible] because a Wrap child is given the row's width, not
   /// the space it would like: "PRE-AID INPUT 190/255 · 65/255" is wider than the
   /// card's inner width, and a fixed row overflowed by 51 px when it was.
-  Widget _fact(String label, String value) {
+  Widget _fact(BuildContext context, String label, String value) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(label, style: gt7Caption(color: gt7TextMuted, size: 8)),
+        Text(
+          context.tr(label),
+          style: gt7Caption(color: gt7TextMuted, size: 8),
+        ),
         const SizedBox(width: 6),
         Flexible(
           child: Text(
-            value,
+            context.tr(value),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: gt7Digital(size: 12),
@@ -382,8 +399,9 @@ class _TyreBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     final fill = ((temperature - 20) / 130).clamp(0.04, 1.0);
 
-    final surfaceColour =
-        surface.isEmpty ? gt7TextMuted : gt7SurfaceColour(surface);
+    final surfaceColour = surface.isEmpty
+        ? gt7TextMuted
+        : gt7SurfaceColour(surface);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
@@ -400,7 +418,7 @@ class _TyreBlock extends StatelessWidget {
           Row(
             children: [
               Text(
-                label,
+                context.tr(label),
                 style: gt7Caption(
                   color: gt7Text,
                   size: 11,
@@ -414,7 +432,7 @@ class _TyreBlock extends StatelessWidget {
                   fit: BoxFit.scaleDown,
                   alignment: Alignment.centerRight,
                   child: Text(
-                    '${temperature.toStringAsFixed(1)}°',
+                    context.tr('${temperature.toStringAsFixed(1)}°'),
                     style: gt7Digital(size: 15, color: _color),
                   ),
                 ),
@@ -426,7 +444,10 @@ class _TyreBlock extends StatelessWidget {
             borderRadius: BorderRadius.circular(2),
             child: Stack(
               children: [
-                Container(height: 4, color: Colors.white.withValues(alpha: 0.08)),
+                Container(
+                  height: 4,
+                  color: Colors.white.withValues(alpha: 0.08),
+                ),
                 FractionallySizedBox(
                   widthFactor: fill,
                   child: Container(height: 4, color: _color),
@@ -449,7 +470,11 @@ class _TyreBlock extends StatelessWidget {
               if (surface.isNotEmpty) const SizedBox(width: 6),
               Flexible(
                 child: Text(
-                  surface.isEmpty ? 'NO SURFACE DATA' : gt7SurfaceLabel(surface),
+                  context.tr(
+                    surface.isEmpty
+                        ? 'NO SURFACE DATA'
+                        : gt7SurfaceLabel(surface),
+                  ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: gt7Caption(
@@ -466,4 +491,3 @@ class _TyreBlock extends StatelessWidget {
     );
   }
 }
-

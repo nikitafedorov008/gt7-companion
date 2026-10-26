@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'package:flutter/material.dart';
 
 import '../../repositories/car_catalog.dart';
@@ -42,12 +43,12 @@ class _GtAutoCarPickerState extends State<GtAutoCarPicker> {
                 children: [
                   Expanded(
                     child: Text(
-                      'Choose a car',
+                      context.tr('Choose a car'),
                       style: theme.textTheme.titleLarge,
                     ),
                   ),
                   IconButton(
-                    tooltip: 'Close',
+                    tooltip: context.tr('Close'),
                     onPressed: () => Navigator.pop(context),
                     icon: const Icon(Icons.close),
                   ),
@@ -57,18 +58,23 @@ class _GtAutoCarPickerState extends State<GtAutoCarPicker> {
               TextField(
                 key: const ValueKey('gt-auto-search'),
                 autofocus: true,
-                decoration: const InputDecoration(
-                  labelText: 'Search the official catalogue',
+                decoration: InputDecoration(
+                  labelText: context.tr('Search the official catalogue'),
                   prefixIcon: Icon(Icons.search),
                 ),
                 onChanged: (value) => setState(() => _query = value),
               ),
               const SizedBox(height: 12),
-              Text('${cars.length} cars', style: theme.textTheme.bodySmall),
+              Text(
+                context.tr('${cars.length} cars'),
+                style: theme.textTheme.bodySmall,
+              ),
               const SizedBox(height: 8),
               Expanded(
                 child: cars.isEmpty
-                    ? const Center(child: Text('No cars match this search.'))
+                    ? Center(
+                        child: Text(context.tr('No cars match this search.')),
+                      )
                     : ListView.separated(
                         itemCount: cars.length,
                         separatorBuilder: (_, _) => const SizedBox(height: 4),
@@ -90,7 +96,7 @@ class _GtAutoCarPickerState extends State<GtAutoCarPicker> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        car.name,
+                                        context.tr(car.name),
                                         style: theme.textTheme.bodyMedium,
                                       ),
                                     ),

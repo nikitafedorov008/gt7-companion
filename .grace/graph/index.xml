@@ -31,6 +31,8 @@
         <M-SHELL-HOME />
         <M-SHELL-TABS />
         <M-NAVBAR />
+        <M-SETTINGS />
+        <M-LOCALIZATION />
         <M-DI-APPSCOPE />
         <M-ROUTER />
         <M-THEME />
@@ -43,6 +45,10 @@
         <M-SERVICE-GTPLUS />
         <M-SERVICE-GT-AUTO-PARTS />
         <M-REPO-GT-AUTO />
+        <M-MODEL-BRAND-CENTRAL />
+        <M-SERVICE-BRAND-CENTRAL />
+        <M-REPO-BRAND-CENTRAL />
+        <M-WIDGET-BRAND-CENTRAL />
       </Owns>
     </GD-MAIN>
   </GraphDocuments>

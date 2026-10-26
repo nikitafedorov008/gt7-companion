@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -60,15 +61,15 @@ class AttitudeCard extends StatelessWidget {
     // of the travel. The steering bar had this the other way round, which the
     // merged instrument would have shown as the two markers disagreeing about a
     // corner the car was taking cleanly.
-    final wheelFraction =
-        hasWheel ? (-steering / _fullSteer).clamp(-1.0, 1.0) : null;
+    final wheelFraction = hasWheel
+        ? (-steering / _fullSteer).clamp(-1.0, 1.0)
+        : null;
 
     final slip = trace?.slipAngle;
     final measured = trace?.hasDriftData ?? false;
     final hasNose = slip != null && measured;
     final noseDeg = hasNose ? slip! * 180 / math.pi : double.nan;
-    final noseFraction =
-        hasNose ? (-slip! / _fullSlip).clamp(-1.0, 1.0) : null;
+    final noseFraction = hasNose ? (-slip! / _fullSlip).clamp(-1.0, 1.0) : null;
 
     final (verdict, verdictColour) = _verdict(
       wheelDeg: wheelDeg,
@@ -87,7 +88,9 @@ class AttitudeCard extends StatelessWidget {
             children: [
               Flexible(
                 child: Text(
-                  source == null ? 'STEERING' : 'STEERING · PACKET $source',
+                  context.tr(
+                    source == null ? 'STEERING' : 'STEERING · PACKET $source',
+                  ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: gt7Caption(color: gt7TextMuted, size: 9),
@@ -97,11 +100,13 @@ class AttitudeCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
                 decoration: BoxDecoration(
-                  border: Border.all(color: verdictColour.withValues(alpha: 0.6)),
+                  border: Border.all(
+                    color: verdictColour.withValues(alpha: 0.6),
+                  ),
                   borderRadius: BorderRadius.circular(2),
                 ),
                 child: Text(
-                  verdict,
+                  context.tr(verdict),
                   style: gt7Caption(color: verdictColour, size: 8),
                 ),
               ),
@@ -112,6 +117,7 @@ class AttitudeCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               _marker(
+                context,
                 'WHEEL',
                 hasWheel ? '${wheelDeg.toStringAsFixed(1)}°' : '—',
                 gt7SlotA,
@@ -119,6 +125,7 @@ class AttitudeCard extends StatelessWidget {
               ),
               const Spacer(),
               _marker(
+                context,
                 'NOSE',
                 hasNose ? '${noseDeg.abs().toStringAsFixed(1)}°' : '—',
                 _noseColour,
@@ -166,7 +173,13 @@ class AttitudeCard extends StatelessWidget {
         : ('UNDERSTEER', gt7SlotA);
   }
 
-  Widget _marker(String label, String value, Color colour, {String? note}) {
+  Widget _marker(
+    BuildContext context,
+    String label,
+    String value,
+    Color colour, {
+    String? note,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -175,7 +188,10 @@ class AttitudeCard extends StatelessWidget {
           children: [
             Container(width: 8, height: 2, color: colour),
             const SizedBox(width: 5),
-            Text(label, style: gt7Caption(color: gt7TextMuted, size: 8)),
+            Text(
+              context.tr(label),
+              style: gt7Caption(color: gt7TextMuted, size: 8),
+            ),
           ],
         ),
         const SizedBox(height: 3),
@@ -183,11 +199,11 @@ class AttitudeCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.baseline,
           textBaseline: TextBaseline.alphabetic,
           children: [
-            Text(value, style: gt7Digital(size: 15, color: colour)),
+            Text(context.tr(value), style: gt7Digital(size: 15, color: colour)),
             if (note != null) ...[
               const SizedBox(width: 8),
               Text(
-                note,
+                context.tr(note),
                 maxLines: 1,
                 style: gt7Caption(color: gt7TextMuted, size: 8),
               ),
@@ -293,4 +309,3 @@ class _AttitudePainter extends CustomPainter {
   bool shouldRepaint(_AttitudePainter old) =>
       old.wheel != wheel || old.nose != nose;
 }
-

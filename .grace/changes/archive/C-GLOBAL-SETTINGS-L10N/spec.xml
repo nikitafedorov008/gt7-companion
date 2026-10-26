@@ -1,0 +1,39 @@
+<GraceChangeSpec graceVersion="4.0" status="applied"><C-GLOBAL-SETTINGS-L10N>
+<Summary>Introduce a GT7-style GT menu and settings section, with one persisted application language that controls all owned UI and available localized feature content.</Summary>
+<Problem>The GT button currently goes directly Home, and Apex and Brand Central expose independent language controls while most application UI is hard-coded English. The router is created inside build, which would reset navigation during an application locale rebuild.</Problem>
+<Goals>
+<Goal>Open an accessible GT menu from the existing grey GT logo on desktop and mobile, with working Home and Settings destinations.</Goal>
+<Goal>Provide an independent responsive settings screen inspired by the official GT7 Options interface: dark surface, segmented category navigation, compact tiles and actual preference controls.</Goal>
+<Goal>Use one central persisted language setting: System by default, Russian or English as explicit choices, English fallback for unsupported system locales.</Goal>
+<Goal>Apply the selected locale immediately to all application-owned UI, date/number presentation, standard Flutter controls, Brand Central records and Apex content.</Goal>
+<Goal>Remove per-feature language selectors, preserve navigation and unsaved input while switching locale, and retain existing audio preferences and playback behaviour.</Goal>
+</Goals>
+<Constraints>
+<Constraint>Follow Provider/ChangeNotifier, central AppScope injection, auto_route and the FVM-pinned SDK.</Constraint>
+<Constraint>Use standard flutter_localizations and generated typed ARB resources. Verify current generator options against the pinned SDK; do not copy the obsolete synthetic-package setting.</Constraint>
+<Constraint>Keep AppRouter alive for the AppView lifetime. Locale changes must not construct a new router or reset the current route.</Constraint>
+<Constraint>Translations cover app-owned text in screens, overlays, errors, telemetry and custom painters. Stable route names, serialized enums, protocol fields and vehicle IDs remain language-independent.</Constraint>
+<Constraint>Source-provided names, model names, quotations and unavailable external translations retain their original form; never fabricate translated car histories.</Constraint>
+<Constraint>Central language selection takes precedence over legacy Apex-only preferences, and source caches and pending requests must not leak the previous language into new content.</Constraint>
+<Constraint>Only update intl and dependencies required for compatibility with the pinned Flutter localization SDK. Preserve unrelated package versions.</Constraint>
+</Constraints>
+<NonGoals>
+<NonGoal>No new controller, race, hardware or graphics settings that the companion does not implement.</NonGoal>
+<NonGoal>No new ambient music library, telemetry protocol changes, renderer-crash repair, cloud deployment, commit or push.</NonGoal>
+<NonGoal>No incomplete translation options: the first complete UI locales are Russian and English; additional complete locales can be added through the same ARB pipeline later.</NonGoal>
+</NonGoals>
+<AcceptanceCriteria>
+<Criterion>The grey GT logo opens/closes a GT menu on desktop and mobile. Home and Settings work, menus dismiss safely, and keyboard/back interaction is supported.</Criterion>
+<Criterion>Settings opens as an independent screen, closes back to the previous route and uses the GT7-style Global/Audio/About composition with functional controls.</Criterion>
+<Criterion>Fresh install follows the system; explicit Russian/English choices persist across restart; selecting System resumes following system locale changes.</Criterion>
+<Criterion>Switching locale updates the current screen, menus, tooltips, loading/error/empty messages, HUD/telemetry labels, date/number presentation and standard Flutter UI without navigation reset.</Criterion>
+<Criterion>Brand Central history/specifications and Apex menu/articles follow the shared language. Their local language buttons are absent.</Criterion>
+<Criterion>Audio controls use the existing MusicService and SoundService, preserving stored volumes, enabled flags, lifecycle pause and current-track behaviour.</Criterion>
+<Criterion>Resource coverage checks detect missing RU/EN messages and placeholders, and the migration inventory is reconciled against text literals and painter strings.</Criterion>
+<Criterion>RU/EN widget coverage includes widths 320 to 1920 and text scale 1.5; menu, settings, route continuity, persistence, language fallback and stale content have tests.</Criterion>
+<Criterion>Verify the GT-menu-to-settings flow, live locale switching and source content on a running macOS app and iPhone Simulator, with rendered screenshots and runtime-error inspection.</Criterion>
+</AcceptanceCriteria>
+<AffectedAreas><M-NAVBAR/><M-DI-APPSCOPE/><M-ROUTER/><M-SHELL-HOME/><M-SHELL-TABS/><M-WIDGET-SERVICE-MENU/><M-WIDGET-BRAND-CENTRAL/><M-REPO-BRAND-CENTRAL/><M-WIDGET-APEX/><M-SERVICE-APEX/><M-WIDGET-GT-AUTO/><M-WIDGET-CAR-DEALER/><M-WIDGET-DAILY/><M-WIDGET-TELEMETRY/><M-PAGE-WISHLIST/><M-PAGE-LOGIN/><M-FEATURE-PROFILE/></AffectedAreas>
+<VerificationIntent><ExpectedCommand>FVM gen-l10n, changed-file analysis and resource coverage</ExpectedCommand><ExpectedCommand>Dart MCP parser/state/widget/navigation tests and full regression suite</ExpectedCommand><ExpectedEvidence>Live desktop and iPhone GT menu, settings, RU/EN switching, preserved route and language-specific official content.</ExpectedEvidence></VerificationIntent>
+<Assumptions><Assumption>Two fully translated UI languages are appropriate initially: Russian and English.</Assumption><Assumption>Settings includes Global, Audio and About categories; only companion-supported controls are shown.</Assumption><Assumption>The user reviews this concrete scope before the executable plan and source implementation.</Assumption></Assumptions>
+</C-GLOBAL-SETTINGS-L10N></GraceChangeSpec>

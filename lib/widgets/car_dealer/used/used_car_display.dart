@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 // used_car_display.dart
 
 import 'package:flutter/material.dart';
@@ -73,8 +74,8 @@ class _UsedCarDisplayState extends State<UsedCarDisplay> {
                             height: 24,
                           ),
                           VerticalDivider(thickness: 2, color: Colors.black87),
-                          const Text(
-                            'USED CAR DEALERSHIP',
+                          Text(
+                            context.tr('USED CAR DEALERSHIP'),
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,

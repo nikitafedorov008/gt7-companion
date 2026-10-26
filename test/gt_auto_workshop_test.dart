@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,7 @@ void main() {
     WidgetTester tester,
     double width, {
     double scale = 1,
+    String locale = 'en',
   }) async {
     tester.view.physicalSize = Size(width, 1100);
     tester.view.devicePixelRatio = 1;
@@ -27,6 +29,9 @@ void main() {
       ChangeNotifierProvider.value(
         value: repo,
         child: MaterialApp(
+          locale: Locale(locale),
+          supportedLocales: AppLocalizations.supportedLocales,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
           theme: gt7Theme(),
           builder: (_, child) => MediaQuery(
             data: MediaQueryData(
@@ -43,32 +48,37 @@ void main() {
     return repo;
   }
 
-  for (final width in [320.0, 390.0, 600.0, 820.0, 1024.0, 1280.0, 1920.0]) {
-    for (final scale in [1.0, 1.5]) {
-      testWidgets('Workshop at $width and scale $scale fits all sections', (
-        tester,
-      ) async {
-        await mount(tester, width, scale: scale);
-        expect(find.text('Workshop'), findsOneWidget);
-        expect(tester.takeException(), isNull);
-        for (final section in ['swaps', 'parts', 'build', 'specs']) {
-          final button = find.byKey(ValueKey('gt-auto-section-$section'));
-          await tester.ensureVisible(button);
-          await tester.tap(button);
-          await tester.pumpAndSettle();
-          final scroll = find.byKey(const ValueKey('gt-auto-scroll'));
-          await tester.drag(scroll, const Offset(0, -650));
-          await tester.pumpAndSettle();
-          expect(
-            tester.takeException(),
-            isNull,
-            reason: '$section at $width / $scale',
-          );
-        }
-      });
+  for (final locale in ['en', 'ru']) {
+    for (final width in [320.0, 390.0, 600.0, 820.0, 1024.0, 1280.0, 1920.0]) {
+      for (final scale in [1.0, 1.5]) {
+        testWidgets(
+          'Workshop $locale at $width and scale $scale fits all sections',
+          (tester) async {
+            await mount(tester, width, scale: scale, locale: locale);
+            expect(
+              find.text(locale == 'ru' ? 'Мастерская' : 'Workshop'),
+              findsOneWidget,
+            );
+            expect(tester.takeException(), isNull);
+            for (final section in ['swaps', 'parts', 'build', 'specs']) {
+              final button = find.byKey(ValueKey('gt-auto-section-$section'));
+              await tester.ensureVisible(button);
+              await tester.tap(button);
+              await tester.pumpAndSettle();
+              final scroll = find.byKey(const ValueKey('gt-auto-scroll'));
+              await tester.drag(scroll, const Offset(0, -650));
+              await tester.pumpAndSettle();
+              expect(
+                tester.takeException(),
+                isNull,
+                reason: '$section at $width / $scale',
+              );
+            }
+          },
+        );
+      }
     }
   }
-
   testWidgets('real menu buttons add a swap and a part to a per-car plan', (
     tester,
   ) async {

@@ -20,6 +20,9 @@ import '../repositories/track_repository.dart';
 import '../services/sound_service.dart';
 import '../services/music_service.dart';
 import '../services/apex_service.dart';
+import '../services/app_settings_service.dart';
+import '../services/brand_central_service.dart';
+import '../repositories/brand_central_repository.dart';
 import '../services/gtplus_service.dart';
 import '../services/gt_auto_parts_service.dart';
 import '../repositories/gt_auto_repository.dart';
@@ -38,6 +41,7 @@ class AppScope extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => AppSettingsService()..load()),
         // Interface sound: the stored preference, the volume and the debounce.
         // It depends on nothing, so it can be built first.
         ChangeNotifierProvider(create: (context) => SoundService()..load()),
@@ -45,7 +49,10 @@ class AppScope extends StatelessWidget {
         // volume, and it stops when the app leaves the foreground.
         ChangeNotifierProvider(create: (context) => MusicService()..load()),
         ChangeNotifierProvider(create: (context) => TelemetryService()),
-        ChangeNotifierProvider(create: (context) => ApexService()),
+        ChangeNotifierProvider(
+          create: (context) =>
+              ApexService(appSettings: context.read<AppSettingsService>()),
+        ),
         // Records the route from the packet positions so the HUD can draw a
         // track map. It follows the telemetry service, so it needs it first.
         ChangeNotifierProvider(
@@ -56,6 +63,25 @@ class AppScope extends StatelessWidget {
         // The catalogue of cars the telemetry packet can refer to: loads the two
         // bundled assets once and answers id → name / photo.
         ChangeNotifierProvider(create: (context) => CarCatalog()..load()),
+        Provider(
+          create: (_) => BrandCentralService(),
+          dispose: (_, source) => source.dispose(),
+        ),
+        ChangeNotifierProxyProvider<
+          BrandCentralService,
+          BrandCentralRepository
+        >(
+          create: (context) => BrandCentralRepository(
+            context.read<BrandCentralService>(),
+            appSettings: context.read<AppSettingsService>(),
+          ),
+          update: (context, service, repository) =>
+              repository ??
+              BrandCentralRepository(
+                service,
+                appSettings: context.read<AppSettingsService>(),
+              ),
+        ),
         // Independent workshop sources, composed after the official car catalogue.
         Provider(
           create: (_) => GtPlusService(),

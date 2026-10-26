@@ -37,20 +37,97 @@ def get(url: str, attempts: int = 4) -> bytes:
 
 
 def to_json(node: str) -> str:
-    """The datasets are JS object literals.
+    """Parse the data-only JS literal grammar; never execute downloaded code.
 
-    Keys are unquoted and strings are backtick templates, and some names carry
-    literal double quotes inside ("LEXUS LF-LC GT "Vision Gran Turismo""), so
-    quote the keys first and then convert each template to an escaped string.
+    Strings can contain newlines, quotes, escaped delimiters and backslashes.
+    Unsupported expressions/interpolation fail closed instead of being evaluated.
     """
-    node = re.sub(r"([{,])\s*([A-Za-z_][A-Za-z0-9_]*)\s*:", r'\1"\2":', node)
+    pos = 0
 
-    def escape(match: "re.Match[str]") -> str:
-        inner = match.group(1).replace("\\", "\\\\").replace('"', '\\"')
-        return '"' + inner + '"'
+    def whitespace():
+        nonlocal pos
+        while pos < len(node) and node[pos].isspace():
+            pos += 1
 
-    return re.sub(r"`([^`]*)`", escape, node)
+    def string():
+        nonlocal pos
+        quote = node[pos]
+        pos += 1
+        result = []
+        while pos < len(node):
+            ch = node[pos]
+            pos += 1
+            if ch == quote:
+                return ''.join(result)
+            if ch == '$' and quote == '`' and node[pos:pos + 1] == '{':
+                raise ValueError('Template interpolation is not data')
+            if ch == chr(92):
+                if pos >= len(node):
+                    raise ValueError('Unterminated escape')
+                ch = node[pos]
+                pos += 1
+                if ch in 'ux':
+                    count = 4 if ch == 'u' else 2
+                    result.append(chr(int(node[pos:pos + count], 16)))
+                    pos += count
+                    continue
+                ch = {'n': chr(10), 'r': chr(13), 't': chr(9),
+                      'b': chr(8), 'f': chr(12)}.get(ch, ch)
+            result.append(ch)
+        raise ValueError('Unterminated string')
 
+    def value():
+        nonlocal pos
+        whitespace()
+        if pos >= len(node):
+            raise ValueError('Missing value')
+        ch = node[pos]
+        if ch in ('`', '"', "'"):
+            return string()
+        if ch in '{[':
+            pos += 1
+            obj = {} if ch == '{' else []
+            close = '}' if ch == '{' else ']'
+            whitespace()
+            while node[pos:pos + 1] != close:
+                if isinstance(obj, dict):
+                    whitespace()
+                    if node[pos] in ('`', '"', "'"):
+                        key = string()
+                    else:
+                        match = re.match(r'[A-Za-z_$][A-Za-z0-9_$]*', node[pos:])
+                        if not match:
+                            raise ValueError('Invalid object key')
+                        key = match[0]
+                        pos += len(key)
+                    whitespace()
+                    if node[pos:pos + 1] != ':':
+                        raise ValueError('Missing colon')
+                    pos += 1
+                    if key in obj:
+                        raise ValueError('Duplicate key')
+                    obj[key] = value()
+                else:
+                    obj.append(value())
+                whitespace()
+                if node[pos:pos + 1] == ',':
+                    pos += 1
+                    whitespace()
+                elif node[pos:pos + 1] != close:
+                    raise ValueError('Missing separator')
+            pos += 1
+            return obj
+        match = re.match(r'(?:-?(?:0|[1-9][0-9]*)(?:[.][0-9]+)?(?:[eE][+-]?[0-9]+)?|true|false|null)(?=[,}\]\s]|$)', node[pos:])
+        if not match:
+            raise ValueError('Unsupported JavaScript expression')
+        pos += len(match[0])
+        return json.loads(match[0])
+
+    result = value()
+    whitespace()
+    if pos != len(node):
+        raise ValueError('Unexpected trailing code')
+    return json.dumps(result, ensure_ascii=False)
 
 
 def _object_literal(module: str) -> str:
@@ -64,12 +141,51 @@ def _object_literal(module: str) -> str:
     return body[: body.rindex("}") + 1]
 
 
+def build_brand_central(bundle: str, output="assets/cars/brand_central.json"):
+    def dataset(prefix):
+        return json.loads(to_json(_object_literal(
+            get(f"{BASE}/assets/{_chunk(bundle, prefix)}").decode("utf-8"))))
+
+    editions = {}
+    for lang, locale in (("en", "us"), ("ru", "ru")):
+        cars = dataset(f"cars.{locale}")
+        descriptions = dataset(f"descriptions.{locale}")
+        for car_id, car in cars.items():
+            if not re.fullmatch(r"car[0-9]+", car_id) or car.get("id") != car_id:
+                raise ValueError("Invalid official car ID")
+            car.update(descriptions.get(car_id, {}))
+        editions[lang] = cars
+    brands = dataset("tuners.us")
+    countries = dataset("countries.us")
+    shots = dataset("car-shots-index")
+    modules = dict(re.findall(
+        r"import\(`\./(car[0-9]+_[0-9]+_[0-9]+)-([A-Za-z0-9_\-]+)\.js`\)", bundle))
+    gallery = {car: [f"{name[:-4]}-{modules[name[:-4]]}.js"
+                    for name in sorted(names, key=lambda shot: ('_2_01' not in shot, shot)) if name[:-4] in modules]
+               for car, names in shots.items() if car in editions['en']}
+    for lang, cars in editions.items():
+        for car in cars.values():
+            if car['manufacturerId'] not in brands or car['countryId'] not in countries:
+                raise ValueError('Unresolved catalogue join')
+            if not car.get('desc') or not gallery.get(car['id']):
+                raise ValueError('Missing official history or gallery')
+    result = {"source": CAR_LIST, "editions": editions, "brands": brands,
+              "countries": countries, "gallery": gallery}
+    with open(output, 'w') as f:
+        json.dump(result, f, ensure_ascii=False, separators=(',', ':'), sort_keys=True)
+    print(f"Brand Central: {len(editions['en'])} cars, {len(brands)} brands -> {output}")
+
+
 def main() -> None:
     page = get(CAR_LIST).decode("utf-8", "ignore")
     entry = re.search(r'(/common/dist/gt7/carlist/assets/index-[A-Za-z0-9_-]+\.js)', page)
     if not entry:
         raise RuntimeError("Official catalogue entrypoint changed")
     bundle = get("https://www.gran-turismo.com" + entry.group(1)).decode("utf-8", "ignore")
+
+    if '--brand-central-only' in __import__('sys').argv:
+        build_brand_central(bundle)
+        return
 
     # 1. car records: var e={car102:{...},...}
     cars_chunk = re.search(r"cars\.us-([A-Za-z0-9_\-]+)\.js", bundle)
@@ -92,6 +208,8 @@ def main() -> None:
             "drive": c.get("driveTrain", ""),
             "aspiration": c.get("aspirationShort", ""),
         }
+
+    build_brand_central(bundle)
 
     # 2. photos: the index names the shots, the per-shot chunk carries the
     #    hashed asset path.
@@ -147,7 +265,7 @@ def main() -> None:
 
 
 def _chunk(bundle: str, prefix: str) -> str:
-    m = re.search(rf"\./({prefix}-[A-Za-z0-9_\-]+\.js)", bundle)
+    m = re.search(rf"\./({re.escape(prefix)}-[A-Za-z0-9_\-]+\.js)", bundle)
     return m.group(1)
 
 

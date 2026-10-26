@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/gt7_sport_race_stats.dart';
@@ -188,7 +189,7 @@ class _SectionView extends StatelessWidget {
           SizedBox(
             width: _headingWidth,
             child: Text(
-              section.title,
+              context.tr(section.title),
               style: theme.textTheme.titleSmall?.copyWith(
                 color: _gt7StatAccent,
                 fontWeight: FontWeight.w700,
@@ -231,7 +232,7 @@ class _StatRow extends StatelessWidget {
         children: [
           Expanded(
             child: Text(
-              label,
+              context.tr(label),
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.colorScheme.onSurface.withValues(alpha: 0.85),
               ),
@@ -239,7 +240,7 @@ class _StatRow extends StatelessWidget {
           ),
           const SizedBox(width: 12),
           Text(
-            value,
+            context.tr(value),
             style: theme.textTheme.bodyMedium?.copyWith(
               color: _gt7StatAccent,
               fontWeight: FontWeight.w600,
@@ -335,19 +336,23 @@ class Gt7RatingRow extends StatelessWidget {
             return Column(
               children: [
                 IntrinsicHeight(
-                  child: Row(children: [
-                    Expanded(child: tiles[0]),
-                    const VerticalDivider(width: 1),
-                    Expanded(child: tiles[1]),
-                  ]),
+                  child: Row(
+                    children: [
+                      Expanded(child: tiles[0]),
+                      const VerticalDivider(width: 1),
+                      Expanded(child: tiles[1]),
+                    ],
+                  ),
                 ),
                 const Divider(height: 24),
                 IntrinsicHeight(
-                  child: Row(children: [
-                    Expanded(child: tiles[2]),
-                    const VerticalDivider(width: 1),
-                    Expanded(child: tiles[3]),
-                  ]),
+                  child: Row(
+                    children: [
+                      Expanded(child: tiles[2]),
+                      const VerticalDivider(width: 1),
+                      Expanded(child: tiles[3]),
+                    ],
+                  ),
                 ),
               ],
             );
@@ -398,7 +403,7 @@ class _RatingTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  label,
+                  context.tr(label),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: theme.textTheme.bodySmall?.copyWith(
@@ -407,7 +412,7 @@ class _RatingTile extends StatelessWidget {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  value,
+                  context.tr(value),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: theme.textTheme.titleLarge?.copyWith(
@@ -458,7 +463,7 @@ class _LevelRing extends StatelessWidget {
         border: Border.all(color: _gt7CollectionAccent, width: 2),
       ),
       child: Text(
-        level?.toString() ?? '—',
+        context.tr(level?.toString() ?? '—'),
         style: Theme.of(context).textTheme.titleMedium?.copyWith(
           color: _gt7CollectionAccent,
           fontWeight: FontWeight.w700,
@@ -487,7 +492,7 @@ class _LicenceBadge extends StatelessWidget {
         ),
       ),
       child: Text(
-        license ?? '—',
+        context.tr(license ?? '—'),
         style: Theme.of(context).textTheme.titleMedium?.copyWith(
           color: Colors.white,
           fontWeight: FontWeight.w800,
@@ -529,7 +534,7 @@ class _RatingGauge extends StatelessWidget {
             ),
           ),
           Text(
-            text,
+            context.tr(text),
             style: theme.textTheme.labelMedium?.copyWith(
               color: color,
               fontWeight: FontWeight.w700,

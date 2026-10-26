@@ -68,11 +68,7 @@ class MotionWorkspace extends StatelessWidget {
         if (constraints.maxWidth < kMotionWorkspaceWide) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              leading!,
-              const SizedBox(height: 14),
-              motion,
-            ],
+            children: [leading!, const SizedBox(height: 14), motion],
           );
         }
 

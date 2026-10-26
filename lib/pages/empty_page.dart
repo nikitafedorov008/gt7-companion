@@ -1,3 +1,5 @@
+import 'package:gt7_companion/widgets/window_navigation_safe_area.dart';
+import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/annotations.dart';
 
@@ -9,12 +11,17 @@ class EmptyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-        backgroundColor: Theme.of(context).colorScheme.surface,
+      appBar: WindowNavigationAppBar(
+        child: AppBar(
+          title: Text(context.tr(title)),
+          backgroundColor: Theme.of(context).colorScheme.surface,
+        ),
       ),
       body: Center(
-        child: Text(title, style: Theme.of(context).textTheme.headlineSmall),
+        child: Text(
+          context.tr(title),
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
       ),
     );
   }

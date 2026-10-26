@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 // FILE: lib/widgets/car_dealer/used/used_car_grid_item.dart
 // VERSION: 1.0.0
 // START_MODULE_CONTRACT
@@ -88,7 +89,7 @@ class UsedCarCardItem extends StatelessWidget {
                               ),
                             const SizedBox(width: 6),
                             Text(
-                              car.manufacturer.toUpperCase(),
+                              context.tr(car.manufacturer.toUpperCase()),
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 11,
@@ -102,7 +103,7 @@ class UsedCarCardItem extends StatelessWidget {
 
                         // Car Name
                         Text(
-                          car.name,
+                          context.tr(car.name),
                           style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
@@ -140,7 +141,9 @@ class UsedCarCardItem extends StatelessWidget {
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              '${_formatMiles(car.estimateDays)} mi',
+                              context.tr(
+                                '${_formatMiles(car.estimateDays)} mi',
+                              ),
                               style: const TextStyle(
                                 fontSize: 12,
                                 color: Colors.grey,
@@ -154,7 +157,7 @@ class UsedCarCardItem extends StatelessWidget {
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              'PP ${car.sort ?? 0}',
+                              context.tr('PP ${car.sort ?? 0}'),
                               style: const TextStyle(
                                 fontSize: 12,
                                 color: Colors.grey,
@@ -182,7 +185,7 @@ class UsedCarCardItem extends StatelessWidget {
 
                         // Price
                         Text(
-                          car.displayPrice,
+                          context.tr(car.displayPrice),
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,

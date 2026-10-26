@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/gt_auto/gt_auto_catalog.dart';
@@ -20,7 +21,7 @@ class GtAutoCounterView extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 110),
       children: [
         Text(
-          counter.tagline,
+          context.tr(counter.tagline),
           style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
             height: 1.4,
@@ -61,7 +62,7 @@ class _GroupHeader extends StatelessWidget {
           ),
           const SizedBox(width: 4),
           Text(
-            title.toUpperCase(),
+            context.tr(title.toUpperCase()),
             style: theme.textTheme.labelMedium?.copyWith(
               color: theme.colorScheme.secondary,
               fontWeight: FontWeight.w700,
@@ -111,14 +112,14 @@ class _OptionRow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  option.name,
+                  context.tr(option.name),
                   style: theme.textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  option.description,
+                  context.tr(option.description),
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                     height: 1.35,
@@ -130,7 +131,7 @@ class _OptionRow extends StatelessWidget {
           if (price != null) ...[
             const SizedBox(width: 12),
             Text(
-              price,
+              context.tr(price),
               textAlign: TextAlign.right,
               style: theme.textTheme.titleSmall?.copyWith(
                 color: theme.colorScheme.secondary,
@@ -207,7 +208,7 @@ class _OptionTile extends StatelessWidget {
           Icon(option.icon, size: 26, color: theme.colorScheme.secondary),
           const SizedBox(height: 10),
           Text(
-            option.name,
+            context.tr(option.name),
             style: theme.textTheme.titleSmall?.copyWith(
               fontWeight: FontWeight.w600,
             ),
@@ -215,7 +216,7 @@ class _OptionTile extends StatelessWidget {
           const SizedBox(height: 4),
           Expanded(
             child: Text(
-              option.description,
+              context.tr(option.description),
               overflow: TextOverflow.fade,
               style: theme.textTheme.bodySmall?.copyWith(
                 fontSize: 11,
@@ -252,7 +253,7 @@ class _ConditionsStrip extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'CONDITIONS',
+            context.tr('CONDITIONS'),
             style: theme.textTheme.labelSmall?.copyWith(
               letterSpacing: 1.2,
               fontWeight: FontWeight.w700,
@@ -261,8 +262,10 @@ class _ConditionsStrip extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Text(
-            'The game tracks these three per car. The app cannot read them '
-            '— it has no access to your save.',
+            context.tr(
+              'The game tracks these three per car. The app cannot read them '
+              '— it has no access to your save.',
+            ),
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
             ),
@@ -288,14 +291,14 @@ class _ConditionsStrip extends StatelessWidget {
                       Icon(condition.icon, size: 15, color: Colors.white60),
                       const SizedBox(width: 6),
                       Text(
-                        condition.name,
+                        context.tr(condition.name),
                         style: theme.textTheme.bodySmall?.copyWith(
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                       const SizedBox(width: 6),
                       Text(
-                        '→ ${condition.restoredBy}',
+                        context.tr('→ ${condition.restoredBy}'),
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: theme.colorScheme.onSurface.withValues(
                             alpha: 0.5,

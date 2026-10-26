@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +37,7 @@ class CarPlate extends StatelessWidget {
           borderRadius: BorderRadius.circular(2),
         ),
         child: Text(
-          'CAR ID ${telemetry.carId} IS NOT IN THE CATALOGUE',
+          context.tr('CAR ID ${telemetry.carId} IS NOT IN THE CATALOGUE'),
           style: gt7Caption(color: gt7TextMuted, size: 8),
         ),
       );
@@ -60,29 +61,31 @@ class CarPlate extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  car.shortName.isEmpty ? car.name : car.shortName,
+                  context.tr(car.shortName.isEmpty ? car.name : car.shortName),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: gt7Digital(size: 13),
                 ),
                 const SizedBox(height: 3),
                 Text(
-                  car.name,
+                  context.tr(car.name),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: gt7Caption(color: gt7TextMuted, size: 8),
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  [
-                    if (car.carClass.isNotEmpty) car.carClass,
-                    if (car.driveTrain.isNotEmpty && car.driveTrain != '---')
-                      car.driveTrain,
-                    if (car.aspiration.isNotEmpty && car.aspiration != '---')
-                      car.aspiration,
-                    if (car.power.isNotEmpty) car.power,
-                    if (car.weight.isNotEmpty) car.weight,
-                  ].join('  ·  '),
+                  context.tr(
+                    [
+                      if (car.carClass.isNotEmpty) car.carClass,
+                      if (car.driveTrain.isNotEmpty && car.driveTrain != '---')
+                        car.driveTrain,
+                      if (car.aspiration.isNotEmpty && car.aspiration != '---')
+                        car.aspiration,
+                      if (car.power.isNotEmpty) car.power,
+                      if (car.weight.isNotEmpty) car.weight,
+                    ].join('  ·  '),
+                  ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: gt7Caption(
@@ -93,7 +96,7 @@ class CarPlate extends StatelessWidget {
                 if (car.performancePoints.isNotEmpty) ...[
                   const SizedBox(height: 2),
                   Text(
-                    'PP ${car.performancePoints}',
+                    context.tr('PP ${car.performancePoints}'),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: gt7Caption(color: gt7SlotB, size: 7),
@@ -156,7 +159,7 @@ class _NoCarPhoto extends StatelessWidget {
       height: _CarPhoto._height,
       alignment: Alignment.center,
       color: Colors.white.withValues(alpha: 0.05),
-      child: Text('NO PHOTO', style: gt7Caption(size: 7)),
+      child: Text(context.tr('NO PHOTO'), style: gt7Caption(size: 7)),
     );
   }
 }

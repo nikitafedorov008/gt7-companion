@@ -1,3 +1,5 @@
+import 'package:gt7_companion/widgets/window_navigation_safe_area.dart';
+import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -54,9 +56,9 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<void> _login() async {
-    final result = await Navigator.of(context).push<bool>(
-      MaterialPageRoute(builder: (_) => const LoginPage()),
-    );
+    final result = await Navigator.of(
+      context,
+    ).push<bool>(MaterialPageRoute(builder: (_) => const LoginPage()));
     if (result == true && mounted) {
       final repo = context.read<Gt7AuthRepositoryImpl>();
       await repo.fetchProfile();
@@ -121,19 +123,30 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget _buildLoginPrompt(ThemeData theme) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Profile')),
+      appBar: WindowNavigationAppBar(
+        child: AppBar(title: Text(context.tr('Profile'))),
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(32),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.account_circle_outlined, size: 80, color: theme.colorScheme.primary),
+              Icon(
+                Icons.account_circle_outlined,
+                size: 80,
+                color: theme.colorScheme.primary,
+              ),
               const SizedBox(height: 24),
-              Text('Sign in with PlayStation', style: theme.textTheme.headlineSmall),
+              Text(
+                context.tr('Sign in with PlayStation'),
+                style: theme.textTheme.headlineSmall,
+              ),
               const SizedBox(height: 12),
               Text(
-                'Connect your PSN account to see your GT7 profile, stats, and race history.',
+                context.tr(
+                  'Connect your PSN account to see your GT7 profile, stats, and race history.',
+                ),
                 textAlign: TextAlign.center,
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: theme.colorScheme.onSurface.withOpacity(0.6),
@@ -143,11 +156,14 @@ class _ProfilePageState extends State<ProfilePage> {
               ElevatedButton.icon(
                 onPressed: _login,
                 icon: const Icon(Icons.login),
-                label: const Text('Sign in via PSN'),
+                label: Text(context.tr('Sign in via PSN')),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF0070D1),
                   foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 32,
+                    vertical: 14,
+                  ),
                 ),
               ),
             ],
@@ -236,7 +252,10 @@ class _Gt7ProfileHeader extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: theme.scaffoldBackgroundColor, width: 3),
+                  border: Border.all(
+                    color: theme.scaffoldBackgroundColor,
+                    width: 3,
+                  ),
                 ),
                 child: CircleAvatar(
                   radius: 36,
@@ -246,9 +265,11 @@ class _Gt7ProfileHeader extends StatelessWidget {
                       : null,
                   child: profile?.avatarUrl == null
                       ? Text(
-                          profile?.nickName.isNotEmpty == true
-                              ? profile!.nickName[0].toUpperCase()
-                              : '?',
+                          context.tr(
+                            profile?.nickName.isNotEmpty == true
+                                ? profile!.nickName[0].toUpperCase()
+                                : '?',
+                          ),
                           style: theme.textTheme.headlineMedium?.copyWith(
                             color: theme.colorScheme.onPrimary,
                           ),
@@ -264,7 +285,7 @@ class _Gt7ProfileHeader extends StatelessWidget {
                 children: [
                   if (profile != null) ...[
                     Text(
-                      profile!.nickName,
+                      context.tr(profile!.nickName),
                       style: theme.textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.w700,
                         shadows: [Shadow(blurRadius: 4, color: Colors.black54)],
@@ -274,7 +295,7 @@ class _Gt7ProfileHeader extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          '@${profile!.npOnlineId}',
+                          context.tr('@${profile!.npOnlineId}'),
                           style: theme.textTheme.bodySmall?.copyWith(
                             color: theme.colorScheme.onSurface.withOpacity(0.6),
                           ),
@@ -282,23 +303,31 @@ class _Gt7ProfileHeader extends StatelessWidget {
                         if (profile!.countryCode.isNotEmpty) ...[
                           const SizedBox(width: 8),
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 6,
+                              vertical: 2,
+                            ),
                             decoration: BoxDecoration(
-                              color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.7),
+                              color: theme.colorScheme.surfaceContainerHighest
+                                  .withOpacity(0.7),
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: Text(
-                              profile!.countryCode,
-                              style: theme.textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w600),
+                              context.tr(profile!.countryCode),
+                              style: theme.textTheme.labelSmall?.copyWith(
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                         ],
                         if (stats?.followers != null) ...[
                           const SizedBox(width: 8),
                           Text(
-                            '${stats!.followers} followers',
+                            context.tr('${stats!.followers} followers'),
                             style: theme.textTheme.bodySmall?.copyWith(
-                              color: theme.colorScheme.onSurface.withOpacity(0.5),
+                              color: theme.colorScheme.onSurface.withOpacity(
+                                0.5,
+                              ),
                             ),
                           ),
                         ],
@@ -317,7 +346,7 @@ class _Gt7ProfileHeader extends StatelessWidget {
           right: 8,
           child: IconButton(
             icon: const Icon(Icons.logout, color: Colors.white70),
-            tooltip: 'Sign out',
+            tooltip: context.tr('Sign out'),
             onPressed: onLogout,
           ),
         ),
@@ -362,11 +391,15 @@ class _StatsSection extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 20),
               child: Row(
                 children: [
-                  Icon(Icons.waving_hand, size: 16, color: theme.colorScheme.secondary),
+                  Icon(
+                    Icons.waving_hand,
+                    size: 16,
+                    color: theme.colorScheme.secondary,
+                  ),
                   const SizedBox(width: 6),
                   Expanded(
                     child: Text(
-                      profile.greeting,
+                      context.tr(profile.greeting),
                       style: theme.textTheme.bodySmall?.copyWith(
                         fontStyle: FontStyle.italic,
                         color: theme.colorScheme.onSurface.withOpacity(0.6),
@@ -400,7 +433,6 @@ class _StatsSection extends StatelessWidget {
   }
 }
 
-
 /// About me section.
 class _AboutSection extends StatelessWidget {
   const _AboutSection({required this.profile});
@@ -416,9 +448,14 @@ class _AboutSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('About me', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
+          Text(
+            context.tr('About me'),
+            style: theme.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           const SizedBox(height: 8),
-          Text(profile.aboutMe, style: theme.textTheme.bodyMedium),
+          Text(context.tr(profile.aboutMe), style: theme.textTheme.bodyMedium),
         ],
       ),
     );
@@ -441,13 +478,22 @@ class _RacesSection extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(Icons.emoji_events, size: 20, color: theme.colorScheme.secondary),
+              Icon(
+                Icons.emoji_events,
+                size: 20,
+                color: theme.colorScheme.secondary,
+              ),
               const SizedBox(width: 8),
-              Text('Recent Races', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
+              Text(
+                context.tr('Recent Races'),
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
               if (lastLoadedPsnId != null) ...[
                 const SizedBox(width: 8),
                 Text(
-                  '@$lastLoadedPsnId',
+                  context.tr('@$lastLoadedPsnId'),
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurface.withOpacity(0.4),
                   ),
@@ -460,7 +506,7 @@ class _RacesSection extends StatelessWidget {
             builder: (context, state) {
               return state.when(
                 initial: () => Text(
-                  'Sign in to see your race history',
+                  context.tr('Sign in to see your race history'),
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurface.withOpacity(0.5),
                   ),
@@ -470,13 +516,13 @@ class _RacesSection extends StatelessWidget {
                   child: Center(child: CircularProgressIndicator()),
                 ),
                 error: (message) => Text(
-                  'Error: $message',
+                  context.tr('Error: $message'),
                   style: TextStyle(color: theme.colorScheme.error),
                 ),
                 loaded: (onlineId, events, pagination, csrfToken) {
                   if (events.isEmpty) {
                     return Text(
-                      'No race events found',
+                      context.tr('No race events found'),
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onSurface.withOpacity(0.5),
                       ),
@@ -488,23 +534,37 @@ class _RacesSection extends StatelessWidget {
                       return Card(
                         margin: const EdgeInsets.only(bottom: 8),
                         child: ListTile(
-                          title: Text(event.eventType ?? 'Event'),
+                          title: Text(context.tr(event.eventType ?? 'Event')),
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              if (event.trackName != null) Text('Track: ${event.trackName}'),
-                              if (event.carName != null) Text('Car: ${event.carName}'),
+                              if (event.trackName != null)
+                                Text(context.tr('Track: ${event.trackName}')),
+                              if (event.carName != null)
+                                Text(context.tr('Car: ${event.carName}')),
                               if (event.playerResult != null)
-                                Text('Position: ${event.playerResult!.globalPosition} / ${event.playerResult!.countryPosition}'),
-                              if (event.playerResult?.time != null) Text('Time: ${event.playerResult!.time}'),
+                                Text(
+                                  context.tr(
+                                    'Position: ${event.playerResult!.globalPosition} / ${event.playerResult!.countryPosition}',
+                                  ),
+                                ),
+                              if (event.playerResult?.time != null)
+                                Text(
+                                  context.tr(
+                                    'Time: ${event.playerResult!.time}',
+                                  ),
+                                ),
                             ],
                           ),
                           trailing: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              if (event.isActive) const Chip(label: Text('Active')),
-                              if (event.isFuture) const Chip(label: Text('Future')),
-                              if (event.isEnded) const Chip(label: Text('Ended')),
+                              if (event.isActive)
+                                Chip(label: Text(context.tr('Active'))),
+                              if (event.isFuture)
+                                Chip(label: Text(context.tr('Future'))),
+                              if (event.isEnded)
+                                Chip(label: Text(context.tr('Ended'))),
                             ],
                           ),
                         ),

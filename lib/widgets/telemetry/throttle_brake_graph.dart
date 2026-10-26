@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
@@ -28,11 +29,7 @@ class ThrottleBrakeGraph extends StatefulWidget {
   /// already draws its own frame (the HUD's MFD).
   final bool bare;
 
-  const ThrottleBrakeGraph({
-    super.key,
-    this.height = 230.0,
-    this.bare = false,
-  });
+  const ThrottleBrakeGraph({super.key, this.height = 230.0, this.bare = false});
 
   @override
   State<ThrottleBrakeGraph> createState() => _ThrottleBrakeGraphState();
@@ -44,8 +41,8 @@ class _ThrottleBrakeGraphState extends State<ThrottleBrakeGraph> {
     super.initState();
     // Initialize the BLoC when widget is created
     context.read<ThrottleBrakeGraphBloc>().add(
-          const ThrottleBrakeGraphEvent.initialize(),
-        );
+      const ThrottleBrakeGraphEvent.initialize(),
+    );
   }
 
   @override
@@ -86,10 +83,10 @@ class _ThrottleBrakeGraphState extends State<ThrottleBrakeGraph> {
       children: [
         Row(
           children: [
-            Text('THROTTLE / BRAKE', style: gt7Caption()),
+            Text(context.tr('THROTTLE / BRAKE'), style: gt7Caption()),
             const Spacer(),
             Text(
-              '10 S WINDOW',
+              context.tr('10 S WINDOW'),
               style: gt7Caption(
                 color: gt7TextMuted.withValues(alpha: 0.6),
                 size: 9,
@@ -105,6 +102,7 @@ class _ThrottleBrakeGraphState extends State<ThrottleBrakeGraph> {
               Expanded(
                 child: CustomPaint(
                   painter: _ThrottleBrakeGraphPainter(
+                    l10n: context.l10n,
                     history: history,
                     grid: graphColors?.grid ?? const Color(0x14FFFFFF),
                     plot: graphColors?.track ?? gt7Plot,
@@ -172,23 +170,29 @@ class _LiveReadout extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _entry('THROTTLE', throttle, throttleColor),
+          _entry(context, 'THROTTLE', throttle, throttleColor),
           const SizedBox(height: 12),
-          _entry('BRAKE', brake, brakeColor),
+          _entry(context, 'BRAKE', brake, brakeColor),
           // Four entries have to fit the column the graph leaves them, so the
           // clutch pair is tighter than the pedal pair.
           if (showClutch) ...[
             const SizedBox(height: 10),
-            _entry('CLUTCH', clutch, clutchColor, size: 17),
+            _entry(context, 'CLUTCH', clutch, clutchColor, size: 17),
             const SizedBox(height: 8),
-            _entry('ENGAGED', clutchEngaged, engagedColor, size: 17),
+            _entry(context, 'ENGAGED', clutchEngaged, engagedColor, size: 17),
           ],
         ],
       ),
     );
   }
 
-  Widget _entry(String label, double value, Color color, {double size = 20}) {
+  Widget _entry(
+    BuildContext context,
+    String label,
+    double value,
+    Color color, {
+    double size = 20,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -198,7 +202,7 @@ class _LiveReadout extends StatelessWidget {
             const SizedBox(width: 5),
             Flexible(
               child: Text(
-                label,
+                context.tr(label),
                 maxLines: 1,
                 softWrap: false,
                 overflow: TextOverflow.ellipsis,
@@ -212,7 +216,7 @@ class _LiveReadout extends StatelessWidget {
           fit: BoxFit.scaleDown,
           alignment: Alignment.centerLeft,
           child: Text(
-            '${value.toStringAsFixed(0)}%',
+            context.tr('${value.toStringAsFixed(0)}%'),
             maxLines: 1,
             softWrap: false,
             style: gt7Digital(size: size, color: color),
@@ -226,6 +230,7 @@ class _LiveReadout extends StatelessWidget {
 /// Custom painter that renders the throttle/brake traces on a dark plot.
 class _ThrottleBrakeGraphPainter extends CustomPainter {
   _ThrottleBrakeGraphPainter({
+    required this.l10n,
     required this.history,
     required this.grid,
     required this.plot,
@@ -236,6 +241,7 @@ class _ThrottleBrakeGraphPainter extends CustomPainter {
     required this.clutch,
     required this.clutchEngaged,
   });
+  final AppLocalizations l10n;
 
   final List<ThrottleBrakeDataPoint> history;
   final Color grid;
@@ -275,7 +281,11 @@ class _ThrottleBrakeGraphPainter extends CustomPainter {
     const horizontalSteps = [0.0, 25.0, 50.0, 75.0, 100.0];
     for (final step in horizontalSteps) {
       final y = plotRect.bottom - plotRect.height * (step / 100.0);
-      canvas.drawLine(Offset(plotRect.left, y), Offset(plotRect.right, y), gridPaint);
+      canvas.drawLine(
+        Offset(plotRect.left, y),
+        Offset(plotRect.right, y),
+        gridPaint,
+      );
       _paintLabel(
         canvas,
         step.toStringAsFixed(0),
@@ -290,7 +300,11 @@ class _ThrottleBrakeGraphPainter extends CustomPainter {
     const verticalLabels = ['-10s', '-5s', 'now'];
     for (var i = 0; i < verticalSteps.length; i++) {
       final x = plotRect.left + plotRect.width * verticalSteps[i];
-      canvas.drawLine(Offset(x, plotRect.top), Offset(x, plotRect.bottom), gridPaint);
+      canvas.drawLine(
+        Offset(x, plotRect.top),
+        Offset(x, plotRect.bottom),
+        gridPaint,
+      );
       _paintLabel(
         canvas,
         verticalLabels[i],
@@ -310,7 +324,12 @@ class _ThrottleBrakeGraphPainter extends CustomPainter {
     // Traces, clipped so a series can never bleed outside the plot.
     canvas.save();
     canvas.clipRect(plotRect);
-    _drawTrace(canvas, plotRect, history.map((p) => p.throttle).toList(), throttle);
+    _drawTrace(
+      canvas,
+      plotRect,
+      history.map((p) => p.throttle).toList(),
+      throttle,
+    );
     _drawTrace(canvas, plotRect, history.map((p) => p.brake).toList(), brake);
 
     // Only when the clutch has actually moved: a pressed clutch is an event, and
@@ -344,7 +363,8 @@ class _ThrottleBrakeGraphPainter extends CustomPainter {
     for (var i = 0; i < values.length; i++) {
       final dx = plotRect.left + plotRect.width * (i / (values.length - 1));
       final dy =
-          plotRect.bottom - plotRect.height * (values[i].clamp(0.0, 100.0) / 100.0);
+          plotRect.bottom -
+          plotRect.height * (values[i].clamp(0.0, 100.0) / 100.0);
       if (i == 0) {
         path.moveTo(dx, dy);
       } else {
@@ -372,7 +392,7 @@ class _ThrottleBrakeGraphPainter extends CustomPainter {
   }) {
     final painter = TextPainter(
       text: TextSpan(
-        text: text,
+        text: l10n.uiText(text),
         style: TextStyle(
           color: label,
           fontSize: 9,
@@ -385,7 +405,10 @@ class _ThrottleBrakeGraphPainter extends CustomPainter {
     )..layout();
 
     final offset = switch ((alignRight, centered)) {
-      (true, _) => Offset(anchor.dx - painter.width, anchor.dy - painter.height / 2),
+      (true, _) => Offset(
+        anchor.dx - painter.width,
+        anchor.dy - painter.height / 2,
+      ),
       (_, true) => Offset(anchor.dx - painter.width / 2, anchor.dy),
       _ => anchor,
     };
@@ -394,6 +417,7 @@ class _ThrottleBrakeGraphPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_ThrottleBrakeGraphPainter oldDelegate) {
+    if (l10n.localeName != oldDelegate.l10n.localeName) return true;
     return oldDelegate.history.length != history.length ||
         (history.isNotEmpty &&
             (oldDelegate.history.isEmpty ||
@@ -427,7 +451,7 @@ class _NoDataPlaceholder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        'WAITING FOR INPUT DATA',
+        context.tr('WAITING FOR INPUT DATA'),
         style: gt7Caption(color: gt7TextMuted.withValues(alpha: 0.8), size: 11),
       ),
     );
@@ -444,7 +468,7 @@ class _ErrorPlaceholder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        'GRAPH ERROR: $message',
+        context.tr('GRAPH ERROR: $message'),
         textAlign: TextAlign.center,
         style: gt7Caption(color: gt7Warn, size: 11),
       ),

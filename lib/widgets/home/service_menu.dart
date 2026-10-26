@@ -1,5 +1,6 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 // START_MODULE_CONTRACT
-// PURPOSE: Show the four home services in a width-driven, content-height layout.
+// PURPOSE: Show the five home services in a width-driven, content-height layout.
 // SCOPE: Service cards and their navigation callbacks.
 // DEPENDS: none
 // LINKS: M-WIDGET-SERVICE-MENU, V-M-WIDGET-SERVICE-MENU
@@ -13,12 +14,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 class ServiceMenu extends StatelessWidget {
   const ServiceMenu({
     super.key,
+    required this.onBrandCentral,
     required this.onUsed,
     required this.onLegendary,
     required this.onGTAuto,
     required this.onApex,
   });
 
+  final VoidCallback onBrandCentral;
   final VoidCallback onUsed;
   final VoidCallback onLegendary;
   final VoidCallback onGTAuto;
@@ -29,8 +32,10 @@ class ServiceMenu extends StatelessWidget {
     final theme = Theme.of(context);
     return LayoutBuilder(
       builder: (context, constraints) {
-        final columns = constraints.maxWidth >= 960
-            ? 4
+        final columns = constraints.maxWidth >= 1200
+            ? 5
+            : constraints.maxWidth >= 900
+            ? 3
             : constraints.maxWidth >= 344
             ? 2
             : 1;
@@ -40,6 +45,39 @@ class ServiceMenu extends StatelessWidget {
           spacing: 12,
           runSpacing: 16,
           children: [
+            _ServiceCard(
+              width: width,
+              id: 'brand-central',
+              label: 'Brand Central',
+              onTap: onBrandCentral,
+              gradient: LinearGradient(
+                colors: [
+                  theme.colorScheme.primaryContainer,
+                  theme.colorScheme.surface,
+                ],
+              ),
+              child: FittedBox(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      context.tr('BRAND'),
+                      style: theme.textTheme.headlineMedium?.copyWith(
+                        fontWeight: FontWeight.w300,
+                        letterSpacing: 5,
+                      ),
+                    ),
+                    Text(
+                      context.tr('CENTRAL'),
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 6,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             _ServiceCard(
               width: width,
               id: 'used',
@@ -118,7 +156,7 @@ class ServiceMenu extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'bA',
+                      context.tr('bA'),
                       style: theme.textTheme.displayMedium?.copyWith(
                         fontSize: logoHeight * .9,
                         fontWeight: FontWeight.w900,
@@ -128,7 +166,7 @@ class ServiceMenu extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      'THE GRAN TURISMO MAGAZINE',
+                      context.tr('THE GRAN TURISMO MAGAZINE'),
                       style: theme.textTheme.labelSmall?.copyWith(
                         fontSize: 8,
                         letterSpacing: .7,
@@ -166,7 +204,7 @@ class _ServiceCard extends StatelessWidget {
     width: width,
     child: Semantics(
       button: true,
-      label: label,
+      label: context.tr(label),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
@@ -197,7 +235,7 @@ class _ServiceCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(6, 8, 6, 4),
                 child: Text(
-                  label,
+                  context.tr(label),
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),

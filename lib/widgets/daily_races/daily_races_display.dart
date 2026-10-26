@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -89,7 +90,10 @@ class _DailyRacesDisplayState extends State<DailyRacesDisplay> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Daily races', style: theme.textTheme.titleMedium),
+                    Text(
+                      context.tr('Daily races'),
+                      style: theme.textTheme.titleMedium,
+                    ),
                     IconButton(
                       onPressed: () =>
                           service.fetchDailyRaces(forceRefresh: true),
@@ -99,7 +103,7 @@ class _DailyRacesDisplayState extends State<DailyRacesDisplay> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  service.error!,
+                  context.tr(service.error!),
                   style: TextStyle(color: theme.colorScheme.error),
                 ),
               ],
@@ -169,12 +173,18 @@ class _DailyRacesDisplayState extends State<DailyRacesDisplay> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Daily races', style: theme.textTheme.titleMedium),
+                Text(
+                  context.tr('Daily races'),
+                  style: theme.textTheme.titleMedium,
+                ),
                 IconButton(onPressed: _load, icon: const Icon(Icons.refresh)),
               ],
             ),
             const SizedBox(height: 8),
-            Text('No daily races found.', style: theme.textTheme.bodyMedium),
+            Text(
+              context.tr('No daily races found.'),
+              style: theme.textTheme.bodyMedium,
+            ),
           ],
         ),
       );
@@ -218,12 +228,18 @@ class _DailyRacesDisplayState extends State<DailyRacesDisplay> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Daily races', style: theme.textTheme.titleMedium),
+              Text(
+                context.tr('Daily races'),
+                style: theme.textTheme.titleMedium,
+              ),
               IconButton(onPressed: _load, icon: const Icon(Icons.refresh)),
             ],
           ),
           const SizedBox(height: 8),
-          Text(message, style: TextStyle(color: theme.colorScheme.error)),
+          Text(
+            context.tr(message),
+            style: TextStyle(color: theme.colorScheme.error),
+          ),
         ],
       ),
     );
@@ -263,7 +279,10 @@ class _RacesHeader extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Skeleton.keep(
-              child: Text('DAILY RACES', style: theme.textTheme.titleMedium),
+              child: Text(
+                context.tr('DAILY RACES'),
+                style: theme.textTheme.titleMedium,
+              ),
             ),
           ),
           Expanded(
@@ -390,7 +409,7 @@ class _PoweredByFooter extends StatelessWidget {
           spacing: 8.0,
           children: [
             Text(
-              'powered by',
+              context.tr('powered by'),
               style: theme.textTheme.bodySmall?.copyWith(color: Colors.white54),
             ),
             Row(

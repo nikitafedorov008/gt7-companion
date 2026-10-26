@@ -183,8 +183,12 @@ class _MapGeometry {
         path.lineTo(sample.x, sample.z);
         // Speed bands are drawn as separate point pairs, which is what lets a
         // single polyline carry a colour per segment.
-        heat[_band(sample.speed)]
-            .add(previous.x, previous.z, sample.x, sample.z);
+        heat[_band(sample.speed)].add(
+          previous.x,
+          previous.z,
+          sample.x,
+          sample.z,
+        );
       }
       previous = sample;
     }
@@ -279,17 +283,10 @@ class _MapGeometry {
     Offset? about,
     double zoom = 1,
     Offset? focus,
-  }) =>
-      MatrixUtils.transformPoint(
-        worldMatrix(
-          size,
-          spin: spin,
-          about: about,
-          zoom: zoom,
-          focus: focus,
-        ),
-        world,
-      );
+  }) => MatrixUtils.transformPoint(
+    worldMatrix(size, spin: spin, about: about, zoom: zoom, focus: focus),
+    world,
+  );
 }
 
 class _HeatBucket {
@@ -351,8 +348,7 @@ class _TrackMapPainter extends CustomPainter {
 
     // In navigator mode the spin and the zoom were built around the car, so it
     // lands in the middle of the panel by construction.
-    final carScreen =
-        turned ? focus : geometry.toCanvas(geometry.car, size);
+    final carScreen = turned ? focus : geometry.toCanvas(geometry.car, size);
 
     canvas.save();
     canvas.transform(matrix.storage);
@@ -453,17 +449,21 @@ class _TrackMapPainter extends CustomPainter {
 
     if (tilt != 0) _paintDepth(canvas, size);
 
-    _paintCar(canvas, carScreen, size, geometry, matrix, turned, slip: trace.slipAngle ?? 0);
+    _paintCar(
+      canvas,
+      carScreen,
+      size,
+      geometry,
+      matrix,
+      turned,
+      slip: trace.slipAngle ?? 0,
+    );
   }
 
   /// Screen angle of a world direction through the projection the route was
   /// drawn with: the tipped, spun plane foreshortens and turns it, so the car's
   /// arrow has to be measured the same way.
-  double _projectedAngle(
-    Matrix4 matrix,
-    Offset origin,
-    double worldAngle,
-  ) {
+  double _projectedAngle(Matrix4 matrix, Offset origin, double worldAngle) {
     final a = MatrixUtils.transformPoint(matrix, origin);
     final b = MatrixUtils.transformPoint(
       matrix,

@@ -1,3 +1,4 @@
+import 'window_navigation_safe_area.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +60,10 @@ class NestedWidget extends StatelessWidget {
                 )
               : null,
           bottomNavigationBar: showBottomNav ? const AdaptiveNavBar() : null,
-          body: _AutoDemoLauncher(child: child),
+          body: WindowNavigationScope(
+            hasTopNavigation: showTopNav,
+            child: _AutoDemoLauncher(child: child),
+          ),
         );
       },
     );

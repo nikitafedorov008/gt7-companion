@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -103,12 +104,17 @@ class _GtAutoSwapsPanelState extends State<GtAutoSwapsPanel> {
           key: ValueKey('gt-auto-engine-${selected.id}'),
           initialValue: selected.id,
           isExpanded: true,
-          decoration: const InputDecoration(labelText: 'Compatible engine'),
+          decoration: InputDecoration(
+            labelText: context.tr('Compatible engine'),
+          ),
           items: [
             for (final swap in swaps)
               DropdownMenuItem(
                 value: swap.id,
-                child: Text(swap.engine, overflow: TextOverflow.ellipsis),
+                child: Text(
+                  context.tr(swap.engine),
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
           ],
           selectedItemBuilder: (_) => [
@@ -116,7 +122,7 @@ class _GtAutoSwapsPanelState extends State<GtAutoSwapsPanel> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  swap.engine,
+                  context.tr(swap.engine),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -125,12 +131,15 @@ class _GtAutoSwapsPanelState extends State<GtAutoSwapsPanel> {
           onChanged: (value) => setState(() => _preview = value),
         ),
         const SizedBox(height: 12),
-        Text('Donor: ${selected.donor}', style: theme.textTheme.bodyMedium),
+        Text(
+          context.tr('Donor: ${selected.donor}'),
+          style: theme.textTheme.bodyMedium,
+        ),
         if (selected.version.isNotEmpty)
           Padding(
             padding: const EdgeInsets.only(top: 6),
             child: Text(
-              'Added in update ${selected.version}',
+              context.tr('Added in update ${selected.version}'),
               style: theme.textTheme.bodySmall,
             ),
           ),
@@ -148,9 +157,11 @@ class _GtAutoSwapsPanelState extends State<GtAutoSwapsPanel> {
             repo.build.swapId == selected.id ? Icons.check : Icons.add,
           ),
           label: Text(
-            repo.build.swapId == selected.id
-                ? 'In build plan'
-                : 'Add to build plan',
+            context.tr(
+              repo.build.swapId == selected.id
+                  ? 'In build plan'
+                  : 'Add to build plan',
+            ),
           ),
         ),
       ],
@@ -181,7 +192,7 @@ class _GtAutoSwapsPanelState extends State<GtAutoSwapsPanel> {
           label: 'In-game cost',
           value: selected.price == null
               ? 'Not documented'
-              : 'Cr. ${NumberFormat.decimalPattern('en_US').format(selected.price)}',
+              : 'Cr. ${NumberFormat.decimalPattern(Localizations.localeOf(context).toString()).format(selected.price)}',
         ),
       ],
     );
@@ -251,12 +262,18 @@ class GtAutoPartsPanel extends StatelessWidget {
                         activeColor: theme.colorScheme.secondary,
                         checkColor: theme.colorScheme.onSecondary,
                         controlAffinity: ListTileControlAffinity.leading,
-                        title: Text(part, style: theme.textTheme.bodyMedium),
-                        subtitle: Text(switch (parts?.compatibility[part]) {
-                          true => 'Compatible · add to plan',
-                          false => 'Not compatible',
-                          null => 'Not documented',
-                        }, style: theme.textTheme.bodySmall),
+                        title: Text(
+                          context.tr(part),
+                          style: theme.textTheme.bodyMedium,
+                        ),
+                        subtitle: Text(
+                          context.tr(switch (parts?.compatibility[part]) {
+                            true => 'Compatible · add to plan',
+                            false => 'Not compatible',
+                            null => 'Not documented',
+                          }),
+                          style: theme.textTheme.bodySmall,
+                        ),
                         value: repository.build.parts.contains(part),
                         onChanged: parts?.compatibility[part] == true
                             ? (value) =>
@@ -290,7 +307,10 @@ class GtAutoBuildPanel extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const _PanelTitle(title: 'Build plan', label: 'SAVED ON THIS DEVICE'),
-        Text(repository.selectedCar!.name, style: theme.textTheme.titleMedium),
+        Text(
+          context.tr(repository.selectedCar!.name),
+          style: theme.textTheme.titleMedium,
+        ),
         const SizedBox(height: 12),
         if (plan.swapId == null && plan.parts.isEmpty)
           const _Note(
@@ -314,9 +334,9 @@ class GtAutoBuildPanel extends StatelessWidget {
           minLines: 2,
           maxLines: 5,
           maxLength: 1000,
-          decoration: const InputDecoration(
-            labelText: 'Build notes',
-            hintText: 'Tyres, race requirements, settings…',
+          decoration: InputDecoration(
+            labelText: context.tr('Build notes'),
+            hintText: context.tr('Tyres, race requirements, settings…'),
           ),
           onChanged: repository.setNotes,
         ),
@@ -337,9 +357,9 @@ class _PlanRow extends StatelessWidget {
     children: [
       const Icon(Icons.check, size: 18),
       const SizedBox(width: 12),
-      Expanded(child: Text(label)),
+      Expanded(child: Text(context.tr(label))),
       IconButton(
-        tooltip: 'Remove $label',
+        tooltip: context.tr('Remove $label'),
         onPressed: onRemove,
         icon: const Icon(Icons.close, size: 18),
       ),
@@ -360,9 +380,9 @@ class _PanelTitle extends StatelessWidget {
         spacing: 20,
         runSpacing: 8,
         children: [
-          Text(title, style: theme.textTheme.titleLarge),
+          Text(context.tr(title), style: theme.textTheme.titleLarge),
           Text(
-            label,
+            context.tr(label),
             style: theme.textTheme.labelSmall?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
               letterSpacing: 1,
@@ -418,7 +438,7 @@ class _StatRow extends StatelessWidget {
         children: [
           Expanded(
             child: Text(
-              label,
+              context.tr(label),
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
@@ -427,7 +447,9 @@ class _StatRow extends StatelessWidget {
           const SizedBox(width: 12),
           Flexible(
             child: Text(
-              value.isEmpty || value == '---' ? 'Not documented' : value,
+              context.tr(
+                value.isEmpty || value == '---' ? 'Not documented' : value,
+              ),
               textAlign: TextAlign.end,
               style: theme.textTheme.bodyMedium,
             ),
@@ -445,7 +467,7 @@ class _Note extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
     padding: const EdgeInsets.symmetric(vertical: 12),
     child: Text(
-      text,
+      context.tr(text),
       style: Theme.of(context).textTheme.bodySmall?.copyWith(
         color: Theme.of(context).colorScheme.onSurfaceVariant,
       ),
@@ -478,12 +500,15 @@ class _SourceLink extends StatelessWidget {
         );
         if (!opened && context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Could not open source.')),
+            SnackBar(content: Text(context.tr('Could not open source.'))),
           );
         }
       },
       icon: const Icon(Icons.open_in_new, size: 14),
-      label: Text(name, style: Theme.of(context).textTheme.bodySmall),
+      label: Text(
+        context.tr(name),
+        style: Theme.of(context).textTheme.bodySmall,
+      ),
     ),
   );
 }

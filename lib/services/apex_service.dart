@@ -8,6 +8,8 @@
 // ApexService - observable reader data and official content parsing.
 // END_MODULE_MAP
 import 'dart:convert';
+import 'dart:async';
+import 'app_settings_service.dart';
 import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:html/dom.dart' as dom;
@@ -20,14 +22,41 @@ import '../models/apex/apex_language.dart';
 class ApexService extends ChangeNotifier {
   ApexService({
     http.Client? httpClient,
+    AppSettingsService? appSettings,
     List<Locale>? systemLocales,
     this.timeout = const Duration(seconds: 15),
-  }) : _http = httpClient ?? http.Client(),
+  }) : _appSettings = appSettings,
+       _http = httpClient ?? http.Client(),
        _ownsClient = httpClient == null,
        _systemLocales = systemLocales ?? PlatformDispatcher.instance.locales,
        _language = ApexLanguage.fromSystem(
          systemLocales ?? PlatformDispatcher.instance.locales,
-       );
+       ) {
+    _appSettings?.addListener(_applyAppLocale);
+    _applyAppLocale();
+  }
+  final AppSettingsService? _appSettings;
+  void _applyAppLocale() {
+    final settings = _appSettings;
+    if (settings == null || _disposed) return;
+    _preferencesLoaded = true;
+    _restoringPreferences = Future.value();
+    final resolved = ApexLanguage.fromSiteLocale(
+      settings.effectiveLocale.languageCode == 'ru' ? 'ru' : 'us',
+    )!;
+    _languageOverride = resolved;
+    if (resolved.siteLocale == _language.siteLocale) return;
+    final wasActive =
+        _menuLoading ||
+        _articleLoading ||
+        _chapters.isNotEmpty ||
+        _article != null;
+    _language = resolved;
+    _resetLanguageContent();
+    notifyListeners();
+    if (wasActive) unawaited(load(forceRefresh: true));
+  }
+
   static final source = Uri.parse('https://www.gran-turismo.com/ru/gt7/apex/');
   static const languagePrefsKey = 'apex_content_language';
   List<Locale> _systemLocales;
@@ -177,6 +206,7 @@ class ApexService extends ChangeNotifier {
 
   /// Null returns to following the system; a manual choice survives restarts.
   Future<void> setLanguage(ApexLanguage? language) async {
+    if (_appSettings != null) return;
     if (_disposed) return;
     _preferencesLoaded = true;
     _languageOverride = language;
@@ -199,6 +229,7 @@ class ApexService extends ChangeNotifier {
   }
 
   Future<void> updateSystemLocales(List<Locale> locales) async {
+    if (_appSettings != null) return;
     _systemLocales = locales;
     if (!followsSystem || _disposed) return;
     final resolved = ApexLanguage.fromSystem(locales);
@@ -314,6 +345,7 @@ class ApexService extends ChangeNotifier {
 
   @override
   void dispose() {
+    _appSettings?.removeListener(_applyAppLocale);
     _disposed = true;
     _request++;
     if (_ownsClient) _http.close();

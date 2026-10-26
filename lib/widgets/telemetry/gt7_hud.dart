@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'dart:math' as math;
 
 import 'dart:async';
@@ -92,7 +93,9 @@ class Gt7Hud extends StatelessWidget {
                     child: FittedBox(
                       fit: BoxFit.contain,
                       child: SizedBox(
-                        width: _designWidth,
+                        width:
+                            _designWidth *
+                            MediaQuery.textScalerOf(context).scale(1),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -181,35 +184,52 @@ class _TimingHeader extends StatelessWidget {
     final deltaSeconds = live ?? (hasBoth ? (last - best) / 1000.0 : null);
     final liveLabel = live != null;
 
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    final position = Wrap(
+      spacing: 22,
+      runSpacing: 8,
       children: [
         _ValueBlock(
           label: 'POSITION',
           value: gt7Count(telemetry.currentPos, telemetry.totalPositions),
         ),
-        const SizedBox(width: 22),
         _ValueBlock(
           label: 'LAP',
           value: gt7Count(telemetry.currentLap, telemetry.totalLaps),
         ),
-        const Spacer(),
-        if (deltaSeconds != null)
-          _DeltaChip(
-            seconds: deltaSeconds,
-            label: liveLabel ? 'LIVE' : null,
-          )
-        else
-          Text(
-            'NO REFERENCE LAP YET',
-            style: gt7Caption(color: gt7TextMuted.withValues(alpha: 0.55), size: 9),
-          ),
-        const SizedBox(width: 26),
-        _LapList(
-          best: gt7LapTime(best),
-          last: gt7LapTime(last),
-        ),
       ],
+    );
+    final gap = deltaSeconds != null
+        ? _DeltaChip(seconds: deltaSeconds, label: liveLabel ? 'LIVE' : null)
+        : Text(
+            context.tr('NO REFERENCE LAP YET'),
+            style: gt7Caption(
+              color: gt7TextMuted.withValues(alpha: .55),
+              size: 9,
+            ),
+          );
+    final laps = _LapList(best: gt7LapTime(best), last: gt7LapTime(last));
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final scale = MediaQuery.textScalerOf(context).scale(1);
+        if (constraints.maxWidth >= 650 * scale) {
+          return Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              position,
+              const Spacer(),
+              gap,
+              const SizedBox(width: 26),
+              laps,
+            ],
+          );
+        }
+        return Wrap(
+          spacing: 24,
+          runSpacing: 12,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [position, gap, laps],
+        );
+      },
     );
   }
 }
@@ -225,9 +245,9 @@ class _ValueBlock extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: gt7Caption(size: 9)),
+        Text(context.tr(label), style: gt7Caption(size: 9)),
         const SizedBox(height: 4),
-        Text(value, style: gt7Digital(size: 26)),
+        Text(context.tr(value), style: gt7Digital(size: 26)),
       ],
     );
   }
@@ -250,11 +270,15 @@ class _DeltaChip extends StatelessWidget {
     final color = isGain ? gt7Gain : gt7Warn;
 
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
         if (label != null) ...[
           Text(
-            label!,
-            style: gt7Caption(color: gt7TextMuted.withValues(alpha: 0.7), size: 8),
+            context.tr(label!),
+            style: gt7Caption(
+              color: gt7TextMuted.withValues(alpha: 0.7),
+              size: 8,
+            ),
           ),
           const SizedBox(width: 6),
         ],
@@ -264,7 +288,9 @@ class _DeltaChip extends StatelessWidget {
           size: 20,
         ),
         Text(
-          '${isGain ? '-' : '+'}${seconds.abs().toStringAsFixed(3)}',
+          context.tr(
+            '${isGain ? '-' : '+'}${seconds.abs().toStringAsFixed(3)}',
+          ),
           style: gt7Digital(size: 18, color: color),
         ),
       ],
@@ -285,16 +311,21 @@ class _LapList extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        _row('BEST', best, highlight: true),
+        _row(context, 'BEST', best, highlight: true),
         const SizedBox(height: 4),
-        _row('LAST', last, highlight: false),
+        _row(context, 'LAST', last, highlight: false),
       ],
     );
   }
 
-  Widget _row(String label, String time, {required bool highlight}) {
+  Widget _row(
+    BuildContext context,
+    String label,
+    String time, {
+    required bool highlight,
+  }) {
     return Container(
-      width: 190,
+      width: 240 * MediaQuery.textScalerOf(context).scale(1),
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
       decoration: highlight
           ? BoxDecoration(
@@ -304,16 +335,20 @@ class _LapList extends StatelessWidget {
           : null,
       child: Row(
         children: [
-          Text(
-            label,
-            style: gt7Caption(
-              color: highlight ? Colors.white : gt7TextMuted,
-              size: 9,
+          Expanded(
+            child: Text(
+              context.tr(label),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              style: gt7Caption(
+                color: highlight ? Colors.white : gt7TextMuted,
+                size: 9,
+              ),
             ),
           ),
-          const Spacer(),
+
           Text(
-            time,
+            context.tr(time),
             style: gt7Digital(
               size: 15,
               color: highlight ? Colors.white : gt7Text,
@@ -341,17 +376,11 @@ class _Cluster extends StatelessWidget {
       children: [
         _TyreWidget(telemetry: telemetry),
         const SizedBox(width: 18),
-        SizedBox(
-          width: 330,
-          child: _speedDial(telemetry),
-        ),
+        SizedBox(width: 330, child: _speedDial(telemetry)),
         const SizedBox(width: 10),
         _CentreBlock(telemetry: telemetry),
         const SizedBox(width: 10),
-        SizedBox(
-          width: 330,
-          child: _rpmDial(telemetry),
-        ),
+        SizedBox(width: 330, child: _rpmDial(telemetry)),
         const SizedBox(width: 18),
         _StatusColumn(telemetry: telemetry),
       ],
@@ -497,9 +526,12 @@ class _CentreBlock extends StatelessWidget {
                 children: [
                   Column(
                     children: [
-                      Text(t.speed.toStringAsFixed(0), style: gt7Digital(size: 34)),
                       Text(
-                        'km/h',
+                        context.tr(t.speed.toStringAsFixed(0)),
+                        style: gt7Digital(size: 34),
+                      ),
+                      Text(
+                        context.tr('km/h'),
                         style: gt7Caption(
                           color: gt7TextMuted.withValues(alpha: 0.8),
                           size: 9,
@@ -513,12 +545,15 @@ class _CentreBlock extends StatelessWidget {
                     margin: const EdgeInsets.symmetric(horizontal: 12),
                     color: Colors.white.withValues(alpha: 0.18),
                   ),
-                  Text(gt7Gear(t.currentGear), style: gt7Digital(size: 46)),
+                  Text(
+                    context.tr(gt7Gear(t.currentGear)),
+                    style: gt7Digital(size: 46),
+                  ),
                   const SizedBox(width: 8),
                   Padding(
                     padding: const EdgeInsets.only(top: 22),
                     child: Text(
-                      t.isEV ? 'EV' : 'MT',
+                      context.tr(t.isEV ? 'EV' : 'MT'),
                       style: gt7Caption(size: 10, letterSpacing: 1.0),
                     ),
                   ),
@@ -533,7 +568,12 @@ class _CentreBlock extends StatelessWidget {
             children: [
               _PedalBar(label: 'THR', value: t.throttle, color: gt7Text),
               const SizedBox(width: 10),
-              _PedalBar(label: 'BRK', value: t.brake, color: gt7Text, cap: gt7Warn),
+              _PedalBar(
+                label: 'BRK',
+                value: t.brake,
+                color: gt7Text,
+                cap: gt7Warn,
+              ),
               const SizedBox(width: 14),
               _PressureBar(value: t.brake),
               const SizedBox(width: 14),
@@ -597,17 +637,14 @@ class _CentrePanelPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final kinkY = size.height * verticalFraction;
 
-    final path = _roundedPolygon(
-      [
-        Offset.zero, // top-left
-        Offset(size.width, 0), // top-right
-        Offset(size.width, kinkY), // right kink
-        Offset(size.width - bottomInset, size.height), // bottom-right
-        Offset(bottomInset, size.height), // bottom-left
-        Offset(0, kinkY), // left kink
-      ],
-      cornerRadius,
-    );
+    final path = _roundedPolygon([
+      Offset.zero, // top-left
+      Offset(size.width, 0), // top-right
+      Offset(size.width, kinkY), // right kink
+      Offset(size.width - bottomInset, size.height), // bottom-right
+      Offset(bottomInset, size.height), // bottom-left
+      Offset(0, kinkY), // left kink
+    ], cornerRadius);
 
     canvas.drawPath(path, Paint()..color = fill);
     canvas.drawPath(
@@ -657,7 +694,6 @@ class _CentrePanelPainter extends CustomPainter {
       old.verticalFraction != verticalFraction ||
       old.cornerRadius != cornerRadius;
 }
-
 
 /// Shift strip: segments light up with revs, the last ones in the game's
 /// pink-red, and the whole strip is static so it stays readable at speed.
@@ -733,7 +769,8 @@ class _PedalBar extends StatelessWidget {
           padding: const EdgeInsets.all(3),
           decoration: BoxDecoration(
             border: Border.all(
-              color: cap?.withValues(alpha: 0.35) ??
+              color:
+                  cap?.withValues(alpha: 0.35) ??
                   Colors.white.withValues(alpha: 0.28),
             ),
             borderRadius: BorderRadius.circular(1),
@@ -752,7 +789,7 @@ class _PedalBar extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 5),
-        Text(label, style: gt7Caption(size: 8)),
+        Text(context.tr(label), style: gt7Caption(size: 8)),
       ],
     );
   }
@@ -789,13 +826,15 @@ class _PressureBar extends StatelessWidget {
               const SizedBox(width: 3),
               CustomPaint(
                 size: const Size(10, 58),
-                painter: _TickScalePainter(color: Colors.white.withValues(alpha: 0.35)),
+                painter: _TickScalePainter(
+                  color: Colors.white.withValues(alpha: 0.35),
+                ),
               ),
             ],
           ),
         ),
         const SizedBox(height: 5),
-        Text('BRK %', style: gt7Caption(size: 8)),
+        Text(context.tr('BRK %'), style: gt7Caption(size: 8)),
       ],
     );
   }
@@ -815,11 +854,7 @@ class _TickScalePainter extends CustomPainter {
     for (var i = 0; i <= 4; i++) {
       final y = size.height * (i / 4);
       final long = i == 0 || i == 4;
-      canvas.drawLine(
-        Offset(long ? 0 : 4, y),
-        Offset(size.width, y),
-        paint,
-      );
+      canvas.drawLine(Offset(long ? 0 : 4, y), Offset(size.width, y), paint);
     }
   }
 
@@ -858,15 +893,15 @@ class _FuelCore extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('E', style: gt7Caption(size: 9, color: gt7Text)),
+              Text(context.tr('E'), style: gt7Caption(size: 9, color: gt7Text)),
               _PumpGlyph(color: color),
-              Text('F', style: gt7Caption(size: 9, color: gt7Text)),
+              Text(context.tr('F'), style: gt7Caption(size: 9, color: gt7Text)),
             ],
           ),
         ),
         const SizedBox(height: 2),
         Text(
-          isEv ? 'CHARGE' : '${(ratio * 100).toStringAsFixed(0)}%',
+          context.tr(isEv ? 'CHARGE' : '${(ratio * 100).toStringAsFixed(0)}%'),
           style: gt7Caption(color: low ? gt7Warn : gt7TextMuted, size: 8),
         ),
       ],
@@ -1065,7 +1100,7 @@ class _BoostCore extends StatelessWidget {
           ),
         ),
         Text(
-          'BOOST ${value.toStringAsFixed(1)}',
+          context.tr('BOOST ${value.toStringAsFixed(1)}'),
           style: gt7Caption(color: gt7TextMuted, size: 8),
         ),
       ],
@@ -1186,10 +1221,7 @@ class _CarBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      size: const Size(48, 86),
-      painter: _CarBodyPainter(),
-    );
+    return CustomPaint(size: const Size(48, 86), painter: _CarBodyPainter());
   }
 }
 
@@ -1200,7 +1232,10 @@ class _CarBodyPainter extends CustomPainter {
       Rect.fromLTWH(0, 0, size.width, size.height),
       const Radius.circular(10),
     );
-    canvas.drawRRect(body, Paint()..color = Colors.white.withValues(alpha: 0.16));
+    canvas.drawRRect(
+      body,
+      Paint()..color = Colors.white.withValues(alpha: 0.16),
+    );
     canvas.drawRRect(
       body,
       Paint()
@@ -1212,14 +1247,24 @@ class _CarBodyPainter extends CustomPainter {
     final glass = Paint()..color = Colors.white.withValues(alpha: 0.22);
     canvas.drawRRect(
       RRect.fromRectAndRadius(
-        Rect.fromLTWH(size.width * 0.16, size.height * 0.17, size.width * 0.68, size.height * 0.15),
+        Rect.fromLTWH(
+          size.width * 0.16,
+          size.height * 0.17,
+          size.width * 0.68,
+          size.height * 0.15,
+        ),
         const Radius.circular(4),
       ),
       glass,
     );
     canvas.drawRRect(
       RRect.fromRectAndRadius(
-        Rect.fromLTWH(size.width * 0.16, size.height * 0.68, size.width * 0.68, size.height * 0.15),
+        Rect.fromLTWH(
+          size.width * 0.16,
+          size.height * 0.68,
+          size.width * 0.68,
+          size.height * 0.15,
+        ),
         const Radius.circular(4),
       ),
       glass,
@@ -1259,10 +1304,10 @@ class _TyreBlock extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(label, style: gt7Caption(size: 7, color: _color)),
+          Text(context.tr(label), style: gt7Caption(size: 7, color: _color)),
           const SizedBox(height: 2),
           Text(
-            temperature.toStringAsFixed(0),
+            context.tr(temperature.toStringAsFixed(0)),
             style: gt7Digital(size: 13, color: _color),
           ),
           const SizedBox(height: 3),
@@ -1272,7 +1317,10 @@ class _TyreBlock extends StatelessWidget {
               borderRadius: BorderRadius.circular(1),
               child: Stack(
                 children: [
-                  Container(height: 3, color: Colors.white.withValues(alpha: 0.10)),
+                  Container(
+                    height: 3,
+                    color: Colors.white.withValues(alpha: 0.10),
+                  ),
                   FractionallySizedBox(
                     widthFactor: fill,
                     child: Container(height: 3, color: _color),
@@ -1298,17 +1346,17 @@ class _AssistRow extends StatelessWidget {
     return SizedBox(
       width: 86,
       child: Wrap(
-      spacing: 5,
-      runSpacing: 5,
-      alignment: WrapAlignment.end,
-      children: const [
-        _GlyphChip(label: 'ABS'),
-        _TextGlyph('TCS'),
-        _TextGlyph('ASM'),
-        _TextGlyph('(P)'),
-        _WarningTriangle(),
-        _HeadlightGlyph(size: 12),
-      ],
+        spacing: 5,
+        runSpacing: 5,
+        alignment: WrapAlignment.end,
+        children: const [
+          _GlyphChip(label: 'ABS'),
+          _TextGlyph('TCS'),
+          _TextGlyph('ASM'),
+          _TextGlyph('(P)'),
+          _WarningTriangle(),
+          _HeadlightGlyph(size: 12),
+        ],
       ),
     );
   }
@@ -1348,12 +1396,8 @@ class _TextGlyph extends StatelessWidget {
         borderRadius: BorderRadius.circular(2),
       ),
       child: Text(
-        label,
-        style: gt7Caption(
-          color: gt7Text,
-          size: 7.5,
-          letterSpacing: 0.3,
-        ),
+        context.tr(label),
+        style: gt7Caption(color: gt7Text, size: 7.5, letterSpacing: 0.3),
       ),
     );
   }
@@ -1421,11 +1465,11 @@ class _StatusColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final entries = <Widget>[
-      _mini('OIL', '${telemetry.oilTemp.toStringAsFixed(0)}°'),
-      _mini('WATER', '${telemetry.waterTemp.toStringAsFixed(0)}°'),
-      _mini('BRAKE', '${telemetry.brake.toStringAsFixed(0)}%'),
+      _mini(context, 'OIL', '${telemetry.oilTemp.toStringAsFixed(0)}°'),
+      _mini(context, 'WATER', '${telemetry.waterTemp.toStringAsFixed(0)}°'),
+      _mini(context, 'BRAKE', '${telemetry.brake.toStringAsFixed(0)}%'),
       if (telemetry.oilPressure > 0)
-        _mini('PRESS', '${telemetry.oilPressure.toStringAsFixed(1)}'),
+        _mini(context, 'PRESS', '${telemetry.oilPressure.toStringAsFixed(1)}'),
       const _AssistRow(),
     ];
 
@@ -1437,21 +1481,18 @@ class _StatusColumn extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisSize: MainAxisSize.min,
       children: [
-        for (final entry in entries) ...[
-          entry,
-          const SizedBox(height: 8),
-        ],
+        for (final entry in entries) ...[entry, const SizedBox(height: 8)],
       ],
     );
   }
 
-  Widget _mini(String label, String value) {
+  Widget _mini(BuildContext context, String label, String value) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(label, style: gt7Caption(size: 8)),
+        Text(context.tr(label), style: gt7Caption(size: 8)),
         const SizedBox(width: 6),
-        Text(value, style: gt7Digital(size: 12)),
+        Text(context.tr(value), style: gt7Digital(size: 12)),
       ],
     );
   }
@@ -1553,12 +1594,12 @@ class _MfdPanel extends StatelessWidget {
                 onTap: onPage == null
                     ? null
                     : () => onPage!(
-                          (index - 1 + mfdTitles.length) % mfdTitles.length,
-                        ),
+                        (index - 1 + mfdTitles.length) % mfdTitles.length,
+                      ),
               ),
               const SizedBox(width: 10),
               Text(
-                mfdTitles[index],
+                context.tr(mfdTitles[index]),
                 style: gt7Caption(
                   color: gt7Text,
                   size: 11,
@@ -1598,38 +1639,34 @@ class _MfdPanel extends StatelessWidget {
           ),
           const SizedBox(height: 6),
           Container(
-            height: 152,
+            height: 180 * MediaQuery.textScalerOf(context).scale(1),
             padding: const EdgeInsets.fromLTRB(14, 10, 14, 12),
             decoration: BoxDecoration(
               color: Colors.black.withValues(alpha: 0.42),
               borderRadius: BorderRadius.circular(2),
               border: Border.all(color: Colors.white.withValues(alpha: 0.10)),
             ),
-            child: _body(index),
+            child: _body(context, index),
           ),
         ],
       ),
     );
   }
 
-  Widget _body(int index) => switch (index) {
-        0 => _sessionBest(),
-        1 => const ThrottleBrakeGraph(height: 130, bare: true),
-        2 => _tyres(),
-        3 => _temps(),
-        4 => _gears(),
-        5 => const _SpeedRpmPage(),
-        6 => _StintPage(trace: trace, telemetry: telemetry),
-        7 => _TrackMapPage(trace: trace),
-        8 => MotionPanel(
-          telemetry: telemetry,
-          trace: trace,
-          bare: true,
-        ),
-        _ => _ElevationPage(trace: trace),
-      };
+  Widget _body(BuildContext context, int index) => switch (index) {
+    0 => _sessionBest(context),
+    1 => const ThrottleBrakeGraph(height: 130, bare: true),
+    2 => _tyres(context),
+    3 => _temps(context),
+    4 => _gears(context),
+    5 => const _SpeedRpmPage(),
+    6 => _StintPage(trace: trace, telemetry: telemetry),
+    7 => _TrackMapPage(trace: trace),
+    8 => MotionPanel(telemetry: telemetry, trace: trace, bare: true),
+    _ => _ElevationPage(trace: trace),
+  };
 
-  Widget _sessionBest() {
+  Widget _sessionBest(BuildContext context) {
     final best = gt7LapTime(telemetry.bestLapTime);
     final last = gt7LapTime(telemetry.lastLapTime);
     final hasBoth = best != '--:--.---' && last != '--:--.---';
@@ -1641,14 +1678,16 @@ class _MfdPanel extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _mfdRow('LAST', last, delta: delta),
+        _mfdRow(context, 'LAST', last, delta: delta),
         const SizedBox(height: 8),
-        _mfdRow('BEST', best, highlight: true),
+        _mfdRow(context, 'BEST', best, highlight: true),
         const SizedBox(height: 10),
         Text(
-          hasBoth
-              ? 'THEORETICAL BEST NEEDS SECTOR TIMES, WHICH GT7 DOES NOT SEND'
-              : 'WAITING FOR A COMPLETED LAP',
+          context.tr(
+            hasBoth
+                ? 'THEORETICAL BEST NEEDS SECTOR TIMES, WHICH GT7 DOES NOT SEND'
+                : 'WAITING FOR A COMPLETED LAP',
+          ),
           style: gt7Caption(
             color: gt7TextMuted.withValues(alpha: 0.55),
             size: 8,
@@ -1659,6 +1698,7 @@ class _MfdPanel extends StatelessWidget {
   }
 
   Widget _mfdRow(
+    BuildContext context,
     String label,
     String time, {
     double? delta,
@@ -1678,7 +1718,7 @@ class _MfdPanel extends StatelessWidget {
           SizedBox(
             width: 56,
             child: Text(
-              label,
+              context.tr(label),
               style: gt7Caption(
                 color: highlight ? gt7Text : gt7TextMuted,
                 size: 10,
@@ -1686,7 +1726,7 @@ class _MfdPanel extends StatelessWidget {
               ),
             ),
           ),
-          Text(time, style: gt7Digital(size: 20)),
+          Text(context.tr(time), style: gt7Digital(size: 20)),
           const Spacer(),
           if (delta != null)
             Container(
@@ -1697,7 +1737,9 @@ class _MfdPanel extends StatelessWidget {
                 border: Border.all(color: color.withValues(alpha: 0.5)),
               ),
               child: Text(
-                '${isGain ? '-' : '+'}${delta.abs().toStringAsFixed(3)}',
+                context.tr(
+                  '${isGain ? '-' : '+'}${delta.abs().toStringAsFixed(3)}',
+                ),
                 style: gt7Digital(size: 13, color: color),
               ),
             ),
@@ -1706,7 +1748,7 @@ class _MfdPanel extends StatelessWidget {
     );
   }
 
-  Widget _tyres() {
+  Widget _tyres(BuildContext context) {
     final tyres = <(String, double)>[
       ('FL', telemetry.tireTempFL),
       ('FR', telemetry.tireTempFR),
@@ -1721,15 +1763,15 @@ class _MfdPanel extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(label, style: gt7Caption(size: 10)),
+                Text(context.tr(label), style: gt7Caption(size: 10)),
                 const SizedBox(height: 6),
                 Text(
-                  temperature.toStringAsFixed(0),
+                  context.tr(temperature.toStringAsFixed(0)),
                   style: gt7Digital(size: 22, color: gt7HeatColor(temperature)),
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  '°C',
+                  context.tr('°C'),
                   style: gt7Caption(
                     color: gt7TextMuted.withValues(alpha: 0.7),
                     size: 8,
@@ -1747,7 +1789,10 @@ class _MfdPanel extends StatelessWidget {
                           color: Colors.white.withValues(alpha: 0.10),
                         ),
                         FractionallySizedBox(
-                          widthFactor: ((temperature - 20) / 130).clamp(0.05, 1.0),
+                          widthFactor: ((temperature - 20) / 130).clamp(
+                            0.05,
+                            1.0,
+                          ),
                           child: Container(
                             height: 4,
                             color: gt7HeatColor(temperature),
@@ -1765,7 +1810,7 @@ class _MfdPanel extends StatelessWidget {
     );
   }
 
-  Widget _temps() {
+  Widget _temps(BuildContext context) {
     final rows = <(String, String)>[
       ('OIL', '${telemetry.oilTemp.toStringAsFixed(1)} °C'),
       ('WATER', '${telemetry.waterTemp.toStringAsFixed(1)} °C'),
@@ -1787,7 +1832,7 @@ class _MfdPanel extends StatelessWidget {
               children: [
                 Flexible(
                   child: Text(
-                    label,
+                    context.tr(label),
                     maxLines: 1,
                     softWrap: false,
                     overflow: TextOverflow.ellipsis,
@@ -1795,7 +1840,7 @@ class _MfdPanel extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 6),
-                Text(value, style: gt7Digital(size: 14)),
+                Text(context.tr(value), style: gt7Digital(size: 14)),
               ],
             ),
           ),
@@ -1803,7 +1848,7 @@ class _MfdPanel extends StatelessWidget {
     );
   }
 
-  Widget _gears() {
+  Widget _gears(BuildContext context) {
     final ratios = <double>[
       telemetry.gear1,
       telemetry.gear2,
@@ -1819,8 +1864,11 @@ class _MfdPanel extends StatelessWidget {
     if (usable.isEmpty) {
       return Center(
         child: Text(
-          'GEAR RATIOS NOT IN THIS PACKET',
-          style: gt7Caption(color: gt7TextMuted.withValues(alpha: 0.7), size: 10),
+          context.tr('GEAR RATIOS NOT IN THIS PACKET'),
+          style: gt7Caption(
+            color: gt7TextMuted.withValues(alpha: 0.7),
+            size: 10,
+          ),
         ),
       );
     }
@@ -1836,7 +1884,7 @@ class _MfdPanel extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
-                  usable[i].toStringAsFixed(2),
+                  context.tr(usable[i].toStringAsFixed(2)),
                   style: gt7Digital(size: 10, color: gt7TextMuted),
                 ),
                 const SizedBox(height: 4),
@@ -1850,7 +1898,7 @@ class _MfdPanel extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 5),
-                Text('${i + 1}', style: gt7Caption(size: 9)),
+                Text(context.tr('${i + 1}'), style: gt7Caption(size: 9)),
               ],
             ),
           ),
@@ -1952,8 +2000,11 @@ class _SpeedRpmPageState extends State<_SpeedRpmPage> {
     if (_points.isEmpty) {
       return Center(
         child: Text(
-          'COLLECTING…',
-          style: gt7Caption(color: gt7TextMuted.withValues(alpha: 0.7), size: 10),
+          context.tr('COLLECTING…'),
+          style: gt7Caption(
+            color: gt7TextMuted.withValues(alpha: 0.7),
+            size: 10,
+          ),
         ),
       );
     }
@@ -1977,6 +2028,7 @@ class _SpeedRpmPageState extends State<_SpeedRpmPage> {
             // zero when its constraints are loose
             size: const Size(double.infinity, double.infinity),
             painter: _SpeedRpmPainter(
+              l10n: context.l10n,
               points: _points,
               maxSpeed: maxSpeed,
               maxRpm: maxRpm,
@@ -1991,16 +2043,19 @@ class _SpeedRpmPageState extends State<_SpeedRpmPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text('SPEED →', style: gt7Caption(size: 7)),
+            Text(context.tr('SPEED →'), style: gt7Caption(size: 7)),
             const SizedBox(height: 4),
             Text(
-              '${maxSpeed.toStringAsFixed(0)} km/h',
+              context.tr('${maxSpeed.toStringAsFixed(0)} km/h'),
               style: gt7Digital(size: 12),
             ),
             const SizedBox(height: 10),
-            Text('RPM ↑', style: gt7Caption(size: 7)),
+            Text(context.tr('RPM ↑'), style: gt7Caption(size: 7)),
             const SizedBox(height: 4),
-            Text('${maxRpm.toStringAsFixed(0)}', style: gt7Digital(size: 12)),
+            Text(
+              context.tr('${maxRpm.toStringAsFixed(0)}'),
+              style: gt7Digital(size: 12),
+            ),
           ],
         ),
       ],
@@ -2010,6 +2065,7 @@ class _SpeedRpmPageState extends State<_SpeedRpmPage> {
 
 class _SpeedRpmPainter extends CustomPainter {
   _SpeedRpmPainter({
+    required this.l10n,
     required this.points,
     required this.maxSpeed,
     required this.maxRpm,
@@ -2017,6 +2073,7 @@ class _SpeedRpmPainter extends CustomPainter {
     required this.grid,
     required this.label,
   });
+  final AppLocalizations l10n;
 
   final List<(double, double, int)> points;
   final double maxSpeed;
@@ -2038,19 +2095,29 @@ class _SpeedRpmPainter extends CustomPainter {
     for (var i = 0; i <= 4; i++) {
       final y = rect.bottom - rect.height * (i / 4);
       canvas.drawLine(Offset(rect.left, y), Offset(rect.right, y), gridPaint);
-      _text(canvas, (maxRpm * i / 4).toStringAsFixed(0), Offset(rect.left - 6, y),
-          right: true);
+      _text(
+        canvas,
+        (maxRpm * i / 4).toStringAsFixed(0),
+        Offset(rect.left - 6, y),
+        right: true,
+      );
     }
     for (var i = 0; i <= 4; i++) {
       final x = rect.left + rect.width * (i / 4);
       canvas.drawLine(Offset(x, rect.top), Offset(x, rect.bottom), gridPaint);
-      _text(canvas, (maxSpeed * i / 4).toStringAsFixed(0),
-          Offset(x, rect.bottom + 3), center: true);
+      _text(
+        canvas,
+        (maxSpeed * i / 4).toStringAsFixed(0),
+        Offset(x, rect.bottom + 3),
+        center: true,
+      );
     }
 
     canvas.save();
     canvas.clipRect(rect);
-    final paint = Paint()..strokeWidth = 1.6..strokeCap = StrokeCap.round;
+    final paint = Paint()
+      ..strokeWidth = 1.6
+      ..strokeCap = StrokeCap.round;
     for (final (speed, rpm, gear) in points) {
       paint.color = colors[gear.abs() % colors.length].withValues(alpha: 0.55);
       final x = rect.left + rect.width * (speed / maxSpeed).clamp(0.0, 1.0);
@@ -2069,7 +2136,7 @@ class _SpeedRpmPainter extends CustomPainter {
   }) {
     final painter = TextPainter(
       text: TextSpan(
-        text: value,
+        text: l10n.uiText(value),
         style: TextStyle(
           color: label,
           fontSize: 8,
@@ -2080,7 +2147,10 @@ class _SpeedRpmPainter extends CustomPainter {
     )..layout();
 
     final offset = switch ((right, center)) {
-      (true, _) => Offset(anchor.dx - painter.width, anchor.dy - painter.height / 2),
+      (true, _) => Offset(
+        anchor.dx - painter.width,
+        anchor.dy - painter.height / 2,
+      ),
       (_, true) => Offset(anchor.dx - painter.width / 2, anchor.dy),
       _ => anchor,
     };
@@ -2088,7 +2158,9 @@ class _SpeedRpmPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_SpeedRpmPainter old) => old.points.length != points.length;
+  bool shouldRepaint(_SpeedRpmPainter old) =>
+      l10n.localeName != old.l10n.localeName ||
+      old.points.length != points.length;
 }
 
 /// Fuel per lap and how far the tank still goes - the game shows this on its
@@ -2103,7 +2175,9 @@ class _StintPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final telemetry = this.telemetry;
     if (telemetry == null) {
-      return Center(child: Text('NO DATA', style: gt7Caption(size: 10)));
+      return Center(
+        child: Text(context.tr('NO DATA'), style: gt7Caption(size: 10)),
+      );
     }
 
     // Fuel per lap is arithmetic on a real packet field, so it is the one
@@ -2123,6 +2197,7 @@ class _StintPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _stintRow(
+                context,
                 'FUEL',
                 telemetry.isEV
                     ? 'ELECTRIC'
@@ -2131,11 +2206,13 @@ class _StintPage extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               _stintRow(
+                context,
                 'PER LAP',
                 perLap == null ? '—' : '${perLap.toStringAsFixed(2)} L',
               ),
               const SizedBox(height: 8),
               _stintRow(
+                context,
                 'REMAINING',
                 lapsLeft == null ? '—' : '${lapsLeft.floor()} LAPS',
               ),
@@ -2149,10 +2226,10 @@ class _StintPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text('TANK', style: gt7Caption(size: 9)),
+              Text(context.tr('TANK'), style: gt7Caption(size: 9)),
               const SizedBox(height: 6),
               Text(
-                '${(ratio * 100).round()}%',
+                context.tr('${(ratio * 100).round()}%'),
                 style: gt7Digital(
                   size: 20,
                   color: ratio <= 0.2 ? gt7Warn : gt7Text,
@@ -2161,7 +2238,9 @@ class _StintPage extends StatelessWidget {
               const SizedBox(height: 6),
               if (trace?.lastLapFuel != null)
                 Text(
-                  'LAST ${trace!.lastLapFuel!.toStringAsFixed(2)} L',
+                  context.tr(
+                    'LAST ${trace!.lastLapFuel!.toStringAsFixed(2)} L',
+                  ),
                   style: gt7Caption(color: gt7TextMuted, size: 8),
                 ),
             ],
@@ -2171,14 +2250,17 @@ class _StintPage extends StatelessWidget {
     );
   }
 
-  Widget _stintRow(String label, String value) {
+  Widget _stintRow(BuildContext context, String label, String value) {
     return Row(
       children: [
         SizedBox(
           width: 84,
-          child: Text(label, style: gt7Caption(color: gt7TextMuted, size: 9)),
+          child: Text(
+            context.tr(label),
+            style: gt7Caption(color: gt7TextMuted, size: 9),
+          ),
         ),
-        Flexible(child: Text(value, style: gt7Digital(size: 15))),
+        Flexible(child: Text(context.tr(value), style: gt7Digital(size: 15))),
       ],
     );
   }
@@ -2198,10 +2280,15 @@ class _TrackMapPage extends StatelessWidget {
     if (trace == null || !trace.hasRoute) {
       return Center(
         child: Text(
-          'NO ROUTE YET — GT7 SENDS THE CAR\'S POSITION IN EVERY PACKET, '
-          'SO THE MAP APPEARS AS SOON AS YOU MOVE',
+          context.tr(
+            'NO ROUTE YET — GT7 SENDS THE CAR\'S POSITION IN EVERY PACKET, '
+            'SO THE MAP APPEARS AS SOON AS YOU MOVE',
+          ),
           textAlign: TextAlign.center,
-          style: gt7Caption(color: gt7TextMuted.withValues(alpha: 0.6), size: 8),
+          style: gt7Caption(
+            color: gt7TextMuted.withValues(alpha: 0.6),
+            size: 8,
+          ),
         ),
       );
     }
@@ -2209,9 +2296,7 @@ class _TrackMapPage extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Expanded(
-          child: TrackMap(trace: trace, padding: 6, tilt: 0),
-        ),
+        Expanded(child: TrackMap(trace: trace, padding: 6, tilt: 0)),
         const SizedBox(width: 12),
         SizedBox(
           width: 132,
@@ -2219,11 +2304,11 @@ class _TrackMapPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _mapStat('ROUTE', gt7Distance(trace.distance)),
+              _mapStat(context, 'ROUTE', gt7Distance(trace.distance)),
               const SizedBox(height: 6),
-              _mapStat('POINTS', '${trace.length}'),
+              _mapStat(context, 'POINTS', '${trace.length}'),
               const SizedBox(height: 6),
-              _mapStat('ELEV', '${trace.elevationRange.round()} m'),
+              _mapStat(context, 'ELEV', '${trace.elevationRange.round()} m'),
             ],
           ),
         ),
@@ -2231,13 +2316,13 @@ class _TrackMapPage extends StatelessWidget {
     );
   }
 
-  Widget _mapStat(String label, String value) {
+  Widget _mapStat(BuildContext context, String label, String value) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        Text(label, style: gt7Caption(size: 8)),
+        Text(context.tr(label), style: gt7Caption(size: 8)),
         const SizedBox(height: 2),
-        Text(value, style: gt7Digital(size: 13)),
+        Text(context.tr(value), style: gt7Digital(size: 13)),
       ],
     );
   }
@@ -2255,10 +2340,15 @@ class _ElevationPage extends StatelessWidget {
     if (trace == null || !trace.hasRoute) {
       return Center(
         child: Text(
-          'THE PROFILE COMES FROM THE CAR\'S HEIGHT IN EVERY PACKET — '
-          'IT APPEARS AS SOON AS YOU MOVE',
+          context.tr(
+            'THE PROFILE COMES FROM THE CAR\'S HEIGHT IN EVERY PACKET — '
+            'IT APPEARS AS SOON AS YOU MOVE',
+          ),
           textAlign: TextAlign.center,
-          style: gt7Caption(color: gt7TextMuted.withValues(alpha: 0.6), size: 8),
+          style: gt7Caption(
+            color: gt7TextMuted.withValues(alpha: 0.6),
+            size: 8,
+          ),
         ),
       );
     }

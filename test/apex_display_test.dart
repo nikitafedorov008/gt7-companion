@@ -1,3 +1,4 @@
+import 'package:gt7_companion/services/app_settings_service.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -59,10 +60,14 @@ void main() {
   }
 
   testWidgets(
-    'language menu switches official content and returns to system default',
+    'global language switches official content; reader has no local selector',
     (tester) async {
+      final settings = AppSettingsService(systemLocales: const [Locale('ru')]);
+      addTearDown(settings.dispose);
+      await settings.load();
       final paths = <String>[];
       final service = ApexService(
+        appSettings: settings,
         systemLocales: const [Locale('ru')],
         httpClient: MockClient((r) async {
           paths.add(r.url.path);
@@ -80,18 +85,14 @@ void main() {
       );
       addTearDown(service.dispose);
       await pumpReader(tester, service, 390);
-      await tester.tap(find.byKey(const ValueKey('apex-language')));
+      expect(find.byKey(const ValueKey('apex-language')), findsNothing);
+      await settings.setLanguage(AppLanguage.english);
       await tester.pumpAndSettle();
-      await tester.tap(find.byWidgetPredicate((widget) => widget is CheckedPopupMenuItem<String> && widget.value == 'gb'));
-      await tester.pumpAndSettle();
-      expect(service.language.siteLocale, 'gb');
+      expect(service.language.siteLocale, 'us');
       expect(service.chapters.first.title, startsWith('Chapter'));
-      expect(paths.last, startsWith('/gb/'));
-      await tester.tap(find.byKey(const ValueKey('apex-language')));
+      expect(paths.last, startsWith('/us/'));
+      await settings.setLanguage(AppLanguage.system);
       await tester.pumpAndSettle();
-      await tester.tap(find.byWidgetPredicate((widget) => widget is CheckedPopupMenuItem<String> && widget.value == 'system'));
-      await tester.pumpAndSettle();
-      expect(service.followsSystem, isTrue);
       expect(service.language.siteLocale, 'ru');
       expect(tester.takeException(), isNull);
     },
@@ -227,6 +228,7 @@ void main() {
               'TestHome',
               builder: (context, _) => Scaffold(
                 body: ServiceMenu(
+                  onBrandCentral: () {},
                   onUsed: () {},
                   onLegendary: () {},
                   onGTAuto: () {},
@@ -254,9 +256,12 @@ void main() {
       expect(find.byType(ServiceMenu), findsOneWidget);
       expect(find.byType(ApexDisplay), findsNothing);
       expect(
-        AppRouter().routes.first.children!.first.children!.any(
-          (r) => r.page.name == ApexDisplayRoute.name,
-        ),
+        AppRouter().routes
+            .firstWhere((route) => route.children != null)
+            .children!
+            .first
+            .children!
+            .any((r) => r.page.name == ApexDisplayRoute.name),
         isTrue,
       );
     },

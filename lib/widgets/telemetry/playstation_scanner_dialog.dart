@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'package:flutter/material.dart';
 import '../../services/network_scanner.dart';
 
@@ -55,8 +56,8 @@ class _PlayStationScannerDialogState extends State<PlayStationScannerDialog> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  'Find PlayStation',
+                Text(
+                  context.tr('Find PlayStation'),
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 IconButton(
@@ -71,7 +72,7 @@ class _PlayStationScannerDialogState extends State<PlayStationScannerDialog> {
                 ElevatedButton.icon(
                   onPressed: _isScanning || _isDeepScanning ? null : _quickScan,
                   icon: const Icon(Icons.refresh, size: 18),
-                  label: const Text('Quick Scan (ARP)'),
+                  label: Text(context.tr('Quick Scan (ARP)')),
                 ),
                 const SizedBox(width: 8),
                 // ElevatedButton.icon(
@@ -83,9 +84,11 @@ class _PlayStationScannerDialogState extends State<PlayStationScannerDialog> {
             ),
             const SizedBox(height: 8),
             Text(
-              _isDeepScanning
-                  ? 'Deep scanning network (this may take 10-30 seconds)...'
-                  : 'Scanning local network for PlayStation devices...',
+              context.tr(
+                _isDeepScanning
+                    ? 'Deep scanning network (this may take 10-30 seconds)...'
+                    : 'Scanning local network for PlayStation devices...',
+              ),
               style: TextStyle(
                 fontSize: 12,
                 color: Theme.of(
@@ -111,7 +114,7 @@ class _PlayStationScannerDialogState extends State<PlayStationScannerDialog> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        _errorMessage!,
+                        context.tr(_errorMessage!),
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.error,
                         ),
@@ -121,14 +124,14 @@ class _PlayStationScannerDialogState extends State<PlayStationScannerDialog> {
                 ),
               ),
             if (_isScanning || _isDeepScanning)
-              const Center(
+              Center(
                 child: Padding(
                   padding: EdgeInsets.all(32.0),
                   child: Column(
                     children: [
                       CircularProgressIndicator(),
                       SizedBox(height: 16),
-                      Text('Scanning network...'),
+                      Text(context.tr('Scanning network...')),
                     ],
                   ),
                 ),
@@ -148,7 +151,7 @@ class _PlayStationScannerDialogState extends State<PlayStationScannerDialog> {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        'No devices found',
+                        context.tr('No devices found'),
                         style: TextStyle(
                           color: Theme.of(
                             context,
@@ -157,7 +160,9 @@ class _PlayStationScannerDialogState extends State<PlayStationScannerDialog> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Make sure your PlayStation is on and connected to the same network',
+                        context.tr(
+                          'Make sure your PlayStation is on and connected to the same network',
+                        ),
                         style: TextStyle(
                           fontSize: 12,
                           color: Theme.of(
@@ -198,7 +203,7 @@ class _PlayStationScannerDialogState extends State<PlayStationScannerDialog> {
                                 ).iconTheme.color?.withOpacity(0.75),
                         ),
                         title: Text(
-                          device.ipAddress,
+                          context.tr(device.ipAddress),
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontFamily: 'monospace',
@@ -209,7 +214,7 @@ class _PlayStationScannerDialogState extends State<PlayStationScannerDialog> {
                           children: [
                             if (device.macAddress != 'Unknown')
                               Text(
-                                device.macAddress,
+                                context.tr(device.macAddress),
                                 style: const TextStyle(
                                   fontSize: 11,
                                   fontFamily: 'monospace',
@@ -219,7 +224,7 @@ class _PlayStationScannerDialogState extends State<PlayStationScannerDialog> {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    device.vendor,
+                                    context.tr(device.vendor),
                                     style: TextStyle(
                                       fontSize: 11,
                                       color: device.isLikelyPlayStation
@@ -234,7 +239,7 @@ class _PlayStationScannerDialogState extends State<PlayStationScannerDialog> {
                                   ),
                                 ),
                                 Text(
-                                  '${device.confidence}%',
+                                  context.tr('${device.confidence}%'),
                                   style: TextStyle(
                                     fontSize: 10,
                                     color: Theme.of(
@@ -260,7 +265,7 @@ class _PlayStationScannerDialogState extends State<PlayStationScannerDialog> {
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: Text(
-                                  'PlayStation',
+                                  context.tr('PlayStation'),
                                   style: TextStyle(
                                     fontSize: 11,
                                     color: Theme.of(
@@ -282,7 +287,9 @@ class _PlayStationScannerDialogState extends State<PlayStationScannerDialog> {
             if (_devices.isNotEmpty) ...[
               const SizedBox(height: 16),
               Text(
-                'Found ${_devices.length} device(s). Tap to select.',
+                context.tr(
+                  'Found ${_devices.length} device(s). Tap to select.',
+                ),
                 style: TextStyle(
                   fontSize: 12,
                   color: Theme.of(

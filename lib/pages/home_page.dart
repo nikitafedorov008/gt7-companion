@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -65,8 +66,8 @@ class _HomePageState extends State<HomePage> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      theme.colorScheme.surface.withOpacity(0.22),
-                      theme.colorScheme.surface.withOpacity(0.06),
+                      theme.colorScheme.surface.withValues(alpha: 0.22),
+                      theme.colorScheme.surface.withValues(alpha: 0.06),
                       theme.colorScheme.surface,
                     ],
                     // смещаем середину чуть выше для более явного перехода
@@ -88,10 +89,15 @@ class _HomePageState extends State<HomePage> {
                     const TelemetryPanel(),
 
                     const SizedBox(height: 24),
-                    Text('Services', style: theme.textTheme.titleMedium),
+                    Text(
+                      context.tr('Services'),
+                      style: theme.textTheme.titleMedium,
+                    ),
                     const SizedBox(height: 12),
 
                     ServiceMenu(
+                      onBrandCentral: () =>
+                          context.router.push(const BrandCentralDisplayRoute()),
                       onUsed: () => _openUsedCarDealer(context),
                       onLegendary: () => _openLegendaryCarDealer(context),
                       onGTAuto: () => _openGTAuto(context),
@@ -125,7 +131,7 @@ class TelemetryDetailsScreen extends StatelessWidget {
       body: Consumer<TelemetryService>(
         builder: (context, service, child) {
           if (!service.isConnected) {
-            return const Center(child: Text('Not connected to GT7'));
+            return Center(child: Text(context.tr('Not connected to GT7')));
           }
 
           return TelemetryScreen(

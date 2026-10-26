@@ -10,6 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
   # Routing (auto_route)
   auto_route: ^11.1.0
@@ -45,7 +47,7 @@ dependencies:
   # For caching images
   cached_network_image: ^3.3.1
   flutter_svg: ^2.2.3
-  intl: ^0.18.1
+  intl: ^0.20.3
 
   # For handling URLs
   url_launcher: ^6.2.4
@@ -72,9 +74,11 @@ dev_dependencies:
   auto_route_generator: ^10.4.0
 
 flutter:
+  generate: true
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/images/brand_central/
     - assets/cars/
     - assets/tracks/
     - assets/sfx/

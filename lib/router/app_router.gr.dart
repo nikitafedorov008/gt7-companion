@@ -27,6 +27,22 @@ class ApexDisplayRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [BrandCentralDisplay]
+class BrandCentralDisplayRoute extends PageRouteInfo<void> {
+  const BrandCentralDisplayRoute({List<PageRouteInfo>? children})
+    : super(BrandCentralDisplayRoute.name, initialChildren: children);
+
+  static const String name = 'BrandCentralDisplayRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const BrandCentralDisplay();
+    },
+  );
+}
+
+/// generated route for
 /// [EmptyPage]
 class EmptyPageRoute extends PageRouteInfo<EmptyPageRouteArgs> {
   EmptyPageRoute({
@@ -197,6 +213,22 @@ class ScreenBRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const ScreenB();
+    },
+  );
+}
+
+/// generated route for
+/// [SettingsDisplay]
+class SettingsDisplayRoute extends PageRouteInfo<void> {
+  const SettingsDisplayRoute({List<PageRouteInfo>? children})
+    : super(SettingsDisplayRoute.name, initialChildren: children);
+
+  static const String name = 'SettingsDisplayRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SettingsDisplay();
     },
   );
 }

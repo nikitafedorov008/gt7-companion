@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 // Race card shaped after the in-game Daily Races panel.
 //
 // GT7 shows four things and nothing else: the race letter with its BoP badge,
@@ -207,9 +208,11 @@ class _Hero extends StatelessWidget {
                 SizedBox(width: metrics.pad * 0.5),
                 Expanded(
                   child: Text(
-                    race.label != null
-                        ? 'RACE ${race.label}'
-                        : (race.className ?? '').toUpperCase(),
+                    context.tr(
+                      race.label != null
+                          ? 'RACE ${race.label}'
+                          : (race.className ?? '').toUpperCase(),
+                    ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -223,11 +226,7 @@ class _Hero extends StatelessWidget {
                     ),
                   ),
                 ),
-                _HeaderBadge(
-                  race: race,
-                  raceType: raceType,
-                  metrics: metrics,
-                ),
+                _HeaderBadge(race: race, raceType: raceType, metrics: metrics),
               ],
             ),
           ),
@@ -256,14 +255,15 @@ class _HeaderBadge extends StatelessWidget {
     final (label, icon, background, foreground) = switch (raceType) {
       RaceType.past => ('PAST', null, Colors.white70, Colors.black87),
       RaceType.upcoming => ('NEXT WEEK', null, Colors.amber, Colors.black87),
-      RaceType.current => race.bop == true
-          ? (
-              'BoP Applied',
-              Icons.balance,
-              const Color(0xFFF5E34F),
-              Colors.black87,
-            )
-          : (null, null, Colors.transparent, Colors.transparent),
+      RaceType.current =>
+        race.bop == true
+            ? (
+                'BoP Applied',
+                Icons.balance,
+                const Color(0xFFF5E34F),
+                Colors.black87,
+              )
+            : (null, null, Colors.transparent, Colors.transparent),
     };
 
     if (label == null) return const SizedBox.shrink();
@@ -285,7 +285,7 @@ class _HeaderBadge extends StatelessWidget {
             SizedBox(width: metrics.badge * 0.25),
           ],
           Text(
-            label,
+            context.tr(label),
             style: TextStyle(
               color: foreground,
               fontSize: metrics.badge,
@@ -350,7 +350,7 @@ class _Title extends StatelessWidget {
         children: [
           Flexible(
             child: Text(
-              race.trackName ?? '—',
+              context.tr(race.trackName ?? '—'),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
@@ -481,7 +481,7 @@ class _StatCell extends StatelessWidget {
             child: FittedBox(
               fit: BoxFit.scaleDown,
               child: Text(
-                label,
+                context.tr(label),
                 maxLines: 1,
                 style: TextStyle(
                   fontSize: metrics.statLabel,
@@ -495,7 +495,7 @@ class _StatCell extends StatelessWidget {
             child: FittedBox(
               fit: BoxFit.scaleDown,
               child: Text(
-                value ?? '—',
+                context.tr(value ?? '—'),
                 maxLines: 1,
                 style: TextStyle(
                   fontSize: featured
@@ -529,7 +529,7 @@ class TyreCategory extends StatelessWidget {
           ),
           padding: const EdgeInsets.all(6.0),
           child: Text(
-            tyre!.code,
+            context.tr(tyre!.code),
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
               fontSize: 10,
               color: tyre!.color,
@@ -567,7 +567,7 @@ class CarCategory extends StatelessWidget {
     // chip — the game prints those as plain text, and so do we.
     if (info?.type == null) {
       return Text(
-        display,
+        context.tr(display),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
         style: style.copyWith(fontSize: size * 0.72),
@@ -583,7 +583,7 @@ class CarCategory extends StatelessWidget {
         borderRadius: BorderRadius.circular(size * 0.35),
         border: Border.all(color: Colors.white70, width: 1.4),
       ),
-      child: Text(_gameCase(display), maxLines: 1, style: style),
+      child: Text(context.tr(_gameCase(display)), maxLines: 1, style: style),
     );
   }
 

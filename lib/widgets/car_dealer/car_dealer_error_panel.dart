@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 // FILE: lib/widgets/car_dealer/car_dealer_error_panel.dart
 // VERSION: 1.0.0
 // START_MODULE_CONTRACT
@@ -14,7 +15,6 @@
 // END_MODULE_MAP
 
 import 'package:flutter/material.dart';
-
 
 /// The error state both dealership screens show when loading fails.
 ///
@@ -42,14 +42,17 @@ class CarDealerErrorPanel extends StatelessWidget {
         children: [
           const Icon(Icons.error_outline, color: Colors.red, size: 48),
           const SizedBox(height: 16),
-          Text(title, style: Theme.of(context).textTheme.titleLarge),
+          Text(
+            context.tr(title),
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
           const SizedBox(height: 8),
-          Text(message, textAlign: TextAlign.center),
+          Text(context.tr(message), textAlign: TextAlign.center),
           const SizedBox(height: 24),
           ElevatedButton.icon(
             onPressed: onRetry,
             icon: const Icon(Icons.refresh),
-            label: const Text('Retry'),
+            label: Text(context.tr('Retry')),
           ),
         ],
       ),

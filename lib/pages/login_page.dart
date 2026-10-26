@@ -1,3 +1,5 @@
+import 'package:gt7_companion/widgets/window_navigation_safe_area.dart';
+import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
@@ -81,7 +83,8 @@ class _LoginPageState extends State<LoginPage> {
 
   String _status = 'Opening sign-in…';
 
-  bool get _pageVisible => (_onAuthProviderPage && !_extracting) || _forceShowPage;
+  bool get _pageVisible =>
+      (_onAuthProviderPage && !_extracting) || _forceShowPage;
 
   @override
   void initState() {
@@ -154,7 +157,8 @@ class _LoginPageState extends State<LoginPage> {
         _trace.log(TraceKind.cookie, '$checkpoint — $domain', {
           'count': cookies.length,
           for (final c in cookies)
-            c.name: '${Gt7AuthTrace.mask(c.value)}'
+            c.name:
+                '${Gt7AuthTrace.mask(c.value)}'
                 '${c.isHttpOnly == true ? ' httpOnly' : ''}'
                 '${c.isSecure == true ? ' secure' : ''}',
         });
@@ -364,7 +368,9 @@ class _LoginPageState extends State<LoginPage> {
     if (!mounted) return;
     setState(() => _status = 'Opening sign-in…');
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Session cleared — reloading sign-in page')),
+      SnackBar(
+        content: Text(context.tr('Session cleared — reloading sign-in page')),
+      ),
     );
   }
 
@@ -424,7 +430,8 @@ class _LoginPageState extends State<LoginPage> {
     } else {
       setState(() {
         _extracting = false;
-        _status = 'Token extraction failed: ${authService.error ?? "unknown error"}';
+        _status =
+            'Token extraction failed: ${authService.error ?? "unknown error"}';
       });
     }
   }
@@ -494,36 +501,44 @@ class _LoginPageState extends State<LoginPage> {
     final authService = context.read<Gt7AuthRepositoryImpl>().authService;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Sign in to PlayStation'),
-        leading: IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: () => Navigator.of(context).pop(false),
+      appBar: WindowNavigationAppBar(
+        child: AppBar(
+          title: Text(context.tr('Sign in to PlayStation')),
+          leading: IconButton(
+            icon: const Icon(Icons.close),
+            onPressed: () => Navigator.of(context).pop(false),
+          ),
+          actions: [
+            IconButton(
+              tooltip: context.tr('Sign out of the site and reload'),
+              icon: const Icon(Icons.cleaning_services_outlined),
+              onPressed: _resetSession,
+            ),
+            IconButton(
+              tooltip: context.tr('Copy trace to clipboard'),
+              icon: const Icon(Icons.copy_all),
+              onPressed: () async {
+                await Clipboard.setData(ClipboardData(text: _trace.dump()));
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        context.tr('Copied ${_trace.length} trace lines'),
+                      ),
+                    ),
+                  );
+                }
+              },
+            ),
+            IconButton(
+              tooltip: context.tr('Show trace'),
+              icon: Icon(
+                _showTrace ? Icons.bug_report : Icons.bug_report_outlined,
+              ),
+              onPressed: () => setState(() => _showTrace = !_showTrace),
+            ),
+          ],
         ),
-        actions: [
-          IconButton(
-            tooltip: 'Sign out of the site and reload',
-            icon: const Icon(Icons.cleaning_services_outlined),
-            onPressed: _resetSession,
-          ),
-          IconButton(
-            tooltip: 'Copy trace to clipboard',
-            icon: const Icon(Icons.copy_all),
-            onPressed: () async {
-              await Clipboard.setData(ClipboardData(text: _trace.dump()));
-              if (context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Copied ${_trace.length} trace lines')),
-                );
-              }
-            },
-          ),
-          IconButton(
-            tooltip: 'Show trace',
-            icon: Icon(_showTrace ? Icons.bug_report : Icons.bug_report_outlined),
-            onPressed: () => setState(() => _showTrace = !_showTrace),
-          ),
-        ],
       ),
       body: Stack(
         children: [
@@ -701,7 +716,7 @@ class _LoginPageState extends State<LoginPage> {
               const CircularProgressIndicator(color: Color(0xFF00D1E8)),
               const SizedBox(height: 20),
               Text(
-                _status,
+                context.tr(_status),
                 textAlign: TextAlign.center,
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w500,
@@ -709,7 +724,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 8),
               Text(
-                'Please wait…',
+                context.tr('Please wait…'),
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: theme.textTheme.bodySmall?.color?.withValues(
                     alpha: 0.6,
@@ -725,7 +740,7 @@ class _LoginPageState extends State<LoginPage> {
                   _trace.log(TraceKind.nav, 'user revealed the page manually');
                   setState(() => _forceShowPage = true);
                 },
-                child: const Text('Show the page'),
+                child: Text(context.tr('Show the page')),
               ),
             ],
           ),
@@ -746,13 +761,13 @@ class _LoginPageState extends State<LoginPage> {
               child: Row(
                 children: [
                   Text(
-                    '${entries.length} events  ·  newest first',
+                    context.tr('${entries.length} events  ·  newest first'),
                     style: const TextStyle(color: Colors.white70, fontSize: 12),
                   ),
                   const Spacer(),
                   TextButton(
                     onPressed: () => _trace.clear(),
-                    child: const Text('Clear'),
+                    child: Text(context.tr('Clear')),
                   ),
                 ],
               ),
@@ -764,12 +779,12 @@ class _LoginPageState extends State<LoginPage> {
               dense: true,
               value: Gt7AuthTrace.instrumentAuthProviderPages,
               onChanged: _setInstrumentAuthPages,
-              title: const Text(
-                'Trace PSN sign-in pages',
+              title: Text(
+                context.tr('Trace PSN sign-in pages'),
                 style: TextStyle(color: Colors.white70, fontSize: 12),
               ),
-              subtitle: const Text(
-                'Anti-bot will reject the sign-in — research only',
+              subtitle: Text(
+                context.tr('Anti-bot will reject the sign-in — research only'),
                 style: TextStyle(color: Color(0xFFFFD166), fontSize: 11),
               ),
             ),
@@ -778,12 +793,10 @@ class _LoginPageState extends State<LoginPage> {
               child: ListView.separated(
                 padding: const EdgeInsets.all(12),
                 itemCount: entries.length,
-                separatorBuilder: (_, __) => const Divider(
-                  height: 12,
-                  color: Colors.white12,
-                ),
+                separatorBuilder: (_, __) =>
+                    const Divider(height: 12, color: Colors.white12),
                 itemBuilder: (context, i) => SelectableText(
-                  entries[i].format(),
+                  context.tr(entries[i].format()),
                   style: TextStyle(
                     color: _colorFor(entries[i].kind),
                     fontFamily: 'monospace',

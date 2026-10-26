@@ -1,3 +1,5 @@
+import 'package:gt7_companion/widgets/window_navigation_safe_area.dart';
+import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -50,21 +52,23 @@ class _GTAutoDisplayState extends State<GTAutoDisplay> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('GT Auto'),
-        actions: [
-          Consumer<GtAutoRepository>(
-            builder: (context, repository, _) => IconButton(
-              key: const ValueKey('gt-auto-refresh'),
-              tooltip: 'Refresh workshop data',
-              onPressed: repository.isLoading
-                  ? null
-                  : () => repository.load(forceRefresh: true),
-              icon: const Icon(Icons.refresh),
+      appBar: WindowNavigationAppBar(
+        child: AppBar(
+          title: Text(context.tr('GT Auto')),
+          actions: [
+            Consumer<GtAutoRepository>(
+              builder: (context, repository, _) => IconButton(
+                key: const ValueKey('gt-auto-refresh'),
+                tooltip: context.tr('Refresh workshop data'),
+                onPressed: repository.isLoading
+                    ? null
+                    : () => repository.load(forceRefresh: true),
+                icon: const Icon(Icons.refresh),
+              ),
             ),
-          ),
-          const SizedBox(width: 8),
-        ],
+            const SizedBox(width: 8),
+          ],
+        ),
       ),
       body: SafeArea(
         top: false,
@@ -79,9 +83,9 @@ class _GTAutoDisplayState extends State<GTAutoDisplay> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text('Car catalogue could not be loaded.'),
+                    Text(context.tr('Car catalogue could not be loaded.')),
                     IconButton(
-                      tooltip: 'Retry',
+                      tooltip: context.tr('Retry'),
                       onPressed: () => repository.load(forceRefresh: true),
                       icon: const Icon(Icons.refresh),
                     ),
@@ -120,7 +124,7 @@ class _GTAutoDisplayState extends State<GTAutoDisplay> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'GARAGE / GT AUTO',
+                                  context.tr('GARAGE / GT AUTO'),
                                   style: theme.textTheme.labelSmall?.copyWith(
                                     letterSpacing: 2,
                                     color: theme.colorScheme.onSurfaceVariant,
@@ -128,7 +132,7 @@ class _GTAutoDisplayState extends State<GTAutoDisplay> {
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
-                                  'Workshop',
+                                  context.tr('Workshop'),
                                   style: theme.textTheme.headlineSmall,
                                 ),
                               ],
@@ -215,7 +219,9 @@ class _GTAutoDisplayState extends State<GTAutoDisplay> {
                       const SizedBox(height: 24),
                       Divider(color: theme.colorScheme.outlineVariant),
                       Text(
-                        'GT AUTO / GT7 COMPANION · ${repository.cars.length} cars · ${repository.swapCount} confirmed swap records',
+                        context.tr(
+                          'GT AUTO / GT7 COMPANION · ${repository.cars.length} cars · ${repository.swapCount} confirmed swap records',
+                        ),
                         style: theme.textTheme.labelSmall?.copyWith(
                           color: theme.colorScheme.onSurfaceVariant,
                         ),
@@ -324,14 +330,14 @@ class _ServiceTile extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        entry.$1,
+                        context.tr(entry.$1),
                         style: theme.textTheme.titleSmall?.copyWith(
                           color: foreground,
                         ),
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        entry.$2,
+                        context.tr(entry.$2),
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: foreground.withValues(alpha: .75),
                         ),
@@ -372,14 +378,14 @@ class _SourceError extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  '$source: $message',
+                  context.tr('$source: $message'),
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onErrorContainer,
                   ),
                 ),
               ),
               IconButton(
-                tooltip: 'Retry $source',
+                tooltip: context.tr('Retry $source'),
                 onPressed: loading ? null : onRetry,
                 icon: const Icon(Icons.refresh),
               ),

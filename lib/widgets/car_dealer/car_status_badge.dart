@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 // FILE: lib/widgets/car_dealer/car_status_badge.dart
 // VERSION: 1.0.0
 // START_MODULE_CONTRACT
@@ -42,7 +43,7 @@ class CarStatusBadge extends StatelessWidget {
         borderRadius: BorderRadius.circular(4),
       ),
       child: Text(
-        text,
+        context.tr(text),
         style: TextStyle(
           fontSize: 10,
           fontWeight: FontWeight.bold,

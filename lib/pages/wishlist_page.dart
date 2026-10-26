@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 
@@ -19,10 +20,13 @@ class WishlistPage extends StatelessWidget {
               color: Colors.pinkAccent,
             ),
             const SizedBox(height: 12),
-            Text('Wishlist', style: Theme.of(context).textTheme.headlineSmall),
+            Text(
+              context.tr('Wishlist'),
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
             const SizedBox(height: 8),
             Text(
-              'Saved cars and favorites',
+              context.tr('Saved cars and favorites'),
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],

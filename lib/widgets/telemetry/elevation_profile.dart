@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -70,15 +71,15 @@ class _ElevationProfileState extends State<ElevationProfile> {
   Widget build(BuildContext context) {
     _rebuild();
 
-    final hasProfile = _heights.length > 8 &&
-        _distances.isNotEmpty &&
-        _distances.last > 50;
+    final hasProfile =
+        _heights.length > 8 && _distances.isNotEmpty && _distances.last > 50;
     final body = hasProfile
         ? SizedBox(
             height: widget.height,
             child: CustomPaint(
               size: Size(double.infinity, widget.height),
               painter: _ElevationPainter(
+                l10n: context.l10n,
                 distances: _distances,
                 heights: _heights,
               ),
@@ -88,8 +89,11 @@ class _ElevationProfileState extends State<ElevationProfile> {
             height: widget.height,
             child: Center(
               child: Text(
-                'NO ELEVATION YET — THE PROFILE NEEDS A DRIVEN LAP',
-                style: gt7Caption(color: gt7TextMuted.withValues(alpha: 0.6), size: 8),
+                context.tr('NO ELEVATION YET — THE PROFILE NEEDS A DRIVEN LAP'),
+                style: gt7Caption(
+                  color: gt7TextMuted.withValues(alpha: 0.6),
+                  size: 8,
+                ),
               ),
             ),
           );
@@ -106,10 +110,13 @@ class _ElevationProfileState extends State<ElevationProfile> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Row(
+          Wrap(
+            spacing: 12,
+            runSpacing: 8,
+            crossAxisAlignment: WrapCrossAlignment.center,
             children: [
               Text(
-                widget.label,
+                context.tr(widget.label),
                 style: gt7Caption(
                   color: gt7Text,
                   size: 11,
@@ -117,19 +124,21 @@ class _ElevationProfileState extends State<ElevationProfile> {
                   weight: FontWeight.w700,
                 ),
               ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  'FROM POSITION Y (0x08), WHERE THE CAR ACTUALLY IS — '
-                  'THE FASTEST LAP OF THE SESSION',
-                  style: gt7Caption(
-                    color: gt7TextMuted.withValues(alpha: 0.6),
-                    size: 8,
-                  ),
-                ),
+              Text(
+                context.tr(range),
+                style: gt7Caption(color: gt7TextMuted, size: 9),
               ),
-              Text(range, style: gt7Caption(color: gt7TextMuted, size: 9)),
             ],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            context.tr(
+              'FROM POSITION Y (0x08), WHERE THE CAR ACTUALLY IS — THE FASTEST LAP OF THE SESSION',
+            ),
+            style: gt7Caption(
+              color: gt7TextMuted.withValues(alpha: .6),
+              size: 8,
+            ),
           ),
           const SizedBox(height: 10),
           body,
@@ -140,7 +149,12 @@ class _ElevationProfileState extends State<ElevationProfile> {
 }
 
 class _ElevationPainter extends CustomPainter {
-  _ElevationPainter({required this.distances, required this.heights});
+  _ElevationPainter({
+    required this.l10n,
+    required this.distances,
+    required this.heights,
+  });
+  final AppLocalizations l10n;
 
   final List<double> distances;
   final List<double> heights;
@@ -213,8 +227,16 @@ class _ElevationPainter extends CustomPainter {
     );
 
     // Scale labels: the range, in metres, top and bottom.
-    _label(canvas, '${high.round()} m', Offset(plot.left - padding * 1.9, plot.top - 6));
-    _label(canvas, '${low.round()} m', Offset(plot.left - padding * 1.9, plot.bottom - 10));
+    _label(
+      canvas,
+      '${high.round()} m',
+      Offset(plot.left - padding * 1.9, plot.top - 6),
+    );
+    _label(
+      canvas,
+      '${low.round()} m',
+      Offset(plot.left - padding * 1.9, plot.bottom - 10),
+    );
     _label(canvas, 'START', Offset(plot.left, plot.bottom + 2));
     _label(
       canvas,
@@ -226,7 +248,7 @@ class _ElevationPainter extends CustomPainter {
   void _label(Canvas canvas, String text, Offset at) {
     final painter = TextPainter(
       text: TextSpan(
-        text: text,
+        text: l10n.uiText(text),
         style: gt7Caption(color: gt7TextMuted.withValues(alpha: 0.7), size: 8),
       ),
       textDirection: TextDirection.ltr,
@@ -236,6 +258,7 @@ class _ElevationPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_ElevationPainter old) =>
+      l10n.localeName != old.l10n.localeName ||
       old.heights.length != heights.length ||
       old.distances.lastOrNull != distances.lastOrNull;
 }

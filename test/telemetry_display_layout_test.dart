@@ -1,3 +1,6 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
+import 'package:gt7_companion/widgets/telemetry/gt7_hud.dart';
+import 'package:gt7_companion/repositories/car_catalog.dart';
 import 'dart:async';
 import 'dart:math' as math;
 
@@ -68,7 +71,13 @@ void main() {
     return trace;
   }
 
-  Future<void> pumpAt(WidgetTester tester, double width) async {
+  Future<void> pumpAt(
+    WidgetTester tester,
+    double width, {
+    String locale = 'en',
+    double scale = 1,
+    bool hud = false,
+  }) async {
     tester.view.physicalSize = Size(width * 2, 2400);
     tester.view.devicePixelRatio = 2.0;
     addTearDown(tester.view.reset);
@@ -86,13 +95,25 @@ void main() {
     await tester.pumpWidget(
       MultiProvider(
         providers: [
+          ChangeNotifierProvider<CarCatalog>(create: (_) => CarCatalog()),
           ChangeNotifierProvider<TrackCatalog>(create: (_) => TrackCatalog()),
           ChangeNotifierProvider<TelemetryService>.value(value: service),
           BlocProvider<ThrottleBrakeGraphBloc>.value(value: bloc),
         ],
         child: MaterialApp(
+          locale: Locale(locale),
+          supportedLocales: AppLocalizations.supportedLocales,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          builder: (context, child) => MediaQuery(
+            data: MediaQuery.of(
+              context,
+            ).copyWith(textScaler: TextScaler.linear(scale)),
+            child: child!,
+          ),
           home: Scaffold(
-            body: TelemetryDisplay(telemetry: telemetry(), trace: route()),
+            body: hud
+                ? Gt7Hud(telemetry: telemetry(), trace: route())
+                : TelemetryDisplay(telemetry: telemetry(), trace: route()),
           ),
         ),
       ),
@@ -118,8 +139,8 @@ void main() {
     // The *panels*, not the headings: a heading is ten characters wide whatever
     // the layout is, and comparing those would pass for any arrangement at all.
     Rect panelOf(Finder heading) => tester.getRect(
-          find.ancestor(of: heading, matching: find.byType(Container)).first,
-        );
+      find.ancestor(of: heading, matching: find.byType(Container)).first,
+    );
 
     final map = panelOf(find.text('TRACK MAP'));
     final motion = panelOf(find.text('MOTION'));
@@ -176,15 +197,18 @@ void main() {
 
     expect(tester.takeException(), isNull);
     final motion = tester.getRect(
-      find.ancestor(of: find.text('MOTION'), matching: find.byType(Container))
+      find
+          .ancestor(of: find.text('MOTION'), matching: find.byType(Container))
           .first,
     );
     final speed = tester.getRect(find.byType(GaugeDial).first);
     final tyres = tester.getRect(
-      find.ancestor(
-        of: find.text('TYRES & VEHICLE'),
-        matching: find.byType(Container),
-      ).first,
+      find
+          .ancestor(
+            of: find.text('TYRES & VEHICLE'),
+            matching: find.byType(Container),
+          )
+          .first,
     );
 
     expect(speed.top, greaterThan(motion.bottom), reason: 'under the top row');
@@ -202,13 +226,16 @@ void main() {
 
     expect(tester.takeException(), isNull);
     final map = tester.getRect(
-      find.ancestor(
-        of: find.text('TRACK MAP'),
-        matching: find.byType(Container),
-      ).first,
+      find
+          .ancestor(
+            of: find.text('TRACK MAP'),
+            matching: find.byType(Container),
+          )
+          .first,
     );
     final motion = tester.getRect(
-      find.ancestor(of: find.text('MOTION'), matching: find.byType(Container))
+      find
+          .ancestor(of: find.text('MOTION'), matching: find.byType(Container))
           .first,
     );
     expect(map.left, lessThan(motion.left));
@@ -222,4 +249,17 @@ void main() {
     final motion = tester.getRect(find.text('MOTION'));
     expect(map.top, lessThan(motion.top));
   });
+  for (final locale in ['en', 'ru']) {
+    for (final width in [320.0, 390.0, 600.0, 820.0, 1280.0, 1920.0]) {
+      for (final hud in [false, true]) {
+        testWidgets('localized $locale telemetry hud=$hud at $width / 1.5', (
+          tester,
+        ) async {
+          await pumpAt(tester, width, locale: locale, scale: 1.5, hud: hud);
+          expect(tester.takeException(), isNull);
+          await tester.pumpWidget(const SizedBox());
+        });
+      }
+    }
+  }
 }

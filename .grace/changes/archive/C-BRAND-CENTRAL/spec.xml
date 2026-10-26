@@ -1,0 +1,45 @@
+<GraceChangeSpec graceVersion="4.0" status="applied">
+  <C-BRAND-CENTRAL>
+    <Summary>Add Brand Central as an independent home service with the complete official GT7 catalogue, manufacturer showrooms, car history, specifications and photo galleries.</Summary>
+    <Problem>The app has separate used/legendary dealers and GT Auto, but lacks a manufacturer-centred catalogue for browsing every GT7 car and reading its real history.</Problem>
+    <Goals>
+      <Goal>Add a fifth Services entry and its own HomeShell route, alongside the existing dealers, GT Auto and Apex.</Goal>
+      <Goal>Provide region/brand selection, an all-cars view, manufacturer showroom and a car detail screen inspired by GT6, GT Sport and GT7.</Goal>
+      <Goal>Use official stable car IDs to connect real manufacturer names/logos, countries, stock specifications, original descriptions and all available photos.</Goal>
+      <Goal>Support system-default Russian/English content, explicit source attribution, retry, safe missing-data states and responsive layouts.</Goal>
+    </Goals>
+    <Constraints>
+      <Constraint>Follow Provider/ChangeNotifier architecture, central DI and auto_route; new feature UI belongs under lib/widgets/brand_central.</Constraint>
+      <Constraint>Use the FVM-pinned SDK and preserve GT Auto, Apex, audio and the existing dealer behaviour.</Constraint>
+      <Constraint>Parse official public data without executing remote JavaScript. Discover hashed module URLs; validate schemas, hosts, IDs and units.</Constraint>
+      <Constraint>Cover all official-catalogue cars; do not imply every listed car is sold in the game's new-car Brand Central.</Constraint>
+      <Constraint>History text must come from the official catalogue, with attribution; absent data remains unknown.</Constraint>
+    </Constraints>
+    <NonGoals>
+      <NonGoal>No game purchase/install controls, invented prices, generated history, full brand museum timeline, 3D viewer or unsupported paint selector.</NonGoal>
+      <NonGoal>No telemetry/profile redesign, unrelated native renderer crash repair, deployment, commit or push in this change.</NonGoal>
+    </NonGoals>
+    <AcceptanceCriteria>
+      <Criterion>Home exposes five independent Services cards with working navigation and a content-height responsive layout.</Criterion>
+      <Criterion>Brands and all-cars views cover the official catalogue, with working region filtering, search, sort and an empty-search result.</Criterion>
+      <Criterion>Selecting a brand opens its cars; selecting a car shows its real photo, original Russian/English history and labelled official specifications.</Criterion>
+      <Criterion>Gallery supports every available frame, previous/next or swipe and full-image viewing; failed image or text loads expose fallback/retry.</Criterion>
+      <Criterion>Back navigation returns through car, showroom and brand selection to Home without discarding the user's filter or list position.</Criterion>
+      <Criterion>Rapid car/language changes cannot display a stale response for a previous selection; cached records avoid repeated bulk requests.</Criterion>
+      <Criterion>Widget tests cover 320, 390, 600, 820, 1024, 1280 and 1920 logical widths and text scale 1.5 without overflow.</Criterion>
+      <Criterion>Exercise the new service in the running macOS app with live official data, history, gallery, back navigation and multiple window sizes; record screenshots and errors.</Criterion>
+    </AcceptanceCriteria>
+    <AffectedAreas><M-WIDGET-SERVICE-MENU /><M-SHELL-HOME /><M-ROUTER /><M-DI-APPSCOPE /></AffectedAreas>
+    <VerificationIntent>
+      <ExpectedCommand>FVM Dart analysis of changed modules</ExpectedCommand>
+      <ExpectedCommand>Flutter parser, repository, widget and navigation tests</ExpectedCommand>
+      <ExpectedEvidence>Live official catalogue coverage, car history and gallery, source attribution, native macOS screenshots and runtime-error inspection.</ExpectedEvidence>
+    </VerificationIntent>
+    <Assumptions>
+      <Assumption>The fifth card is placed before the existing four cards; their relative order remains unchanged.</Assumption>
+      <Assumption>First content languages are System, Russian and English. Other system languages use English.</Assumption>
+      <Assumption>A full brand-event museum timeline requires a separate confirmed data source and is outside this first implementation; car-model history is included.</Assumption>
+      <Assumption>The user is reviewing this concrete scope before an approved executable plan is created.</Assumption>
+    </Assumptions>
+  </C-BRAND-CENTRAL>
+</GraceChangeSpec>

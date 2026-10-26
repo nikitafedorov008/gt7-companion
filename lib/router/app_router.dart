@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../widgets/gt_auto/gt_auto_display.dart';
 import '../widgets/apex/apex_display.dart';
+import '../widgets/settings/settings_display.dart';
+import '../widgets/brand_central/brand_central_display.dart';
 import '../pages/home_page.dart';
 import '../widgets/nested_widget.dart';
 import '../widgets/car_dealer/used/used_car_display.dart';
@@ -24,6 +26,7 @@ class AppRouter extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => [
+    AutoRoute(page: SettingsDisplayRoute.page, path: '/settings'),
     AutoRoute(
       page: NestedWidgetRoute.page,
       initial: true,
@@ -36,6 +39,10 @@ class AppRouter extends RootStackRouter {
             AutoRoute(page: HomePageRoute.page, initial: true, path: 'start'),
             AutoRoute(page: UsedCarDisplayRoute.page, path: 'used'),
             AutoRoute(page: LegendaryCarDisplayRoute.page, path: 'legendary'),
+            AutoRoute(
+              page: BrandCentralDisplayRoute.page,
+              path: 'brand-central',
+            ),
             AutoRoute(page: GTAutoDisplayRoute.page, path: 'gtauto'),
             AutoRoute(page: ApexDisplayRoute.page, path: 'apex'),
           ],

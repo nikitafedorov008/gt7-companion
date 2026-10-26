@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'package:flutter/foundation.dart'
     show kIsWeb, defaultTargetPlatform, TargetPlatform;
 import 'package:flutter/material.dart';
@@ -98,6 +99,102 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
     }
   }
 
+  Future<void> _openGtMenu(BuildContext context) async {
+    FocusManager.instance.primaryFocus?.unfocus();
+    final theme = Theme.of(context);
+    final choice = await showDialog<String>(
+      context: context,
+      barrierColor: Colors.black.withValues(alpha: .22),
+      builder: (dialogContext) => Align(
+        alignment: Alignment.topLeft,
+        child: SafeArea(
+          bottom: false,
+          child: SizedBox(
+            width: 330,
+            child: Material(
+              color: theme.colorScheme.surface.withValues(alpha: .95),
+              elevation: 18,
+              shadowColor: Colors.black.withValues(alpha: .35),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  WindowNavigationSafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 8, 8, 8),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              context.tr('GT Menu'),
+                              style: theme.textTheme.titleSmall?.copyWith(
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                          ),
+                          IconButton(
+                            key: const ValueKey('gt-menu-close'),
+                            tooltip: context.tr('Close'),
+                            onPressed: () => Navigator.of(dialogContext).pop(),
+                            icon: const Icon(Icons.menu, size: 20),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Divider(
+                    height: 1,
+                    color: theme.colorScheme.onSurface.withValues(alpha: .08),
+                  ),
+                  InkWell(
+                    key: const ValueKey('gt-menu-settings'),
+                    onTap: () => Navigator.of(dialogContext).pop('settings'),
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 4,
+                      ),
+                      leading: const Icon(Icons.settings, size: 24),
+                      title: Text(
+                        context.l10n.settings,
+                        style: theme.textTheme.bodyMedium,
+                      ),
+                    ),
+                  ),
+                  Divider(
+                    height: 1,
+                    color: theme.colorScheme.onSurface.withValues(alpha: .08),
+                  ),
+                  InkWell(
+                    key: const ValueKey('gt-menu-home'),
+                    onTap: () => Navigator.of(dialogContext).pop('home'),
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 4,
+                      ),
+                      leading: const Icon(Icons.location_on_outlined, size: 24),
+                      title: Text(
+                        context.l10n.home,
+                        style: theme.textTheme.bodyMedium,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    if (!context.mounted) return;
+    if (choice == 'home') _goHome(context);
+    if (choice == 'settings') {
+      context.router.root.push(const SettingsDisplayRoute());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_isMobile) {
@@ -180,7 +277,8 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
                 // Keep the button inside the nav bar bounds so it doesn't cover page content.
                 bottom: 8,
                 child: InkWell(
-                  onTap: () => _goHome(context),
+                  key: const ValueKey('gt-menu-button'),
+                  onTap: () => _openGtMenu(context),
                   borderRadius: BorderRadius.circular(999),
                   child: Container(
                     padding: const EdgeInsets.all(3.2),
@@ -237,7 +335,8 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
     final active = tabs?.activeIndex ?? -1;
 
     final homeButton = InkWell(
-      onTap: () => _goHome(context),
+      key: const ValueKey('gt-menu-button'),
+      onTap: () => _openGtMenu(context),
       borderRadius: BorderRadius.circular(999),
       child: Container(
         padding: const EdgeInsets.all(3.2),
@@ -318,9 +417,11 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
                       const SizedBox(width: 12),
                       Expanded(
                         child: Text(
-                          constraints.maxWidth < 500
-                              ? 'GT7 Companion'
-                              : 'Gran Turismo 7 Companion',
+                          context.tr(
+                            constraints.maxWidth < 500
+                                ? 'GT7 Companion'
+                                : 'Gran Turismo 7 Companion',
+                          ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context).textTheme.titleMedium,
@@ -329,7 +430,7 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
                     ] else
                       const Spacer(),
                     IconButton(
-                      tooltip: 'Wishlist',
+                      tooltip: context.tr('Wishlist'),
                       onPressed: () => _openPlaceholder(context, 'Wishlist'),
                       icon: Icon(
                         Icons.flag_outlined,
@@ -339,7 +440,7 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
                       ),
                     ),
                     IconButton(
-                      tooltip: 'Profile',
+                      tooltip: context.tr('Profile'),
                       onPressed: () => _openPlaceholder(context, 'Profile'),
                       icon: Icon(
                         Icons.person_outline,
@@ -364,7 +465,7 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
                   // app title / spacer
                   Expanded(
                     child: Text(
-                      'Gran Turismo 7 Companion',
+                      context.tr('Gran Turismo 7 Companion'),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.titleMedium,
@@ -386,7 +487,7 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
                               context,
                             ).colorScheme.onSurface.withValues(alpha: 0.9),
                     ),
-                    label: const Text('Wishlist'),
+                    label: Text(context.tr('Wishlist')),
                     style: TextButton.styleFrom(
                       foregroundColor: Theme.of(context).colorScheme.onSurface,
                     ),
@@ -407,7 +508,7 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
                               context,
                             ).colorScheme.onSurface.withValues(alpha: 0.9),
                     ),
-                    label: const Text('Profile'),
+                    label: Text(context.tr('Profile')),
                     style: TextButton.styleFrom(
                       foregroundColor: Theme.of(context).colorScheme.onSurface,
                     ),
@@ -438,7 +539,7 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            time,
+                            context.tr(time),
                             style: Theme.of(context).textTheme.bodyMedium
                                 ?.copyWith(
                                   fontSize: 22,
@@ -446,7 +547,7 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
                                 ),
                           ),
                           Text(
-                            date,
+                            context.tr(date),
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                         ],
@@ -494,21 +595,21 @@ class _AudioMenu extends StatelessWidget {
     final anyChannelOn = sound.enabled || music.enabled;
 
     return PopupMenuButton<String>(
-      tooltip: 'Sound',
+      tooltip: context.tr('Sound'),
       icon: Icon(anyChannelOn ? Icons.volume_up : Icons.volume_off),
       onSelected: (channel) {
         if (channel == 'credits') {
           showDialog<void>(
             context: context,
             builder: (context) => AlertDialog(
-              title: const Text('Music credits'),
-              content: const SingleChildScrollView(
-                child: SelectableText(MusicService.credits),
+              title: Text(context.tr('Music credits')),
+              content: SingleChildScrollView(
+                child: SelectableText(context.tr(MusicService.credits)),
               ),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('Close'),
+                  child: Text(context.tr('Close')),
                 ),
               ],
             ),
@@ -529,14 +630,17 @@ class _AudioMenu extends StatelessWidget {
         CheckedPopupMenuItem(
           value: 'sound',
           checked: sound.enabled,
-          child: const Text('Interface sounds'),
+          child: Text(context.tr('Interface sounds')),
         ),
         CheckedPopupMenuItem(
           value: 'music',
           checked: music.enabled,
-          child: const Text('Ambient music'),
+          child: Text(context.tr('Ambient music')),
         ),
-        const PopupMenuItem(value: 'credits', child: Text('Music credits')),
+        PopupMenuItem(
+          value: 'credits',
+          child: Text(context.tr('Music credits')),
+        ),
       ],
     );
   }

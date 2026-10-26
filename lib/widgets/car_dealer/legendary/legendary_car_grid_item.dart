@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 // FILE: lib/widgets/car_dealer/legendary/legendary_car_grid_item.dart
 // VERSION: 1.0.0
 // START_MODULE_CONTRACT
@@ -81,7 +82,7 @@ class LegendaryCarCardItem extends StatelessWidget {
                         const SizedBox(width: 6),
                         Align(
                           child: Text(
-                            car.manufacturer,
+                            context.tr(car.manufacturer),
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 11,
@@ -94,7 +95,7 @@ class LegendaryCarCardItem extends StatelessWidget {
 
                         // Car Name
                         Text(
-                          car.name,
+                          context.tr(car.name),
                           style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
@@ -164,7 +165,7 @@ class LegendaryCarCardItem extends StatelessWidget {
                       children: [
                         // Price
                         Text(
-                          car.displayPrice,
+                          context.tr(car.displayPrice),
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -174,7 +175,7 @@ class LegendaryCarCardItem extends StatelessWidget {
 
                         // Miles
                         Text(
-                          '${_formatMiles(car.estimateDays)} miles',
+                          context.tr('${_formatMiles(car.estimateDays)} miles'),
                           style: const TextStyle(
                             fontSize: 12,
                             color: Colors.grey,

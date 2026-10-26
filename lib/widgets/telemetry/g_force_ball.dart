@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -129,6 +130,7 @@ class _GForceBallState extends State<GForceBall> {
       child: CustomPaint(
         size: Size(widget.size, widget.size),
         painter: _GForcePainter(
+          l10n: context.l10n,
           // Below this the text would be noise rather than information.
           withLabels: widget.labels && widget.size >= kGForceBallLabelledSize,
           lateral: telemetry.lateralG,
@@ -190,6 +192,7 @@ enum _AlignX { left, centre, right }
 
 class _GForcePainter extends CustomPainter {
   _GForcePainter({
+    required this.l10n,
     required this.lateral,
     required this.longitudinal,
     required this.heave,
@@ -208,6 +211,7 @@ class _GForcePainter extends CustomPainter {
     required this.hasData,
     required this.withLabels,
   });
+  final AppLocalizations l10n;
 
   final double? lateral;
   final double? longitudinal;
@@ -259,7 +263,8 @@ class _GForcePainter extends CustomPainter {
     final centre = Offset(size.width / 2, size.height / 2);
     // With readouts around it the circle gives up a band for the text; without
     // them it can use the whole square.
-    final radius = math.min(size.width, size.height) / 2 -
+    final radius =
+        math.min(size.width, size.height) / 2 -
         (withLabels ? kGForceBallLabelBand : 2);
 
     _paintRim(canvas, centre, radius);
@@ -345,9 +350,7 @@ class _GForcePainter extends CustomPainter {
       anchor: Offset(centre.dx - radius - 14, centre.dy - 34),
       alignX: _AlignX.right,
       label: 'LATERAL',
-      value: lateral == null
-          ? '—'
-          : '${lateral!.abs().toStringAsFixed(2)} g',
+      value: lateral == null ? '—' : '${lateral!.abs().toStringAsFixed(2)} g',
       hint: lateral == null
           ? 'NOT IN THIS PACKET'
           : (lateral! >= 0 ? 'TO THE RIGHT' : 'TO THE LEFT'),
@@ -458,22 +461,18 @@ class _GForcePainter extends CustomPainter {
 
     hintPainter.paint(
       canvas,
-      Offset(
-        switch (alignX) {
-          _AlignX.left => x,
-          _AlignX.centre => anchor.dx - hintPainter.width / 2,
-          _AlignX.right => anchor.dx - hintPainter.width,
-        },
-        valueY + valuePainter.height + 2,
-      ),
+      Offset(switch (alignX) {
+        _AlignX.left => x,
+        _AlignX.centre => anchor.dx - hintPainter.width / 2,
+        _AlignX.right => anchor.dx - hintPainter.width,
+      }, valueY + valuePainter.height + 2),
     );
   }
 
-  TextPainter _painter(String text, TextStyle style) =>
-      TextPainter(
-        text: TextSpan(text: text, style: style),
-        textDirection: TextDirection.ltr,
-      )..layout();
+  TextPainter _painter(String text, TextStyle style) => TextPainter(
+    text: TextSpan(text: l10n.uiText(text), style: style),
+    textDirection: TextDirection.ltr,
+  )..layout();
 
   /// Rim, tick marks and the peak markers.
   void _paintRim(Canvas canvas, Offset centre, double radius) {
@@ -510,7 +509,8 @@ class _GForcePainter extends CustomPainter {
     final peak = Paint()..color = gt7Warn.withValues(alpha: 0.9);
     void mark(double value, Offset direction) {
       if (value <= 0.05) return;
-      final at = centre +
+      final at =
+          centre +
           Offset(
             direction.dx * radius * (value / _fullScale).clamp(0.0, 1.0),
             direction.dy * radius * (value / _fullScale).clamp(0.0, 1.0),
@@ -524,8 +524,18 @@ class _GForcePainter extends CustomPainter {
     mark(peakLongitudinal, const Offset(0, 1));
 
     _text(canvas, 'LAT', centre + Offset(radius - 26, -6), _lateralColour);
-    _text(canvas, 'ACC', centre + Offset(-32, -radius * _squash + 2), _accelColour);
-    _text(canvas, 'BRK', centre + Offset(-32, radius * _squash - 12), _brakeColour);
+    _text(
+      canvas,
+      'ACC',
+      centre + Offset(-32, -radius * _squash + 2),
+      _accelColour,
+    );
+    _text(
+      canvas,
+      'BRK',
+      centre + Offset(-32, radius * _squash - 12),
+      _brakeColour,
+    );
     _text(
       canvas,
       '${_fullScale.toStringAsFixed(0)} g',
@@ -546,11 +556,7 @@ class _GForcePainter extends CustomPainter {
     for (var i = 1; i <= 3; i++) {
       final r = radius * i / 3;
       canvas.drawOval(
-        Rect.fromCenter(
-          center: centre,
-          width: r * 2,
-          height: r * 2 * _squash,
-        ),
+        Rect.fromCenter(center: centre, width: r * 2, height: r * 2 * _squash),
         grid,
       );
     }
@@ -587,16 +593,8 @@ class _GForcePainter extends CustomPainter {
 
     for (var g = 1; g <= _fullScale; g++) {
       final x = radius * g / _fullScale;
-      canvas.drawLine(
-        centre + Offset(x, -3),
-        centre + Offset(x, 3),
-        axis,
-      );
-      canvas.drawLine(
-        centre + Offset(-x, -3),
-        centre + Offset(-x, 3),
-        axis,
-      );
+      canvas.drawLine(centre + Offset(x, -3), centre + Offset(x, 3), axis);
+      canvas.drawLine(centre + Offset(-x, -3), centre + Offset(-x, 3), axis);
       final y = radius * _squash * g / _fullScale;
       canvas.drawLine(centre + Offset(-3, y), centre + Offset(3, y), axis);
       canvas.drawLine(centre + Offset(-3, -y), centre + Offset(3, -y), axis);
@@ -621,7 +619,11 @@ class _GForcePainter extends CustomPainter {
 
   /// The ball itself: a lit sphere with a shadow on the floor under it.
   void _paintBall(Canvas canvas, Offset centre, double radius) {
-    final at = _toCanvas(Offset(lateral ?? 0, longitudinal ?? 0), centre, radius);
+    final at = _toCanvas(
+      Offset(lateral ?? 0, longitudinal ?? 0),
+      centre,
+      radius,
+    );
     final r = 9.0 + 2.0 * (1 - _normalised(at, centre, radius).dy);
 
     // Shadow, squashed, offset by how high the ball sits.
@@ -640,11 +642,7 @@ class _GForcePainter extends CustomPainter {
       Paint()
         ..shader = RadialGradient(
           center: const Alignment(-0.4, -0.5),
-          colors: [
-            Colors.white,
-            gt7SlotA,
-            gt7SlotA.withValues(alpha: 0.75),
-          ],
+          colors: [Colors.white, gt7SlotA, gt7SlotA.withValues(alpha: 0.75)],
           stops: const [0.0, 0.55, 1.0],
         ).createShader(Rect.fromCircle(center: at, radius: r)),
     );
@@ -709,13 +707,13 @@ class _GForcePainter extends CustomPainter {
     final carCentre = centre + Offset(0, heave * 3);
 
     Offset onGround(double x, double z) => CarModel3D.project(
-          centre: carCentre,
-          metresToPixels: scale,
-          local: (x: x, y: 0.02, z: z),
-          yaw: yaw,
-          cameraTilt: _cameraTilt,
-          onGround: true,
-        );
+      centre: carCentre,
+      metresToPixels: scale,
+      local: (x: x, y: 0.02, z: z),
+      yaw: yaw,
+      cameraTilt: _cameraTilt,
+      onGround: true,
+    );
 
     // Outboard of the right-hand tyres (the wheel centre is 0.80 m out and the
     // tyre is 0.34 m wide). The offset has to clear the car's *silhouette*, not
@@ -764,12 +762,7 @@ class _GForcePainter extends CustomPainter {
     // half-covered by the thing it measures is worse than no measurement.
     canvas.drawRRect(
       RRect.fromRectAndRadius(
-        Rect.fromLTWH(
-          left - 7,
-          middle.dy - 11,
-          width + 14,
-          labelHeight + 8,
-        ),
+        Rect.fromLTWH(left - 7, middle.dy - 11, width + 14, labelHeight + 8),
         const Radius.circular(4),
       ),
       Paint()..color = Colors.black.withValues(alpha: 0.6),
@@ -844,10 +837,7 @@ class _GForcePainter extends CustomPainter {
   }
 
   Offset _normalised(Offset at, Offset centre, double radius) {
-    return Offset(
-      (at.dx - centre.dx) / radius,
-      (at.dy - centre.dy) / radius,
-    );
+    return Offset((at.dx - centre.dx) / radius, (at.dy - centre.dy) / radius);
   }
 
   void _text(
@@ -876,7 +866,7 @@ class _GForcePainter extends CustomPainter {
   TextPainter _captionPainter(String text, Color color, double size) {
     return TextPainter(
       text: TextSpan(
-        text: text,
+        text: l10n.uiText(text),
         style: gt7Caption(color: color, size: size),
       ),
       textDirection: TextDirection.ltr,
@@ -884,5 +874,6 @@ class _GForcePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_GForcePainter old) => true;
+  bool shouldRepaint(_GForcePainter old) =>
+      l10n.localeName != old.l10n.localeName || true;
 }

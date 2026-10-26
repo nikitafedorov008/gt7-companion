@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -66,9 +67,7 @@ class _TelemetryPanelState extends State<TelemetryPanel> {
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerHighest.withValues(
-          alpha: 0.5,
-        ),
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.white12),
       ),
@@ -79,7 +78,7 @@ class _TelemetryPanelState extends State<TelemetryPanel> {
             children: [
               Expanded(
                 child: Text(
-                  'TELEMETRY',
+                  context.tr('TELEMETRY'),
                   style: theme.textTheme.labelMedium?.copyWith(
                     letterSpacing: 1.4,
                     fontWeight: FontWeight.w700,
@@ -114,7 +113,7 @@ class _TelemetryPanelState extends State<TelemetryPanel> {
         return Row(
           children: [
             Text(
-              'PACKET',
+              context.tr('PACKET'),
               style: theme.textTheme.labelSmall?.copyWith(
                 letterSpacing: 1.4,
                 color: Colors.white70,
@@ -132,7 +131,7 @@ class _TelemetryPanelState extends State<TelemetryPanel> {
             const SizedBox(width: 8),
             Expanded(
               child: Text(
-                _packetHint(service.packetType),
+                context.tr(_packetHint(service.packetType)),
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: Colors.white54,
                 ),
@@ -145,10 +144,10 @@ class _TelemetryPanelState extends State<TelemetryPanel> {
   }
 
   static String _packetHint(String type) => switch (type) {
-        'A' => '296 bytes: position, rotation, lap times — no steering',
-        'B' => '316 bytes: adds steering angle and g-forces',
-        _ => '368 bytes: adds surfaces and car category',
-      };
+    'A' => '296 bytes: position, rotation, lap times — no steering',
+    'B' => '316 bytes: adds steering angle and g-forces',
+    _ => '368 bytes: adds surfaces and car category',
+  };
 
   Widget _buildConnectionRow(BuildContext context) {
     final theme = Theme.of(context);
@@ -166,7 +165,7 @@ class _TelemetryPanelState extends State<TelemetryPanel> {
                 horizontal: 12,
                 vertical: 14,
               ),
-              labelText: 'PlayStation IP',
+              labelText: context.tr('PlayStation IP'),
               filled: true,
               fillColor: Colors.black.withValues(alpha: 0.25),
               enabledBorder: OutlineInputBorder(
@@ -183,7 +182,7 @@ class _TelemetryPanelState extends State<TelemetryPanel> {
               ),
               suffixIcon: IconButton(
                 icon: const Icon(Icons.search, size: 20),
-                tooltip: 'Scan for PlayStation',
+                tooltip: context.tr('Scan for PlayStation'),
                 onPressed: () async {
                   final selectedIp = await showDialog<String>(
                     context: context,
@@ -194,12 +193,12 @@ class _TelemetryPanelState extends State<TelemetryPanel> {
               ),
             ),
             validator: (value) {
-              if (value == null || value.isEmpty) return 'Enter IP';
+              if (value == null || value.isEmpty) return context.tr('Enter IP');
               final ipPattern = RegExp(
                 r'^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}'
                 r'(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$',
               );
-              if (!ipPattern.hasMatch(value)) return 'Invalid IP';
+              if (!ipPattern.hasMatch(value)) return context.tr('Invalid IP');
               return null;
             },
           ),
@@ -235,7 +234,7 @@ class _TelemetryPanelState extends State<TelemetryPanel> {
         child: TextButton.icon(
           onPressed: () => context.tabsRouter.setActiveIndex(3),
           icon: const Icon(Icons.open_in_new, size: 18),
-          label: const Text('Open dashboard'),
+          label: Text(context.tr('Open dashboard')),
           style: TextButton.styleFrom(
             foregroundColor: theme.colorScheme.primary,
             padding: EdgeInsets.zero,
@@ -252,7 +251,7 @@ class _TelemetryPanelState extends State<TelemetryPanel> {
           child: TextButton.icon(
             onPressed: _isConnecting ? null : _startDemo,
             icon: const Icon(Icons.play_circle_outline, size: 18),
-            label: const Text('Demo telemetry'),
+            label: Text(context.tr('Demo telemetry')),
             style: TextButton.styleFrom(
               foregroundColor: theme.colorScheme.primary,
               padding: EdgeInsets.zero,
@@ -263,7 +262,7 @@ class _TelemetryPanelState extends State<TelemetryPanel> {
           Padding(
             padding: const EdgeInsets.only(top: 6),
             child: Text(
-              service.errorMessage!,
+              context.tr(service.errorMessage!),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: theme.textTheme.bodySmall?.copyWith(
@@ -294,10 +293,7 @@ class _StatusChip extends StatelessWidget {
         theme.colorScheme.secondary,
       ),
       _ when service.isConnected => ('CONNECTED', theme.colorScheme.primary),
-      _ when service.errorMessage != null => (
-        'ERROR',
-        theme.colorScheme.error,
-      ),
+      _ when service.errorMessage != null => ('ERROR', theme.colorScheme.error),
       _ => ('OFFLINE', theme.colorScheme.onSurface.withValues(alpha: 0.4)),
     };
 
@@ -318,7 +314,7 @@ class _StatusChip extends StatelessWidget {
           ),
           const SizedBox(width: 6),
           Text(
-            label,
+            context.tr(label),
             style: theme.textTheme.labelSmall?.copyWith(
               color: color,
               fontWeight: FontWeight.w700,
@@ -355,9 +351,7 @@ class _PanelButton extends StatelessWidget {
           backgroundColor: color,
           foregroundColor: Colors.black87,
           padding: const EdgeInsets.symmetric(horizontal: 18),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
         child: busy
             ? const SizedBox(
@@ -369,7 +363,7 @@ class _PanelButton extends StatelessWidget {
                 ),
               )
             : Text(
-                label,
+                context.tr(label),
                 style: const TextStyle(fontWeight: FontWeight.w600),
               ),
       ),
@@ -408,7 +402,7 @@ class _PacketChip extends StatelessWidget {
           borderRadius: BorderRadius.circular(6),
         ),
         child: Text(
-          type,
+          context.tr(type),
           style: theme.textTheme.labelMedium?.copyWith(
             letterSpacing: 1.2,
             fontWeight: FontWeight.w700,

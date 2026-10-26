@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'package:flutter/material.dart';
 
 import '../../repositories/car_catalog.dart';
@@ -88,7 +89,7 @@ class GtAutoWorkshopHeader extends StatelessWidget {
                     ),
                     onPressed: onChoose,
                     icon: const Icon(Icons.swap_horiz),
-                    label: const Text('Change car'),
+                    label: Text(context.tr('Change car')),
                   ),
                 ),
                 Positioned(
@@ -100,14 +101,14 @@ class GtAutoWorkshopHeader extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        'SELECTED CAR / STOCK',
+                        context.tr('SELECTED CAR / STOCK'),
                         style: theme.textTheme.labelSmall?.copyWith(
                           letterSpacing: 2,
                         ),
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        car.name,
+                        context.tr(car.name),
                         style: theme.textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.w400,
                         ),
@@ -119,21 +120,24 @@ class GtAutoWorkshopHeader extends StatelessWidget {
                         children: [
                           if (car.performancePoints.isNotEmpty)
                             Text(
-                              'PP ${car.performancePoints}',
+                              context.tr('PP ${car.performancePoints}'),
                               style: theme.textTheme.labelLarge?.copyWith(
                                 color: colors.secondary,
                               ),
                             ),
                           if (car.power.isNotEmpty)
-                            Text(car.power, style: theme.textTheme.bodySmall),
+                            Text(
+                              context.tr(car.power),
+                              style: theme.textTheme.bodySmall,
+                            ),
                           if (car.driveTrain.isNotEmpty)
                             Text(
-                              car.driveTrain,
+                              context.tr(car.driveTrain),
                               style: theme.textTheme.bodySmall,
                             ),
                           if (car.aspiration.isNotEmpty)
                             Text(
-                              car.aspiration,
+                              context.tr(car.aspiration),
                               style: theme.textTheme.bodySmall,
                             ),
                         ],

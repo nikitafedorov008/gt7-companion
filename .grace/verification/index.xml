@@ -31,6 +31,8 @@
         <V-M-SHELL-HOME />
         <V-M-SHELL-TABS />
         <V-M-NAVBAR />
+        <V-M-SETTINGS />
+        <V-M-LOCALIZATION />
         <V-M-DI-APPSCOPE />
         <V-M-ROUTER />
         <V-M-THEME />
@@ -43,6 +45,10 @@
         <V-M-SERVICE-GTPLUS />
         <V-M-SERVICE-GT-AUTO-PARTS />
         <V-M-REPO-GT-AUTO />
+        <V-M-MODEL-BRAND-CENTRAL />
+        <V-M-SERVICE-BRAND-CENTRAL />
+        <V-M-REPO-BRAND-CENTRAL />
+        <V-M-WIDGET-BRAND-CENTRAL />
       </Owns>
     </VD-MAIN>
   </VerificationDocuments>

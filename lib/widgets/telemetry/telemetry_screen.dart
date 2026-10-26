@@ -1,3 +1,4 @@
+import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +43,9 @@ class _TelemetryScreenState extends State<TelemetryScreen> {
 
   void _toggle() {
     setState(() {
-      _view = _view == TelemetryView.hud ? TelemetryView.data : TelemetryView.hud;
+      _view = _view == TelemetryView.hud
+          ? TelemetryView.data
+          : TelemetryView.hud;
     });
   }
 
@@ -112,11 +115,7 @@ class _TelemetryScreenState extends State<TelemetryScreen> {
 /// Header with the two view buttons - the game's own way of switching what the
 /// screen shows.
 class _ViewBar extends StatelessWidget {
-  const _ViewBar({
-    required this.view,
-    required this.onChanged,
-    this.topSpeed,
-  });
+  const _ViewBar({required this.view, required this.onChanged, this.topSpeed});
 
   final TelemetryView view;
   final ValueChanged<TelemetryView> onChanged;
@@ -129,7 +128,7 @@ class _ViewBar extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            'TELEMETRY',
+            context.tr('TELEMETRY'),
             style: gt7Caption(
               color: gt7Text,
               size: 12,
@@ -140,7 +139,7 @@ class _ViewBar extends StatelessWidget {
           if (topSpeed != null && topSpeed! > 0) ...[
             const SizedBox(width: 14),
             Text(
-              'TOP SPEED EST. $topSpeed KM/H',
+              context.tr('TOP SPEED EST. $topSpeed KM/H'),
               style: gt7Caption(
                 color: gt7TextMuted.withValues(alpha: 0.7),
                 size: 9,
@@ -161,8 +160,11 @@ class _ViewBar extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           Text(
-            'H',
-            style: gt7Caption(color: gt7TextMuted.withValues(alpha: 0.5), size: 9),
+            context.tr('H'),
+            style: gt7Caption(
+              color: gt7TextMuted.withValues(alpha: 0.5),
+              size: 9,
+            ),
           ),
         ],
       ),
@@ -189,14 +191,16 @@ class _ViewButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         decoration: BoxDecoration(
-          color: selected ? gt7Text.withValues(alpha: 0.14) : Colors.transparent,
+          color: selected
+              ? gt7Text.withValues(alpha: 0.14)
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(4),
           border: Border.all(
             color: selected ? gt7Text.withValues(alpha: 0.55) : gt7Hairline,
           ),
         ),
         child: Text(
-          label,
+          context.tr(label),
           style: gt7Caption(
             color: selected ? gt7Text : gt7TextMuted,
             size: 10,
@@ -224,7 +228,7 @@ class _EmptyState extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              isError ? 'LINK ERROR' : 'WAITING FOR TELEMETRY',
+              context.tr(isError ? 'LINK ERROR' : 'WAITING FOR TELEMETRY'),
               style: gt7Caption(
                 color: isError ? gt7Warn : gt7TextMuted,
                 size: 12,
@@ -234,7 +238,7 @@ class _EmptyState extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              errorMessage ?? 'No packets received yet.',
+              context.tr(errorMessage ?? 'No packets received yet.'),
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: gt7TextMuted.withValues(alpha: 0.8),

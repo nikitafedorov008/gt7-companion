@@ -9,6 +9,8 @@ import '../repositories/sport_repository.dart';
 import '../services/gt7_api_service.dart';
 import '../services/gt7_auth_service.dart';
 import '../services/telemetry_service.dart';
+import '../services/console_discovery_service.dart';
+import '../repositories/telemetry_connection_repository.dart';
 import '../services/gt7info_service.dart';
 import '../services/gtdb_service.dart';
 import '../services/dg_edge_service.dart';
@@ -49,6 +51,29 @@ class AppScope extends StatelessWidget {
         // volume, and it stops when the app leaves the foreground.
         ChangeNotifierProvider(create: (context) => MusicService()..load()),
         ChangeNotifierProvider(create: (context) => TelemetryService()),
+        Provider(
+          create: (_) => ConsoleDiscoveryService(),
+          dispose: (_, service) => service.dispose(),
+        ),
+        ChangeNotifierProxyProvider2<
+          AppSettingsService,
+          TelemetryService,
+          TelemetryConnectionRepository
+        >(
+          lazy: false,
+          create: (context) => TelemetryConnectionRepository(
+            context.read<AppSettingsService>(),
+            context.read<TelemetryService>(),
+            context.read<ConsoleDiscoveryService>(),
+          ),
+          update: (context, settings, telemetry, instance) =>
+              instance ??
+              TelemetryConnectionRepository(
+                settings,
+                telemetry,
+                context.read<ConsoleDiscoveryService>(),
+              ),
+        ),
         ChangeNotifierProvider(
           create: (context) =>
               ApexService(appSettings: context.read<AppSettingsService>()),

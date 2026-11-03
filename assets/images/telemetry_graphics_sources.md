@@ -1,0 +1,7 @@
+# Telemetry graphics
+
+- `telemetry_connection.svg`: original vector line illustration composed at the user's explicit request for SVG: controller and TV follow the first supplied reference (`exec-674c6ff6-a69e-41dc-ac4c-8d69b8e967f6.png`), PS5 console silhouette follows the second (`exec-19b9358d-7092-4611-b5f0-ece7ce898c41.png`). Speckled transparency artifacts in the raster references are intentionally excluded from the clean contours. The monitor reuses the existing GT vector paths from `gran_turismo_logotype.svg`. No embedded raster or external resources.
+- `ps4_logo.svg`: vector outline traced from the alpha silhouette of Sony's PS4 wordmark, preserving its aspect ratio. Source: https://gmedia.playstation.com/is/image/SIEPDC/ps4-badge-01-en-20jul20?$1200px--t$ ; displayed at https://www.playstation.com/en-us/ps4/ .
+- `ps5_logo.svg`: vector outline traced from the alpha silhouette of Sony's PS5 wordmark, preserving its aspect ratio. Source: https://gmedia.playstation.com/is/image/SIEPDC/ps5-badge-02-en-11jun20?$1200px--t$ ; displayed at https://www.playstation.com/en-us/ps5/ .
+
+Source wordmarks were exported using Codex's in-app browser on 2026-11-03. These are locally traced SVG paths, not original Sony SVG masters. PlayStation, PS4 and PS5 marks belong to Sony Interactive Entertainment; source artwork retains its owners' rights. The platform row identifies the GT7 console versions; it is not a connection selector or an affiliation claim.

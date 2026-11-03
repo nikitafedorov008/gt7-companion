@@ -22,6 +22,10 @@ class AppSettingsService extends ChangeNotifier with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
   }
   static const languageKey = 'app_language_v1';
+  static const autoTelemetryKey = 'telemetry_auto_connect_v1';
+  static const confirmedConsoleKey = 'telemetry_confirmed_console_v1';
+  bool autoTelemetry = true;
+  String? confirmedConsole;
   List<Locale> _systemLocales;
   AppLanguage _language = AppLanguage.system;
   Future<void>? _loading;
@@ -50,6 +54,8 @@ class AppSettingsService extends ChangeNotifier with WidgetsBindingObserver {
   Future<void> _restore() async {
     try {
       final prefs = await SharedPreferences.getInstance();
+      autoTelemetry = prefs.getBool(autoTelemetryKey) ?? true;
+      confirmedConsole = prefs.getString(confirmedConsoleKey);
       final stored = prefs.getString(languageKey);
       _language =
           AppLanguage.values.where((v) => v.name == stored).firstOrNull ??
@@ -87,6 +93,40 @@ class AppSettingsService extends ChangeNotifier with WidgetsBindingObserver {
           notifyListeners();
         }
         debugPrint('AppSettingsService: $error');
+      }
+    });
+    await _saving;
+  }
+
+  Future<void> setAutoTelemetry(bool value) async {
+    await load();
+    if (_disposed || value == autoTelemetry) return;
+    autoTelemetry = value;
+    notifyListeners();
+    await _persistTelemetry(autoTelemetryKey, value);
+  }
+
+  Future<void> confirmConsole(String address) async {
+    await load();
+    if (_disposed || confirmedConsole == address) return;
+    confirmedConsole = address;
+    await _persistTelemetry(confirmedConsoleKey, address);
+  }
+
+  Future<void> _persistTelemetry(String key, Object value) async {
+    _saving = _saving.then((_) async {
+      try {
+        final prefs = await SharedPreferences.getInstance();
+        final success = value is bool
+            ? await prefs.setBool(key, value)
+            : await prefs.setString(key, value as String);
+        if (!success) throw StateError('Preferences write failed');
+      } catch (_) {
+        if (!_disposed) {
+          storageError =
+              'Could not save application preferences. Please retry.';
+          notifyListeners();
+        }
       }
     });
     await _saving;

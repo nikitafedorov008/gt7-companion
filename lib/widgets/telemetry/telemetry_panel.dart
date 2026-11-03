@@ -1,412 +1,479 @@
-import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-
+import '../../l10n/ui_messages.dart';
+import '../../repositories/car_catalog.dart';
+import '../../repositories/telemetry_connection_repository.dart';
 import '../../services/telemetry_service.dart';
-import '../../services/udp_service.dart';
-import 'playstation_scanner_dialog.dart';
+import 'telemetry_connection_dialog.dart';
 
-/// The telemetry connection panel on the home page.
-///
-/// Styled like the rest of the app rather than as a feature banner: a dark
-/// translucent panel with a hairline border, a small letterspaced heading and
-/// a status chip. GT7 never colours a whole panel to say what state something
-/// is in — it prints a badge and leaves the panel alone — so connection state
-/// lives in the chip, and colour is spent only on the one call to action.
+/// Compact home entry. Protocol, freshness and automatic work belong to the
+/// connection repository; only explicit user actions open the instruments.
 class TelemetryPanel extends StatefulWidget {
   const TelemetryPanel({super.key});
-
   @override
   State<TelemetryPanel> createState() => _TelemetryPanelState();
 }
 
 class _TelemetryPanelState extends State<TelemetryPanel> {
-  final TextEditingController _ipController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  bool _isConnecting = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _ipController.text = '192.168.1.123';
-  }
-
-  @override
-  void dispose() {
-    _ipController.dispose();
-    super.dispose();
-  }
-
-  Future<void> _connect() async {
-    if (!(_formKey.currentState?.validate() ?? false)) return;
-
-    setState(() => _isConnecting = true);
+  String? _manualAddress;
+  bool _busy = false;
+  Future<void> _configure({bool connect = false}) async {
     final service = context.read<TelemetryService>();
-    await service.connectToGT7(_ipController.text);
-    if (mounted) setState(() => _isConnecting = false);
-  }
-
-  Future<void> _startDemo() async {
-    final tabsRouter = context.tabsRouter;
-    setState(() => _isConnecting = true);
-    try {
-      await context.read<TelemetryService>().startDemoTelemetry();
-      if (!mounted) return;
-      tabsRouter.setActiveIndex(3);
-    } finally {
-      if (mounted) setState(() => _isConnecting = false);
+    final repo = context.read<TelemetryConnectionRepository>();
+    final result = await showDialog<TelemetryConnectionSettings>(
+      context: context,
+      builder: (_) => TelemetryConnectionDialog(
+        ipAddress:
+            _manualAddress ??
+            repo.address ??
+            repo.settings.confirmedConsole ??
+            '',
+        packetType: service.packetType,
+        connect: connect,
+      ),
+    );
+    if (!mounted || result == null) return;
+    final changed = (repo.address ?? _manualAddress) != result.ipAddress;
+    _manualAddress = result.ipAddress;
+    service.packetType = result.packetType;
+    if (connect || (changed && service.isConnected && !service.isDemo)) {
+      await _perform(() => repo.connectManual(result.ipAddress));
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+  Future<void> _perform(Future<void> Function() action) async {
+    setState(() => _busy = true);
+    try {
+      await action();
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
 
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.white12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  Future<void> _choose(TelemetryConnectionRepository repo) async {
+    final candidate = await showDialog<String>(
+      context: context,
+      builder: (context) => SimpleDialog(
+        title: Text(context.l10n.telemetryChoose),
         children: [
-          Row(
+          for (final item in repo.candidates)
+            SimpleDialogOption(
+              onPressed: () => Navigator.of(context).pop(item.address),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                child: Text('${item.name} · ${item.platform}\n${item.address}'),
+              ),
+            ),
+          SimpleDialogOption(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(context.l10n.close),
+          ),
+        ],
+      ),
+    );
+    if (!mounted || candidate == null) return;
+    final name = repo.candidates
+        .where((c) => c.address == candidate)
+        .firstOrNull
+        ?.name;
+    await _perform(() => repo.connectManual(candidate, name: name));
+  }
+
+  @override
+  Widget build(
+    BuildContext context,
+  ) => Consumer3<TelemetryConnectionRepository, TelemetryService, CarCatalog>(
+    builder: (context, repo, service, catalog, _) {
+      final theme = Theme.of(context), l10n = context.l10n;
+      final colors = theme.colorScheme;
+      final phase = repo.phase;
+      final live = phase == ConnectionPhase.live && repo.hasFreshData;
+      final demo = phase == ConnectionPhase.demo;
+      final car = live ? catalog.byPacketId(service.telemetry!.carId) : null;
+      final title = live
+          ? car?.name ??
+                '${l10n.telemetryUnknownCar} · ${service.telemetry!.carId}'
+          : switch (phase) {
+              ConnectionPhase.searching => l10n.telemetrySearchTitle,
+              ConnectionPhase.choose => l10n.telemetryChoose,
+              ConnectionPhase.notFound => l10n.telemetryNotFound,
+              ConnectionPhase.demo => l10n.telemetryDemoDescription,
+              _ => repo.consoleName ?? 'PlayStation',
+            };
+      final description = live
+          ? '${repo.consoleName ?? 'PlayStation'} · ${repo.address ?? ''} · ${l10n.telemetryPacketShort} ${service.telemetry!.packetType}'
+          : switch (phase) {
+              ConnectionPhase.searching => l10n.telemetryAutoHelp,
+              ConnectionPhase.waiting => l10n.telemetryWaitingHelp,
+              ConnectionPhase.choose => l10n.telemetryChooseHelp,
+              ConnectionPhase.lost => l10n.telemetryLostHelp,
+              ConnectionPhase.unavailable => l10n.telemetryIdleHelp,
+              ConnectionPhase.demo => l10n.telemetryDemoBadge,
+              _ => l10n.telemetryIdleHelp,
+            };
+      return LayoutBuilder(
+        builder: (context, constraints) {
+          final wide =
+              constraints.maxWidth >= 1000 &&
+              MediaQuery.textScalerOf(context).scale(1) <= 1.25;
+          final intro = Row(
+            children: [
+              SizedBox(
+                width: wide ? 96 : 64,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (car != null && car.manufacturerId.isNotEmpty)
+                      ClipRect(
+                        child: SizedBox(
+                          height: 44,
+                          width: wide ? 96 : 64,
+                          child: Image.network(
+                            'https://www.gran-turismo.com/common/dist/gt7/carlist/tuner_logos/dark/${car.manufacturerId}.png',
+                            key: ValueKey(
+                              'telemetry-brand-${car.manufacturerId}',
+                            ),
+                            fit: BoxFit.cover,
+                            semanticLabel: car.name,
+                            errorBuilder: (_, __, ___) => Center(
+                              child: Text(
+                                car.name,
+                                textAlign: TextAlign.center,
+                                style: theme.textTheme.labelSmall,
+                              ),
+                            ),
+                            loadingBuilder: (_, child, progress) =>
+                                progress == null
+                                ? child
+                                : const SizedBox.shrink(),
+                          ),
+                        ),
+                      )
+                    else
+                      ExcludeSemantics(
+                        child: SvgPicture.asset(
+                          'assets/images/telemetry_connection.svg',
+                          key: const ValueKey('telemetry-connection-art'),
+                          height: 44,
+                          colorFilter: ColorFilter.mode(
+                            colors.onSurface.withValues(alpha: .8),
+                            BlendMode.srcIn,
+                          ),
+                        ),
+                      ),
+                    const SizedBox(height: 6),
+                    Semantics(
+                      label: l10n.telemetryPlatforms,
+                      child: Row(
+                        key: const ValueKey('telemetry-platforms'),
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          for (final platform in ['PS4', 'PS5']) ...[
+                            if (platform == 'PS5') const SizedBox(width: 6),
+                            SizedBox(
+                              width: wide ? 36 : 28,
+                              height: 10,
+                              child: SvgPicture.asset(
+                                'assets/images/${platform.toLowerCase()}_logo.svg',
+                                key: ValueKey('telemetry-platform-$platform'),
+                                semanticsLabel: platform,
+                                width: wide ? 36 : 28,
+                                height: 10,
+                                colorFilter: ColorFilter.mode(
+                                  colors.onSurface.withValues(alpha: .5),
+                                  BlendMode.srcIn,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Wrap(
+                      spacing: 10,
+                      runSpacing: 4,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        Text(
+                          l10n.telemetryTitle.toUpperCase(),
+                          style: theme.textTheme.labelSmall?.copyWith(
+                            letterSpacing: 1,
+                            color: colors.onSurface.withValues(alpha: .55),
+                          ),
+                        ),
+                        _ConnectionStatus(phase: phase),
+                      ],
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      title,
+                      key: const ValueKey('telemetry-car-title'),
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      description,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: colors.onSurface.withValues(alpha: .6),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+          final primaryLabel = live || demo
+              ? (wide ? l10n.telemetryOpen : l10n.telemetryInstruments)
+              : phase == ConnectionPhase.choose
+              ? l10n.telemetryChoose
+              : phase == ConnectionPhase.lost ||
+                    phase == ConnectionPhase.notFound
+              ? l10n.telemetryRetry
+              : l10n.telemetryManual;
+          final actions = Row(
             children: [
               Expanded(
-                child: Text(
-                  context.tr('TELEMETRY'),
-                  style: theme.textTheme.labelMedium?.copyWith(
-                    letterSpacing: 1.4,
-                    fontWeight: FontWeight.w700,
-                    color: theme.colorScheme.onSurface.withValues(alpha: 0.55),
+                flex: 3,
+                child: FilledButton(
+                  key: const ValueKey('telemetry-connect'),
+                  onPressed: _busy
+                      ? null
+                      : () {
+                          if (live || demo) {
+                            context.tabsRouter.setActiveIndex(3);
+                          } else if (phase == ConnectionPhase.choose) {
+                            _choose(repo);
+                          } else if (phase == ConnectionPhase.lost ||
+                              phase == ConnectionPhase.notFound) {
+                            repo.search(explicit: true);
+                          } else {
+                            _configure(connect: true);
+                          }
+                        },
+                  style: FilledButton.styleFrom(
+                    visualDensity: VisualDensity.standard,
+                    backgroundColor: colors.onSurface,
+                    foregroundColor: colors.surface,
+                    minimumSize: const Size(0, 44),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 12,
+                    ),
+                    shape: const StadiumBorder(),
+                    textStyle: theme.textTheme.labelLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  child: Text(primaryLabel, textAlign: TextAlign.center),
+                ),
+              ),
+              const SizedBox(width: 6),
+              Expanded(
+                flex: 2,
+                child: OutlinedButton(
+                  key: const ValueKey('telemetry-settings'),
+                  onPressed: _busy ? null : _configure,
+                  style: OutlinedButton.styleFrom(
+                    visualDensity: VisualDensity.standard,
+                    foregroundColor: colors.onSurface.withValues(alpha: .7),
+                    minimumSize: const Size(0, 44),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 12,
+                    ),
+                    shape: const StadiumBorder(),
+                  ),
+                  child: Text(l10n.settings, textAlign: TextAlign.center),
+                ),
+              ),
+              const SizedBox(width: 6),
+              SizedBox(
+                width: 56,
+                child: PopupMenuButton<String>(
+                  key: const ValueKey('telemetry-more'),
+                  tooltip: l10n.telemetryMore,
+                  enabled: !_busy,
+                  onSelected: (value) async {
+                    if (value == 'manual') {
+                      await _configure(connect: true);
+                    }
+                    if (value == 'search') {
+                      await repo.search(explicit: true);
+                    }
+                    if (value == 'disconnect') {
+                      await _perform(repo.disconnect);
+                    }
+                    if (value == 'demo') {
+                      final tabs = context.tabsRouter;
+                      await _perform(repo.startDemo);
+                      if (mounted) tabs.setActiveIndex(3);
+                    }
+                  },
+                  itemBuilder: (_) => [
+                    PopupMenuItem(value: 'demo', child: Text(l10n.uiDemo)),
+                    PopupMenuItem(
+                      value: 'manual',
+                      child: Text(l10n.telemetryManual),
+                    ),
+                    PopupMenuItem(
+                      value: 'search',
+                      child: Text(l10n.telemetryRetry),
+                    ),
+                    PopupMenuItem(
+                      key: const ValueKey('telemetry-menu-disconnect'),
+                      value: 'disconnect',
+                      child: Text(l10n.uiDisconnect),
+                    ),
+                  ],
+                  child: Container(
+                    constraints: const BoxConstraints(
+                      minWidth: 44,
+                      minHeight: 44,
+                    ),
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: colors.outlineVariant),
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    child: Text(
+                      l10n.telemetryMore,
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        color: colors.onSurface.withValues(alpha: .6),
+                      ),
+                    ),
                   ),
                 ),
               ),
-              Consumer<TelemetryService>(
-                builder: (context, service, _) =>
-                    _StatusChip(service: service, connecting: _isConnecting),
-              ),
             ],
-          ),
-          const SizedBox(height: 14),
-          Form(key: _formKey, child: _buildConnectionRow(context)),
-          const SizedBox(height: 12),
-          _buildPacketRow(context),
-          const SizedBox(height: 10),
-          Consumer<TelemetryService>(
-            builder: (context, service, _) => _buildFooter(context, service),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildPacketRow(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Consumer<TelemetryService>(
-      builder: (context, service, _) {
-        return Row(
-          children: [
-            Text(
-              context.tr('PACKET'),
-              style: theme.textTheme.labelSmall?.copyWith(
-                letterSpacing: 1.4,
-                color: Colors.white70,
+          );
+          return Container(
+            key: const ValueKey('telemetry-panel'),
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(
+              horizontal: wide ? 20 : 16,
+              vertical: 16,
+            ),
+            constraints: BoxConstraints(minHeight: wide ? 114 : 0),
+            decoration: BoxDecoration(
+              color: colors.surfaceContainer.withValues(alpha: .94),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: colors.onSurface.withValues(alpha: .16),
               ),
             ),
-            const SizedBox(width: 10),
-            for (final type in UdpService.packetTypes) ...[
-              _PacketChip(
-                type: type,
-                selected: service.packetType == type,
-                onTap: () => service.packetType = type,
-              ),
-              const SizedBox(width: 6),
-            ],
-            const SizedBox(width: 8),
-            Expanded(
-              child: Text(
-                context.tr(_packetHint(service.packetType)),
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: Colors.white54,
-                ),
-              ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                if (wide)
+                  Row(
+                    children: [
+                      Expanded(child: intro),
+                      const SizedBox(width: 24),
+                      SizedBox(width: 390, child: actions),
+                    ],
+                  )
+                else ...[
+                  intro,
+                  const SizedBox(height: 16),
+                  actions,
+                ],
+                if (service.errorMessage != null) ...[
+                  const SizedBox(height: 8),
+                  Text(
+                    context.tr(service.errorMessage!),
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: colors.error,
+                    ),
+                  ),
+                ],
+              ],
             ),
-          ],
-        );
-      },
-    );
-  }
-
-  static String _packetHint(String type) => switch (type) {
-    'A' => '296 bytes: position, rotation, lap times — no steering',
-    'B' => '316 bytes: adds steering angle and g-forces',
-    _ => '368 bytes: adds surfaces and car category',
-  };
-
-  Widget _buildConnectionRow(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: TextFormField(
-            controller: _ipController,
-            style: theme.textTheme.bodyMedium,
-            decoration: InputDecoration(
-              isDense: true,
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 12,
-                vertical: 14,
-              ),
-              labelText: context.tr('PlayStation IP'),
-              filled: true,
-              fillColor: Colors.black.withValues(alpha: 0.25),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: const BorderSide(color: Colors.white12),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: theme.colorScheme.primary),
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: const BorderSide(color: Colors.white12),
-              ),
-              suffixIcon: IconButton(
-                icon: const Icon(Icons.search, size: 20),
-                tooltip: context.tr('Scan for PlayStation'),
-                onPressed: () async {
-                  final selectedIp = await showDialog<String>(
-                    context: context,
-                    builder: (_) => const PlayStationScannerDialog(),
-                  );
-                  if (selectedIp != null) _ipController.text = selectedIp;
-                },
-              ),
-            ),
-            validator: (value) {
-              if (value == null || value.isEmpty) return context.tr('Enter IP');
-              final ipPattern = RegExp(
-                r'^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}'
-                r'(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$',
-              );
-              if (!ipPattern.hasMatch(value)) return context.tr('Invalid IP');
-              return null;
-            },
-          ),
-        ),
-        const SizedBox(width: 8),
-        Consumer<TelemetryService>(
-          builder: (context, service, _) {
-            if (service.isConnected) {
-              return _PanelButton(
-                label: 'Disconnect',
-                color: theme.colorScheme.error,
-                onPressed: service.disconnect,
-              );
-            }
-            return _PanelButton(
-              label: 'Connect',
-              color: theme.colorScheme.primary,
-              busy: _isConnecting,
-              onPressed: _isConnecting ? null : _connect,
-            );
-          },
-        ),
-      ],
-    );
-  }
-
-  Widget _buildFooter(BuildContext context, TelemetryService service) {
-    final theme = Theme.of(context);
-
-    if (service.isConnected) {
-      return Align(
-        alignment: Alignment.centerLeft,
-        child: TextButton.icon(
-          onPressed: () => context.tabsRouter.setActiveIndex(3),
-          icon: const Icon(Icons.open_in_new, size: 18),
-          label: Text(context.tr('Open dashboard')),
-          style: TextButton.styleFrom(
-            foregroundColor: theme.colorScheme.primary,
-            padding: EdgeInsets.zero,
-          ),
-        ),
+          );
+        },
       );
-    }
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Align(
-          alignment: Alignment.centerLeft,
-          child: TextButton.icon(
-            onPressed: _isConnecting ? null : _startDemo,
-            icon: const Icon(Icons.play_circle_outline, size: 18),
-            label: Text(context.tr('Demo telemetry')),
-            style: TextButton.styleFrom(
-              foregroundColor: theme.colorScheme.primary,
-              padding: EdgeInsets.zero,
-            ),
-          ),
-        ),
-        if (service.errorMessage != null)
-          Padding(
-            padding: const EdgeInsets.only(top: 6),
-            child: Text(
-              context.tr(service.errorMessage!),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: theme.textTheme.bodySmall?.copyWith(
-                color: theme.colorScheme.error,
-              ),
-            ),
-          ),
-      ],
-    );
-  }
+    },
+  );
 }
 
-/// Connection state as a badge, the way the game states things.
-class _StatusChip extends StatelessWidget {
-  const _StatusChip({required this.service, required this.connecting});
-
-  final TelemetryService service;
-  final bool connecting;
-
+class _ConnectionStatus extends StatelessWidget {
+  const _ConnectionStatus({required this.phase});
+  final ConnectionPhase phase;
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    final (label, color) = switch (service) {
-      _ when connecting => ('CONNECTING', theme.colorScheme.primary),
-      _ when service.isConnected && service.isDemo => (
-        'DEMO',
-        theme.colorScheme.secondary,
-      ),
-      _ when service.isConnected => ('CONNECTED', theme.colorScheme.primary),
-      _ when service.errorMessage != null => ('ERROR', theme.colorScheme.error),
-      _ => ('OFFLINE', theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+    final theme = Theme.of(context), l10n = context.l10n;
+    final label = switch (phase) {
+      ConnectionPhase.live => l10n.telemetryLive,
+      ConnectionPhase.searching => l10n.telemetrySearch,
+      ConnectionPhase.waiting => l10n.telemetryWaiting,
+      ConnectionPhase.choose => l10n.telemetryChoose,
+      ConnectionPhase.lost => l10n.telemetryLost,
+      ConnectionPhase.demo => l10n.telemetryDemoBadge,
+      _ => l10n.telemetryManual,
     };
-
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.12),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: color.withValues(alpha: 0.35)),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 6,
-            height: 6,
-            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+    final color = phase == ConnectionPhase.live
+        ? HSLColor.fromColor(
+            theme.colorScheme.tertiary,
+          ).withHue(150).withSaturation(.3).withLightness(.7).toColor()
+        : phase == ConnectionPhase.lost
+        ? HSLColor.fromColor(
+            theme.colorScheme.error,
+          ).withHue(40).withSaturation(.45).withLightness(.7).toColor()
+        : theme.colorScheme.onSurface.withValues(alpha: .6);
+    return Semantics(
+      liveRegion: true,
+      label: label,
+      child: ExcludeSemantics(
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+          decoration: BoxDecoration(
+            color: color.withValues(alpha: .05),
+            border: Border.all(color: color.withValues(alpha: .3)),
+            borderRadius: BorderRadius.circular(20),
           ),
-          const SizedBox(width: 6),
-          Text(
-            context.tr(label),
-            style: theme.textTheme.labelSmall?.copyWith(
-              color: color,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 0.8,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// The panel's one call to action, sized to sit level with the input.
-class _PanelButton extends StatelessWidget {
-  const _PanelButton({
-    required this.label,
-    required this.color,
-    this.onPressed,
-    this.busy = false,
-  });
-
-  final String label;
-  final Color color;
-  final VoidCallback? onPressed;
-  final bool busy;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50,
-      child: FilledButton(
-        onPressed: onPressed,
-        style: FilledButton.styleFrom(
-          backgroundColor: color,
-          foregroundColor: Colors.black87,
-          padding: const EdgeInsets.symmetric(horizontal: 18),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        ),
-        child: busy
-            ? const SizedBox(
-                width: 18,
-                height: 18,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  color: Colors.black87,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (phase == ConnectionPhase.searching &&
+                  !MediaQuery.disableAnimationsOf(context))
+                SizedBox(
+                  width: 8,
+                  height: 8,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 1,
+                    color: color,
+                  ),
+                )
+              else
+                Icon(
+                  phase == ConnectionPhase.waiting
+                      ? Icons.circle_outlined
+                      : Icons.circle,
+                  size: 6,
+                  color: color,
                 ),
-              )
-            : Text(
-                context.tr(label),
-                style: const TextStyle(fontWeight: FontWeight.w600),
+              const SizedBox(width: 5),
+              Flexible(
+                child: Text(
+                  label,
+                  style: theme.textTheme.labelSmall?.copyWith(color: color),
+                ),
               ),
-      ),
-    );
-  }
-}
-
-/// One of the heartbeat characters: what the console is asked to send.
-class _PacketChip extends StatelessWidget {
-  const _PacketChip({
-    required this.type,
-    required this.selected,
-    required this.onTap,
-  });
-
-  final String type;
-  final bool selected;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(6),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-        decoration: BoxDecoration(
-          color: selected
-              ? theme.colorScheme.primary.withValues(alpha: 0.18)
-              : Colors.black.withValues(alpha: 0.25),
-          border: Border.all(
-            color: selected ? theme.colorScheme.primary : Colors.white12,
-          ),
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: Text(
-          context.tr(type),
-          style: theme.textTheme.labelMedium?.copyWith(
-            letterSpacing: 1.2,
-            fontWeight: FontWeight.w700,
-            color: selected ? theme.colorScheme.primary : Colors.white70,
+            ],
           ),
         ),
       ),

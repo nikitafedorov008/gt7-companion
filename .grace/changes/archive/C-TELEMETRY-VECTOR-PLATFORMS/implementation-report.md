@@ -1,0 +1,7 @@
+# SVG graphics and platforms
+
+Completed the SVG connection illustration and localized, noninteractive PS4/PS5 platform row. Latest user direction incorporated: gamepad and television from first supplied reference, PS5 console silhouette from second. Clean vector contours exclude speckled transparency artifacts; TV uses existing GT vector logo paths. Source-proportioned PS4/PS5 outlines were traced from official PlayStation wordmarks exported through the in-app browser; provenance in assets/images/telemetry_graphics_sources.md. No embedded raster, external SVG resources or added dependencies.
+
+Dart MCP connection suite: 22 passed, including RU/EN 320–1440 widths, enlarged text and keyboard. Changed widget analysis: no issues. Localization audit: 567 messages, matching RU/EN keys. Native screenshots: telemetry-connection/mac-svg-platforms.png and phone-svg-platforms.png under the session visualization directory. Both final runtime-error inspections were clean. SVG changes required hot restart to clear asset cache; macOS's existing debug window initialization stalls on hot restart, so final desktop capture used a fresh launch.
+
+During checks the user reported background music. Found the previously launched iPhone Simulator app still running after the Mac app was closed, and terminated it. Further visual checks used an ignored quiet_telemetry.dart entrypoint with in-memory audio preferences; saved preferences and production audio policy were not modified. Both test apps were terminated after verification.

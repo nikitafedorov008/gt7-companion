@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 import '../../services/app_settings_service.dart';
 import '../../services/music_service.dart';
 import '../../services/sound_service.dart';
+import '../telemetry/telemetry_connection_dialog.dart';
 
 @RoutePage()
 class SettingsDisplay extends StatefulWidget {
@@ -26,6 +27,7 @@ class SettingsDisplay extends StatefulWidget {
 class _SettingsDisplayState extends State<SettingsDisplay> {
   int _section = 0;
   bool _languageDetail = false;
+  bool _telemetryDetail = false;
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -43,12 +45,14 @@ class _SettingsDisplayState extends State<SettingsDisplay> {
                 padding: const EdgeInsets.all(16),
                 child: Row(
                   children: [
-                    if (_section == 0 && _languageDetail)
+                    if (_section == 0 && (_languageDetail || _telemetryDetail))
                       IconButton(
                         key: const ValueKey('settings-back'),
                         tooltip: context.tr('Back'),
-                        onPressed: () =>
-                            setState(() => _languageDetail = false),
+                        onPressed: () => setState(() {
+                          _languageDetail = false;
+                          _telemetryDetail = false;
+                        }),
                         icon: const Icon(Icons.arrow_back),
                       ),
                     Expanded(
@@ -105,6 +109,7 @@ class _SettingsDisplayState extends State<SettingsDisplay> {
                                   onTap: () => setState(() {
                                     _section = entry.$1;
                                     _languageDetail = false;
+                                    _telemetryDetail = false;
                                   }),
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -147,7 +152,14 @@ class _SettingsDisplayState extends State<SettingsDisplay> {
                     constraints: const BoxConstraints(maxWidth: 1000),
                     child: switch (_section) {
                       0 =>
-                        _languageDetail
+                        _telemetryDetail
+                            ? _Panel(
+                                icon: Icons.sensors_outlined,
+                                title: l10n.telemetryTitle,
+                                description: l10n.telemetrySettingsDescription,
+                                child: const TelemetryAutoSettings(),
+                              )
+                            : _languageDetail
                             ? _Panel(
                                 icon: Icons.language_outlined,
                                 title: context.tr('Application language'),
@@ -159,6 +171,8 @@ class _SettingsDisplayState extends State<SettingsDisplay> {
                             : _SettingsCategories(
                                 onLanguage: () =>
                                     setState(() => _languageDetail = true),
+                                onTelemetry: () =>
+                                    setState(() => _telemetryDetail = true),
                                 onAudio: () => setState(() => _section = 1),
                                 onAbout: () => setState(() => _section = 2),
                               ),
@@ -388,8 +402,9 @@ class _SettingsCategories extends StatelessWidget {
     required this.onLanguage,
     required this.onAudio,
     required this.onAbout,
+    required this.onTelemetry,
   });
-  final VoidCallback onLanguage, onAudio, onAbout;
+  final VoidCallback onLanguage, onAudio, onAbout, onTelemetry;
   @override
   Widget build(BuildContext context) => LayoutBuilder(
     builder: (context, constraints) {
@@ -403,6 +418,14 @@ class _SettingsCategories extends StatelessWidget {
         spacing: 12,
         runSpacing: 12,
         children: [
+          _SettingsCategory(
+            controlKey: const ValueKey('settings-telemetry-card'),
+            width: width,
+            icon: Icons.sensors_outlined,
+            title: context.l10n.telemetryTitle,
+            description: context.l10n.telemetrySettingsDescription,
+            onTap: onTelemetry,
+          ),
           _SettingsCategory(
             controlKey: const ValueKey('settings-language-card'),
             width: width,

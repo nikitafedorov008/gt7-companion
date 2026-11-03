@@ -7,7 +7,11 @@ import '../utils/crypto_utils.dart';
 import '../models/telemetry/telemetry_data.dart';
 
 class TelemetryService extends ChangeNotifier {
-  final UdpService _udpService = UdpService();
+  final UdpService _udpService;
+  DateTime? receivedAt;
+  String? connectedAddress;
+  bool _disposed = false;
+  int _connectionGeneration = 0;
   TelemetryData? _currentTelemetry;
   String? _errorMessage;
   bool _isConnected = false;
@@ -52,8 +56,8 @@ class TelemetryService extends ChangeNotifier {
   ///
   /// GT7 chooses the format from the heartbeat character, and the base packet
   /// has no steering angle or g-forces: `A` is 296 bytes, `B` adds the motion
-  /// block, `C` adds more on top. The console switches on the next heartbeat,
-  /// which this service sends every ten seconds and every hundred packets.
+  /// block; default `C` includes all extended fields. Changing format briefly
+  /// pauses heartbeats so the console can renegotiate the stream.
   String get packetType => _udpService.packetType;
 
   set packetType(String type) {
@@ -62,10 +66,12 @@ class TelemetryService extends ChangeNotifier {
     _udpService.packetType = type;
     notifyListeners();
   }
+
   String? get errorMessage => _errorMessage;
   bool get isConnected => _isConnected;
 
-  TelemetryService() {
+  TelemetryService({UdpService? udpService})
+    : _udpService = udpService ?? UdpService() {
     _udpService.onDataReceived = _onDataReceived;
     _udpService.onError = _onError;
   }
@@ -110,6 +116,13 @@ class TelemetryService extends ChangeNotifier {
   static final _DemoCircuit _demoCircuit = _DemoCircuit();
 
   Future<void> connectToGT7(String ipAddress) async {
+    final generation = ++_connectionGeneration;
+    _demoTimer?.cancel();
+    _isDemo = false;
+    _isConnected = false;
+    _currentTelemetry = null;
+    receivedAt = null;
+    connectedAddress = ipAddress;
     _errorMessage = null;
     notifyListeners();
 
@@ -117,7 +130,8 @@ class TelemetryService extends ChangeNotifier {
       // Start listening - this will automatically bind socket and send initial heartbeat
       await _udpService.startListening(ipAddress);
 
-      _isConnected = true;
+      if (_disposed || generation != _connectionGeneration) return;
+      _isConnected = _errorMessage == null;
       notifyListeners();
     } catch (e) {
       _onError('Failed to connect: $e');
@@ -125,6 +139,7 @@ class TelemetryService extends ChangeNotifier {
   }
 
   void _onDataReceived(Uint8List data) {
+    if (_disposed) return;
     _packetCount++;
 
     try {
@@ -158,7 +173,8 @@ class TelemetryService extends ChangeNotifier {
       );
 
       // Only update if packet ID is greater than previous (to match Python behavior)
-      if (newTelemetry.packetId > (_currentTelemetry?.packetId ?? 0)) {
+      if (_currentTelemetry == null ||
+          newTelemetry.packetId > _currentTelemetry!.packetId) {
         print('Updating telemetry - New packet ID: ${newTelemetry.packetId}');
 
         // Handle lap timing.
@@ -184,6 +200,8 @@ class TelemetryService extends ChangeNotifier {
           _lapStartTime = null;
         }
 
+        _isConnected = true;
+        receivedAt = DateTime.now();
         _currentTelemetry = newTelemetry;
         _errorMessage = null;
         notifyListeners();
@@ -208,6 +226,7 @@ class TelemetryService extends ChangeNotifier {
   }
 
   void _onError(String error) {
+    if (_disposed) return;
     _errorMessage = error;
     _isConnected = false;
     notifyListeners();
@@ -405,8 +424,10 @@ class TelemetryService extends ChangeNotifier {
     // A race car peaks around two and a half g sideways, so the demo is capped
     // there: driving the synthetic circuit at its own corner speeds can
     // otherwise ask for five, which would only ever pin the ball to the rim.
-    telemetry.sway =
-        (curvature * speedMs * speedMs + slip * 9.0).clamp(-24.5, 24.5);
+    telemetry.sway = (curvature * speedMs * speedMs + slip * 9.0).clamp(
+      -24.5,
+      24.5,
+    );
 
     // Extended block ("~") and the car's own geometry ("C"), the way a console
     // answering heartbeat "C" sends them.
@@ -491,17 +512,21 @@ class TelemetryService extends ChangeNotifier {
   }
 
   Future<void> disconnect() async {
+    _connectionGeneration++;
+    receivedAt = null;
+    connectedAddress = null;
     _demoTimer?.cancel();
     _demoTimer = null;
     _isDemo = false;
     await _udpService.stopListening();
     _isConnected = false;
     _currentTelemetry = null;
-    notifyListeners();
+    if (!_disposed) notifyListeners();
   }
 
   @override
   void dispose() {
+    _disposed = true;
     disconnect();
     super.dispose();
   }
@@ -667,15 +692,14 @@ class _DemoCircuit {
     for (var i = 0; i < _points.length; i++) {
       final prev = _points[(i - 1 + _points.length) % _points.length];
       final next = _points[(i + 1) % _points.length];
-      final turn = (atan2(next.dy - _points[i].dy, next.dx - _points[i].dx) -
-              atan2(_points[i].dy - prev.dy, _points[i].dx - prev.dx))
-          .abs();
-      final arc = ((_points[i] - prev).distance + (next - _points[i]).distance) /
-          2;
+      final turn =
+          (atan2(next.dy - _points[i].dy, next.dx - _points[i].dx) -
+                  atan2(_points[i].dy - prev.dy, _points[i].dx - prev.dx))
+              .abs();
+      final arc =
+          ((_points[i] - prev).distance + (next - _points[i]).distance) / 2;
       final curvature = arc <= 0 ? 0.0 : turn / arc;
-      final v = curvature <= 0.0001
-          ? 340.0
-          : sqrt(lateral / curvature) * 3.6;
+      final v = curvature <= 0.0001 ? 340.0 : sqrt(lateral / curvature) * 3.6;
       raw.add(v.clamp(70.0, 300.0));
     }
     for (var i = 0; i < raw.length; i++) {
@@ -687,7 +711,13 @@ class _DemoCircuit {
     }
   }
 
-  static Offset _catmullRom(Offset p0, Offset p1, Offset p2, Offset p3, double t) {
+  static Offset _catmullRom(
+    Offset p0,
+    Offset p1,
+    Offset p2,
+    Offset p3,
+    double t,
+  ) {
     final t2 = t * t;
     final t3 = t2 * t;
     double axis(double a, double b, double c, double d) =>

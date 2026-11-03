@@ -32,6 +32,8 @@ extension UiMessages on AppLocalizations {
         ui316BytesAddsSteeringAngleAndGForces,
       "368 bytes: adds surfaces and car category" =>
         ui368BytesAddsSurfacesAndCarCategory,
+      "a · 296 bytes. basic vehicle and lap data; no steering or g-forces." =>
+        telemetryPacketA,
       "about me" => uiAboutMe,
       "about the app" => about,
       "acc" => uiAcc,
@@ -55,7 +57,9 @@ extension UiMessages on AppLocalizations {
       "asia-pacific" => uiAsiaPacific,
       "aspiration" => uiAspiration,
       "austria" => uiAustria,
+      "automatic connection" => telemetryAutoTitle,
       "average consumption" => uiAverageConsumption,
+      "b · 316 bytes. adds steering input and g-forces." => telemetryPacketB,
       "back" => uiBack,
       "back to showroom" => uiBackToShowroom,
       "best" => uiBest,
@@ -80,6 +84,8 @@ extension UiMessages on AppLocalizations {
       "bronze finishes" => uiBronzeFinishes,
       "build notes" => uiBuildNotes,
       "build plan" => uiBuildPlan,
+      "c · 368 bytes. recommended: all fields, including front-wheel angles and tyre surfaces." =>
+        telemetryPacketC,
       "car" => uiCar,
       "car catalogue could not be loaded." => uiCarCatalogueCouldNotBeLoaded,
       "car collection" => uiCarCollection,
@@ -112,6 +118,9 @@ extension UiMessages on AppLocalizations {
         uiAdditional012,
       "china" => uiChina,
       "choose a car" => uiChooseACar,
+      "choose another format only for diagnostics. changing it during a connection pauses requests for about 3 seconds." =>
+        telemetryPacketHelp,
+      "choose console" => telemetryChoose,
       "choose the language used throughout the app." =>
         uiChooseTheLanguageUsedThroughoutTheApp,
       "circuit experience" => uiCircuitExperience,
@@ -134,11 +143,15 @@ extension UiMessages on AppLocalizations {
       "conditions" => uiAdditional001,
       "configuration" => uiConfiguration,
       "connect" => uiConnect,
+      "connect playstation" => telemetryConnectPlayStation,
+      "connect your playstation to view your drive." =>
+        telemetryConnectDescription,
       "connect your psn account to see your gt7 profile, stats, and race history." =>
         uiConnectYourPsnAccountToSeeYourGt7ProfileStats,
       "connected" => uiConnected,
       "connecting" => uiConnecting,
       "connecting to playstation…" => uiConnectingToPlaystation,
+      "connection settings" => telemetryConnectionSettings,
       "console for heartbeat b or c" => uiConsoleForHeartbeatBOrC,
       "constant driving deforms the body over time. restore the rigidity of your car's chassis here." =>
         uiAdditional019,
@@ -169,7 +182,8 @@ extension UiMessages on AppLocalizations {
       "deep scanning network (this may take 10-30 seconds)..." =>
         uiDeepScanningNetworkThisMayTake1030Seconds,
       "delta to best, isolated lap time" => uiDeltaIsolatedLap,
-      "demo" => uiDemo,
+      "demo" => telemetryDemoBadge,
+      "demo drive · simulated telemetry" => telemetryDemoDescription,
       "demo telemetry" => uiDemoTelemetry,
       "design your own helmet or racing suit." => uiAdditional045,
       "dirt" => uiDirt,
@@ -215,7 +229,10 @@ extension UiMessages on AppLocalizations {
       "fastest laps" => uiFastestLaps,
       "fetched" => uiFetched,
       "field" => uiField,
+      "find and connect to an active playstation while the app is in the foreground." =>
+        telemetryAutoHelp,
       "find playstation" => uiFindPlaystation,
+      "finding playstation" => telemetrySearchTitle,
       "finishing sign-in…" => uiFinishingSignIn,
       "fixed" => uiFixed,
       "follow the language of your device." => uiFollowTheLanguageOfYourDevice,
@@ -249,7 +266,9 @@ extension UiMessages on AppLocalizations {
       "gt menu" => uiGtMenu,
       "gt world" => uiGtWorld,
       "gt7 companion" => uiGt7Companion,
+      "gt7 platforms" => telemetryPlatforms,
       "gt7 showroom" => uiAdditional009,
+      "gt7 telemetry on your local network." => telemetryIdleHelp,
       "gtplus comparison" => uiGtplusComparison,
       "gtplus stock and swap figures are compared within the same source. official catalogue values may differ. plan here; install in gt7." =>
         uiGtplusStockAndSwapFiguresAreComparedWithinTheSame,
@@ -267,6 +286,7 @@ extension UiMessages on AppLocalizations {
       "in build plan" => uiInBuildPlan,
       "in-game cost" => uiInGameCost,
       "install a wide body kit." => uiAdditional021,
+      "instruments" => telemetryInstruments,
       "interface sounds" => uiInterfaceSounds,
       "invalid ip" => uiInvalidIp,
       "it appears as soon as you move" => uiItAppearsAsSoonAsYouMove,
@@ -300,7 +320,7 @@ extension UiMessages on AppLocalizations {
       "licences" => uiLicences,
       "limited stock" => uiLimitedStock,
       "link error" => uiLinkError,
-      "live" => uiLive,
+      "live" => telemetryLive,
       "live vs best" => uiAdditional007,
       "livery editor" => uiAdditional035,
       "load and attitude are not in packet a — ask the" =>
@@ -319,6 +339,7 @@ extension UiMessages on AppLocalizations {
       "maintenance & servicing" => uiAdditional011,
       "make sure your playstation is on and connected to the same network" =>
         uiMakeSureYourPlaystationIsOnAndConnectedToThe,
+      "manual" => telemetryManual,
       "maximum power" => uiMaximumPower,
       "maximum torque" => uiMaximumTorque,
       "measuring the packet's yaw unit from the drive…" =>
@@ -329,6 +350,7 @@ extension UiMessages on AppLocalizations {
       "miles" => uiMiles,
       "mm" => uiMm,
       "modification" => uiAdditional020,
+      "more" => telemetryMore,
       "motion" => uiMotion,
       "music and effects keep their existing balanced levels." =>
         uiMusicAndEffectsKeepTheirExistingBalancedLevels,
@@ -340,15 +362,17 @@ extension UiMessages on AppLocalizations {
       "next photo" => uiNextPhoto,
       "next week" => uiNextWeek,
       "nm" => uiNm,
+      "no active console found" => telemetryNotFound,
       "no cars match this search." => uiNoCarsMatchThisSearch,
       "no confirmed swap records for this car in the current source. this does not establish incompatibility." =>
         uiNoConfirmedSwapRecordsForThisCarInTheCurrent,
       "no daily races found." => uiNoDailyRacesFound,
-      "no data" => uiNoData,
+      "no data" => telemetryLost,
       "no devices found" => uiNoDevicesFound,
       "no elevation yet — the profile needs a driven lap" =>
         uiNoElevationYetTheProfileNeedsADrivenLap,
       "no events available." => uiNoEventsAvailable,
+      "no fresh telemetry. check gt7 and your connection." => telemetryLostHelp,
       "no load data" => uiNoLoadData,
       "no matches. try another name or region." =>
         uiNoMatchesTryAnotherNameOrRegion,
@@ -372,6 +396,7 @@ extension UiMessages on AppLocalizations {
       "nose right" => uiNoseRight,
       "nose up" => uiNoseUp,
       "not compatible" => uiNotCompatible,
+      "not connected" => telemetryNotConnected,
       "not connected to gt7" => uiNotConnectedToGt7,
       "not documented" => uiNotDocumented,
       "not in this packet" => uiNotInThisPacket,
@@ -388,15 +413,18 @@ extension UiMessages on AppLocalizations {
       "oil change" => uiOilChange,
       "oil press" => uiOilPress,
       "oil temp" => uiOilTemp,
+      "on iphone, enter the console ip once. the confirmed address is reused automatically; broadcast discovery is unavailable in this build." =>
+        telemetryAutoIosHelp,
       "open dashboard" => uiOpenDashboard,
       "open official source" => uiOpenOfficialSource,
       "open official website" => uiOpenOfficialWebsite,
       "open original" => uiOpenOriginal,
+      "open telemetry" => telemetryOpen,
       "opening sign-in…" => uiOpeningSignIn,
       "options" => uiAdditional057,
       "other" => uiOther,
       "oversteer" => uiOversteer,
-      "packet" => uiPacket,
+      "packet" => telemetryPacketShort,
       "packet a has no attitude" => uiPacketAHasNoAttitude,
       "paint colour" => uiAdditional028,
       "parts & body" => uiPartsBody,
@@ -411,6 +439,8 @@ extension UiMessages on AppLocalizations {
       "plan changes could not be saved. try again." =>
         uiPlanChangesCouldNotBeSavedTryAgain,
       "play time" => uiPlayTime,
+      "playstation connection and automatic discovery." =>
+        telemetrySettingsDescription,
       "playstation ip" => uiPlaystationIp,
       "please wait…" => uiPleaseWait,
       "points" => uiPoints,
@@ -465,6 +495,7 @@ extension UiMessages on AppLocalizations {
       "safety rating" => uiSafetyRating,
       "sand" => uiSand,
       "save and share any piece of modified content." => uiAdditional038,
+      "save settings" => telemetrySaveSettings,
       "save style" => uiAdditional037,
       "saved cars and favorites" => uiSavedCarsAndFavorites,
       "saved engine · source currently unavailable" =>
@@ -477,8 +508,10 @@ extension UiMessages on AppLocalizations {
       "scanning network..." => uiScanningNetwork,
       "screen a" => uiScreenA,
       "screen b" => uiScreenB,
+      "search again" => telemetryRetry,
       "search brands or cars" => uiSearchBrandsOrCars,
       "search the official catalogue" => uiSearchTheOfficialCatalogue,
+      "searching" => telemetrySearch,
       "select a manufacturer" => uiSelectAManufacturer,
       "select a region" => uiSelectARegion,
       "selected car / stock" => uiSelectedCarStock,
@@ -487,6 +520,7 @@ extension UiMessages on AppLocalizations {
       "session cleared — reloading sign-in page" =>
         uiSessionClearedReloadingSignInPage,
       "settings" => settings,
+      "several consoles found. choose yours." => telemetryChooseHelp,
       "show the page" => uiShowThePage,
       "show trace" => uiShowTrace,
       "sign in to playstation" => uiSignInToPlaystation,
@@ -519,6 +553,10 @@ extension UiMessages on AppLocalizations {
       "sport" => uiSport,
       "stage 5 weight reduction" => uiAdditional053,
       "start" => uiStart,
+      "start gt7 on your console. waiting for telemetry." =>
+        telemetryWaitingHelp,
+      "start gt7 on your playstation. connect both devices to the same local network and enter the console’s ip address." =>
+        telemetryNetworkHelp,
       "start type" => uiStartType,
       "steering" => uiSteering,
       "steering · packet" => uiAdditional056,
@@ -533,7 +571,8 @@ extension UiMessages on AppLocalizations {
       "system language" => systemLanguage,
       "tank" => uiTank,
       "tarmac" => uiTarmac,
-      "telemetry" => uiTelemetry,
+      "telemetry" => telemetryTitle,
+      "telemetry format" => telemetryPacketFormat,
       "temps & pressures" => uiTempsPressures,
       "the fastest lap of the session" => uiTheFastestLapOfTheSession,
       "the gallery is loading or unavailable. use retry gallery to try again." =>
@@ -592,6 +631,7 @@ extension UiMessages on AppLocalizations {
       "united kingdom" => uiUnitedKingdom,
       "united states" => uiUnitedStates,
       "unknown" => uiUnknown,
+      "unknown car" => telemetryUnknownCar,
       "unknown error" => uiAdditional061,
       "unlocked at collector level 50. a car that has undergone an engine swap cannot undergo another." =>
         uiAdditional023,
@@ -605,6 +645,7 @@ extension UiMessages on AppLocalizations {
       "vehicle specifications" => uiVehicleSpecifications,
       "view full image" => uiViewFullImage,
       "waiting for a completed lap" => uiWaitingForACompletedLap,
+      "waiting for gt7" => telemetryWaiting,
       "waiting for input data" => uiWaitingForInputData,
       "waiting for telemetry" => uiWaitingForTelemetry,
       "water" => uiWater,
@@ -625,6 +666,8 @@ extension UiMessages on AppLocalizations {
       "your plan is empty. add an engine from engine swaps or choose compatible special parts." =>
         uiYourPlanIsEmptyAddAnEngineFromEngineSwaps,
       "your preparation checklist" => uiYourPreparationChecklist,
+      "~ · 344 bytes. adds filtered inputs, wheel torque and energy recovery." =>
+        telemetryPacketExtended,
       "— it has no access to your save." => uiItHasNoAccessToYourSave,
       _ => null,
     };

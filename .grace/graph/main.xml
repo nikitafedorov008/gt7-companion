@@ -3,14 +3,15 @@
 
     <!-- Telemetry: the UDP path the app exists for. -->
     <M-SERVICE-TELEMETRY>
-      <Summary>(ENTRY_POINT) Joins the GT7 UDP broadcast, decrypts Salsa20 packets and exposes live vehicle state plus a heartbeat.</Summary>
+      <Summary>(ENTRY_POINT) Receives targeted GT7 UDP data, decrypts Salsa20 and records valid-packet timestamps; coordinates cancellable foreground DDP discovery, one connection attempt, selection, persistence and retries.</Summary>
       <Path>lib/services/telemetry_service.dart</Path>
+      <Path>lib/repositories/telemetry_connection_repository.dart</Path>
       <M-SERVICE-UDP />
       <M-MODEL-TELEMETRY />
     </M-SERVICE-TELEMETRY>
 
     <M-SERVICE-UDP>
-      <Summary>(INTEGRATION) Socket binding, packet reception and local address discovery for the telemetry listener.</Summary>
+      <Summary>(INTEGRATION) Socket binding, packet reception and local address discovery; requests the full C format by default, with manual diagnostic format selection.</Summary>
       <Path>lib/services/udp_service.dart</Path>
     </M-SERVICE-UDP>
 
@@ -26,7 +27,7 @@
     </M-MODEL-TRACK-TRACE>
 
     <M-WIDGET-TELEMETRY>
-      <Summary>(UI_COMPONENT) Telemetry presentation: HUD layout, gauges, tyre panel, throttle/brake graph, motion workspace, 3D car and track map.</Summary>
+      <Summary>(UI_COMPONENT) Telemetry presentation: HUD layout, gauges, tyre panel, throttle/brake graph, motion workspace, 3D car and track map; compact GT7 home strip with current-car manufacturer logo, labelled packet-freshness status, More actions and shared auto-connection preference.</Summary>
       <Path>lib/widgets/telemetry/telemetry_screen.dart</Path>
       <M-MODEL-TELEMETRY />
     </M-WIDGET-TELEMETRY>
@@ -133,6 +134,8 @@
     <M-SERVICE-NETWORK-SCANNER>
       <Summary>(INTEGRATION) Finds a PlayStation on the local network for Remote Play setup.</Summary>
       <Path>lib/services/network_scanner.dart</Path>
+      <Path>lib/services/console_discovery_service.dart</Path>
+      <Path>lib/models/telemetry/console_candidate.dart</Path>
     </M-SERVICE-NETWORK-SCANNER>
 
     <M-REPO-GT7-AUTH>
@@ -179,7 +182,7 @@
       <Path>lib/widgets/adaptive_navbar.dart</Path><Path>lib/widgets/window_navigation_safe_area.dart</Path><M-SETTINGS/><M-LOCALIZATION/>
     </M-NAVBAR>
 
-    <M-SETTINGS><Summary>(UI_COMPONENT) Persisted System/RU/EN application language, GT7 category settings and existing audio controls.</Summary><Path>lib/services/app_settings_service.dart</Path><Path>lib/widgets/settings/settings_display.dart</Path><M-LOCALIZATION/><M-SOUND/></M-SETTINGS>
+    <M-SETTINGS><Summary>(UI_COMPONENT) Persisted System/RU/EN language, shared automatic telemetry preference and confirmed console address, GT7 category settings and existing audio controls.</Summary><Path>lib/services/app_settings_service.dart</Path><Path>lib/widgets/settings/settings_display.dart</Path><M-LOCALIZATION/><M-SOUND/></M-SETTINGS>
     <M-LOCALIZATION><Summary>(UTILITY) Generated RU/EN resources, typed templates, legacy UI label adapter and coverage audit.</Summary><Path>lib/l10n/app_en.arb</Path><Path>lib/l10n/app_ru.arb</Path><Path>lib/l10n/ui_messages.dart</Path><Path>tools/audit_localization.py</Path></M-LOCALIZATION>
     <!-- Infrastructure everything else depends on. -->
     <M-DI-APPSCOPE>

@@ -3409,6 +3409,234 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'ALSO FITS {track} — TOO CLOSE TO CALL'**
   String uiAmbiguousTrack(String track);
+
+  /// No description provided for @telemetryConnectPlayStation.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect PlayStation'**
+  String get telemetryConnectPlayStation;
+
+  /// No description provided for @telemetryConnectDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect your PlayStation to view your drive.'**
+  String get telemetryConnectDescription;
+
+  /// No description provided for @telemetryDemoDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Demo drive · simulated telemetry'**
+  String get telemetryDemoDescription;
+
+  /// No description provided for @telemetryConnectionSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection settings'**
+  String get telemetryConnectionSettings;
+
+  /// No description provided for @telemetryNotConnected.
+  ///
+  /// In en, this message translates to:
+  /// **'Not connected'**
+  String get telemetryNotConnected;
+
+  /// No description provided for @telemetryNetworkHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Start GT7 on your PlayStation. Connect both devices to the same local network and enter the console’s IP address.'**
+  String get telemetryNetworkHelp;
+
+  /// No description provided for @telemetryPacketFormat.
+  ///
+  /// In en, this message translates to:
+  /// **'Telemetry format'**
+  String get telemetryPacketFormat;
+
+  /// No description provided for @telemetryPacketA.
+  ///
+  /// In en, this message translates to:
+  /// **'A · 296 bytes. Basic vehicle and lap data; no steering or g-forces.'**
+  String get telemetryPacketA;
+
+  /// No description provided for @telemetryPacketB.
+  ///
+  /// In en, this message translates to:
+  /// **'B · 316 bytes. Adds steering input and g-forces.'**
+  String get telemetryPacketB;
+
+  /// No description provided for @telemetryPacketExtended.
+  ///
+  /// In en, this message translates to:
+  /// **'~ · 344 bytes. Adds filtered inputs, wheel torque and energy recovery.'**
+  String get telemetryPacketExtended;
+
+  /// No description provided for @telemetryPacketC.
+  ///
+  /// In en, this message translates to:
+  /// **'C · 368 bytes. Recommended: all fields, including front-wheel angles and tyre surfaces.'**
+  String get telemetryPacketC;
+
+  /// No description provided for @telemetryPacketHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose another format only for diagnostics. Changing it during a connection pauses requests for about 3 seconds.'**
+  String get telemetryPacketHelp;
+
+  /// No description provided for @telemetrySaveSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Save settings'**
+  String get telemetrySaveSettings;
+
+  /// No description provided for @telemetryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Telemetry'**
+  String get telemetryTitle;
+
+  /// No description provided for @telemetryPlatforms.
+  ///
+  /// In en, this message translates to:
+  /// **'GT7 platforms'**
+  String get telemetryPlatforms;
+
+  /// No description provided for @telemetryAutoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic connection'**
+  String get telemetryAutoTitle;
+
+  /// No description provided for @telemetryAutoHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Find and connect to an active PlayStation while the app is in the foreground.'**
+  String get telemetryAutoHelp;
+
+  /// No description provided for @telemetryAutoIosHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'On iPhone, enter the console IP once. The confirmed address is reused automatically; broadcast discovery is unavailable in this build.'**
+  String get telemetryAutoIosHelp;
+
+  /// No description provided for @telemetrySearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Searching'**
+  String get telemetrySearch;
+
+  /// No description provided for @telemetrySearchTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Finding PlayStation'**
+  String get telemetrySearchTitle;
+
+  /// No description provided for @telemetryWaiting.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for GT7'**
+  String get telemetryWaiting;
+
+  /// No description provided for @telemetryWaitingHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Start GT7 on your console. Waiting for telemetry.'**
+  String get telemetryWaitingHelp;
+
+  /// No description provided for @telemetryLive.
+  ///
+  /// In en, this message translates to:
+  /// **'LIVE'**
+  String get telemetryLive;
+
+  /// No description provided for @telemetryLost.
+  ///
+  /// In en, this message translates to:
+  /// **'No data'**
+  String get telemetryLost;
+
+  /// No description provided for @telemetryLostHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'No fresh telemetry. Check GT7 and your connection.'**
+  String get telemetryLostHelp;
+
+  /// No description provided for @telemetryManual.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual'**
+  String get telemetryManual;
+
+  /// No description provided for @telemetryNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No active console found'**
+  String get telemetryNotFound;
+
+  /// No description provided for @telemetryChoose.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose console'**
+  String get telemetryChoose;
+
+  /// No description provided for @telemetryChooseHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Several consoles found. Choose yours.'**
+  String get telemetryChooseHelp;
+
+  /// No description provided for @telemetryMore.
+  ///
+  /// In en, this message translates to:
+  /// **'More'**
+  String get telemetryMore;
+
+  /// No description provided for @telemetryInstruments.
+  ///
+  /// In en, this message translates to:
+  /// **'Instruments'**
+  String get telemetryInstruments;
+
+  /// No description provided for @telemetryOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open telemetry'**
+  String get telemetryOpen;
+
+  /// No description provided for @telemetryRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Search again'**
+  String get telemetryRetry;
+
+  /// No description provided for @telemetryUnknownCar.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown car'**
+  String get telemetryUnknownCar;
+
+  /// No description provided for @telemetrySettingsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'PlayStation connection and automatic discovery.'**
+  String get telemetrySettingsDescription;
+
+  /// No description provided for @telemetryPacketShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Packet'**
+  String get telemetryPacketShort;
+
+  /// No description provided for @telemetryDemoBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'DEMO'**
+  String get telemetryDemoBadge;
+
+  /// No description provided for @telemetryIdleHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'GT7 telemetry on your local network.'**
+  String get telemetryIdleHelp;
 }
 
 class _AppLocalizationsDelegate

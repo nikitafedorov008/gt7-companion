@@ -1,0 +1,8 @@
+<GraceChangeSpec graceVersion="4.0" status="applied"><C-TELEMETRY-VECTOR-PLATFORMS>
+<Summary>User-requested SVG connection artwork and a separate PS4/PS5 platform attribution in the telemetry home widget.</Summary>
+<Goals><Goal>Replace the generic devices icon with a crisp monochrome SVG console-to-screen illustration.</Goal><Goal>Show sourced PS4 and PS5 wordmarks in a localized, noninteractive platform row.</Goal></Goals>
+<Constraints><Constraint>Retain the selected layout, all connection behaviour, default C and settings, existing uncommitted work and native Flutter architecture.</Constraint><Constraint>SVG assets contain real vector geometry, no embedded bitmap; wordmarks preserve source proportions and have accessible names. Wrap at narrow widths.</Constraint></Constraints>
+<NonGoals><NonGoal>No connection changes, platform switcher, dependencies, commit or push.</NonGoal></NonGoals>
+<AcceptanceCriteria><Criterion>Connection artwork and both platform logos render as SVG on macOS and narrow iPhone without overflow in RU/EN.</Criterion><Criterion>Existing connection tests, resource audit and changed-file analysis pass; live screenshots verify the result.</Criterion></AcceptanceCriteria>
+<AffectedAreas><M-WIDGET-TELEMETRY/><M-LOCALIZATION/></AffectedAreas><VerificationIntent><ExpectedCommand>Dart MCP connection tests and pinned SDK localization generation/analysis.</ExpectedCommand><ExpectedEvidence>Live macOS and iPhone screenshots and runtime inspection.</ExpectedEvidence></VerificationIntent>
+</C-TELEMETRY-VECTOR-PLATFORMS></GraceChangeSpec>

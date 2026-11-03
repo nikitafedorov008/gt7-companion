@@ -6,6 +6,8 @@
 
     <!-- Telemetry. -->
     <V-M-SERVICE-TELEMETRY>
+      <TestFiles><File>test/telemetry_auto_connection_test.dart</File></TestFiles>
+      <Scenario kind="success">Only valid decrypted packets establish live state and confirm a saved address; stale car data is hidden; background, disable, disconnect and manual override cancel late automatic work.</Scenario>
       <Scenario kind="success">A GT7 UDP packet is received, decrypted with Salsa20 and mapped to TelemetryData with speed, RPM, tyre, fuel and gear values matching the game state.</Scenario>
       <Scenario kind="failure">A malformed or truncated packet is rejected without killing the listener, and the next valid packet still updates the state.</Scenario>
       <Marker>Successfully decrypted packet</Marker>
@@ -13,6 +15,8 @@
     </V-M-SERVICE-TELEMETRY>
 
     <V-M-SERVICE-UDP>
+      <TestFiles><File>test/telemetry_connection_test.dart</File></TestFiles>
+      <Scenario kind="success">New listeners request C, while A, B and ~ remain available in connection settings.</Scenario>
       <Scenario kind="success">The listener binds the telemetry port, reports the local address it will receive on, and stops cleanly on dispose.</Scenario>
       <Scenario kind="failure">A port already in use surfaces as a socket error instead of a silent no-op.</Scenario>
     </V-M-SERVICE-UDP>
@@ -32,12 +36,16 @@
 
     <V-M-WIDGET-TELEMETRY>
       <TestFiles>
+        <File>test/telemetry_connection_test.dart</File>
         <File>test/telemetry_display_layout_test.dart</File>
         <File>test/motion_panel_layout_test.dart</File>
         <File>test/car_model_3d_test.dart</File>
         <File>test/surface_codes_test.dart</File>
       </TestFiles>
       <Command>flutter test test/telemetry_display_layout_test.dart test/motion_panel_layout_test.dart test/car_model_3d_test.dart test/surface_codes_test.dart</Command>
+      <Scenario kind="success">Compact strip measures 114px on macOS and 166px on 390px iPhone with fixture car; official manufacturer logo resolves by carId and falls back on image failure. More and shared settings work, and RU/EN enlarged-text tests fit 320–1440. Evidence in C-AUTO-TELEMETRY-CONNECTION.</Scenario>
+      <Scenario kind="success">Vector console/controller/display artwork and accessible PS4/PS5 source-proportioned logos render without overflow in the RU/EN home panel, including narrow phones and enlarged text.</Scenario>
+      <Scenario kind="success">The home entry hides packet controls; settings validates IPv4, commits format/address only on submit, and scrolls with a phone keyboard. RU/EN connection states fit 320–1440 widths and text scale 1.5. Live macOS and iPhone evidence is recorded in C-TELEMETRY-CONNECTION-UI.</Scenario>
       <Scenario kind="success">Telemetry and motion layouts build at phone and desktop widths without overflow.</Scenario>
       <Scenario kind="success">Surface code labels match the game's grip codes.</Scenario>
       <Scenario kind="failure">A missing or unknown surface code renders the neutral label instead of throwing.</Scenario>
@@ -159,6 +167,8 @@
     </V-M-SERVICE-GT7-API>
 
     <V-M-SERVICE-NETWORK-SCANNER>
+      <TestFiles><File>test/console_discovery_test.dart</File></TestFiles>
+      <Scenario kind="success">Bounded DDP discovery validates host identity, active/standby status and source port, deduplicates loopback replies and closes pending sockets on cancellation; legacy subnet heuristics remain manual only.</Scenario>
       <Scenario kind="success">The scanner reports hosts that answer on the Remote Play port with a PlayStation-like hostname.</Scenario>
       <Scenario kind="failure">A subnet that cannot be determined returns an empty result plus a logged reason, not an exception.</Scenario>
     </V-M-SERVICE-NETWORK-SCANNER>
@@ -295,7 +305,9 @@
     <V-M-SERVICE-BRAND-CENTRAL><TestFiles><File>test/brand_central_test.dart</File></TestFiles><Command>.fvm/flutter_sdk/bin/flutter test test/brand_central_test.dart</Command><Scenario kind="success">Official metadata coverage, safe gallery resolution and cache, localized units, stale responses, real controls, region-to-country-to-brand navigation, responsive widths 320 to 1920, separately selected portrait assets and reduced-motion lifecycle.</Scenario></V-M-SERVICE-BRAND-CENTRAL>
     <V-M-REPO-BRAND-CENTRAL><TestFiles><File>test/brand_central_test.dart</File></TestFiles><Command>.fvm/flutter_sdk/bin/flutter test test/brand_central_test.dart</Command><Scenario kind="success">Official metadata coverage, safe gallery resolution and cache, localized units, stale responses, real controls, region-to-country-to-brand navigation, responsive widths 320 to 1920, separately selected portrait assets and reduced-motion lifecycle.</Scenario></V-M-REPO-BRAND-CENTRAL>
     <V-M-WIDGET-BRAND-CENTRAL><TestFiles><File>test/brand_central_test.dart</File></TestFiles><Command>.fvm/flutter_sdk/bin/flutter test test/brand_central_test.dart</Command><Scenario kind="success">Official metadata coverage, safe gallery resolution and cache, localized units, stale responses, real controls, region-to-country-to-brand navigation, responsive widths 320 to 1920, separately selected portrait assets and reduced-motion lifecycle.</Scenario></V-M-WIDGET-BRAND-CENTRAL>
-    <V-M-SETTINGS><TestFiles><File>test/app_settings_test.dart</File><File>test/apex_display_test.dart</File><File>test/brand_central_test.dart</File></TestFiles><Command>.fvm/flutter_sdk/bin/flutter test test/app_settings_test.dart test/apex_display_test.dart test/brand_central_test.dart</Command><Scenario kind="success">System fallback, ordered persistence and restoration, GT menu navigation, retained route/input, category tiles, RU/EN at 320-1920 and 1.5 scale, global source-language propagation.</Scenario><Scenario kind="failure">Invalid legacy preference falls back to System; failed source loads retain retry controls and stale responses cannot replace the current language.</Scenario></V-M-SETTINGS>
+    <V-M-SETTINGS>
+      <TestFiles><File>test/app_settings_service_test.dart</File></TestFiles>
+      <Scenario kind="success">Automatic telemetry defaults on, persists across service restoration, and is exposed by the global Telemetry category and connection settings without dropping a live connection.</Scenario><TestFiles><File>test/app_settings_test.dart</File><File>test/apex_display_test.dart</File><File>test/brand_central_test.dart</File></TestFiles><Command>.fvm/flutter_sdk/bin/flutter test test/app_settings_test.dart test/apex_display_test.dart test/brand_central_test.dart</Command><Scenario kind="success">System fallback, ordered persistence and restoration, GT menu navigation, retained route/input, category tiles, RU/EN at 320-1920 and 1.5 scale, global source-language propagation.</Scenario><Scenario kind="failure">Invalid legacy preference falls back to System; failed source loads retain retry controls and stale responses cannot replace the current language.</Scenario></V-M-SETTINGS>
     <V-M-LOCALIZATION><TestFiles><File>test/app_settings_test.dart</File><File>test/telemetry_display_layout_test.dart</File><File>test/gt_auto_workshop_test.dart</File></TestFiles><Command>python3 tools/audit_localization.py</Command><Scenario kind="success">Matching RU/EN resource keys/placeholders, typed plurals, checked static UI labels, localized feature layouts and painter captions.</Scenario><Scenario kind="failure">Missing resources, empty translations, placeholder drift and unregistered owned labels fail the audit.</Scenario></V-M-LOCALIZATION>
   </VD-MAIN>
 </GraceVerificationDocument>

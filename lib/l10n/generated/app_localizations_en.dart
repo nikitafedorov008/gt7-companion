@@ -1802,4 +1802,130 @@ class AppLocalizationsEn extends AppLocalizations {
   String uiAmbiguousTrack(String track) {
     return 'ALSO FITS $track — TOO CLOSE TO CALL';
   }
+
+  @override
+  String get telemetryConnectPlayStation => 'Connect PlayStation';
+
+  @override
+  String get telemetryConnectDescription =>
+      'Connect your PlayStation to view your drive.';
+
+  @override
+  String get telemetryDemoDescription => 'Demo drive · simulated telemetry';
+
+  @override
+  String get telemetryConnectionSettings => 'Connection settings';
+
+  @override
+  String get telemetryNotConnected => 'Not connected';
+
+  @override
+  String get telemetryNetworkHelp =>
+      'Start GT7 on your PlayStation. Connect both devices to the same local network and enter the console’s IP address.';
+
+  @override
+  String get telemetryPacketFormat => 'Telemetry format';
+
+  @override
+  String get telemetryPacketA =>
+      'A · 296 bytes. Basic vehicle and lap data; no steering or g-forces.';
+
+  @override
+  String get telemetryPacketB =>
+      'B · 316 bytes. Adds steering input and g-forces.';
+
+  @override
+  String get telemetryPacketExtended =>
+      '~ · 344 bytes. Adds filtered inputs, wheel torque and energy recovery.';
+
+  @override
+  String get telemetryPacketC =>
+      'C · 368 bytes. Recommended: all fields, including front-wheel angles and tyre surfaces.';
+
+  @override
+  String get telemetryPacketHelp =>
+      'Choose another format only for diagnostics. Changing it during a connection pauses requests for about 3 seconds.';
+
+  @override
+  String get telemetrySaveSettings => 'Save settings';
+
+  @override
+  String get telemetryTitle => 'Telemetry';
+
+  @override
+  String get telemetryPlatforms => 'GT7 platforms';
+
+  @override
+  String get telemetryAutoTitle => 'Automatic connection';
+
+  @override
+  String get telemetryAutoHelp =>
+      'Find and connect to an active PlayStation while the app is in the foreground.';
+
+  @override
+  String get telemetryAutoIosHelp =>
+      'On iPhone, enter the console IP once. The confirmed address is reused automatically; broadcast discovery is unavailable in this build.';
+
+  @override
+  String get telemetrySearch => 'Searching';
+
+  @override
+  String get telemetrySearchTitle => 'Finding PlayStation';
+
+  @override
+  String get telemetryWaiting => 'Waiting for GT7';
+
+  @override
+  String get telemetryWaitingHelp =>
+      'Start GT7 on your console. Waiting for telemetry.';
+
+  @override
+  String get telemetryLive => 'LIVE';
+
+  @override
+  String get telemetryLost => 'No data';
+
+  @override
+  String get telemetryLostHelp =>
+      'No fresh telemetry. Check GT7 and your connection.';
+
+  @override
+  String get telemetryManual => 'Manual';
+
+  @override
+  String get telemetryNotFound => 'No active console found';
+
+  @override
+  String get telemetryChoose => 'Choose console';
+
+  @override
+  String get telemetryChooseHelp => 'Several consoles found. Choose yours.';
+
+  @override
+  String get telemetryMore => 'More';
+
+  @override
+  String get telemetryInstruments => 'Instruments';
+
+  @override
+  String get telemetryOpen => 'Open telemetry';
+
+  @override
+  String get telemetryRetry => 'Search again';
+
+  @override
+  String get telemetryUnknownCar => 'Unknown car';
+
+  @override
+  String get telemetrySettingsDescription =>
+      'PlayStation connection and automatic discovery.';
+
+  @override
+  String get telemetryPacketShort => 'Packet';
+
+  @override
+  String get telemetryDemoBadge => 'DEMO';
+
+  @override
+  String get telemetryIdleHelp => 'GT7 telemetry on your local network.';
 }

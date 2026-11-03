@@ -1816,4 +1816,132 @@ class AppLocalizationsRu extends AppLocalizations {
   String uiAmbiguousTrack(String track) {
     return 'ТАКЖЕ ПОДХОДИТ $track — НЕДОСТАТОЧНО ДАННЫХ ДЛЯ ВЫБОРА';
   }
+
+  @override
+  String get telemetryConnectPlayStation => 'Подключить PlayStation';
+
+  @override
+  String get telemetryConnectDescription =>
+      'Подключите PlayStation для просмотра заезда.';
+
+  @override
+  String get telemetryDemoDescription =>
+      'Демонстрационный заезд · симуляция данных';
+
+  @override
+  String get telemetryConnectionSettings => 'Настройки подключения';
+
+  @override
+  String get telemetryNotConnected => 'Нет подключения';
+
+  @override
+  String get telemetryNetworkHelp =>
+      'Запустите GT7 на PlayStation. Подключите оба устройства к одной локальной сети и укажите IP-адрес консоли.';
+
+  @override
+  String get telemetryPacketFormat => 'Формат телеметрии';
+
+  @override
+  String get telemetryPacketA =>
+      'A · 296 байт. Основные данные машины и круга; без поворота колёс и перегрузок.';
+
+  @override
+  String get telemetryPacketB =>
+      'B · 316 байт. Дополнительно: канал руля и перегрузки.';
+
+  @override
+  String get telemetryPacketExtended =>
+      '~ · 344 байта. Дополнительно: сглаженные педали, моменты колёс и рекуперация.';
+
+  @override
+  String get telemetryPacketC =>
+      'C · 368 байт. Рекомендуется: все поля, включая углы передних колёс и покрытие под шинами.';
+
+  @override
+  String get telemetryPacketHelp =>
+      'Выбор другого формата нужен для диагностики. При смене во время подключения запросы приостанавливаются примерно на 3 секунды.';
+
+  @override
+  String get telemetrySaveSettings => 'Сохранить настройки';
+
+  @override
+  String get telemetryTitle => 'Телеметрия';
+
+  @override
+  String get telemetryPlatforms => 'Платформы GT7';
+
+  @override
+  String get telemetryAutoTitle => 'Автоподключение';
+
+  @override
+  String get telemetryAutoHelp =>
+      'Находить и подключать активную PlayStation, пока приложение открыто.';
+
+  @override
+  String get telemetryAutoIosHelp =>
+      'На iPhone укажите IP консоли один раз. Подтверждённый адрес используется автоматически; поиск через широковещание в этой сборке недоступен.';
+
+  @override
+  String get telemetrySearch => 'Поиск';
+
+  @override
+  String get telemetrySearchTitle => 'Поиск PlayStation';
+
+  @override
+  String get telemetryWaiting => 'Ожидание GT7';
+
+  @override
+  String get telemetryWaitingHelp =>
+      'Запустите GT7 на консоли. Ожидаем телеметрию.';
+
+  @override
+  String get telemetryLive => 'LIVE';
+
+  @override
+  String get telemetryLost => 'Нет данных';
+
+  @override
+  String get telemetryLostHelp =>
+      'Нет свежей телеметрии. Проверьте GT7 и подключение.';
+
+  @override
+  String get telemetryManual => 'Вручную';
+
+  @override
+  String get telemetryNotFound => 'Активная консоль не найдена';
+
+  @override
+  String get telemetryChoose => 'Выбрать консоль';
+
+  @override
+  String get telemetryChooseHelp =>
+      'Найдено несколько консолей. Выберите свою.';
+
+  @override
+  String get telemetryMore => 'Ещё';
+
+  @override
+  String get telemetryInstruments => 'Приборы';
+
+  @override
+  String get telemetryOpen => 'Открыть телеметрию';
+
+  @override
+  String get telemetryRetry => 'Повторить поиск';
+
+  @override
+  String get telemetryUnknownCar => 'Неизвестный автомобиль';
+
+  @override
+  String get telemetrySettingsDescription =>
+      'Подключение PlayStation и автоматический поиск.';
+
+  @override
+  String get telemetryPacketShort => 'Пакет';
+
+  @override
+  String get telemetryDemoBadge => 'ДЕМО';
+
+  @override
+  String get telemetryIdleHelp => 'Телеметрия GT7 в вашей локальной сети.';
 }

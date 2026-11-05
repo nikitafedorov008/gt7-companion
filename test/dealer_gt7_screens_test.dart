@@ -17,7 +17,12 @@ import 'dealer_gt7_data_test.dart' show sample;
 import 'dealer_gt7_dialog_test.dart' show DialogPreferences;
 
 class InventoryFixture extends CarRepository {
-  InventoryFixture(this.rows) : super(GT7InfoService(), GTDBService());
+  InventoryFixture(this.rows)
+    : super(
+        GT7InfoService(),
+        GTDBService(),
+        catalog: DealerCatalogRepository(BrandCentralService()),
+      );
   final List<Car> rows;
   bool forced = false;
   @override

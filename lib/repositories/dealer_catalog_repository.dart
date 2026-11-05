@@ -45,6 +45,26 @@ class DealerCatalogRepository extends ChangeNotifier {
     return DealerCarDetails(car, record, _data?.brands[record?.brandId]);
   }
 
+  /// Country belongs to the exact car record, never a manufacturer-name guess.
+  /// IDs and country labels are defined in assets/cars/brand_central.json.
+  String countryCodeFor(String id) {
+    final record = _data?.editions['en']?[DealerCarDetails.canonicalId(id)];
+    return switch (record?.text('countryId')) {
+      'carctry2' => 'jp',
+      'carctry3' => 'us',
+      'carctry4' => 'gb',
+      'carctry5' => 'de',
+      'carctry6' => 'fr',
+      'carctry7' => 'it',
+      'carctry9' => 'kr',
+      'carctry12' => 'se',
+      'carctry15' => 'at',
+      'carctry19' => 'cz',
+      'carctry20' => 'cn',
+      _ => '',
+    };
+  }
+
   /// A rotated-out saved vehicle still has a name, local thumbnail and specs.
   /// Its old sale price and stock are deliberately not presented as current.
   Car? savedCar(String id, Iterable<Car> inventory) {
@@ -58,7 +78,7 @@ class DealerCatalogRepository extends ChangeNotifier {
       name: record.name,
       shortName: record.name,
       manufacturer: _data?.brands[record.brandId]?.name ?? '',
-      region: '',
+      region: countryCodeFor(id),
       credits: 0,
       state: 'unknown',
       estimateDays: 0,

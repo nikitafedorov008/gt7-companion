@@ -206,18 +206,20 @@ class AppScope extends StatelessWidget {
           ),
           dispose: (context, bloc) => bloc.close(),
         ),
-        ChangeNotifierProxyProvider2<
+        ChangeNotifierProxyProvider3<
           GT7InfoService,
           GTDBService,
+          DealerCatalogRepository,
           CarRepository
         >(
           create: (context) => CarRepository(
-            Provider.of<GT7InfoService>(context, listen: false),
-            Provider.of<GTDBService>(context, listen: false),
+            context.read<GT7InfoService>(),
+            context.read<GTDBService>(),
+            catalog: context.read<DealerCatalogRepository>(),
           ),
-          update: (context, gt7InfoService, gtdbService, repository) {
-            return repository ?? CarRepository(gt7InfoService, gtdbService);
-          },
+          update: (context, gt7InfoService, gtdbService, catalog, repository) =>
+              repository ??
+              CarRepository(gt7InfoService, gtdbService, catalog: catalog),
         ),
       ],
       child: child,

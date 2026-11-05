@@ -5,10 +5,12 @@ import '../services/gt7info_service.dart';
 import '../services/gtdb_service.dart';
 import '../models/gt7info/gt7info_data.dart';
 import '../models/car_dealer/used_car.dart';
+import 'dealer_catalog_repository.dart';
 
 class CarRepository extends ChangeNotifier {
   final GT7InfoService _gt7InfoService;
   final GTDBService _gtdbService;
+  final DealerCatalogRepository _catalog;
 
   List<Car> _allCars = [];
   bool _isLoading = false;
@@ -24,7 +26,11 @@ class CarRepository extends ChangeNotifier {
       _gt7InfoService.lastUpdated == null &&
       _gtdbService.lastUpdated == null;
 
-  CarRepository(this._gt7InfoService, this._gtdbService);
+  CarRepository(
+    this._gt7InfoService,
+    this._gtdbService, {
+    required DealerCatalogRepository catalog,
+  }) : _catalog = catalog;
 
   Future<void> fetchAllCars({bool forceRefresh = false}) async {
     if (_fetching) return;
@@ -38,6 +44,7 @@ class CarRepository extends ChangeNotifier {
       await Future.wait([
         _gt7InfoService.loadBundled(),
         _gtdbService.loadBundled(),
+        _catalog.load(),
       ]);
       _composeCars();
       _isLoading = false;
@@ -118,7 +125,13 @@ class CarRepository extends ChangeNotifier {
       }
     }
 
-    _allCars = combinedCars.values.toList();
+    // GTDB Legendary IDs are internal; enrich only after resolving the GT7 ID.
+    _allCars = combinedCars.values.map((car) {
+      final region = car.region.trim().toLowerCase();
+      if (RegExp(r'^[a-z]{2}$').hasMatch(region) && region != 'xx') return car;
+      final country = _catalog.countryCodeFor(car.id);
+      return country.isEmpty ? car : car.withRegion(country);
+    }).toList();
   }
 
   List<Car> _extractGT7InfoCars() {

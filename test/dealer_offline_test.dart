@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:gt7_companion/services/brand_central_service.dart';
+import 'package:gt7_companion/repositories/dealer_catalog_repository.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gt7_companion/services/gtdb_service.dart';
@@ -51,7 +53,11 @@ void main() {
       });
       final info = GT7InfoService(httpClient: offline());
       final gtdb = GTDBService(httpClient: offline());
-      final repo = CarRepository(info, gtdb);
+      final official = BrandCentralService();
+      final catalog = DealerCatalogRepository(official);
+      addTearDown(catalog.dispose);
+      addTearDown(official.dispose);
+      final repo = CarRepository(info, gtdb, catalog: catalog);
       await repo.fetchAllCars();
       expect(repo.getUsedCars(), isNotEmpty);
       expect(repo.getLegendCars(), isNotEmpty);
@@ -84,7 +90,11 @@ void main() {
         httpClient: MockClient((_) => pending.future),
       );
       final gtdb = GTDBService(httpClient: MockClient((_) => pending.future));
-      final repo = CarRepository(info, gtdb);
+      final official = BrandCentralService();
+      final catalog = DealerCatalogRepository(official);
+      addTearDown(catalog.dispose);
+      addTearDown(official.dispose);
+      final repo = CarRepository(info, gtdb, catalog: catalog);
       final ready = Completer<void>();
       repo.addListener(() {
         if (repo.allCars.isNotEmpty && !ready.isCompleted) ready.complete();

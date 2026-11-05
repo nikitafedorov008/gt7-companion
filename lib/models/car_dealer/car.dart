@@ -45,6 +45,29 @@ class Car {
     this.imageUrl, // NEW
   });
 
+  /// Preserve inventory and artwork when enriching missing catalogue metadata.
+  Car withRegion(String region) => Car(
+    id: id,
+    name: name,
+    shortName: shortName,
+    manufacturer: manufacturer,
+    credits: credits,
+    state: state,
+    estimateDays: estimateDays,
+    maxEstimateDays: maxEstimateDays,
+    isNew: isNew,
+    rewardCar: rewardCar,
+    engineSwap: engineSwap,
+    lotteryCar: lotteryCar,
+    trophyCar: trophyCar,
+    source: source,
+    imageId: imageId,
+    frontImageId: frontImageId,
+    sort: sort,
+    imageUrl: imageUrl,
+    region: region,
+  );
+
   String get flagUrl => RegExp(r'^[a-z]{2}$').hasMatch(region) && region != 'xx'
       ? 'https://flagcdn.com/h24/$region.png'
       : '';

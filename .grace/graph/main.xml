@@ -62,6 +62,7 @@
     <M-MODEL-DAILY>
       <Summary>(DATA_LAYER) Unified daily race plus the per-source models it is built from.</Summary>
       <Path>lib/models/daily_races/daily_race.dart</Path>
+      <M-TRACK-ARTWORK />
     </M-MODEL-DAILY>
 
     <M-WIDGET-DAILY>
@@ -69,23 +70,31 @@
       <Path>lib/widgets/daily_races/daily_races_display.dart</Path>
       <M-REPO-SPORT />
       <M-MODEL-DAILY />
+      <M-TRACK-ARTWORK />
     </M-WIDGET-DAILY>
+
+    <M-TRACK-ARTWORK>
+      <Summary>(UI_COMPONENT) Track-only bundled photo, logo and layout lookup with exact DG-Edge configuration URLs, resized asset decoding and cached network fallback for unknown future artwork. Incremental updater discovers public catalogues, validates signatures and hashes, and excludes profile images.</Summary>
+      <Path>lib/widgets/daily_races/track_artwork.dart</Path>
+      <Path>lib/models/daily_races/track_image_assets.dart</Path>
+      <Path>tools/update_track_images.py</Path>
+    </M-TRACK-ARTWORK>
 
     <!-- Car dealer: gt7info plus GTDB merged into one car list. -->
     <M-SERVICE-GT7INFO>
-      <Summary>(INTEGRATION) Reads the gt7info used/legendary car lists and their price history.</Summary>
+      <Summary>(INTEGRATION) Reads the gt7info used/legendary lists and price history; publishes bundled inventory before network refresh and retains data on failures.</Summary>
       <Path>lib/services/gt7info_service.dart</Path>
       <M-MODEL-CAR />
     </M-SERVICE-GT7INFO>
 
     <M-SERVICE-GTDB>
-      <Summary>(INTEGRATION) GraphQL client for the community car database, including AVIF artwork identifiers.</Summary>
+      <Summary>(INTEGRATION) Public Used HTML inventory and Legendary JSON client with exact catalogue ID mapping, independent refresh failures and bundled cold-start inventory.</Summary>
       <Path>lib/services/gtdb_service.dart</Path>
       <M-MODEL-CAR />
     </M-SERVICE-GTDB>
 
     <M-REPO-CAR>
-      <Summary>(DATA_LAYER) Merges gt7info and GTDB cars, owns the used/legendary split and the refresh flags.</Summary>
+      <Summary>(DATA_LAYER) Merges gt7info and GTDB cars, publishes bundled inventory immediately, retains cards after refresh failures and exposes inventory date/offline status.</Summary>
       <Path>lib/repositories/car_repository.dart</Path>
       <M-SERVICE-GT7INFO />
       <M-SERVICE-GTDB />
@@ -97,12 +106,30 @@
       <Path>lib/models/car_dealer/car.dart</Path>
     </M-MODEL-CAR>
 
+    <M-DEALER-CATALOG>
+      <Summary>(DATA_LAYER) Exact canonical-ID join between current inventory and bundled localized official specifications/history; explicit unknown values and rotated-out saved-car presentation.</Summary>
+      <Path>lib/models/car_dealer/dealer_car_details.dart</Path><Path>lib/repositories/dealer_catalog_repository.dart</Path><M-MODEL-CAR/><M-SERVICE-BRAND-CENTRAL/>
+    </M-DEALER-CATALOG>
+    <M-REPO-WISHLIST>
+      <Summary>(DATA_LAYER) Local canonical car IDs persisted with serialized writes, reload, validation and explicit storage failure without changing saved state.</Summary>
+      <Path>lib/repositories/wishlist_repository.dart</Path>
+    </M-REPO-WISHLIST>
+
     <M-WIDGET-CAR-DEALER>
-      <Summary>(UI_COMPONENT) Used and legendary dealership screens and their car cards.</Summary>
-      <Path>lib/widgets/car_dealer/used/used_car_display.dart</Path>
+      <Summary>(UI_COMPONENT) Reference-proportioned wide Used cards and open corner-marked Hagerty columns with normalized visual anchors, genuine data and small credit prefix; horizontal desktop collection, phone pull-to-refresh, in-app details and persistent wishlist action.</Summary>
+      <Path>lib/widgets/car_dealer/used/used_car_display.dart</Path><Path>lib/widgets/car_dealer/dealer_inventory.dart</Path><Path>lib/widgets/car_dealer/dealer_car_dialog.dart</Path><M-DEALER-CATALOG/><M-REPO-WISHLIST/>
       <M-REPO-CAR />
       <M-MODEL-CAR />
+      <M-CARD-ARTWORK />
     </M-WIDGET-CAR-DEALER>
+
+    <M-CARD-ARTWORK>
+      <Summary>(UI_COMPONENT) Content-addressed bundled card artwork lookup and local-first rendering for Used, Legendary and Brand Central, with local thumbnail fallback and cached future network images. Incremental updater verifies hashes and refreshes public dealer snapshots without galleries.</Summary>
+      <Path>lib/services/card_artwork_service.dart</Path>
+      <Path>lib/widgets/car_dealer/card_artwork.dart</Path>
+      <Path>lib/models/car_dealer/card_image_assets.dart</Path>
+      <Path>tools/update_card_images.py</Path>
+    </M-CARD-ARTWORK>
 
     <!-- GT Auto. -->
     <M-MODEL-GT-AUTO>
@@ -159,8 +186,8 @@
     </M-PAGE-LOGIN>
 
     <M-PAGE-WISHLIST>
-      <Summary>(UI_COMPONENT) Wishlist screen for cars the player is tracking.</Summary>
-      <Path>lib/pages/wishlist_page.dart</Path>
+      <Summary>(UI_COMPONENT) Persistent local saved cars in the existing tab, including rotated-out inventory, details, removal and localized empty/error states.</Summary>
+      <Path>lib/pages/wishlist_page.dart</Path><Path>lib/widgets/car_dealer/dealer_wishlist.dart</Path><M-REPO-WISHLIST/><M-DEALER-CATALOG/><M-REPO-CAR/>
     </M-PAGE-WISHLIST>
 
     <M-SHELL-HOME>
@@ -195,6 +222,8 @@
       <M-SERVICE-APEX />
       <M-REPO-GT-AUTO />
       <M-REPO-BRAND-CENTRAL />
+      <M-CARD-ARTWORK />
+    <M-DEALER-CATALOG/><M-REPO-WISHLIST/>
     </M-DI-APPSCOPE>
 
     <M-ROUTER>
@@ -242,8 +271,9 @@
     </M-SERVICE-APEX>
 
     <M-WIDGET-APEX>
-      <Summary>(UI_COMPONENT) Native magazine reader with chapter sidebar or narrow drawer, article illustrations, source attribution, retry and adjacent-article navigation.</Summary>
+      <Summary>(UI_COMPONENT) Official-style light magazine reader with isolated palette inside the shared HomeShell navigation stack, page-level close action, cover-first introduction, pale chapter tiles, adaptive contents rail/drawer, illustrations, source attribution, retry and adjacent-article navigation.</Summary>
       <Path>lib/widgets/apex/apex_display.dart</Path>
+      <Path>lib/widgets/apex/apex_theme.dart</Path>
       <M-SERVICE-APEX />
       <M-MODEL-APEX />
     </M-WIDGET-APEX>
@@ -251,6 +281,6 @@
     <M-MODEL-BRAND-CENTRAL><Summary>(DATA_MODEL) Official localized cars, manufacturer and country joins, units and gallery indices.</Summary><Path>lib/models/brand_central/brand_central_data.dart</Path></M-MODEL-BRAND-CENTRAL>
     <M-SERVICE-BRAND-CENTRAL><Summary>(CORE_LOGIC) Official bundled metadata and validated, cached photo module resolution.</Summary><Path>lib/services/brand_central_service.dart</Path><M-MODEL-BRAND-CENTRAL /></M-SERVICE-BRAND-CENTRAL>
     <M-REPO-BRAND-CENTRAL><Summary>(DATA_LAYER) Brand and region search, sort, language, local back stack, independent gallery error and stale-request protection.</Summary><Path>lib/repositories/brand_central_repository.dart</Path><M-SETTINGS/><M-MODEL-BRAND-CENTRAL /><M-SERVICE-BRAND-CENTRAL /></M-REPO-BRAND-CENTRAL>
-    <M-WIDGET-BRAND-CENTRAL><Summary>(UI_COMPONENT) Independent adaptive Brand Central with a three-region lobby, country-grouped manufacturer logos, portrait and landscape escalator atrium plates, a flat world map, real history, specifications and full-screen photography.</Summary><Path>lib/widgets/brand_central/brand_central_display.dart</Path><M-MODEL-BRAND-CENTRAL /><M-REPO-BRAND-CENTRAL /></M-WIDGET-BRAND-CENTRAL>
+    <M-WIDGET-BRAND-CENTRAL><Summary>(UI_COMPONENT) Independent adaptive Brand Central with a three-region lobby, country-grouped manufacturer logos, portrait and landscape escalator atrium plates, a flat world map, real history, specifications and full-screen photography.</Summary><Path>lib/widgets/brand_central/brand_central_display.dart</Path><M-MODEL-BRAND-CENTRAL /><M-REPO-BRAND-CENTRAL /><M-CARD-ARTWORK /></M-WIDGET-BRAND-CENTRAL>
   </GD-MAIN>
 </GraceGraphDocument>

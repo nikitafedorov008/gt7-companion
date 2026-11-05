@@ -1,3 +1,5 @@
+import '../car_dealer/card_artwork.dart';
+import '../gt_loading_indicator.dart';
 import 'package:gt7_companion/widgets/window_navigation_safe_area.dart';
 import 'package:gt7_companion/l10n/ui_messages.dart';
 // START_MODULE_CONTRACT
@@ -100,7 +102,7 @@ class _BrandCentralDisplayState extends State<BrandCentralDisplay> {
                       child: repo.data == null
                           ? Center(
                               child: repo.isLoading
-                                  ? const CircularProgressIndicator()
+                                  ? const GtLoadingIndicator()
                                   : Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
@@ -421,13 +423,8 @@ class _BrandLogo extends StatelessWidget {
   const _BrandLogo({required this.brand});
   final ShowroomBrand brand;
   @override
-  Widget build(BuildContext context) => Image.network(
-    brand.logoUrl,
-    fit: BoxFit.contain,
-    errorBuilder: (_, _, _) => Center(
-      child: Text(context.tr(brand.name), textAlign: TextAlign.center),
-    ),
-  );
+  Widget build(BuildContext context) =>
+      CardArtwork(url: brand.logoUrl, fit: BoxFit.contain);
 }
 
 class _BrandGrid extends StatelessWidget {
@@ -582,11 +579,10 @@ class _CatalogueGrid extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Center(
-                          child: Image.network(
-                            car.thumbnail,
+                          child: CardArtwork(
+                            url: car.thumbnail,
                             fit: BoxFit.contain,
-                            errorBuilder: (_, _, _) =>
-                                const Icon(Icons.directions_car, size: 64),
+                            cacheWidth: 640,
                           ),
                         ),
                       ),

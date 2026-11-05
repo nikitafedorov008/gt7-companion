@@ -1,0 +1,1835 @@
+{
+  "captured_utc": "2026-11-04T16:40:34.778337+00:00",
+  "gt7info": {
+    "updatetimestamp": "2026-11-04",
+    "used": {
+      "date": "26-11-04",
+      "cars": [
+        {
+          "carid": "3654",
+          "manufacturer": "Ferrari",
+          "region": "it",
+          "name": "F355 Berlinetta '94",
+          "credits": 360000,
+          "state": "normal",
+          "estimatedays": -2,
+          "maxestimatedays": -2,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": null,
+          "lotterycar": null,
+          "trophycar": null
+        },
+        {
+          "carid": "3653",
+          "manufacturer": "Citroen",
+          "region": "fr",
+          "name": "2 CV 6 Charleston '86",
+          "credits": 33000,
+          "state": "normal",
+          "estimatedays": -2,
+          "maxestimatedays": -2,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": null,
+          "lotterycar": null,
+          "trophycar": null
+        },
+        {
+          "carid": "1523",
+          "manufacturer": "Fiat",
+          "region": "it",
+          "name": "500 F '68",
+          "credits": 18800,
+          "state": "normal",
+          "estimatedays": 8,
+          "maxestimatedays": 8,
+          "new": false,
+          "rewardcar": {
+            "type": "menubook",
+            "name": "3",
+            "requirement": null
+          },
+          "engineswap": {
+            "carid": "2156",
+            "manufacturer": "Honda",
+            "region": "jp",
+            "name": "2&4 powered by RC213V",
+            "enginename": "SE75E-2&4"
+          },
+          "lotterycar": null,
+          "trophycar": null
+        },
+        {
+          "carid": "3438",
+          "manufacturer": "Abarth",
+          "region": "it",
+          "name": "Abarth 595 SS '70",
+          "credits": 51200,
+          "state": "normal",
+          "estimatedays": 6,
+          "maxestimatedays": 6,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": {
+            "carid": "3467",
+            "manufacturer": "Honda",
+            "region": "jp",
+            "name": "Civic Type R Limited Edition (FK8) '20",
+            "enginename": "K20C1-Civic-'20"
+          },
+          "lotterycar": null,
+          "trophycar": null
+        },
+        {
+          "carid": "3442",
+          "manufacturer": "Autobianchi",
+          "region": "it",
+          "name": "A112 Abarth '85",
+          "credits": 28900,
+          "state": "normal",
+          "estimatedays": 3,
+          "maxestimatedays": 3,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": {
+            "carid": "3526",
+            "manufacturer": "Garage RCR",
+            "region": "us",
+            "name": "Civic",
+            "enginename": "K24A-Civic"
+          },
+          "lotterycar": null,
+          "trophycar": null
+        },
+        {
+          "carid": "204",
+          "manufacturer": "Honda",
+          "region": "jp",
+          "name": "Civic Type R (EK) '98",
+          "credits": 51700,
+          "state": "normal",
+          "estimatedays": 3,
+          "maxestimatedays": 3,
+          "new": false,
+          "rewardcar": {
+            "type": "menubook",
+            "name": "5",
+            "requirement": null
+          },
+          "engineswap": {
+            "carid": "3467",
+            "manufacturer": "Honda",
+            "region": "jp",
+            "name": "Civic Type R Limited Edition (FK8) '20",
+            "enginename": "K20C1-Civic-'20"
+          },
+          "lotterycar": null,
+          "trophycar": null
+        },
+        {
+          "carid": "810",
+          "manufacturer": "Toyota",
+          "region": "jp",
+          "name": "Sprinter Trueno 1600GT APEX (AE86) '83",
+          "credits": 58100,
+          "state": "limited",
+          "estimatedays": 2,
+          "maxestimatedays": 2,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": {
+            "carid": "207",
+            "manufacturer": "Toyota",
+            "region": "jp",
+            "name": "MR2 GT-S '97",
+            "enginename": "3S-GTE-MR2"
+          },
+          "lotterycar": null,
+          "trophycar": null
+        },
+        {
+          "carid": "829",
+          "manufacturer": "Lancia",
+          "region": "it",
+          "name": "Delta HF Integrale Evoluzione '91",
+          "credits": 104400,
+          "state": "normal",
+          "estimatedays": 9,
+          "maxestimatedays": 9,
+          "new": true,
+          "rewardcar": null,
+          "engineswap": {
+            "carid": "3345",
+            "manufacturer": "Nissan",
+            "region": "jp",
+            "name": "GT-R NISMO '17",
+            "enginename": "VR38DETT-GT-R-NISMO"
+          },
+          "lotterycar": null,
+          "trophycar": null
+        },
+        {
+          "carid": "3403",
+          "manufacturer": "Volkswagen",
+          "region": "de",
+          "name": "Golf I GTI '83",
+          "credits": 41700,
+          "state": "limited",
+          "estimatedays": 2,
+          "maxestimatedays": 2,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": {
+            "carid": "1927",
+            "manufacturer": "Audi",
+            "region": "de",
+            "name": "Sport quattro S1 Pikes Peak '87",
+            "enginename": "R5-20vT-Quattro-Pikes"
+          },
+          "lotterycar": null,
+          "trophycar": null
+        },
+        {
+          "carid": "1985",
+          "manufacturer": "Pontiac",
+          "region": "us",
+          "name": "Firebird Trans Am '78",
+          "credits": 86900,
+          "state": "soldout",
+          "estimatedays": 0,
+          "maxestimatedays": 0,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": {
+            "carid": "1480",
+            "manufacturer": "Chevrolet",
+            "region": "us",
+            "name": "Corvette ZR1 (C6) '09",
+            "enginename": "LS9-Corvette"
+          },
+          "lotterycar": null,
+          "trophycar": null
+        },
+        {
+          "carid": "1796",
+          "manufacturer": "Alpine",
+          "region": "fr",
+          "name": "A110 '72",
+          "credits": 137300,
+          "state": "soldout",
+          "estimatedays": 0,
+          "maxestimatedays": 0,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": {
+            "carid": "1448",
+            "manufacturer": "Nissan",
+            "region": "jp",
+            "name": "SILVIA spec-R Aero (S15) '02",
+            "enginename": "SR20DET-Silvia-S15"
+          },
+          "lotterycar": null,
+          "trophycar": null
+        },
+        {
+          "carid": "1385",
+          "manufacturer": "Suzuki",
+          "region": "jp",
+          "name": "Swift Sport '07",
+          "credits": 12900,
+          "state": "limited",
+          "estimatedays": 1,
+          "maxestimatedays": 1,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": null,
+          "lotterycar": null,
+          "trophycar": null
+        },
+        {
+          "carid": "207",
+          "manufacturer": "Toyota",
+          "region": "jp",
+          "name": "MR2 GT-S '97",
+          "credits": 54900,
+          "state": "normal",
+          "estimatedays": 5,
+          "maxestimatedays": 5,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": {
+            "carid": "1365",
+            "manufacturer": "Audi",
+            "region": "de",
+            "name": "R8 4.2 '07",
+            "enginename": "BYH-R8"
+          },
+          "lotterycar": null,
+          "trophycar": null
+        },
+        {
+          "carid": "24",
+          "manufacturer": "Nissan",
+          "region": "jp",
+          "name": "180SX Type X '96",
+          "credits": 49700,
+          "state": "normal",
+          "estimatedays": 3,
+          "maxestimatedays": 3,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": {
+            "carid": "3345",
+            "manufacturer": "Nissan",
+            "region": "jp",
+            "name": "GT-R NISMO '17",
+            "enginename": "VR38DETT-GT-R-NISMO"
+          },
+          "lotterycar": null,
+          "trophycar": null
+        },
+        {
+          "carid": "3341",
+          "manufacturer": "De Tomaso",
+          "region": "it",
+          "name": "Pantera '71",
+          "credits": 173100,
+          "state": "normal",
+          "estimatedays": 3,
+          "maxestimatedays": 3,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": {
+            "carid": "2138",
+            "manufacturer": "Ford",
+            "region": "us",
+            "name": "Mustang GT '15",
+            "enginename": "Coyote-5.0L-Mustang"
+          },
+          "lotterycar": null,
+          "trophycar": null
+        },
+        {
+          "carid": "1370",
+          "manufacturer": "MINI",
+          "region": "de",
+          "name": "MINI Cooper S '05",
+          "credits": 22900,
+          "state": "normal",
+          "estimatedays": 4,
+          "maxestimatedays": 4,
+          "new": false,
+          "rewardcar": {
+            "type": "menubook",
+            "name": "7",
+            "requirement": null
+          },
+          "engineswap": {
+            "carid": "3526",
+            "manufacturer": "Garage RCR",
+            "region": "us",
+            "name": "Civic",
+            "enginename": "K24A-Civic"
+          },
+          "lotterycar": null,
+          "trophycar": null
+        },
+        {
+          "carid": "959",
+          "manufacturer": "Audi",
+          "region": "de",
+          "name": "TT Coupe 3.2 quattro '03",
+          "credits": 49800,
+          "state": "soldout",
+          "estimatedays": 0,
+          "maxestimatedays": 0,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": null,
+          "lotterycar": "S",
+          "trophycar": null
+        },
+        {
+          "carid": "709",
+          "manufacturer": "Nissan",
+          "region": "jp",
+          "name": "Fairlady Z 300ZX TT 2seater '89",
+          "credits": 58000,
+          "state": "normal",
+          "estimatedays": 7,
+          "maxestimatedays": 7,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": {
+            "carid": "3426",
+            "manufacturer": "Roadster Shop",
+            "region": "us",
+            "name": "Roadster Shop Rampage",
+            "enginename": "LS7-Rampage"
+          },
+          "lotterycar": null,
+          "trophycar": null
+        },
+        {
+          "carid": "688",
+          "manufacturer": "Honda",
+          "region": "jp",
+          "name": "Integra Type R (DC2) '95",
+          "credits": 61500,
+          "state": "normal",
+          "estimatedays": 7,
+          "maxestimatedays": 7,
+          "new": true,
+          "rewardcar": {
+            "type": "menubook",
+            "name": "5",
+            "requirement": null
+          },
+          "engineswap": {
+            "carid": "3526",
+            "manufacturer": "Garage RCR",
+            "region": "us",
+            "name": "Civic",
+            "enginename": "K24A-Civic"
+          },
+          "lotterycar": null,
+          "trophycar": null
+        },
+        {
+          "carid": "334",
+          "manufacturer": "Renault",
+          "region": "fr",
+          "name": "Clio V6 24V '00",
+          "credits": 73600,
+          "state": "normal",
+          "estimatedays": 6,
+          "maxestimatedays": 6,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": {
+            "carid": "3550",
+            "manufacturer": "Subaru",
+            "region": "jp",
+            "name": "Impreza Rally Car '98",
+            "enginename": "EJ20-Impreza-Rally"
+          },
+          "lotterycar": null,
+          "trophycar": null
+        },
+        {
+          "carid": "3612",
+          "manufacturer": "Toyota",
+          "region": "jp",
+          "name": "Chaser Tourer V '97",
+          "credits": 52600,
+          "state": "normal",
+          "estimatedays": 4,
+          "maxestimatedays": 4,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": null,
+          "lotterycar": null,
+          "trophycar": null
+        },
+        {
+          "carid": "3443",
+          "manufacturer": "Ferrari",
+          "region": "it",
+          "name": "308 GTB '75",
+          "credits": 178300,
+          "state": "soldout",
+          "estimatedays": 0,
+          "maxestimatedays": 0,
+          "new": false,
+          "rewardcar": {
+            "type": "menubook",
+            "name": "38",
+            "requirement": null
+          },
+          "engineswap": null,
+          "lotterycar": null,
+          "trophycar": null
+        },
+        {
+          "carid": "396",
+          "manufacturer": "Honda",
+          "region": "jp",
+          "name": "NSX Type R '02",
+          "credits": 440400,
+          "state": "normal",
+          "estimatedays": 3,
+          "maxestimatedays": 3,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": {
+            "carid": "3348",
+            "manufacturer": "Honda",
+            "region": "jp",
+            "name": "NSX CONCEPT-GT '16",
+            "enginename": "HR-414E-NSX"
+          },
+          "lotterycar": "L",
+          "trophycar": null
+        },
+        {
+          "carid": "205",
+          "manufacturer": "Mazda",
+          "region": "jp",
+          "name": "RX-7 Spirit R Type A (FD) '02",
+          "credits": 219200,
+          "state": "normal",
+          "estimatedays": 8,
+          "maxestimatedays": 8,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": {
+            "carid": "296",
+            "manufacturer": "Mazda",
+            "region": "jp",
+            "name": "787B '91",
+            "enginename": "R26B-787B"
+          },
+          "lotterycar": "M",
+          "trophycar": null
+        },
+        {
+          "carid": "1373",
+          "manufacturer": "Dodge",
+          "region": "us",
+          "name": "Viper GTS '02",
+          "credits": 103800,
+          "state": "normal",
+          "estimatedays": 7,
+          "maxestimatedays": 7,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": null,
+          "lotterycar": "M",
+          "trophycar": null
+        },
+        {
+          "carid": "1458",
+          "manufacturer": "Nissan",
+          "region": "jp",
+          "name": "Fairlady Z (Z34) '08",
+          "credits": 36500,
+          "state": "soldout",
+          "estimatedays": 0,
+          "maxestimatedays": 0,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": {
+            "carid": "1466",
+            "manufacturer": "Nissan",
+            "region": "jp",
+            "name": "GT-R GT500 '08",
+            "enginename": "VK45DE-GT-R"
+          },
+          "lotterycar": "S",
+          "trophycar": null
+        },
+        {
+          "carid": "82",
+          "manufacturer": "Toyota",
+          "region": "jp",
+          "name": "Supra RZ '97",
+          "credits": 186900,
+          "state": "normal",
+          "estimatedays": 4,
+          "maxestimatedays": 4,
+          "new": false,
+          "rewardcar": {
+            "type": "menubook",
+            "name": "32",
+            "requirement": null
+          },
+          "engineswap": {
+            "carid": "2050",
+            "manufacturer": "Pagani",
+            "region": "it",
+            "name": "Huayra '13",
+            "enginename": "M158-AMG-Huayra"
+          },
+          "lotterycar": null,
+          "trophycar": null
+        },
+        {
+          "carid": "1426",
+          "manufacturer": "Ford",
+          "region": "us",
+          "name": "Ford GT '06",
+          "credits": 395200,
+          "state": "normal",
+          "estimatedays": 3,
+          "maxestimatedays": 3,
+          "new": false,
+          "rewardcar": {
+            "type": "menubook",
+            "name": "26",
+            "requirement": null
+          },
+          "engineswap": {
+            "carid": "3522",
+            "manufacturer": "Greening Auto Company",
+            "region": "us",
+            "name": "Maverick",
+            "enginename": "Windsor-351-Maverick"
+          },
+          "lotterycar": null,
+          "trophycar": null
+        },
+        {
+          "carid": "1541",
+          "manufacturer": "Audi",
+          "region": "de",
+          "name": "TTS Coupe '09",
+          "credits": 55000,
+          "state": "limited",
+          "estimatedays": 1,
+          "maxestimatedays": 1,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": null,
+          "lotterycar": null,
+          "trophycar": null
+        },
+        {
+          "carid": "1410",
+          "manufacturer": "Ferrari",
+          "region": "it",
+          "name": "512 BB '76",
+          "credits": 294100,
+          "state": "limited",
+          "estimatedays": 2,
+          "maxestimatedays": 2,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": null,
+          "lotterycar": null,
+          "trophycar": null
+        },
+        {
+          "carid": "1384",
+          "manufacturer": "Nissan",
+          "region": "jp",
+          "name": "Fairlady Z Version S (Z33) '07",
+          "credits": 31000,
+          "state": "soldout",
+          "estimatedays": 0,
+          "maxestimatedays": 0,
+          "new": false,
+          "rewardcar": {
+            "type": "menubook",
+            "name": "18",
+            "requirement": null
+          },
+          "engineswap": {
+            "carid": "210",
+            "manufacturer": "Nissan",
+            "region": "jp",
+            "name": "R34 GT-R V-spec II Nur '02",
+            "enginename": "RB26DETT-GT-R-R34"
+          },
+          "lotterycar": null,
+          "trophycar": null
+        },
+        {
+          "carid": "1544",
+          "manufacturer": "Ferrari",
+          "region": "it",
+          "name": "430 Scuderia '07",
+          "credits": 375600,
+          "state": "normal",
+          "estimatedays": 7,
+          "maxestimatedays": 7,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": null,
+          "lotterycar": null,
+          "trophycar": null
+        }
+      ]
+    },
+    "legend": {
+      "date": "26-11-04",
+      "cars": [
+        {
+          "carid": "683",
+          "manufacturer": "Honda",
+          "region": "jp",
+          "name": "Civic Si Group A version '87",
+          "credits": 125000,
+          "state": "normal",
+          "estimatedays": -2,
+          "maxestimatedays": -2,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": null,
+          "trophycar": null
+        },
+        {
+          "carid": "3400",
+          "manufacturer": "Porsche",
+          "region": "de",
+          "name": "911 GT1 Strassenversion '97",
+          "credits": 18000000,
+          "state": "normal",
+          "estimatedays": 4,
+          "maxestimatedays": 4,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": null,
+          "trophycar": null
+        },
+        {
+          "carid": "3519",
+          "manufacturer": "Porsche",
+          "region": "de",
+          "name": "959 '87",
+          "credits": 2500000,
+          "state": "limited",
+          "estimatedays": 2,
+          "maxestimatedays": 2,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": null,
+          "trophycar": null
+        },
+        {
+          "carid": "818",
+          "manufacturer": "Chevrolet",
+          "region": "us",
+          "name": "Corvette (C2) '63",
+          "credits": 255000,
+          "state": "normal",
+          "estimatedays": 5,
+          "maxestimatedays": 5,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": {
+            "carid": "3449",
+            "manufacturer": "Chevrolet",
+            "region": "us",
+            "name": "Corvette C7 ZR1 '19",
+            "enginename": "LT5-Corvette-C7"
+          },
+          "trophycar": null
+        },
+        {
+          "carid": "3375",
+          "manufacturer": "Porsche",
+          "region": "de",
+          "name": "356 A/1500 GS Carrera '56",
+          "credits": 606000,
+          "state": "normal",
+          "estimatedays": 3,
+          "maxestimatedays": 3,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": {
+            "carid": "3519",
+            "manufacturer": "Porsche",
+            "region": "de",
+            "name": "959 '87",
+            "enginename": "959.50-959"
+          },
+          "trophycar": null
+        },
+        {
+          "carid": "3410",
+          "manufacturer": "Porsche",
+          "region": "de",
+          "name": "917K '70",
+          "credits": 20000000,
+          "state": "normal",
+          "estimatedays": 8,
+          "maxestimatedays": 8,
+          "new": true,
+          "rewardcar": null,
+          "engineswap": null,
+          "trophycar": null
+        },
+        {
+          "carid": "3361",
+          "manufacturer": "Jaguar",
+          "region": "gb",
+          "name": "E-type Coupe '61",
+          "credits": 193000,
+          "state": "normal",
+          "estimatedays": 7,
+          "maxestimatedays": 7,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": null,
+          "trophycar": null
+        },
+        {
+          "carid": "36",
+          "manufacturer": "Chevrolet",
+          "region": "us",
+          "name": "Chevelle SS 454 Sport Coupé '70",
+          "credits": 179000,
+          "state": "normal",
+          "estimatedays": 8,
+          "maxestimatedays": 8,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": null,
+          "trophycar": null
+        },
+        {
+          "carid": "1069",
+          "manufacturer": "Chaparral",
+          "region": "us",
+          "name": "2J '70",
+          "credits": 2500000,
+          "state": "normal",
+          "estimatedays": 9,
+          "maxestimatedays": 9,
+          "new": true,
+          "rewardcar": {
+            "type": "mission",
+            "name": "The Sun Also Rises",
+            "requirement": "gold"
+          },
+          "engineswap": null,
+          "trophycar": null
+        },
+        {
+          "carid": "3373",
+          "manufacturer": "Porsche",
+          "region": "de",
+          "name": "962 C '88",
+          "credits": 1200000,
+          "state": "limited",
+          "estimatedays": 2,
+          "maxestimatedays": 2,
+          "new": false,
+          "rewardcar": {
+            "type": "license",
+            "name": "Master IA",
+            "requirement": "gold"
+          },
+          "engineswap": null,
+          "trophycar": null
+        },
+        {
+          "carid": "2011",
+          "manufacturer": "Ferrari",
+          "region": "it",
+          "name": "500 Mondial Pinin Farina Coupe '54",
+          "credits": 2000000,
+          "state": "normal",
+          "estimatedays": 4,
+          "maxestimatedays": 4,
+          "new": false,
+          "rewardcar": null,
+          "engineswap": null,
+          "trophycar": null
+        }
+      ]
+    },
+    "dailyrace": {
+      "date": "70-01-01",
+      "races": [
+        {
+          "courseid": 0,
+          "crsbase": "No Longer Updated",
+          "track": "No Longer Updated",
+          "logo": "img/track/nothing.png",
+          "region": "pd",
+          "laps": 0,
+          "cars": 0,
+          "starttype": "You can check Twitter instead: @Mistah_MCA at the start of a week",
+          "fuelcons": 0,
+          "tyrewear": 0,
+          "cartype": "category",
+          "widebodyban": false,
+          "nitrousban": false,
+          "tyres": [],
+          "requiredtyres": [],
+          "bop": false,
+          "carsettings_specified": false,
+          "garagecar": false,
+          "carused": false,
+          "damage": false,
+          "shortcutpen": false,
+          "carcollisionpen": false,
+          "pitlanepen": false,
+          "time": 0,
+          "offset": 0,
+          "schedule": "Tell your bot author to stop trying to get daily races :)"
+        },
+        {
+          "courseid": 0,
+          "crsbase": "No Longer Updated",
+          "track": "No Longer Updated",
+          "logo": "img/track/nothing.png",
+          "region": "pd",
+          "laps": 0,
+          "cars": 0,
+          "starttype": "You can check Twitter instead: @Mistah_MCA at the start of a week",
+          "fuelcons": 0,
+          "tyrewear": 0,
+          "cartype": "category",
+          "widebodyban": false,
+          "nitrousban": false,
+          "tyres": [],
+          "requiredtyres": [],
+          "bop": false,
+          "carsettings_specified": false,
+          "garagecar": false,
+          "carused": false,
+          "damage": false,
+          "shortcutpen": false,
+          "carcollisionpen": false,
+          "pitlanepen": false,
+          "time": 0,
+          "offset": 0,
+          "schedule": "Tell your bot author to stop trying to get daily races :)"
+        },
+        {
+          "courseid": 0,
+          "crsbase": "No Longer Updated",
+          "track": "No Longer Updated",
+          "logo": "img/track/nothing.png",
+          "region": "pd",
+          "laps": 0,
+          "cars": 0,
+          "starttype": "You can check Twitter instead: @Mistah_MCA at the start of a week",
+          "fuelcons": 0,
+          "tyrewear": 0,
+          "cartype": "category",
+          "widebodyban": false,
+          "nitrousban": false,
+          "tyres": [],
+          "requiredtyres": [],
+          "bop": false,
+          "carsettings_specified": false,
+          "garagecar": false,
+          "carused": false,
+          "damage": false,
+          "shortcutpen": false,
+          "carcollisionpen": false,
+          "pitlanepen": false,
+          "time": 0,
+          "offset": 0,
+          "schedule": "Tell your bot author to stop trying to get daily races :)"
+        }
+      ]
+    }
+  },
+  "gtdb_used": [
+    {
+      "id": 1523,
+      "name": "500 F '68",
+      "short_name": "500 F '68",
+      "slug": "500-f-68",
+      "manufacturer": {
+        "name": "FIAT"
+      },
+      "details": {
+        "id": "#CAR1523",
+        "in_ucd": true,
+        "used_price": 18800,
+        "used_state": "normal",
+        "used_car_image_id": "2bb0b5f3-7981-4303-dfda-ee89cfe06600"
+      }
+    },
+    {
+      "id": 3438,
+      "name": "Abarth 595 SS '70",
+      "short_name": "Abarth 595 SS '70",
+      "slug": "abarth-595-ss-70",
+      "manufacturer": {
+        "name": "Abarth"
+      },
+      "details": {
+        "id": "#CAR3438",
+        "in_ucd": true,
+        "used_price": 51200,
+        "used_state": "normal",
+        "used_car_image_id": "00e05a08-52b4-4b8b-bef7-a7f1070e3a00"
+      }
+    },
+    {
+      "id": 3442,
+      "name": "A112 Abarth '85",
+      "short_name": "A112 Abarth '85",
+      "slug": "a112-abarth-85",
+      "manufacturer": {
+        "name": "Autobianchi"
+      },
+      "details": {
+        "id": "#CAR3442",
+        "in_ucd": true,
+        "used_price": 28900,
+        "used_state": "normal",
+        "used_car_image_id": "8c63d580-48b1-4515-d744-692fc14d2600"
+      }
+    },
+    {
+      "id": 3564,
+      "name": "205 GTI '88",
+      "short_name": "205 GTI '88",
+      "slug": "peugeot-205-gti-88",
+      "manufacturer": {
+        "name": "Peugeot"
+      },
+      "details": {
+        "id": "#CAR3564",
+        "in_ucd": true,
+        "used_price": 52600,
+        "used_state": "limited",
+        "used_car_image_id": "b0148509-08de-4a83-b507-0c8e131a5000"
+      }
+    },
+    {
+      "id": 204,
+      "name": "Civic Type R (EK) '98",
+      "short_name": "Civic Type R (EK) '98",
+      "slug": "civic-type-r-ek-98",
+      "manufacturer": {
+        "name": "Honda"
+      },
+      "details": {
+        "id": "#CAR204",
+        "in_ucd": true,
+        "used_price": 51700,
+        "used_state": "normal",
+        "used_car_image_id": "e6ddabdd-5168-40a7-a5ce-4ff77fdf8800"
+      }
+    },
+    {
+      "id": 810,
+      "name": "Sprinter Trueno 1600GT APEX (AE86) '83",
+      "short_name": "Sprinter Trueno 1600GT APEX (AE86) '83",
+      "slug": "sprinter-trueno-1600gt-apex-ae86-83",
+      "manufacturer": {
+        "name": "Toyota"
+      },
+      "details": {
+        "id": "#CAR810",
+        "in_ucd": true,
+        "used_price": 58100,
+        "used_state": "limited",
+        "used_car_image_id": "3e9014b2-ab80-47ea-7e01-3ddc4c5dd100"
+      }
+    },
+    {
+      "id": 829,
+      "name": "Delta HF Integrale Evoluzione '91",
+      "short_name": "Delta HF Integrale Evoluzione '91",
+      "slug": "delta-hf-integrale-evoluzione-91",
+      "manufacturer": {
+        "name": "Lancia"
+      },
+      "details": {
+        "id": "#CAR829",
+        "in_ucd": true,
+        "used_price": 104400,
+        "used_state": "new",
+        "used_car_image_id": "7013cada-de40-4948-5580-01398d6c7100"
+      }
+    },
+    {
+      "id": 3547,
+      "name": "R4 GTL '85",
+      "short_name": "R4 GTL '85",
+      "slug": "renault-r4-gtl-85",
+      "manufacturer": {
+        "name": "Renault"
+      },
+      "details": {
+        "id": "#CAR3547",
+        "in_ucd": true,
+        "used_price": 26500,
+        "used_state": "soldout",
+        "used_car_image_id": "23c65ef3-b46d-4535-67ed-eb2d9c13ae00"
+      }
+    },
+    {
+      "id": 3403,
+      "name": "Golf I GTI '83",
+      "short_name": "Golf I GTI '83",
+      "slug": "golf-i-gti-83",
+      "manufacturer": {
+        "name": "Volkswagen"
+      },
+      "details": {
+        "id": "#CAR3403",
+        "in_ucd": true,
+        "used_price": 41700,
+        "used_state": "limited",
+        "used_car_image_id": "76c5e3fb-da66-4809-a599-b45606e5e200"
+      }
+    },
+    {
+      "id": 1985,
+      "name": "Firebird Trans Am '78",
+      "short_name": "Firebird Trans Am '78",
+      "slug": "firebird-trans-am-78",
+      "manufacturer": {
+        "name": "Pontiac"
+      },
+      "details": {
+        "id": "#CAR1985",
+        "in_ucd": true,
+        "used_price": 86900,
+        "used_state": "soldout",
+        "used_car_image_id": "a05f8e11-f28e-4bdb-f77d-d6488be71700"
+      }
+    },
+    {
+      "id": 729,
+      "name": "Avantime 3.0 V6 24V '02",
+      "short_name": "Avantime 3.0 V6 24V '02",
+      "slug": "renault-avantime-3-0-v6-24-v-02",
+      "manufacturer": {
+        "name": "Renault"
+      },
+      "details": {
+        "id": "#CAR729",
+        "in_ucd": true,
+        "used_price": 39900,
+        "used_state": "soldout"
+      }
+    },
+    {
+      "id": 1796,
+      "name": "A110 '72",
+      "short_name": "A110 '72",
+      "slug": "a110-72",
+      "manufacturer": {
+        "name": "Alpine"
+      },
+      "details": {
+        "id": "#CAR1796",
+        "in_ucd": true,
+        "used_price": 137300,
+        "used_state": "soldout",
+        "used_car_image_id": "074146d1-f04e-494e-12f8-7ff824aa8500"
+      }
+    },
+    {
+      "id": 3575,
+      "name": "Panda 30 CL '85",
+      "short_name": "Panda 30 CL '85",
+      "slug": "fiat-panda-30-cl-85",
+      "manufacturer": {
+        "name": "FIAT"
+      },
+      "details": {
+        "id": "#CAR3575",
+        "in_ucd": true,
+        "used_price": 10300,
+        "used_state": "soldout",
+        "used_car_image_id": "56af7477-bd6f-44cf-c1d3-e1cbfb27b100"
+      }
+    },
+    {
+      "id": 1385,
+      "name": "Swift Sport '07",
+      "short_name": "Swift Sport '07",
+      "slug": "swift-sport-07",
+      "manufacturer": {
+        "name": "Suzuki"
+      },
+      "details": {
+        "id": "#CAR1385",
+        "in_ucd": true,
+        "used_price": 12900,
+        "used_state": "limited",
+        "used_car_image_id": "d32ee5e0-4982-468c-a7d4-cbad5dbc7900"
+      }
+    },
+    {
+      "id": 37,
+      "name": "Civic SiR･II (EG) '93",
+      "short_name": "Civic SiR･II (EG) '93",
+      "slug": "honda-civic-si-r-ii-eg-93",
+      "manufacturer": {
+        "name": "Honda"
+      },
+      "details": {
+        "id": "#CAR37",
+        "in_ucd": true,
+        "used_price": 52500,
+        "used_state": "soldout"
+      }
+    },
+    {
+      "id": 207,
+      "name": "MR2 GT-S '97",
+      "short_name": "MR2 GT-S '97",
+      "slug": "mr2-gt-s-97",
+      "manufacturer": {
+        "name": "Toyota"
+      },
+      "details": {
+        "id": "#CAR207",
+        "in_ucd": true,
+        "used_price": 54900,
+        "used_state": "normal",
+        "used_car_image_id": "0604a610-aa0b-4eba-e033-321f10dafc00"
+      }
+    },
+    {
+      "id": 3567,
+      "name": "Kangoo 1.4 '01",
+      "short_name": "Kangoo 1.4 '01",
+      "slug": "renault-kangoo-1-4-01",
+      "manufacturer": {
+        "name": "Renault"
+      },
+      "details": {
+        "id": "#CAR3567",
+        "in_ucd": true,
+        "used_price": 13200,
+        "used_state": "soldout",
+        "used_car_image_id": "25383c9b-0b68-4fa9-4373-641079a37200"
+      }
+    },
+    {
+      "id": 655,
+      "name": "Z4 3.0i '03",
+      "short_name": "Z4 3.0i '03",
+      "slug": "bmw-z4-3-0i-03",
+      "manufacturer": {
+        "name": "BMW"
+      },
+      "details": {
+        "id": "#CAR655",
+        "in_ucd": true,
+        "used_price": 46100,
+        "used_state": "soldout"
+      }
+    },
+    {
+      "id": 24,
+      "name": "180SX Type X '96",
+      "short_name": "180SX Type X '96",
+      "slug": "180sx-type-x-96",
+      "manufacturer": {
+        "name": "Nissan"
+      },
+      "details": {
+        "id": "#CAR24",
+        "in_ucd": true,
+        "used_price": 49700,
+        "used_state": "normal",
+        "used_car_image_id": "a590391c-9893-40e2-bb62-2ad7240ed200"
+      }
+    },
+    {
+      "id": 3551,
+      "name": "M3 '97",
+      "short_name": "M3 '97",
+      "slug": "bmw-m3-97",
+      "manufacturer": {
+        "name": "BMW"
+      },
+      "details": {
+        "id": "#CAR3551",
+        "in_ucd": true,
+        "used_price": 84200,
+        "used_state": "soldout"
+      }
+    },
+    {
+      "id": 3341,
+      "name": "Pantera '71",
+      "short_name": "Pantera '71",
+      "slug": "pantera-71",
+      "manufacturer": {
+        "name": "De Tomaso"
+      },
+      "details": {
+        "id": "#CAR3341",
+        "in_ucd": true,
+        "used_price": 173100,
+        "used_state": "normal",
+        "used_car_image_id": "ca8ccd94-3397-431d-e492-5492d8700900"
+      }
+    },
+    {
+      "id": 3555,
+      "name": "Escort RS Cosworth '92",
+      "short_name": "Escort RS Cosworth '92",
+      "slug": "ford-escort-rs-cosworth-92",
+      "manufacturer": {
+        "name": "Ford"
+      },
+      "details": {
+        "id": "#CAR3555",
+        "in_ucd": true,
+        "used_price": 128900,
+        "used_state": "soldout",
+        "used_car_image_id": "c9acb7e3-caba-4760-7915-af64571bc300"
+      }
+    },
+    {
+      "id": 3573,
+      "name": "BX 19 TRS '87",
+      "short_name": "BX 19 TRS '87",
+      "slug": "citroen-bx-19-trs-87",
+      "manufacturer": {
+        "name": "Citroën"
+      },
+      "details": {
+        "id": "#CAR3573",
+        "in_ucd": true,
+        "used_price": 23700,
+        "used_state": "soldout",
+        "used_car_image_id": "99dcddcd-a04d-44d1-fa91-322784847800"
+      }
+    },
+    {
+      "id": 1370,
+      "name": "MINI Cooper S '05",
+      "short_name": "MINI Cooper S '05",
+      "slug": "mini-cooper-s-05",
+      "manufacturer": {
+        "name": "MINI"
+      },
+      "details": {
+        "id": "#CAR1370",
+        "in_ucd": true,
+        "used_price": 22900,
+        "used_state": "normal",
+        "used_car_image_id": "7ac96d2b-d07b-4886-2fb8-87388f124c00"
+      }
+    },
+    {
+      "id": 3563,
+      "name": "Civic Si Extra (EF) '87",
+      "short_name": "Civic Si Extra (EF) '87",
+      "slug": "honda-civic-si-extra-ef-87",
+      "manufacturer": {
+        "name": "Honda"
+      },
+      "details": {
+        "id": "#CAR3563",
+        "in_ucd": true,
+        "used_price": 55100,
+        "used_state": "soldout",
+        "used_car_image_id": "76658b57-b65a-4ce8-fd21-7bcc8fed3200"
+      }
+    },
+    {
+      "id": 3432,
+      "name": "Impreza Sedan WRX STi '04",
+      "short_name": "Impreza Sedan WRX STi '04",
+      "slug": "impreza-sedan-wrx-s-ti-04",
+      "manufacturer": {
+        "name": "Subaru"
+      },
+      "details": {
+        "id": "#CAR3432",
+        "in_ucd": true,
+        "used_price": 49800,
+        "used_state": "soldout"
+      }
+    },
+    {
+      "id": 959,
+      "name": "TT Coupé 3.2 quattro '03",
+      "short_name": "TT Coupé 3.2 quattro '03",
+      "slug": "tt-coupe-3-2-quattro-03",
+      "manufacturer": {
+        "name": "Audi"
+      },
+      "details": {
+        "id": "#CAR959",
+        "in_ucd": true,
+        "used_price": 49800,
+        "used_state": "soldout",
+        "used_car_image_id": "f69d443a-36c7-4243-11e3-c6b2a003e100"
+      }
+    },
+    {
+      "id": 3549,
+      "name": "240 SE Estate '93",
+      "short_name": "240 SE Estate '93",
+      "slug": "volvo-240-se-estate-93",
+      "manufacturer": {
+        "name": "Volvo"
+      },
+      "details": {
+        "id": "#CAR3549",
+        "in_ucd": true,
+        "used_price": 48600,
+        "used_state": "soldout"
+      }
+    },
+    {
+      "id": 709,
+      "name": "Fairlady Z 300ZX TT 2seater '89",
+      "short_name": "Fairlady Z 300ZX TT 2seater '89",
+      "slug": "fairlady-z-300zx-tt-2seater-89",
+      "manufacturer": {
+        "name": "Nissan"
+      },
+      "details": {
+        "id": "#CAR709",
+        "in_ucd": true,
+        "used_price": 58000,
+        "used_state": "normal",
+        "used_car_image_id": "5c730410-9445-4089-59c4-d398c1f8fb00"
+      }
+    },
+    {
+      "id": 51,
+      "name": "FTO GP Version R '97",
+      "short_name": "FTO GP Version R '97",
+      "slug": "mitsubishi-fto-gp-version-r-97",
+      "manufacturer": {
+        "name": "Mitsubishi"
+      },
+      "details": {
+        "id": "#CAR51",
+        "in_ucd": true,
+        "used_price": 26200,
+        "used_state": "soldout",
+        "used_car_image_id": "5cf08d01-50d8-4524-faf5-023d2617ed00"
+      }
+    },
+    {
+      "id": 688,
+      "name": "Integra Type R (DC2) '95",
+      "short_name": "Integra Type R (DC2) '95",
+      "slug": "integra-type-r-dc2-95",
+      "manufacturer": {
+        "name": "Honda"
+      },
+      "details": {
+        "id": "#CAR688",
+        "in_ucd": true,
+        "used_price": 61500,
+        "used_state": "new",
+        "used_car_image_id": "de5d5403-6e01-4cb4-caee-6342f4622300"
+      }
+    },
+    {
+      "id": 334,
+      "name": "Clio V6 24V '00",
+      "short_name": "Clio V6 24V '00",
+      "slug": "clio-v6-24v-00",
+      "manufacturer": {
+        "name": "Renault"
+      },
+      "details": {
+        "id": "#CAR334",
+        "in_ucd": true,
+        "used_price": 73600,
+        "used_state": "normal",
+        "used_car_image_id": "0e71de82-5754-48f3-c6b4-99848b6c6e00"
+      }
+    },
+    {
+      "id": 3443,
+      "name": "308 GTB '75",
+      "short_name": "308 GTB '75",
+      "slug": "308-gtb-75",
+      "manufacturer": {
+        "name": "Ferrari"
+      },
+      "details": {
+        "id": "#CAR3443",
+        "in_ucd": true,
+        "used_price": 178300,
+        "used_state": "soldout",
+        "used_car_image_id": "8233abd3-9265-49a6-bfb9-1886a5e9e200"
+      }
+    },
+    {
+      "id": 396,
+      "name": "NSX Type R '02",
+      "short_name": "NSX Type R '02",
+      "slug": "nsx-type-r-02",
+      "manufacturer": {
+        "name": "Honda"
+      },
+      "details": {
+        "id": "#CAR396",
+        "in_ucd": true,
+        "used_price": 440400,
+        "used_state": "normal",
+        "used_car_image_id": "ea00ec12-334b-4382-e287-bcac78fd0700"
+      }
+    },
+    {
+      "id": 205,
+      "name": "RX-7 Spirit R Type A (FD) '02",
+      "short_name": "RX-7 Spirit R Type A (FD) '02",
+      "slug": "rx-7-spirit-r-type-a-fd-02",
+      "manufacturer": {
+        "name": "Mazda"
+      },
+      "details": {
+        "id": "#CAR205",
+        "in_ucd": true,
+        "used_price": 219200,
+        "used_state": "normal",
+        "used_car_image_id": "1264d61f-300b-4dc3-cacd-cd01a81dd500"
+      }
+    },
+    {
+      "id": 3570,
+      "name": "Corvette Z06 (C5) '01",
+      "short_name": "Corvette Z06 (C5) '01",
+      "slug": "chevrolet-corvette-z06-c5-01",
+      "manufacturer": {
+        "name": "Chevrolet"
+      },
+      "details": {
+        "id": "#CAR3570",
+        "in_ucd": true,
+        "used_price": 53500,
+        "used_state": "soldout"
+      }
+    },
+    {
+      "id": 1373,
+      "name": "Viper GTS '02",
+      "short_name": "Viper GTS '02",
+      "slug": "viper-gts-02",
+      "manufacturer": {
+        "name": "Dodge"
+      },
+      "details": {
+        "id": "#CAR1373",
+        "in_ucd": true,
+        "used_price": 103800,
+        "used_state": "normal",
+        "used_car_image_id": "4e269fe1-dacd-4453-76d2-0fadd1e9f100"
+      }
+    },
+    {
+      "id": 1458,
+      "name": "Fairlady Z (Z34) '08",
+      "short_name": "Fairlady Z (Z34) '08",
+      "slug": "fairlady-z-z34-08",
+      "manufacturer": {
+        "name": "Nissan"
+      },
+      "details": {
+        "id": "#CAR1458",
+        "in_ucd": true,
+        "used_price": 36500,
+        "used_state": "soldout",
+        "used_car_image_id": "3010d6e2-d6e2-40d2-9d25-f53141c87500"
+      }
+    },
+    {
+      "id": 102,
+      "name": "Skyline GTS-R (R31) '87",
+      "short_name": "Skyline GTS-R (R31) '87",
+      "slug": "nissan-skyline-gts-r-r31-87",
+      "manufacturer": {
+        "name": "Nissan"
+      },
+      "details": {
+        "id": "#CAR102",
+        "in_ucd": true,
+        "used_price": 162800,
+        "used_state": "soldout",
+        "used_car_image_id": "6246ecfe-cffd-4983-615b-79ebe3f30b00"
+      }
+    },
+    {
+      "id": 82,
+      "name": "Supra RZ '97",
+      "short_name": "Supra RZ '97",
+      "slug": "supra-rz-97",
+      "manufacturer": {
+        "name": "Toyota"
+      },
+      "details": {
+        "id": "#CAR82",
+        "in_ucd": true,
+        "used_price": 186900,
+        "used_state": "normal",
+        "used_car_image_id": "68a0c1b9-afc0-4bcb-2b68-afca90804d00"
+      }
+    },
+    {
+      "id": 1426,
+      "name": "Ford GT '06",
+      "short_name": "Ford GT '06",
+      "slug": "ford-gt-06",
+      "manufacturer": {
+        "name": "Ford"
+      },
+      "details": {
+        "id": "#CAR1426",
+        "in_ucd": true,
+        "used_price": 395200,
+        "used_state": "normal",
+        "used_car_image_id": "58cadbfd-c42c-4dfc-bfd4-edc44d9b1f00"
+      }
+    },
+    {
+      "id": 1506,
+      "name": "Gallardo LP 560-4 '08",
+      "short_name": "Gallardo LP 560-4 '08",
+      "slug": "lamborghini-gallardo-lp-560-4-08",
+      "manufacturer": {
+        "name": "Lamborghini"
+      },
+      "details": {
+        "id": "#CAR1506",
+        "in_ucd": true,
+        "used_price": 236900,
+        "used_state": "soldout",
+        "used_car_image_id": "6bfb3322-cca2-4ccf-a156-bf4d7fe91a00"
+      }
+    },
+    {
+      "id": 3424,
+      "name": "Lancer Evolution IX MR GSR '06",
+      "short_name": "Lancer Evolution IX MR GSR '06",
+      "slug": "mitsubishi-lancer-evolution-ix-mr-gsr-06",
+      "manufacturer": {
+        "name": "Mitsubishi"
+      },
+      "details": {
+        "id": "#CAR3424",
+        "in_ucd": true,
+        "used_price": 91900,
+        "used_state": "soldout"
+      }
+    },
+    {
+      "id": 1541,
+      "name": "TTS Coupé '09",
+      "short_name": "TTS Coupé '09",
+      "slug": "audi-tts-coupe-09",
+      "manufacturer": {
+        "name": "Audi"
+      },
+      "details": {
+        "id": "#CAR1541",
+        "in_ucd": true,
+        "used_price": 55000,
+        "used_state": "limited"
+      }
+    },
+    {
+      "id": 1410,
+      "name": "512 BB '76",
+      "short_name": "512 BB '76",
+      "slug": "512-bb-76",
+      "manufacturer": {
+        "name": "Ferrari"
+      },
+      "details": {
+        "id": "#CAR1410",
+        "in_ucd": true,
+        "used_price": 294100,
+        "used_state": "limited",
+        "used_car_image_id": "5b956af2-e289-49ea-d0b8-c1380b7ae100"
+      }
+    },
+    {
+      "id": 1384,
+      "name": "Fairlady Z Version S (Z33) '07",
+      "short_name": "Fairlady Z Version S (Z33) '07",
+      "slug": "fairlady-z-version-s-z33-07",
+      "manufacturer": {
+        "name": "Nissan"
+      },
+      "details": {
+        "id": "#CAR1384",
+        "in_ucd": true,
+        "used_price": 31000,
+        "used_state": "soldout",
+        "used_car_image_id": "a0157240-270b-4f39-5066-439ea4900300"
+      }
+    },
+    {
+      "id": 1544,
+      "name": "430 Scuderia '07",
+      "short_name": "430 Scuderia '07",
+      "slug": "ferrari-430-scuderia-07",
+      "manufacturer": {
+        "name": "Ferrari"
+      },
+      "details": {
+        "id": "#CAR1544",
+        "in_ucd": true,
+        "used_price": 375600,
+        "used_state": "normal"
+      }
+    },
+    {
+      "id": 799,
+      "name": "Lancer Evolution VIII MR GSR '04",
+      "short_name": "Lancer Evolution VIII MR GSR '04",
+      "slug": "mitsubishi-lancer-evolution-viii-mr-gsr-04",
+      "manufacturer": {
+        "name": "Mitsubishi"
+      },
+      "details": {
+        "id": "#CAR799",
+        "in_ucd": true,
+        "used_price": 64800,
+        "used_state": "soldout",
+        "used_car_image_id": "ff582426-c8e6-4379-4f21-37bc2061b800"
+      }
+    }
+  ],
+  "gtdb_legendary": [
+    {
+      "id": 344,
+      "sort": 6,
+      "state": "new",
+      "price": 20000000,
+      "image": "7b95909a-61d7-4838-fdea-f040768afa00",
+      "frontImage": "5d4b8d1b-ad99-4bd1-bdea-e884c18c2000",
+      "manufacturer": {
+        "name": "Porsche"
+      },
+      "name": "Porsche 917K '70",
+      "short_name": "917K '70",
+      "slug": "917k-70",
+      "updated_at": "2026-11-04T00:15:18.778767+00:00"
+    },
+    {
+      "id": 334,
+      "sort": 2,
+      "state": "normal",
+      "price": 18000000,
+      "image": "dd76f7bd-3f5c-4bf0-ae9c-4e7bfca67400",
+      "frontImage": "0214404a-298c-44ce-b5c4-6854a285c300",
+      "manufacturer": {
+        "name": "Porsche"
+      },
+      "name": "Porsche 911 GT1 Strassenversion '97",
+      "short_name": "911 GT1 Strassenversion '97",
+      "slug": "911-gt1-strassenversion-97",
+      "updated_at": "2026-11-04T00:15:16.938234+00:00"
+    },
+    {
+      "id": 99,
+      "sort": 11,
+      "state": "normal",
+      "price": 2000000,
+      "image": "70743385-16f9-41e8-4b24-17a04624b500",
+      "frontImage": "961e4ef5-fc94-4089-0c2e-607487c6f400",
+      "manufacturer": {
+        "name": "Ferrari"
+      },
+      "name": "Ferrari 500 Mondial Pinin Farina Coupe '54",
+      "short_name": "500 Mondial Pinin Farina Coupe '54",
+      "slug": "500-mondial-pinin-farina-coupe-54",
+      "updated_at": "2026-11-04T00:15:21.486491+00:00"
+    },
+    {
+      "id": 415,
+      "sort": 4,
+      "state": "normal",
+      "price": 255000,
+      "image": "edda9c46-9d65-45b5-59a1-695450d97900",
+      "frontImage": "833cb878-fb56-4ca6-505b-794a3e4fd000",
+      "manufacturer": {
+        "name": "Chevrolet"
+      },
+      "name": "Chevrolet Corvette Sting Ray Sport Coupe (C2) '63",
+      "short_name": "Corvette (C2) '63",
+      "slug": "corvette-c2-63",
+      "updated_at": "2026-11-04T00:15:17.747783+00:00"
+    },
+    {
+      "id": 303,
+      "sort": 7,
+      "state": "normal",
+      "price": 193000,
+      "image": "4448a5cb-ded8-499a-5432-114284baaa00",
+      "frontImage": "eff0d6e7-96fb-4a86-88ac-d4a6c2eaed00",
+      "manufacturer": {
+        "name": "Jaguar"
+      },
+      "name": "Jaguar E-type Coupé '61",
+      "short_name": "E-type Coupé '61",
+      "slug": "e-type-coupe-61",
+      "updated_at": "2026-11-04T00:15:19.17997+00:00"
+    },
+    {
+      "id": 7,
+      "sort": 9,
+      "state": "new",
+      "price": 2500000,
+      "image": "981d4eb8-7dfb-4395-de0c-8fa796276a00",
+      "frontImage": "6687e61d-aeb2-4257-4067-eea18495b400",
+      "manufacturer": {
+        "name": "Chaparral"
+      },
+      "name": "Chaparral 2J '70",
+      "short_name": "2J '70",
+      "slug": "2j-70",
+      "updated_at": "2026-11-04T00:15:20.1554+00:00"
+    },
+    {
+      "id": 316,
+      "sort": 5,
+      "state": "normal",
+      "price": 606000,
+      "image": "f617b90d-b8d9-411e-d426-cb2e606bc600",
+      "frontImage": "2f392607-db7c-4c69-35a3-1490fadbb300",
+      "manufacturer": {
+        "name": "Porsche"
+      },
+      "name": "Porsche 356 A/1500 GS Carrera '56",
+      "short_name": "356 A/1500 GS Carrera '56",
+      "slug": "356-a-1500-gs-carrera-56",
+      "updated_at": "2026-11-04T00:15:18.312412+00:00"
+    },
+    {
+      "id": 314,
+      "sort": 10,
+      "state": "limited",
+      "price": 1200000,
+      "image": "0897257e-d70a-48b8-b06e-802dd9430e00",
+      "frontImage": "ea264194-55ab-448c-c7ff-0ff0db09e300",
+      "manufacturer": {
+        "name": "Porsche"
+      },
+      "name": "Porsche 962 C '88",
+      "short_name": "962 C '88",
+      "slug": "962-c-88",
+      "updated_at": "2026-11-04T00:15:20.867238+00:00"
+    },
+    {
+      "id": 465,
+      "sort": 3,
+      "state": "limited",
+      "price": 2500000,
+      "image": null,
+      "frontImage": "8ab2238e-50db-4604-8606-921a6a9ace00",
+      "manufacturer": {
+        "name": "Porsche"
+      },
+      "name": "Porsche 959 '87",
+      "short_name": "959 '87",
+      "slug": "959-87",
+      "updated_at": "2026-11-04T00:15:17.336903+00:00"
+    },
+    {
+      "id": 496,
+      "sort": 8,
+      "state": "normal",
+      "price": 179000,
+      "image": null,
+      "frontImage": "e7ad6725-43d7-4b55-f2b3-355c5ae90100",
+      "manufacturer": {
+        "name": "Chevrolet"
+      },
+      "name": "Chevrolet Chevelle SS 454 Sport Coupé '70",
+      "short_name": "Chevelle SS 454 Sport Coupé '70",
+      "slug": "chevelle-ss-454-sport-coupe-70",
+      "updated_at": "2026-11-04T00:15:19.592366+00:00"
+    }
+  ]
+}

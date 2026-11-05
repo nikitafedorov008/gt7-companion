@@ -185,13 +185,15 @@ class DgEdgeService extends ChangeNotifier {
     final seen = <String>{};
     final items = <DgEdgeDailyRace>[];
 
-    // Race cards are `.event.daily` — active, past and (when scheduled ahead)
+    // Race cards are `.ev-card.ev-daily` (legacy `.event.daily`) — active, past and (when scheduled ahead)
     // `.is-future`, which has no link yet. Selecting the card class directly
     // rather than every `/events/dailies/` anchor keeps the pagination strip
     // out: those `.page-link` anchors point at the same path and used to be
     // parsed as if they were races.
-    final cards = doc.querySelectorAll('.event.daily');
-    debugPrint('DgEdgeService.parseListPage: found ${cards.length} .event.daily cards');
+    final cards = doc.querySelectorAll('.event.daily, .ev-card.ev-daily');
+    debugPrint(
+      'DgEdgeService.parseListPage: found ${cards.length} daily cards',
+    );
     for (final el in cards) {
       if (el.classes.contains('page-link')) continue;
       final summary = DgEdgeDailyRace.fromListElement(el, baseUrl: baseUrl);

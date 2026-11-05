@@ -103,24 +103,36 @@
       </TestFiles>
       <Command>flutter test test/daily_races_display_test.dart</Command>
       <Scenario kind="success">The daily races screen renders the expected race sections and hides past races when asked to.</Scenario>
+      <Scenario kind="success">Track artwork in cards and details is local-first; profiles remain outside the bundled package. See V-M-TRACK-ARTWORK.</Scenario>
     </V-M-WIDGET-DAILY>
+
+    <V-M-TRACK-ARTWORK>
+      <TestFiles><File>test/local_track_artwork_test.dart</File><File>test/local_track_updater_test.dart</File></TestFiles>
+      <Command>.fvm/flutter_sdk/bin/flutter test test/local_track_artwork_test.dart test/local_track_updater_test.dart</Command>
+      <Scenario kind="success">Every discovered configuration has photo/logo/layout URL coverage; file hashes verify, identical bodies deduplicate and unchanged updater runs download zero bytes. Real cards and details render local assets at 390 and 1280 pixels with HTTP denied.</Scenario>
+      <Scenario kind="failure">Profile/avatar URLs and HTML responses are rejected; corrupt files fail offline integrity verification and updater repairs them. Unknown future artwork can use a bundled known-track fallback.</Scenario>
+      <Scenario kind="success">Cold native Mac and narrow iPhone load race metadata normally while track image HTTP is denied; local photos, layouts and logos render, then normal online entrypoints are restored.</Scenario>
+    </V-M-TRACK-ARTWORK>
 
     <!-- Car dealer. -->
     <V-M-SERVICE-GT7INFO>
       <Scenario kind="success">Used and legendary lists parse from the site's payload with prices and stock state.</Scenario>
-      <Scenario kind="failure">A site change yields an empty list plus an error state, never a silent empty success.</Scenario>
+      <Scenario kind="failure">A failed refresh retains bundled or previously fetched inventory and exposes the source error.</Scenario>
     </V-M-SERVICE-GT7INFO>
 
     <V-M-SERVICE-GTDB>
-      <Scenario kind="success">The GraphQL query returns cars with artwork identifiers that the card can resolve.</Scenario>
+      <TestFiles><File>test/dealer_offline_test.dart</File></TestFiles>
+      <Command>.fvm/flutter_sdk/bin/flutter test test/dealer_offline_test.dart</Command>
+      <Scenario kind="success">Public Used HTML yields only priced single-car inventory rows, canonical IDs and artwork identifiers; changed slugs can resolve through unambiguous exact names.</Scenario>
       <Scenario kind="failure">A missing artwork id falls back to the GT7 thumbnail instead of a broken image.</Scenario>
     </V-M-SERVICE-GTDB>
 
     <V-M-REPO-CAR>
       <TestFiles>
         <File>test/car_catalog_test.dart</File>
+        <File>test/dealer_offline_test.dart</File>
       </TestFiles>
-      <Command>flutter test test/car_catalog_test.dart</Command>
+      <Command>flutter test test/car_catalog_test.dart test/dealer_offline_test.dart</Command>
       <Scenario kind="success">The bundled car catalogue loads and answers id to name and photo lookups.</Scenario>
       <Scenario kind="success">Merged gt7info and GTDB rows split into the used and legendary lists without duplicates.</Scenario>
       <Scenario kind="failure">One source failing still publishes the other source's cars.</Scenario>
@@ -135,12 +147,22 @@
       <Scenario kind="failure">An unknown code yields null rather than a plausible-looking wrong value.</Scenario>
     </V-M-MODEL-CAR>
 
+    <V-M-DEALER-CATALOG><TestFiles><File>test/dealer_gt7_data_test.dart</File></TestFiles><Command>.fvm/flutter_sdk/bin/flutter test test/dealer_gt7_data_test.dart</Command><Scenario kind="success">Canonical IDs join genuine localized PP/specifications/history and preserve unknown mileage and rotated-out stock/price.</Scenario><Scenario kind="failure">Unknown IDs never receive a fuzzy match or invented specifications.</Scenario></V-M-DEALER-CATALOG>
+    <V-M-REPO-WISHLIST><TestFiles><File>test/wishlist_repository_test.dart</File></TestFiles><Command>.fvm/flutter_sdk/bin/flutter test test/wishlist_repository_test.dart</Command><Scenario kind="success">Saved IDs restore across repository instances, normalize duplicates and serialize rapid actions.</Scenario><Scenario kind="failure">A failed storage write keeps the previous set and exposes a retryable error.</Scenario></V-M-REPO-WISHLIST>
     <V-M-WIDGET-CAR-DEALER>
-      <Scenario kind="success">Used and legendary screens render their grids at phone and desktop widths and open the price history on tap.</Scenario>
-      <Scenario kind="failure">The vertical keeps a single definition of each shared fragment: the stock badge and the error panel live once and both screens adopt them, so a change to their padding, radius or copy cannot drift between the used and legendary cards.</Scenario>
-      <Scenario kind="failure">A colour literal in this vertical stays inside 0..255: the used-card decoration resolves to alpha 24/255, and an out-of-range argument such as the historical withAlpha(280) counts as a defect even though the SDK masks it silently with &amp; 0xff.</Scenario>
-      <Scenario kind="failure">A missing car image renders the placeholder instead of collapsing the card.</Scenario>
+      <TestFiles><File>test/dealer_gt7_ui_test.dart</File><File>test/dealer_gt7_dialog_test.dart</File><File>test/dealer_gt7_screens_test.dart</File></TestFiles>
+      <Command>.fvm/flutter_sdk/bin/flutter test test/dealer_gt7_ui_test.dart test/dealer_gt7_dialog_test.dart test/dealer_gt7_screens_test.dart</Command>
+      <Scenario kind="success">Used/Hagerty inventories and real card/dialog actions work at 390/820/1280 in RU/EN and enlarged text; Used desktop aspect ratio 2.86, smaller credit prefix and Hagerty corner painting are permanent assertions. Horizontal desktop scroll and phone pull-to-refresh work; close/Escape restore scroll and shared actions.</Scenario>
+      <Scenario kind="failure">Partial source failures keep available cars; unavailable chart launch reports failure, and missing fields stay unknown instead of fabricated mileage/stars/PP.</Scenario>
     </V-M-WIDGET-CAR-DEALER>
+
+    <V-M-CARD-ARTWORK>
+      <TestFiles><File>test/local_card_artwork_test.dart</File><File>test/local_card_updater_test.dart</File></TestFiles>
+      <Command>.fvm/flutter_sdk/bin/flutter test test/local_card_artwork_test.dart test/local_card_updater_test.dart</Command>
+      <Scenario kind="success">All official card thumbnails resolve to bundled assets at phone and desktop widths. SHA-256 verification covers the complete local package. Repeated updates transfer zero unchanged files and deduplicate identical bodies.</Scenario>
+      <Scenario kind="failure">Corrupt primary artwork falls back to a bundled thumbnail; failed dealer refresh preserves inventory. Missing/corrupt package files fail verification and can be repaired; changed remote validators replace only changed files.</Scenario>
+      <Scenario kind="success">Cold native Mac and 390px iPhone with all Dart HTTP denied display Used, Legendary and Brand Central cards with zero image HTTP requests; galleries remain outside the package.</Scenario>
+    </V-M-CARD-ARTWORK>
 
     <!-- GT Auto. -->
     <V-M-MODEL-GT-AUTO><TestFiles><File>test/gt_auto_data_test.dart</File></TestFiles><Command>.fvm/flutter_sdk/bin/flutter test test/gt_auto_data_test.dart</Command><Scenario kind="success">Missing values remain unknown; source labels and units are retained.</Scenario></V-M-MODEL-GT-AUTO>
@@ -192,9 +214,7 @@
       <Scenario kind="failure">A cancelled or failed login pops false and leaves no partial session.</Scenario>
     </V-M-PAGE-LOGIN>
 
-    <V-M-PAGE-WISHLIST>
-      <Scenario kind="success">The wishlist screen renders the cars the player saved and survives an empty list.</Scenario>
-    </V-M-PAGE-WISHLIST>
+    <V-M-PAGE-WISHLIST><TestFiles><File>test/dealer_gt7_screens_test.dart</File></TestFiles><Command>.fvm/flutter_sdk/bin/flutter test test/dealer_gt7_screens_test.dart</Command><Scenario kind="success">Restored rotated-out cars open details, remove through the actual control and render a localized empty state.</Scenario><Scenario kind="failure">Missing catalogue metadata keeps a removable saved ID without inventing a sale price.</Scenario></V-M-PAGE-WISHLIST>
 
     <V-M-SHELL-HOME>
       <TestFiles><File>test/service_menu_test.dart</File></TestFiles>
@@ -296,6 +316,7 @@
     </V-M-SERVICE-APEX>
 
     <V-M-WIDGET-APEX>
+      <Scenario kind="success">Official cover leads the locally light reader while the parent app remains dark; black header, pale chapter surfaces, responsive contents and 320–1920 enlarged-text navigation are verified by widget tests and native Mac/iPhone screenshots.</Scenario>
       <TestFiles><File>test/apex_display_test.dart</File></TestFiles>
       <Command>.fvm/flutter_sdk/bin/flutter test test/apex_display_test.dart</Command>
       <Scenario kind="success">Reader fits 320-1920 px and increased text scale, opens the drawer on narrow widths, selects real chapter entries, retries failures, and supports generated route, back and adjacent article navigation.</Scenario>

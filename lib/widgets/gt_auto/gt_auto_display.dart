@@ -1,3 +1,4 @@
+import '../gt_loading_indicator.dart';
 import 'package:gt7_companion/widgets/window_navigation_safe_area.dart';
 import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'package:auto_route/annotations.dart';
@@ -77,7 +78,7 @@ class _GTAutoDisplayState extends State<GTAutoDisplay> {
             final car = repository.selectedCar;
             if (car == null) {
               if (repository.isLoading) {
-                return const Center(child: CircularProgressIndicator());
+                return const Center(child: GtLoadingIndicator());
               }
               return Center(
                 child: Column(

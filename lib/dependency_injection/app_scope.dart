@@ -1,3 +1,6 @@
+import '../services/card_artwork_service.dart';
+import '../repositories/dealer_catalog_repository.dart';
+import '../repositories/wishlist_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -87,6 +90,7 @@ class AppScope extends StatelessWidget {
         ),
         // The catalogue of cars the telemetry packet can refer to: loads the two
         // bundled assets once and answers id → name / photo.
+        Provider<CardArtworkService>(create: (_) => const CardArtworkService()),
         ChangeNotifierProvider(create: (context) => CarCatalog()..load()),
         Provider(
           create: (_) => BrandCentralService(),
@@ -107,6 +111,17 @@ class AppScope extends StatelessWidget {
                 appSettings: context.read<AppSettingsService>(),
               ),
         ),
+        ChangeNotifierProxyProvider<
+          BrandCentralService,
+          DealerCatalogRepository
+        >(
+          create: (context) =>
+              DealerCatalogRepository(context.read<BrandCentralService>())
+                ..load(),
+          update: (_, source, repository) =>
+              repository ?? (DealerCatalogRepository(source)..load()),
+        ),
+        ChangeNotifierProvider(create: (_) => WishlistRepository()..load()),
         // Independent workshop sources, composed after the official car catalogue.
         Provider(
           create: (_) => GtPlusService(),

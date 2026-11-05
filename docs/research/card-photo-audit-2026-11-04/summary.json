@@ -1,0 +1,126 @@
+{
+  "captured_utc": "2026-11-04T15:56:52.162195+00:00",
+  "official_cars": 580,
+  "gtdb_catalogue_cars": 560,
+  "gtdb_dealer_pages": 198,
+  "discovery_failed": [],
+  "pages_without_dealer_photo": [
+    {
+      "page": "https://gtdb.io/gt7/car/volvo-240-se-estate-93/",
+      "group": "gtdb_used",
+      "photos": []
+    },
+    {
+      "page": "https://gtdb.io/gt7/car/ferrari-430-scuderia-07/",
+      "group": "gtdb_used",
+      "photos": []
+    },
+    {
+      "page": "https://gtdb.io/gt7/car/renault-avantime-3-0-v6-24-v-02/",
+      "group": "gtdb_used",
+      "photos": []
+    },
+    {
+      "page": "https://gtdb.io/gt7/car/honda-civic-si-r-ii-eg-93/",
+      "group": "gtdb_used",
+      "photos": []
+    },
+    {
+      "page": "https://gtdb.io/gt7/car/chevrolet-corvette-z06-c5-01/",
+      "group": "gtdb_used",
+      "photos": []
+    },
+    {
+      "page": "https://gtdb.io/gt7/car/impreza-sedan-wrx-s-ti-04/",
+      "group": "gtdb_used",
+      "photos": []
+    },
+    {
+      "page": "https://gtdb.io/gt7/car/mitsubishi-lancer-evolution-ix-mr-gsr-06/",
+      "group": "gtdb_used",
+      "photos": []
+    },
+    {
+      "page": "https://gtdb.io/gt7/car/bmw-m3-97/",
+      "group": "gtdb_used",
+      "photos": []
+    },
+    {
+      "page": "https://gtdb.io/gt7/car/audi-tts-coupe-09/",
+      "group": "gtdb_used",
+      "photos": []
+    },
+    {
+      "page": "https://gtdb.io/gt7/car/bmw-z4-3-0i-03/",
+      "group": "gtdb_used",
+      "photos": []
+    }
+  ],
+  "groups": {
+    "gtdb_legendary": {
+      "urls": 70,
+      "ok": 70,
+      "failed": 0,
+      "bytes": 2126905,
+      "unique_contents": 70,
+      "deduplicated_bytes": 2126905
+    },
+    "gtdb_used": {
+      "urls": 120,
+      "ok": 120,
+      "failed": 0,
+      "bytes": 7689492,
+      "unique_contents": 120,
+      "deduplicated_bytes": 7689492
+    },
+    "official_thumbnail": {
+      "urls": 580,
+      "ok": 580,
+      "failed": 0,
+      "bytes": 20255027,
+      "unique_contents": 580,
+      "deduplicated_bytes": 20255027
+    },
+    "support_brand_logo": {
+      "urls": 77,
+      "ok": 77,
+      "failed": 0,
+      "bytes": 2276016,
+      "unique_contents": 77,
+      "deduplicated_bytes": 2276016
+    },
+    "support_dealer_logo": {
+      "urls": 6,
+      "ok": 6,
+      "failed": 0,
+      "bytes": 46754,
+      "unique_contents": 6,
+      "deduplicated_bytes": 46754
+    },
+    "support_flag": {
+      "urls": 5,
+      "ok": 5,
+      "failed": 0,
+      "bytes": 878,
+      "unique_contents": 5,
+      "deduplicated_bytes": 878
+    }
+  },
+  "photos_only": {
+    "urls": 770,
+    "ok": 770,
+    "failed": 0,
+    "url_deduplicated_bytes": 30071424,
+    "unique_contents": 770,
+    "content_deduplicated_bytes": 30071424
+  },
+  "with_support_artwork": {
+    "urls": 858,
+    "ok": 858,
+    "failed": 0,
+    "url_deduplicated_bytes": 32395072,
+    "unique_contents": 858,
+    "content_deduplicated_bytes": 32395072
+  },
+  "failures": []
+}

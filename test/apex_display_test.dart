@@ -11,7 +11,12 @@ import 'package:gt7_companion/dependency_injection/app_scope.dart';
 import 'package:gt7_companion/router/app_router.dart';
 import 'package:gt7_companion/services/apex_service.dart';
 import 'package:gt7_companion/widgets/apex/apex_display.dart';
+import 'package:gt7_companion/widgets/apex/apex_theme.dart';
 import 'package:gt7_companion/widgets/home/service_menu.dart';
+import 'package:gt7_companion/pages/home_shell.dart';
+import 'package:gt7_companion/widgets/adaptive_navbar.dart';
+import 'package:gt7_companion/services/music_service.dart';
+import 'package:gt7_companion/services/sound_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:provider/provider.dart';
@@ -31,7 +36,11 @@ http.Response articleResponse(String title) => response(
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  setUp(() => SharedPreferences.setMockInitialValues({}));
+  setUp(
+    () => SharedPreferences.setMockInitialValues({
+      AppSettingsService.autoTelemetryKey: false,
+    }),
+  );
   Future<void> pumpReader(
     WidgetTester tester,
     ApexService service,
@@ -43,9 +52,14 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     await tester.pumpWidget(
-      ChangeNotifierProvider.value(
-        value: service,
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider.value(value: service),
+          ChangeNotifierProvider(create: (_) => SoundService(enabled: false)),
+          ChangeNotifierProvider(create: (_) => MusicService(enabled: false)),
+        ],
         child: MaterialApp(
+          theme: ThemeData.dark(),
           builder: (context, child) => MediaQuery(
             data: MediaQuery.of(
               context,
@@ -134,7 +148,7 @@ void main() {
         );
         addTearDown(service.dispose);
         await pumpReader(tester, service, width, scale: scale);
-        if (width < 880) {
+        if (width < 1000 || scale > 1.25) {
           expect(
             find.byKey(const ValueKey('apex-contents-button')),
             findsOneWidget,
@@ -147,7 +161,7 @@ void main() {
             findsNothing,
           );
         }
-        final chapter = find.text('Глава 1: Автомобильная инженерия');
+        final chapter = find.byKey(const ValueKey('apex-chapter-0'));
         await tester.tap(chapter);
         await tester.pumpAndSettle();
         final first = service.chapters.first.sections.first.articles.first;
@@ -197,8 +211,12 @@ void main() {
     );
     addTearDown(service.dispose);
     await tester.pumpWidget(
-      ChangeNotifierProvider.value(
-        value: service,
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider.value(value: service),
+          ChangeNotifierProvider(create: (_) => SoundService(enabled: false)),
+          ChangeNotifierProvider(create: (_) => MusicService(enabled: false)),
+        ],
         child: const MaterialApp(home: ApexDisplay()),
       ),
     );
@@ -209,7 +227,7 @@ void main() {
     expect(find.byKey(const ValueKey('apex-retry')), findsOneWidget);
   });
   testWidgets(
-    'Apex card pushes the generated reader route and back returns to services',
+    'GT menu opens Apex inside the shared shell and restores the previous section',
     (tester) async {
       final service = ApexService(
         systemLocales: const [Locale('ru')],
@@ -220,51 +238,119 @@ void main() {
         ),
       );
       addTearDown(service.dispose);
+      late TabsRouter tabs;
       final router = RootStackRouter.build(
         routes: [
           AutoRoute(
             initial: true,
             page: PageInfo.builder(
-              'TestHome',
-              builder: (context, _) => Scaffold(
-                body: ServiceMenu(
-                  onBrandCentral: () {},
-                  onUsed: () {},
-                  onLegendary: () {},
-                  onGTAuto: () {},
-                  onApex: () => context.router.push(const ApexDisplayRoute()),
-                ),
+              'TestTabs',
+              builder: (context, _) => AutoTabsRouter(
+                routes: const [HomeShellRoute(), WishlistPageRoute()],
+                builder: (context, child) {
+                  tabs = AutoTabsRouter.of(context);
+                  return Scaffold(appBar: const AdaptiveNavBar(), body: child);
+                },
               ),
             ),
+            children: [
+              AutoRoute(
+                page: HomeShellRoute.page,
+                initial: true,
+                children: [
+                  AutoRoute(
+                    initial: true,
+                    page: PageInfo.builder(
+                      'TestHome',
+                      builder: (context, _) => ServiceMenu(
+                        onBrandCentral: () {},
+                        onUsed: () {},
+                        onLegendary: () {},
+                        onGTAuto: () {},
+                      ),
+                    ),
+                  ),
+                  AutoRoute(
+                    page: PageInfo.builder(
+                      'TestDealer',
+                      builder: (context, _) =>
+                          const Text('Dealer state retained'),
+                    ),
+                  ),
+                  AutoRoute(page: ApexDisplayRoute.page, path: 'apex'),
+                ],
+              ),
+              AutoRoute(
+                page: PageInfo.builder(
+                  WishlistPageRoute.name,
+                  builder: (context, _) => const Text('Wishlist retained'),
+                ),
+              ),
+            ],
           ),
-          AutoRoute(page: ApexDisplayRoute.page, path: '/apex'),
         ],
       );
       addTearDown(router.dispose);
       await tester.pumpWidget(
-        ChangeNotifierProvider.value(
-          value: service,
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider.value(value: service),
+            ChangeNotifierProvider(create: (_) => SoundService(enabled: false)),
+            ChangeNotifierProvider(create: (_) => MusicService(enabled: false)),
+          ],
           child: MaterialApp.router(routerConfig: router.config()),
         ),
       );
       await tester.pumpAndSettle();
-      await tester.tap(find.byKey(const ValueKey('service-apex')));
-      await tester.pumpAndSettle();
-      expect(find.byType(ApexDisplay), findsOneWidget);
-      await tester.tap(find.byType(BackButton));
-      await tester.pumpAndSettle();
-      expect(find.byType(ServiceMenu), findsOneWidget);
-      expect(find.byType(ApexDisplay), findsNothing);
+      final navbar = tester.element(find.byType(AdaptiveNavBar));
+      final home = tabs.stackRouterOfIndex(0)!;
+      for (final previousTab in [0, 1]) {
+        if (previousTab == 1) {
+          home.push(PageRouteInfo('TestDealer'));
+          await tester.pumpAndSettle();
+        }
+        tabs.setActiveIndex(previousTab);
+        await tester.pumpAndSettle();
+        await tester.tap(find.byKey(const ValueKey('gt-menu-button')));
+        await tester.pumpAndSettle();
+        await tester.tap(find.byKey(const ValueKey('gt-menu-apex')));
+        await tester.pumpAndSettle();
+        expect(find.byType(ApexDisplay), findsOneWidget);
+        expect(
+          router.stack.length,
+          1,
+          reason: 'Apex belongs to the home stack',
+        );
+        expect(home.current.name, ApexDisplayRoute.name);
+        expect(tester.element(find.byType(AdaptiveNavBar)), same(navbar));
+        expect(find.byType(AdaptiveNavBar), findsOneWidget);
+        await tester.tap(find.byKey(const ValueKey('apex-close')));
+        await tester.pumpAndSettle();
+        expect(tabs.activeIndex, previousTab);
+        expect(find.byType(ApexDisplay), findsNothing);
+        expect(
+          find.text(previousTab == 0 ? 'Brand Central' : 'Wishlist retained'),
+          findsOneWidget,
+        );
+        if (previousTab == 1) {
+          tabs.setActiveIndex(0);
+          await tester.pumpAndSettle();
+          expect(find.text('Dealer state retained'), findsOneWidget);
+        }
+      }
+      final routes = AppRouter().routes;
+      expect(routes.any((r) => r.page.name == ApexDisplayRoute.name), isFalse);
+      final shell = routes
+          .firstWhere((r) => r.page.name == NestedWidgetRoute.name)
+          .children!
+          .firstWhere((r) => r.page.name == HomeShellRoute.name);
       expect(
-        AppRouter().routes
-            .firstWhere((route) => route.children != null)
-            .children!
-            .first
-            .children!
-            .any((r) => r.page.name == ApexDisplayRoute.name),
+        shell.children!.any((r) => r.page.name == ApexDisplayRoute.name),
         isTrue,
       );
+      await tester.pumpWidget(const SizedBox());
     },
+    variant: TargetPlatformVariant({TargetPlatform.macOS, TargetPlatform.iOS}),
   );
   testWidgets('next and previous navigate actual article selections', (
     tester,
@@ -286,4 +372,56 @@ void main() {
     await tester.pumpAndSettle();
     expect(service.selected.path, ApexArticleRef.introduction.path);
   });
+  testWidgets(
+    'official cover leads the light magazine inside a dark application',
+    (tester) async {
+      final service = ApexService(
+        systemLocales: const [Locale('ru')],
+        httpClient: MockClient(
+          (r) async => r.url.path.endsWith('/apex/')
+              ? response(menuFixture())
+              : response(
+                  File(
+                    'test/fixtures/apex/introduction.json',
+                  ).readAsStringSync(),
+                ),
+        ),
+      );
+      addTearDown(service.dispose);
+      await pumpReader(tester, service, 1280);
+      final outerContext = tester.element(find.byType(ApexDisplay));
+      final innerContext = tester.element(find.byType(Scaffold).last);
+      expect(Theme.of(outerContext).brightness, Brightness.dark);
+      expect(Theme.of(innerContext).colorScheme.brightness, Brightness.light);
+      expect(Theme.of(innerContext).scaffoldBackgroundColor, apexPaper);
+      expect(Theme.of(innerContext).appBarTheme.backgroundColor, apexInk);
+      expect(
+        Theme.of(innerContext).colorScheme.surfaceContainerLow,
+        apexChapterSurface,
+      );
+      expect(
+        find.byType(AdaptiveNavBar),
+        findsNothing,
+        reason: 'navigation belongs to the surrounding shell',
+      );
+      expect(find.byKey(const ValueKey('apex-close')), findsOneWidget);
+      expect(find.byKey(const ValueKey('apex-contents-rail')), findsOneWidget);
+      expect(
+        find.text('Beyond the Apex'),
+        findsOneWidget,
+        reason:
+            'the page header identifies the magazine below global navigation',
+      );
+      expect(
+        find.byWidgetPredicate(
+          (w) =>
+              w is Image &&
+              w.image is NetworkImage &&
+              (w.image as NetworkImage).url.endsWith('/apex/main_apex.jpg'),
+        ),
+        findsOneWidget,
+      );
+      expect(tester.takeException(), isNull);
+    },
+  );
 }

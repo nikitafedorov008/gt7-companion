@@ -1,0 +1,9 @@
+<GraceChangeSpec graceVersion="4.0" status="approved"><C-APEX-MAGAZINE-STYLE>
+<Summary>Apply the official Beyond the Apex light magazine presentation as a self-contained reader theme, explicitly requested after the reference review.</Summary>
+<Goals><Goal>Match the verified official magazine: white canvas, black GT header and bA cover, pale chapter tiles and restrained borders.</Goal><Goal>Preserve content, language, retry, article navigation and original illustrations across desktop and phone layouts.</Goal></Goals>
+<Constraints><Constraint>Use a reader-local Theme and existing Provider service; keep global UI, content loading and system-language behavior unchanged.</Constraint><Constraint>Respect macOS native controls, phone safe areas, 320px width and text scale1.5; retain accessible labels and readable illustrations without tint.</Constraint></Constraints>
+<NonGoals><NonGoal>No new API, automatic translations, global theme change, commit or push.</NonGoal></NonGoals>
+<AcceptanceCriteria><Criterion>Official cover leads the introduction without duplicate heading; black header, white reader and light contents match recorded references.</Criterion><Criterion>Chapters and articles remain navigable, narrow drawer closes on selection, previous/next and retry work.</Criterion><Criterion>RU/EN phone/desktop and enlarged-text tests pass, surrounding dark theme remains unchanged; quiet native screenshots and runtime inspection verify the result.</Criterion></AcceptanceCriteria>
+<AffectedAreas><M-WIDGET-APEX/></AffectedAreas>
+<VerificationIntent><ExpectedCommand>Dart MCP Apex tests and changed-file analyzer; localization audit and GRACE checks.</ExpectedCommand><ExpectedEvidence>Mac and narrow iPhone screenshots, header safe area and contents/article interactions.</ExpectedEvidence></VerificationIntent>
+</C-APEX-MAGAZINE-STYLE></GraceChangeSpec>

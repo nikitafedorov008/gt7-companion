@@ -25,8 +25,9 @@ class FakeDiscovery extends ConsoleDiscoveryService {
   List<ConsoleCandidate> result = [ps5];
   Completer<List<ConsoleCandidate>>? pending;
   int rounds = 0;
+  bool broadcastSupported = true;
   @override
-  bool get broadcastAvailable => true;
+  bool get broadcastAvailable => broadcastSupported;
   @override
   Future<List<ConsoleCandidate>> discover({
     Duration budget = const Duration(seconds: 3),
@@ -87,8 +88,12 @@ class FakeTelemetry extends TelemetryService {
 }
 
 class PacketUdp extends UdpService {
+  int attempts = 0;
   @override
-  Future<void> startListening(String address) async {}
+  Future<void> startListening(String address) async {
+    attempts++;
+  }
+
   @override
   Future<void> stopListening() async {}
 }
@@ -132,11 +137,12 @@ void main() {
   Future<void> setup(
     WidgetTester tester, {
     Map<String, Object> prefs = const {},
+    bool broadcastSupported = true,
   }) async {
     SharedPreferences.setMockInitialValues(prefs);
     settings = AppSettingsService();
     await settings.load();
-    discovery = FakeDiscovery();
+    discovery = FakeDiscovery()..broadcastSupported = broadcastSupported;
     telemetry = FakeTelemetry();
     repo = TelemetryConnectionRepository(
       settings,
@@ -318,4 +324,134 @@ void main() {
     expect(repo.phase, ConnectionPhase.manual);
     cleanup();
   });
+  testWidgets(
+    'saved IP retries without broadcast and connects when GT7 starts later',
+    (tester) async {
+      await setup(
+        tester,
+        broadcastSupported: false,
+        prefs: {AppSettingsService.confirmedConsoleKey: '127.0.0.1'},
+      );
+      try {
+        expect(telemetry.attempts, 1);
+        await tester.pump(const Duration(milliseconds: 101));
+        await tester.pump();
+        expect(repo.phase, ConnectionPhase.lost);
+        await tester.pump(const Duration(seconds: 29));
+        expect(telemetry.attempts, 1);
+        await tester.pump(const Duration(milliseconds: 1001));
+        await tester.pump();
+        expect(telemetry.attempts, 2);
+        expect(discovery.rounds, 0);
+        telemetry.packet();
+        await tester.pump();
+        expect(repo.phase, ConnectionPhase.live);
+        expect(telemetry.connectedAddress, '127.0.0.1');
+      } finally {
+        cleanup();
+      }
+    },
+  );
+  testWidgets(
+    'no saved address and no broadcast waits for manual setup without retry loop',
+    (tester) async {
+      await setup(tester, broadcastSupported: false);
+      try {
+        await tester.pump(const Duration(seconds: 61));
+        expect(repo.phase, ConnectionPhase.unavailable);
+        expect(telemetry.attempts, 0);
+        expect(discovery.rounds, 0);
+      } finally {
+        cleanup();
+      }
+    },
+  );
+  testWidgets(
+    'real UDP error recovers automatically; explicit dashboard disconnect stops retries',
+    (tester) async {
+      SharedPreferences.setMockInitialValues({});
+      final settings = AppSettingsService();
+      await settings.load();
+      final discovery = FakeDiscovery();
+      final udp = PacketUdp();
+      final telemetry = TelemetryService(udpService: udp);
+      final repo = TelemetryConnectionRepository(
+        settings,
+        telemetry,
+        discovery,
+        waitBudget: const Duration(milliseconds: 100),
+      );
+      try {
+        await tester.pump();
+        udp.onDataReceived!(encryptedPacket(1));
+        await tester.pump();
+        expect(repo.phase, ConnectionPhase.live);
+        udp.onError!('Temporary socket failure');
+        expect(repo.phase, ConnectionPhase.lost);
+        await tester.pump(const Duration(seconds: 29));
+        expect(udp.attempts, 1);
+        await tester.pump(const Duration(milliseconds: 1001));
+        await tester.pump();
+        expect(udp.attempts, 2);
+        udp.onDataReceived!(encryptedPacket(2));
+        await tester.pump();
+        expect(repo.phase, ConnectionPhase.live);
+        expect(telemetry.errorMessage, isNull);
+        await telemetry.disconnect();
+        await tester.pump(const Duration(seconds: 31));
+        expect(repo.phase, ConnectionPhase.manual);
+        expect(udp.attempts, 2);
+      } finally {
+        repo.dispose();
+        telemetry.dispose();
+        discovery.dispose();
+        settings.dispose();
+      }
+    },
+  );
+  for (final action in ['disconnect', 'disable', 'background', 'dispose']) {
+    testWidgets('pending recovery after UDP failure respects $action', (
+      tester,
+    ) async {
+      SharedPreferences.setMockInitialValues({});
+      final settings = AppSettingsService();
+      await settings.load();
+      final discovery = FakeDiscovery();
+      final udp = PacketUdp();
+      final telemetry = TelemetryService(udpService: udp);
+      final repo = TelemetryConnectionRepository(
+        settings,
+        telemetry,
+        discovery,
+        waitBudget: const Duration(milliseconds: 100),
+      );
+      var disposed = false;
+      try {
+        await tester.pump();
+        udp.onDataReceived!(encryptedPacket(1));
+        await tester.pump();
+        udp.onError!('Temporary socket failure');
+        expect(repo.phase, ConnectionPhase.lost);
+        switch (action) {
+          case 'disconnect':
+            await repo.disconnect();
+          case 'disable':
+            await settings.setAutoTelemetry(false);
+          case 'background':
+            repo.didChangeAppLifecycleState(AppLifecycleState.paused);
+          case 'dispose':
+            repo.dispose();
+            disposed = true;
+        }
+        await tester.pump(const Duration(seconds: 31));
+        await tester.pump();
+        expect(udp.attempts, 1);
+      } finally {
+        if (!disposed) repo.dispose();
+        telemetry.dispose();
+        discovery.dispose();
+        settings.dispose();
+      }
+    });
+  }
 }

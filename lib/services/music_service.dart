@@ -35,6 +35,9 @@ class MusicService extends ChangeNotifier with WidgetsBindingObserver {
   }) : _player = player ?? AudioPlayersMusicPlayer(),
        _enabled = enabled,
        _volume = volume {
+    final state = WidgetsBinding.instance.lifecycleState;
+    _isForeground = state == null || state == AppLifecycleState.resumed;
+    WidgetsBinding.instance.addObserver(this);
     _player.onComplete(_advance);
   }
 
@@ -71,6 +74,23 @@ class MusicService extends ChangeNotifier with WidgetsBindingObserver {
 
   bool _enabled;
   bool _isLoaded = false;
+  bool _disposed = false;
+  int _generation = 0;
+  Future<void> _operations = Future<void>.value();
+
+  Future<void> _enqueue(Future<void> Function() action) {
+    _operations = _operations
+        .then((_) async {
+          if (!_disposed) await action();
+        })
+        .catchError((Object error) {
+          debugPrint('MusicService: playback failed: $error');
+        });
+    return _operations;
+  }
+
+  /// Wait for outstanding audio commands, including a late native player load.
+  Future<void> flush() => _operations;
   bool _isForeground = true;
 
   /// Whether a track is playing or paused mid-track. Kept explicitly rather than
@@ -98,11 +118,11 @@ class MusicService extends ChangeNotifier with WidgetsBindingObserver {
       debugPrint('MusicService: could not read the preference: $e');
     }
 
+    if (_disposed) return;
     _isLoaded = true;
-    WidgetsBinding.instance.addObserver(this);
     notifyListeners();
 
-    if (_enabled) await _start();
+    if (_enabled && _isForeground) await _enqueue(_start);
   }
 
   /// Turns the music on or off and remembers the choice.
@@ -110,6 +130,7 @@ class MusicService extends ChangeNotifier with WidgetsBindingObserver {
     if (value == _enabled) return;
 
     _enabled = value;
+    _generation++;
     notifyListeners();
 
     try {
@@ -119,14 +140,15 @@ class MusicService extends ChangeNotifier with WidgetsBindingObserver {
       debugPrint('MusicService: could not store the preference: $e');
     }
 
-    if (value) {
-      _isPlaying = false;
-      await _start();
-    } else {
-      await _fadeOut();
-      await _player.stop();
-      _isPlaying = false;
-    }
+    await _enqueue(() async {
+      if (_enabled && _isForeground) {
+        await _resumeOrStart();
+      } else if (!_enabled) {
+        await _fadeOut();
+        await _player.stop();
+        _isPlaying = false;
+      }
+    });
   }
 
   /// Falls silent when the app is not in front of the user, and comes back when
@@ -137,21 +159,24 @@ class MusicService extends ChangeNotifier with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     _isForeground = state == AppLifecycleState.resumed;
-    if (!_enabled) return;
-
-    if (_isForeground) {
-      unawaited(_resumeOrStart());
-    } else {
-      unawaited(_player.pause());
-    }
+    _generation++;
+    unawaited(
+      _enqueue(() async {
+        if (_enabled && _isForeground && _isLoaded) {
+          await _resumeOrStart();
+        } else {
+          await _player.pause();
+        }
+      }),
+    );
   }
 
   /// Moves to the next track when the current one ends, wrapping around.
   void _advance() {
-    if (!_enabled || !_isForeground) return;
+    if (_disposed || !_enabled || !_isForeground) return;
     _index = (_index + 1) % tracks.length;
     _isPlaying = false;
-    unawaited(_start());
+    unawaited(_enqueue(_start));
   }
 
   Future<void> _start() async {
@@ -159,10 +184,15 @@ class MusicService extends ChangeNotifier with WidgetsBindingObserver {
     // observer's first resumed notification arrives while load() is still
     // preparing that very track, and without this guard the second call built a
     // second player, so one track came out of two speakers at once.
-    if (_isPlaying) return;
+    if (_isPlaying || !_enabled || !_isForeground || _disposed) return;
     _isPlaying = true;
 
+    final generation = _generation;
     await _player.play(currentTrack, volume: 0);
+    if (_disposed || !_enabled || !_isForeground || generation != _generation) {
+      await _player.pause();
+      return;
+    }
     await _fadeIn();
   }
 
@@ -170,13 +200,21 @@ class MusicService extends ChangeNotifier with WidgetsBindingObserver {
   Future<void> _resumeOrStart() async {
     if (_isPlaying) {
       await _player.resume();
+      await _fadeIn();
     } else {
       await _start();
     }
   }
 
   Future<void> _fadeIn() async {
+    final generation = _generation;
     for (var step = 1; step <= fadeSteps; step++) {
+      if (_disposed ||
+          !_enabled ||
+          !_isForeground ||
+          generation != _generation) {
+        return;
+      }
       await _player.setVolume(_volume * step / fadeSteps);
       await _waitFadeStep();
     }
@@ -197,8 +235,10 @@ class MusicService extends ChangeNotifier with WidgetsBindingObserver {
 
   @override
   void dispose() {
+    _disposed = true;
+    _generation++;
     WidgetsBinding.instance.removeObserver(this);
-    unawaited(_player.dispose());
+    unawaited(_operations.then((_) => _player.dispose()));
     super.dispose();
   }
 }

@@ -1,3 +1,4 @@
+import 'widgets/gt_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -53,7 +54,7 @@ class _AppViewState extends State<_AppView> {
     if (!settings.isLoaded) {
       return MaterialApp(
         theme: gt7Theme(),
-        home: const Scaffold(body: Center(child: CircularProgressIndicator())),
+        home: const Scaffold(body: Center(child: GtLoadingIndicator())),
       );
     }
     return TapSoundArea(

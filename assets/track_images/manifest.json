@@ -1,0 +1,5275 @@
+{
+  "https://data.dg-edge.com/images/tracks/1/Back1.webp": {
+    "asset": "assets/track_images/7a612dbaf5c77eae78b6666fd397c8ee5c84642e93d49a92991f6f1992db602a.jpg",
+    "bytes": 279717,
+    "etag": "\"c518a4fb3320f48c1fb0ed25c8a215e0\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:00 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "1"
+      }
+    ],
+    "sha256": "7a612dbaf5c77eae78b6666fd397c8ee5c84642e93d49a92991f6f1992db602a"
+  },
+  "https://data.dg-edge.com/images/tracks/1/Logo1.webp": {
+    "asset": "assets/track_images/27d6aee74e5eaa8941fc6098ba8a1434e1ff38848bd21a5cd4f250679a8ddf87.png",
+    "bytes": 8570,
+    "etag": "\"b80834465436888d0b3c30f1c581896e\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:00 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "1"
+      }
+    ],
+    "sha256": "27d6aee74e5eaa8941fc6098ba8a1434e1ff38848bd21a5cd4f250679a8ddf87"
+  },
+  "https://data.dg-edge.com/images/tracks/1/Track1.webp": {
+    "asset": "assets/track_images/18fcb42a523a246d9d27ff97140c7935e8e83d1b9fd5d171be87a1b60b94b3f3.png",
+    "bytes": 19353,
+    "etag": "\"23fb4e5e3fd564b4c920ef93d6696e35\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:00 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "1"
+      }
+    ],
+    "sha256": "18fcb42a523a246d9d27ff97140c7935e8e83d1b9fd5d171be87a1b60b94b3f3"
+  },
+  "https://data.dg-edge.com/images/tracks/170/Back170.webp": {
+    "asset": "assets/track_images/7c9f78171d77985c70e33728de9bd0861003e2bb93fde902ae460c2838d6a192.jpg",
+    "bytes": 219789,
+    "etag": "\"fc7d04b093657d082c83175f1599c04a\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:08 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "170"
+      }
+    ],
+    "sha256": "7c9f78171d77985c70e33728de9bd0861003e2bb93fde902ae460c2838d6a192"
+  },
+  "https://data.dg-edge.com/images/tracks/170/Logo170.webp": {
+    "asset": "assets/track_images/e14dd95b08485d1283d6f1fc8f26c5afe6e5ec9deb5b6eccb59cc74b4138651c.png",
+    "bytes": 7621,
+    "etag": "\"8110bdfb29044915ed68e6c6e6924ade\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:08 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "170"
+      }
+    ],
+    "sha256": "e14dd95b08485d1283d6f1fc8f26c5afe6e5ec9deb5b6eccb59cc74b4138651c"
+  },
+  "https://data.dg-edge.com/images/tracks/170/Track170.webp": {
+    "asset": "assets/track_images/655a42450c73cdb214bc734d6730543c3bf5d72e2164b127803c9979934d8915.png",
+    "bytes": 21128,
+    "etag": "\"13454d67cfad533f4e03afe385c5ba52\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:08 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "170"
+      }
+    ],
+    "sha256": "655a42450c73cdb214bc734d6730543c3bf5d72e2164b127803c9979934d8915"
+  },
+  "https://data.dg-edge.com/images/tracks/172/Back172.webp": {
+    "asset": "assets/track_images/222dcf72ab5842c2b6ea78fbd06f0437fbb77126a9ea14701f0fafc9e5639dfe.jpg",
+    "bytes": 227239,
+    "etag": "\"ec201904f7516b7f1551960ed55d7b7c\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:01 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "172"
+      }
+    ],
+    "sha256": "222dcf72ab5842c2b6ea78fbd06f0437fbb77126a9ea14701f0fafc9e5639dfe"
+  },
+  "https://data.dg-edge.com/images/tracks/172/Logo172.webp": {
+    "asset": "assets/track_images/e14dd95b08485d1283d6f1fc8f26c5afe6e5ec9deb5b6eccb59cc74b4138651c.png",
+    "bytes": 7621,
+    "etag": "\"8110bdfb29044915ed68e6c6e6924ade\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:01 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "172"
+      }
+    ],
+    "sha256": "e14dd95b08485d1283d6f1fc8f26c5afe6e5ec9deb5b6eccb59cc74b4138651c"
+  },
+  "https://data.dg-edge.com/images/tracks/172/Track172.webp": {
+    "asset": "assets/track_images/655a42450c73cdb214bc734d6730543c3bf5d72e2164b127803c9979934d8915.png",
+    "bytes": 21128,
+    "etag": "\"13454d67cfad533f4e03afe385c5ba52\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:01 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "172"
+      }
+    ],
+    "sha256": "655a42450c73cdb214bc734d6730543c3bf5d72e2164b127803c9979934d8915"
+  },
+  "https://data.dg-edge.com/images/tracks/176/Back176.webp": {
+    "asset": "assets/track_images/9d86a0a14317ffac0cdb06b13fbd1220ad5e7d580b5c239d89ffebf8d5f164db.jpg",
+    "bytes": 438742,
+    "etag": "\"7455ae5f3a18337919c18ac7d1b7771b\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:11 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "176"
+      }
+    ],
+    "sha256": "9d86a0a14317ffac0cdb06b13fbd1220ad5e7d580b5c239d89ffebf8d5f164db"
+  },
+  "https://data.dg-edge.com/images/tracks/176/Logo176.webp": {
+    "asset": "assets/track_images/fa810fb54a607d64c5a2bb45f1738889fdd95822c0095933846b79a0b8744ad8.png",
+    "bytes": 4031,
+    "etag": "\"3b4a2c99effe292ecec7a140bce63b3b\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:11 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "176"
+      }
+    ],
+    "sha256": "fa810fb54a607d64c5a2bb45f1738889fdd95822c0095933846b79a0b8744ad8"
+  },
+  "https://data.dg-edge.com/images/tracks/176/Track176.webp": {
+    "asset": "assets/track_images/f5d57bf9cbe8eac092287ca0dfff9ee4d844c837a257874be76597155e07805e.png",
+    "bytes": 19146,
+    "etag": "\"b176111a0e20ff9e09fa89b878318c36\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:11 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "176"
+      }
+    ],
+    "sha256": "f5d57bf9cbe8eac092287ca0dfff9ee4d844c837a257874be76597155e07805e"
+  },
+  "https://data.dg-edge.com/images/tracks/177/Back176.webp": {
+    "asset": "assets/track_images/9d86a0a14317ffac0cdb06b13fbd1220ad5e7d580b5c239d89ffebf8d5f164db.jpg",
+    "bytes": 438742,
+    "etag": "\"7455ae5f3a18337919c18ac7d1b7771b\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:08 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "177"
+      }
+    ],
+    "sha256": "9d86a0a14317ffac0cdb06b13fbd1220ad5e7d580b5c239d89ffebf8d5f164db"
+  },
+  "https://data.dg-edge.com/images/tracks/177/Logo176.webp": {
+    "asset": "assets/track_images/fa810fb54a607d64c5a2bb45f1738889fdd95822c0095933846b79a0b8744ad8.png",
+    "bytes": 4031,
+    "etag": "\"3b4a2c99effe292ecec7a140bce63b3b\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:08 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "177"
+      }
+    ],
+    "sha256": "fa810fb54a607d64c5a2bb45f1738889fdd95822c0095933846b79a0b8744ad8"
+  },
+  "https://data.dg-edge.com/images/tracks/177/Track176.webp": {
+    "asset": "assets/track_images/f5d57bf9cbe8eac092287ca0dfff9ee4d844c837a257874be76597155e07805e.png",
+    "bytes": 19146,
+    "etag": "\"b176111a0e20ff9e09fa89b878318c36\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:08 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "177"
+      }
+    ],
+    "sha256": "f5d57bf9cbe8eac092287ca0dfff9ee4d844c837a257874be76597155e07805e"
+  },
+  "https://data.dg-edge.com/images/tracks/180/Back180.webp": {
+    "asset": "assets/track_images/5d3ae9953db867ee9dc98869ad96491e0eeda429196f24af7f001829a6bb3d70.jpg",
+    "bytes": 366312,
+    "etag": "\"c90f4a8816d792878c8ef3a3d9f06881\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:58 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "180"
+      }
+    ],
+    "sha256": "5d3ae9953db867ee9dc98869ad96491e0eeda429196f24af7f001829a6bb3d70"
+  },
+  "https://data.dg-edge.com/images/tracks/180/Logo180.webp": {
+    "asset": "assets/track_images/8ac09282a07a6189d7cfe08cf5f78b043a26064e533bcb3e7ce524c705e8f6b9.png",
+    "bytes": 5832,
+    "etag": "\"3c54e6abd94186e9d1481e6fa6310f04\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:58 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "180"
+      }
+    ],
+    "sha256": "8ac09282a07a6189d7cfe08cf5f78b043a26064e533bcb3e7ce524c705e8f6b9"
+  },
+  "https://data.dg-edge.com/images/tracks/180/Track180.webp": {
+    "asset": "assets/track_images/d15e13c8d78aec2a250f6cd1b5ec93707c8086e7bf7f147a7feff8a1619ab1ae.png",
+    "bytes": 12134,
+    "etag": "\"17ad5d78e746be46c69f088650f490f0\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:58 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "180"
+      }
+    ],
+    "sha256": "d15e13c8d78aec2a250f6cd1b5ec93707c8086e7bf7f147a7feff8a1619ab1ae"
+  },
+  "https://data.dg-edge.com/images/tracks/181/Back180.webp": {
+    "asset": "assets/track_images/5d3ae9953db867ee9dc98869ad96491e0eeda429196f24af7f001829a6bb3d70.jpg",
+    "bytes": 366312,
+    "etag": "\"c90f4a8816d792878c8ef3a3d9f06881\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:01 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "181"
+      }
+    ],
+    "sha256": "5d3ae9953db867ee9dc98869ad96491e0eeda429196f24af7f001829a6bb3d70"
+  },
+  "https://data.dg-edge.com/images/tracks/181/Logo180.webp": {
+    "asset": "assets/track_images/8ac09282a07a6189d7cfe08cf5f78b043a26064e533bcb3e7ce524c705e8f6b9.png",
+    "bytes": 5832,
+    "etag": "\"3c54e6abd94186e9d1481e6fa6310f04\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:01 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "181"
+      }
+    ],
+    "sha256": "8ac09282a07a6189d7cfe08cf5f78b043a26064e533bcb3e7ce524c705e8f6b9"
+  },
+  "https://data.dg-edge.com/images/tracks/181/Track180.webp": {
+    "asset": "assets/track_images/d15e13c8d78aec2a250f6cd1b5ec93707c8086e7bf7f147a7feff8a1619ab1ae.png",
+    "bytes": 12134,
+    "etag": "\"17ad5d78e746be46c69f088650f490f0\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:01 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "181"
+      }
+    ],
+    "sha256": "d15e13c8d78aec2a250f6cd1b5ec93707c8086e7bf7f147a7feff8a1619ab1ae"
+  },
+  "https://data.dg-edge.com/images/tracks/182/Back182.webp": {
+    "asset": "assets/track_images/ca99ef3f1196e8268b2525496af9a76e3b73df3c5159e118f6c1f175d05d749a.jpg",
+    "bytes": 296901,
+    "etag": "\"bc12c0f2258dd4dcb943584a49217d10\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:10 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "182"
+      }
+    ],
+    "sha256": "ca99ef3f1196e8268b2525496af9a76e3b73df3c5159e118f6c1f175d05d749a"
+  },
+  "https://data.dg-edge.com/images/tracks/182/Logo182.webp": {
+    "asset": "assets/track_images/8ac09282a07a6189d7cfe08cf5f78b043a26064e533bcb3e7ce524c705e8f6b9.png",
+    "bytes": 5832,
+    "etag": "\"3c54e6abd94186e9d1481e6fa6310f04\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:10 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "182"
+      }
+    ],
+    "sha256": "8ac09282a07a6189d7cfe08cf5f78b043a26064e533bcb3e7ce524c705e8f6b9"
+  },
+  "https://data.dg-edge.com/images/tracks/182/Track182.webp": {
+    "asset": "assets/track_images/60c9e8c1f95cebc75f5a3c0b35caac7863c84193a4c80f0e92db7c963f397965.png",
+    "bytes": 21597,
+    "etag": "\"56fb4fc5f7afba734b646c1069852bfc\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:10 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "182"
+      }
+    ],
+    "sha256": "60c9e8c1f95cebc75f5a3c0b35caac7863c84193a4c80f0e92db7c963f397965"
+  },
+  "https://data.dg-edge.com/images/tracks/183/Back182.webp": {
+    "asset": "assets/track_images/ca99ef3f1196e8268b2525496af9a76e3b73df3c5159e118f6c1f175d05d749a.jpg",
+    "bytes": 296901,
+    "etag": "\"bc12c0f2258dd4dcb943584a49217d10\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:08 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "183"
+      }
+    ],
+    "sha256": "ca99ef3f1196e8268b2525496af9a76e3b73df3c5159e118f6c1f175d05d749a"
+  },
+  "https://data.dg-edge.com/images/tracks/183/Logo182.webp": {
+    "asset": "assets/track_images/8ac09282a07a6189d7cfe08cf5f78b043a26064e533bcb3e7ce524c705e8f6b9.png",
+    "bytes": 5832,
+    "etag": "\"3c54e6abd94186e9d1481e6fa6310f04\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:08 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "183"
+      }
+    ],
+    "sha256": "8ac09282a07a6189d7cfe08cf5f78b043a26064e533bcb3e7ce524c705e8f6b9"
+  },
+  "https://data.dg-edge.com/images/tracks/183/Track182.webp": {
+    "asset": "assets/track_images/60c9e8c1f95cebc75f5a3c0b35caac7863c84193a4c80f0e92db7c963f397965.png",
+    "bytes": 21597,
+    "etag": "\"56fb4fc5f7afba734b646c1069852bfc\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:08 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "183"
+      }
+    ],
+    "sha256": "60c9e8c1f95cebc75f5a3c0b35caac7863c84193a4c80f0e92db7c963f397965"
+  },
+  "https://data.dg-edge.com/images/tracks/184/Back184.webp": {
+    "asset": "assets/track_images/05269fdb9bf29cdd5489781eaa5eead441f11c3e2672209ffc43f2bbe9aee8a7.jpg",
+    "bytes": 281718,
+    "etag": "\"a9243f2b5b8e8e22202bb0454d715aaa\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:08 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "184"
+      }
+    ],
+    "sha256": "05269fdb9bf29cdd5489781eaa5eead441f11c3e2672209ffc43f2bbe9aee8a7"
+  },
+  "https://data.dg-edge.com/images/tracks/184/Logo184.webp": {
+    "asset": "assets/track_images/8ac09282a07a6189d7cfe08cf5f78b043a26064e533bcb3e7ce524c705e8f6b9.png",
+    "bytes": 5832,
+    "etag": "\"3c54e6abd94186e9d1481e6fa6310f04\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:08 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "184"
+      }
+    ],
+    "sha256": "8ac09282a07a6189d7cfe08cf5f78b043a26064e533bcb3e7ce524c705e8f6b9"
+  },
+  "https://data.dg-edge.com/images/tracks/184/Track184.webp": {
+    "asset": "assets/track_images/2e49d45bea2fad44d1296ed0cdf9a716460a300a178f7f855b947464e60cdb06.png",
+    "bytes": 24067,
+    "etag": "\"1da97d36f8d8435deff7cdd15ee780c8\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:07 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "184"
+      }
+    ],
+    "sha256": "2e49d45bea2fad44d1296ed0cdf9a716460a300a178f7f855b947464e60cdb06"
+  },
+  "https://data.dg-edge.com/images/tracks/185/Back184.webp": {
+    "asset": "assets/track_images/05269fdb9bf29cdd5489781eaa5eead441f11c3e2672209ffc43f2bbe9aee8a7.jpg",
+    "bytes": 281718,
+    "etag": "\"a9243f2b5b8e8e22202bb0454d715aaa\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:11 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "185"
+      }
+    ],
+    "sha256": "05269fdb9bf29cdd5489781eaa5eead441f11c3e2672209ffc43f2bbe9aee8a7"
+  },
+  "https://data.dg-edge.com/images/tracks/185/Logo184.webp": {
+    "asset": "assets/track_images/8ac09282a07a6189d7cfe08cf5f78b043a26064e533bcb3e7ce524c705e8f6b9.png",
+    "bytes": 5832,
+    "etag": "\"3c54e6abd94186e9d1481e6fa6310f04\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:11 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "185"
+      }
+    ],
+    "sha256": "8ac09282a07a6189d7cfe08cf5f78b043a26064e533bcb3e7ce524c705e8f6b9"
+  },
+  "https://data.dg-edge.com/images/tracks/185/Track184.webp": {
+    "asset": "assets/track_images/2e49d45bea2fad44d1296ed0cdf9a716460a300a178f7f855b947464e60cdb06.png",
+    "bytes": 24067,
+    "etag": "\"1da97d36f8d8435deff7cdd15ee780c8\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:11 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "185"
+      }
+    ],
+    "sha256": "2e49d45bea2fad44d1296ed0cdf9a716460a300a178f7f855b947464e60cdb06"
+  },
+  "https://data.dg-edge.com/images/tracks/186/Back186.webp": {
+    "asset": "assets/track_images/c12e8f045e56de65f5ccdc661fcbfaa76154e8c9ec8a000187a273a4a3f139d0.jpg",
+    "bytes": 315550,
+    "etag": "\"eea43be9935ee10bdbb14264473242bd\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:01 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "186"
+      }
+    ],
+    "sha256": "c12e8f045e56de65f5ccdc661fcbfaa76154e8c9ec8a000187a273a4a3f139d0"
+  },
+  "https://data.dg-edge.com/images/tracks/186/Logo186.webp": {
+    "asset": "assets/track_images/8ac09282a07a6189d7cfe08cf5f78b043a26064e533bcb3e7ce524c705e8f6b9.png",
+    "bytes": 5832,
+    "etag": "\"3c54e6abd94186e9d1481e6fa6310f04\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:01 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "186"
+      }
+    ],
+    "sha256": "8ac09282a07a6189d7cfe08cf5f78b043a26064e533bcb3e7ce524c705e8f6b9"
+  },
+  "https://data.dg-edge.com/images/tracks/186/Track186.webp": {
+    "asset": "assets/track_images/60c9e8c1f95cebc75f5a3c0b35caac7863c84193a4c80f0e92db7c963f397965.png",
+    "bytes": 21597,
+    "etag": "\"56fb4fc5f7afba734b646c1069852bfc\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:01 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "186"
+      }
+    ],
+    "sha256": "60c9e8c1f95cebc75f5a3c0b35caac7863c84193a4c80f0e92db7c963f397965"
+  },
+  "https://data.dg-edge.com/images/tracks/187/Back186.webp": {
+    "asset": "assets/track_images/c12e8f045e56de65f5ccdc661fcbfaa76154e8c9ec8a000187a273a4a3f139d0.jpg",
+    "bytes": 315550,
+    "etag": "\"eea43be9935ee10bdbb14264473242bd\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:58 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "187"
+      }
+    ],
+    "sha256": "c12e8f045e56de65f5ccdc661fcbfaa76154e8c9ec8a000187a273a4a3f139d0"
+  },
+  "https://data.dg-edge.com/images/tracks/187/Logo186.webp": {
+    "asset": "assets/track_images/8ac09282a07a6189d7cfe08cf5f78b043a26064e533bcb3e7ce524c705e8f6b9.png",
+    "bytes": 5832,
+    "etag": "\"3c54e6abd94186e9d1481e6fa6310f04\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:58 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "187"
+      }
+    ],
+    "sha256": "8ac09282a07a6189d7cfe08cf5f78b043a26064e533bcb3e7ce524c705e8f6b9"
+  },
+  "https://data.dg-edge.com/images/tracks/187/Track186.webp": {
+    "asset": "assets/track_images/60c9e8c1f95cebc75f5a3c0b35caac7863c84193a4c80f0e92db7c963f397965.png",
+    "bytes": 21597,
+    "etag": "\"56fb4fc5f7afba734b646c1069852bfc\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:58 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "187"
+      }
+    ],
+    "sha256": "60c9e8c1f95cebc75f5a3c0b35caac7863c84193a4c80f0e92db7c963f397965"
+  },
+  "https://data.dg-edge.com/images/tracks/188/Back188.webp": {
+    "asset": "assets/track_images/15069b72aae7905e3650939661d6361f7c5c9191a701dc99d41c732923d8e670.jpg",
+    "bytes": 299422,
+    "etag": "\"ffc1d30d07123ed8b58e88a3bdbd1aa8\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:00 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "188"
+      }
+    ],
+    "sha256": "15069b72aae7905e3650939661d6361f7c5c9191a701dc99d41c732923d8e670"
+  },
+  "https://data.dg-edge.com/images/tracks/188/Logo188.webp": {
+    "asset": "assets/track_images/8ac09282a07a6189d7cfe08cf5f78b043a26064e533bcb3e7ce524c705e8f6b9.png",
+    "bytes": 5832,
+    "etag": "\"3c54e6abd94186e9d1481e6fa6310f04\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:00 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "188"
+      }
+    ],
+    "sha256": "8ac09282a07a6189d7cfe08cf5f78b043a26064e533bcb3e7ce524c705e8f6b9"
+  },
+  "https://data.dg-edge.com/images/tracks/188/Track188.webp": {
+    "asset": "assets/track_images/2e49d45bea2fad44d1296ed0cdf9a716460a300a178f7f855b947464e60cdb06.png",
+    "bytes": 24067,
+    "etag": "\"1da97d36f8d8435deff7cdd15ee780c8\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:00 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "188"
+      }
+    ],
+    "sha256": "2e49d45bea2fad44d1296ed0cdf9a716460a300a178f7f855b947464e60cdb06"
+  },
+  "https://data.dg-edge.com/images/tracks/189/Back188.webp": {
+    "asset": "assets/track_images/15069b72aae7905e3650939661d6361f7c5c9191a701dc99d41c732923d8e670.jpg",
+    "bytes": 299422,
+    "etag": "\"ffc1d30d07123ed8b58e88a3bdbd1aa8\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:59 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "189"
+      }
+    ],
+    "sha256": "15069b72aae7905e3650939661d6361f7c5c9191a701dc99d41c732923d8e670"
+  },
+  "https://data.dg-edge.com/images/tracks/189/Logo188.webp": {
+    "asset": "assets/track_images/8ac09282a07a6189d7cfe08cf5f78b043a26064e533bcb3e7ce524c705e8f6b9.png",
+    "bytes": 5832,
+    "etag": "\"3c54e6abd94186e9d1481e6fa6310f04\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:59 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "189"
+      }
+    ],
+    "sha256": "8ac09282a07a6189d7cfe08cf5f78b043a26064e533bcb3e7ce524c705e8f6b9"
+  },
+  "https://data.dg-edge.com/images/tracks/189/Track188.webp": {
+    "asset": "assets/track_images/2e49d45bea2fad44d1296ed0cdf9a716460a300a178f7f855b947464e60cdb06.png",
+    "bytes": 24067,
+    "etag": "\"1da97d36f8d8435deff7cdd15ee780c8\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:59 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "189"
+      }
+    ],
+    "sha256": "2e49d45bea2fad44d1296ed0cdf9a716460a300a178f7f855b947464e60cdb06"
+  },
+  "https://data.dg-edge.com/images/tracks/190/Back190.webp": {
+    "asset": "assets/track_images/eb698c97a44594caa8ad62bc34e39444ecd1617473faea51cde718f7861a62be.jpg",
+    "bytes": 213435,
+    "etag": "\"a7fbf67e6558fae2f2eacc96db4e8bbe\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:03 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "190"
+      }
+    ],
+    "sha256": "eb698c97a44594caa8ad62bc34e39444ecd1617473faea51cde718f7861a62be"
+  },
+  "https://data.dg-edge.com/images/tracks/190/Logo190.webp": {
+    "asset": "assets/track_images/43d18c3eb7b1d6fe104ad61cabdab34363e1c1ae58ba975aa2fe57e8b52a829e.png",
+    "bytes": 17000,
+    "etag": "\"bf9ebb5328be1522eaf190e14e897fce\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:03 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "190"
+      }
+    ],
+    "sha256": "43d18c3eb7b1d6fe104ad61cabdab34363e1c1ae58ba975aa2fe57e8b52a829e"
+  },
+  "https://data.dg-edge.com/images/tracks/190/Track190.webp": {
+    "asset": "assets/track_images/032f38478a39c7d4d5efeba8ae25bab4e5dfe29548ee073f21dae2806f992d9f.png",
+    "bytes": 26478,
+    "etag": "\"9b08612e4e1c891033941a7ab40a89ac\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:03 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "190"
+      }
+    ],
+    "sha256": "032f38478a39c7d4d5efeba8ae25bab4e5dfe29548ee073f21dae2806f992d9f"
+  },
+  "https://data.dg-edge.com/images/tracks/192/Back192.webp": {
+    "asset": "assets/track_images/b14a8a34554160cd91e247ec66efd02abbaec004f6ab95983f388e9e1eaa7d35.jpg",
+    "bytes": 284381,
+    "etag": "\"c830c642c7bf545e2827cda9d13b8393\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:54 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "192"
+      }
+    ],
+    "sha256": "b14a8a34554160cd91e247ec66efd02abbaec004f6ab95983f388e9e1eaa7d35"
+  },
+  "https://data.dg-edge.com/images/tracks/192/Logo192.webp": {
+    "asset": "assets/track_images/f3eee2d31081c49806f43f2ecdda048f9e35cb87aefd64f234ce2bc236c5c881.png",
+    "bytes": 6552,
+    "etag": "\"f74195123882b243c939ccad684b4604\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:54 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "192"
+      }
+    ],
+    "sha256": "f3eee2d31081c49806f43f2ecdda048f9e35cb87aefd64f234ce2bc236c5c881"
+  },
+  "https://data.dg-edge.com/images/tracks/192/Track192.webp": {
+    "asset": "assets/track_images/0cedcffb45c877d05e5c11e566c3e93d316f8992d592b5bd19039b0d5b8f7082.png",
+    "bytes": 19522,
+    "etag": "\"8d04823a168821488861fba473df2251\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:54 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "192"
+      }
+    ],
+    "sha256": "0cedcffb45c877d05e5c11e566c3e93d316f8992d592b5bd19039b0d5b8f7082"
+  },
+  "https://data.dg-edge.com/images/tracks/194/Back194.webp": {
+    "asset": "assets/track_images/2e1373283be5df80a061a903bfe4a1f6cd83a45d62793a98f92f7427c6ef5c29.jpg",
+    "bytes": 247104,
+    "etag": "\"42cc4a478f87c279bd079190fb3e1693\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:55 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "194"
+      }
+    ],
+    "sha256": "2e1373283be5df80a061a903bfe4a1f6cd83a45d62793a98f92f7427c6ef5c29"
+  },
+  "https://data.dg-edge.com/images/tracks/194/Logo194.webp": {
+    "asset": "assets/track_images/f3eee2d31081c49806f43f2ecdda048f9e35cb87aefd64f234ce2bc236c5c881.png",
+    "bytes": 6552,
+    "etag": "\"f74195123882b243c939ccad684b4604\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:55 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "194"
+      }
+    ],
+    "sha256": "f3eee2d31081c49806f43f2ecdda048f9e35cb87aefd64f234ce2bc236c5c881"
+  },
+  "https://data.dg-edge.com/images/tracks/194/Track194.webp": {
+    "asset": "assets/track_images/059a0189c762eefb01932e8b5b55718364f1eb70b69244971685976ed845319d.png",
+    "bytes": 19145,
+    "etag": "\"d3ea68cfb2c7bc4fd2c570f82b24052d\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:55 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "194"
+      }
+    ],
+    "sha256": "059a0189c762eefb01932e8b5b55718364f1eb70b69244971685976ed845319d"
+  },
+  "https://data.dg-edge.com/images/tracks/2/Back2.webp": {
+    "asset": "assets/track_images/96557f6e399c92421fbb6f43527283eefcd3d471096028e5984f5b31d90c8708.jpg",
+    "bytes": 292050,
+    "etag": "\"1ead7e4dd0dda71274f507921f6073d4\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:10 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "2"
+      }
+    ],
+    "sha256": "96557f6e399c92421fbb6f43527283eefcd3d471096028e5984f5b31d90c8708"
+  },
+  "https://data.dg-edge.com/images/tracks/2/Logo2.webp": {
+    "asset": "assets/track_images/ce5030b59d410a6b7aae216cd4777c84d57a7d85b4db805f595ef70acf8b4624.png",
+    "bytes": 5440,
+    "etag": "\"ee2c0ed4b50f8fc0ab2c3a12e1e82dae\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:10 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "2"
+      }
+    ],
+    "sha256": "ce5030b59d410a6b7aae216cd4777c84d57a7d85b4db805f595ef70acf8b4624"
+  },
+  "https://data.dg-edge.com/images/tracks/2/Track2.webp": {
+    "asset": "assets/track_images/fdd36b258df63454a586bb0c6c092e42b441154e01de48306984f4692370cf7b.png",
+    "bytes": 18200,
+    "etag": "\"b1c718cbbf05d08dd527d1948e5d5f88\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:10 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "2"
+      }
+    ],
+    "sha256": "fdd36b258df63454a586bb0c6c092e42b441154e01de48306984f4692370cf7b"
+  },
+  "https://data.dg-edge.com/images/tracks/200/Back200.webp": {
+    "asset": "assets/track_images/c1955c2bfcb3c2343f44104ae3523bcfbf5be553655ef65658e17dc7d8fa6e09.jpg",
+    "bytes": 179254,
+    "etag": "\"3fed6fa0a8878d869938f4205b334a4d\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:05 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "200"
+      }
+    ],
+    "sha256": "c1955c2bfcb3c2343f44104ae3523bcfbf5be553655ef65658e17dc7d8fa6e09"
+  },
+  "https://data.dg-edge.com/images/tracks/200/Logo200.webp": {
+    "asset": "assets/track_images/df06b1a5a226cfe46630c4349f55144defd328a73200e0882e0c96dfc95578d8.png",
+    "bytes": 4476,
+    "etag": "\"787cb4aa23e2efb444a76a50fee4bd21\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:05 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "200"
+      }
+    ],
+    "sha256": "df06b1a5a226cfe46630c4349f55144defd328a73200e0882e0c96dfc95578d8"
+  },
+  "https://data.dg-edge.com/images/tracks/200/Track200.webp": {
+    "asset": "assets/track_images/aaed2606fc215dcde696fe1608d1043e922ac1cf37743f2696916bbb4354ae3d.png",
+    "bytes": 10923,
+    "etag": "\"c8696e6fedce44304d71eff9b98a8d8a\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:05 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "200"
+      }
+    ],
+    "sha256": "aaed2606fc215dcde696fe1608d1043e922ac1cf37743f2696916bbb4354ae3d"
+  },
+  "https://data.dg-edge.com/images/tracks/201/Back200.webp": {
+    "asset": "assets/track_images/c1955c2bfcb3c2343f44104ae3523bcfbf5be553655ef65658e17dc7d8fa6e09.jpg",
+    "bytes": 179254,
+    "etag": "\"3fed6fa0a8878d869938f4205b334a4d\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:06 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "201"
+      }
+    ],
+    "sha256": "c1955c2bfcb3c2343f44104ae3523bcfbf5be553655ef65658e17dc7d8fa6e09"
+  },
+  "https://data.dg-edge.com/images/tracks/201/Logo200.webp": {
+    "asset": "assets/track_images/df06b1a5a226cfe46630c4349f55144defd328a73200e0882e0c96dfc95578d8.png",
+    "bytes": 4476,
+    "etag": "\"787cb4aa23e2efb444a76a50fee4bd21\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:06 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "201"
+      }
+    ],
+    "sha256": "df06b1a5a226cfe46630c4349f55144defd328a73200e0882e0c96dfc95578d8"
+  },
+  "https://data.dg-edge.com/images/tracks/201/Track200.webp": {
+    "asset": "assets/track_images/aaed2606fc215dcde696fe1608d1043e922ac1cf37743f2696916bbb4354ae3d.png",
+    "bytes": 10923,
+    "etag": "\"c8696e6fedce44304d71eff9b98a8d8a\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:06 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "201"
+      }
+    ],
+    "sha256": "aaed2606fc215dcde696fe1608d1043e922ac1cf37743f2696916bbb4354ae3d"
+  },
+  "https://data.dg-edge.com/images/tracks/202/Back202.webp": {
+    "asset": "assets/track_images/954c582a5cac4a77f258bc3c7a561f58d23ccdb9394931df15b215807aa8fd26.jpg",
+    "bytes": 342438,
+    "etag": "\"951e0d07282bc99e9303cc4cc1b3fd7a\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:58 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "202"
+      }
+    ],
+    "sha256": "954c582a5cac4a77f258bc3c7a561f58d23ccdb9394931df15b215807aa8fd26"
+  },
+  "https://data.dg-edge.com/images/tracks/202/Logo202.webp": {
+    "asset": "assets/track_images/df06b1a5a226cfe46630c4349f55144defd328a73200e0882e0c96dfc95578d8.png",
+    "bytes": 4476,
+    "etag": "\"787cb4aa23e2efb444a76a50fee4bd21\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:58 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "202"
+      }
+    ],
+    "sha256": "df06b1a5a226cfe46630c4349f55144defd328a73200e0882e0c96dfc95578d8"
+  },
+  "https://data.dg-edge.com/images/tracks/202/Track202.webp": {
+    "asset": "assets/track_images/882d1b97bbf82d5ba4d807ee03fe399f2c193e47c9cd703b81dacb38b384d55f.png",
+    "bytes": 16688,
+    "etag": "\"3f7a3b31b71ab75dbac920571ccb7870\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:58 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "202"
+      }
+    ],
+    "sha256": "882d1b97bbf82d5ba4d807ee03fe399f2c193e47c9cd703b81dacb38b384d55f"
+  },
+  "https://data.dg-edge.com/images/tracks/203/Back202.webp": {
+    "asset": "assets/track_images/954c582a5cac4a77f258bc3c7a561f58d23ccdb9394931df15b215807aa8fd26.jpg",
+    "bytes": 342438,
+    "etag": "\"951e0d07282bc99e9303cc4cc1b3fd7a\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:57 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "203"
+      }
+    ],
+    "sha256": "954c582a5cac4a77f258bc3c7a561f58d23ccdb9394931df15b215807aa8fd26"
+  },
+  "https://data.dg-edge.com/images/tracks/203/Logo202.webp": {
+    "asset": "assets/track_images/df06b1a5a226cfe46630c4349f55144defd328a73200e0882e0c96dfc95578d8.png",
+    "bytes": 4476,
+    "etag": "\"787cb4aa23e2efb444a76a50fee4bd21\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:57 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "203"
+      }
+    ],
+    "sha256": "df06b1a5a226cfe46630c4349f55144defd328a73200e0882e0c96dfc95578d8"
+  },
+  "https://data.dg-edge.com/images/tracks/203/Track202.webp": {
+    "asset": "assets/track_images/882d1b97bbf82d5ba4d807ee03fe399f2c193e47c9cd703b81dacb38b384d55f.png",
+    "bytes": 16688,
+    "etag": "\"3f7a3b31b71ab75dbac920571ccb7870\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:57 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "203"
+      }
+    ],
+    "sha256": "882d1b97bbf82d5ba4d807ee03fe399f2c193e47c9cd703b81dacb38b384d55f"
+  },
+  "https://data.dg-edge.com/images/tracks/204/Back204.webp": {
+    "asset": "assets/track_images/a7aba69665d6948eee10a4e6375af8c35a28a03573aaafdcbfbd40fdd1df7f38.jpg",
+    "bytes": 237706,
+    "etag": "\"7a497b572770111948149d8adca99a68\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:57 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "204"
+      }
+    ],
+    "sha256": "a7aba69665d6948eee10a4e6375af8c35a28a03573aaafdcbfbd40fdd1df7f38"
+  },
+  "https://data.dg-edge.com/images/tracks/204/Logo204.webp": {
+    "asset": "assets/track_images/df06b1a5a226cfe46630c4349f55144defd328a73200e0882e0c96dfc95578d8.png",
+    "bytes": 4476,
+    "etag": "\"787cb4aa23e2efb444a76a50fee4bd21\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:57 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "204"
+      }
+    ],
+    "sha256": "df06b1a5a226cfe46630c4349f55144defd328a73200e0882e0c96dfc95578d8"
+  },
+  "https://data.dg-edge.com/images/tracks/204/Track819.webp": {
+    "asset": "assets/track_images/397a9f562f61be226795f1cf3e91a962107bf18642e349a1b0da40fece975ec2.png",
+    "bytes": 23685,
+    "etag": "\"fd207fb416bd3ebd975bb5e9aa3142bc\"",
+    "last_modified": "Thu, 15 Oct 2026 21:49:18 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "204"
+      }
+    ],
+    "sha256": "397a9f562f61be226795f1cf3e91a962107bf18642e349a1b0da40fece975ec2"
+  },
+  "https://data.dg-edge.com/images/tracks/205/Back204.webp": {
+    "asset": "assets/track_images/a7aba69665d6948eee10a4e6375af8c35a28a03573aaafdcbfbd40fdd1df7f38.jpg",
+    "bytes": 237706,
+    "etag": "\"7a497b572770111948149d8adca99a68\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:58 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "205"
+      }
+    ],
+    "sha256": "a7aba69665d6948eee10a4e6375af8c35a28a03573aaafdcbfbd40fdd1df7f38"
+  },
+  "https://data.dg-edge.com/images/tracks/205/Logo204.webp": {
+    "asset": "assets/track_images/df06b1a5a226cfe46630c4349f55144defd328a73200e0882e0c96dfc95578d8.png",
+    "bytes": 4476,
+    "etag": "\"787cb4aa23e2efb444a76a50fee4bd21\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:58 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "205"
+      }
+    ],
+    "sha256": "df06b1a5a226cfe46630c4349f55144defd328a73200e0882e0c96dfc95578d8"
+  },
+  "https://data.dg-edge.com/images/tracks/205/Track823.webp": {
+    "asset": "assets/track_images/397a9f562f61be226795f1cf3e91a962107bf18642e349a1b0da40fece975ec2.png",
+    "bytes": 23685,
+    "etag": "\"fd207fb416bd3ebd975bb5e9aa3142bc\"",
+    "last_modified": "Thu, 15 Oct 2026 21:49:06 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "205"
+      }
+    ],
+    "sha256": "397a9f562f61be226795f1cf3e91a962107bf18642e349a1b0da40fece975ec2"
+  },
+  "https://data.dg-edge.com/images/tracks/208/Back208.webp": {
+    "asset": "assets/track_images/432a5303d3caff9f5bd2beffcf09b73af8695a637deee57ef2bdf50571640a5d.jpg",
+    "bytes": 407472,
+    "etag": "\"2c6317f89aecfc68f182e1af3bcc32de\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:06 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "208"
+      }
+    ],
+    "sha256": "432a5303d3caff9f5bd2beffcf09b73af8695a637deee57ef2bdf50571640a5d"
+  },
+  "https://data.dg-edge.com/images/tracks/208/Logo208.webp": {
+    "asset": "assets/track_images/6d4102d492d4c056c664c460751c32fa3ceac1f9c1720c0154d068460570380a.png",
+    "bytes": 3083,
+    "etag": "\"14d40c4f126224a5e971bc295f5f5b1f\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:06 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "208"
+      }
+    ],
+    "sha256": "6d4102d492d4c056c664c460751c32fa3ceac1f9c1720c0154d068460570380a"
+  },
+  "https://data.dg-edge.com/images/tracks/208/Track208.webp": {
+    "asset": "assets/track_images/419a729480634889432c35c5bcc96f6ecdbd5c30c3b186e50fa66e126efa45ab.png",
+    "bytes": 21771,
+    "etag": "\"811a4c5f09bd6e4b65014bd725a157b0\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:06 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "208"
+      }
+    ],
+    "sha256": "419a729480634889432c35c5bcc96f6ecdbd5c30c3b186e50fa66e126efa45ab"
+  },
+  "https://data.dg-edge.com/images/tracks/216/Back216.webp": {
+    "asset": "assets/track_images/85c68cd0b24874473c2c9e38997bc1e7696ff521c55a0a6642188f1bdfde1bd5.jpg",
+    "bytes": 302775,
+    "etag": "\"834b7b4020a8414c778098f453813d3a\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:56 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "216"
+      }
+    ],
+    "sha256": "85c68cd0b24874473c2c9e38997bc1e7696ff521c55a0a6642188f1bdfde1bd5"
+  },
+  "https://data.dg-edge.com/images/tracks/216/Logo216.webp": {
+    "asset": "assets/track_images/f2f0abb4cfa289f9e5bf5d2f25fc959e4447d133e6ae7fdc8a57e859671058cc.png",
+    "bytes": 5505,
+    "etag": "\"f0bed9a211eaf45e59dd315a4f5b9e30\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:56 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "216"
+      }
+    ],
+    "sha256": "f2f0abb4cfa289f9e5bf5d2f25fc959e4447d133e6ae7fdc8a57e859671058cc"
+  },
+  "https://data.dg-edge.com/images/tracks/216/Track1250.webp": {
+    "asset": "assets/track_images/2f977e681a5ca21c178cc0044ce6160a282ae124f5c70253ee15c6dfbceac4df.png",
+    "bytes": 32610,
+    "etag": "\"44bc439d811ebd1ca2fa82b3886ab22c\"",
+    "last_modified": "Thu, 15 Oct 2026 21:48:53 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "216"
+      }
+    ],
+    "sha256": "2f977e681a5ca21c178cc0044ce6160a282ae124f5c70253ee15c6dfbceac4df"
+  },
+  "https://data.dg-edge.com/images/tracks/218/Back218.webp": {
+    "asset": "assets/track_images/c2064cbebd94fa7e70489352a058576c415a74aac9f18bc279a4943204ad8a6c.jpg",
+    "bytes": 289660,
+    "etag": "\"e2266962c90836977b8750afc4519fcc\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:56 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "218"
+      }
+    ],
+    "sha256": "c2064cbebd94fa7e70489352a058576c415a74aac9f18bc279a4943204ad8a6c"
+  },
+  "https://data.dg-edge.com/images/tracks/218/Logo218.webp": {
+    "asset": "assets/track_images/f2f0abb4cfa289f9e5bf5d2f25fc959e4447d133e6ae7fdc8a57e859671058cc.png",
+    "bytes": 5505,
+    "etag": "\"f0bed9a211eaf45e59dd315a4f5b9e30\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:56 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "218"
+      }
+    ],
+    "sha256": "f2f0abb4cfa289f9e5bf5d2f25fc959e4447d133e6ae7fdc8a57e859671058cc"
+  },
+  "https://data.dg-edge.com/images/tracks/218/Track1265.webp": {
+    "asset": "assets/track_images/f0db9fc4922cddf97778113c1a00135814591a96990251ca9c759a07157ed4ac.png",
+    "bytes": 59544,
+    "etag": "\"eb58077e30d664383e15d51f156c1948\"",
+    "last_modified": "Thu, 15 Oct 2026 21:45:17 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "218"
+      }
+    ],
+    "sha256": "f0db9fc4922cddf97778113c1a00135814591a96990251ca9c759a07157ed4ac"
+  },
+  "https://data.dg-edge.com/images/tracks/226/Back226.webp": {
+    "asset": "assets/track_images/c6c3f9d0cc7ac34c74ca9827883a168ab577ad973d35b0a925cb15790237e71c.jpg",
+    "bytes": 259623,
+    "etag": "\"d83812e146ed90a08b0ad58fffea5388\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:56 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "226"
+      }
+    ],
+    "sha256": "c6c3f9d0cc7ac34c74ca9827883a168ab577ad973d35b0a925cb15790237e71c"
+  },
+  "https://data.dg-edge.com/images/tracks/226/Logo226.webp": {
+    "asset": "assets/track_images/354c5d889162eb7feae97723513d0ab2e2b56e3cb5d99aaff4c757b620dbced0.png",
+    "bytes": 3977,
+    "etag": "\"ab7c5a0d3b99643b5a944c60c1338f78\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:56 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "226"
+      }
+    ],
+    "sha256": "354c5d889162eb7feae97723513d0ab2e2b56e3cb5d99aaff4c757b620dbced0"
+  },
+  "https://data.dg-edge.com/images/tracks/226/Track226.webp": {
+    "asset": "assets/track_images/aecd0b93cdb8790b903769e923808b43c917ffd4eb08b38ba7747b7ea2eeacc1.png",
+    "bytes": 26334,
+    "etag": "\"8bc47c6ebbe79a9c8905938a31199fed\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:56 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "226"
+      }
+    ],
+    "sha256": "aecd0b93cdb8790b903769e923808b43c917ffd4eb08b38ba7747b7ea2eeacc1"
+  },
+  "https://data.dg-edge.com/images/tracks/236/Back2.webp": {
+    "asset": "assets/track_images/96557f6e399c92421fbb6f43527283eefcd3d471096028e5984f5b31d90c8708.jpg",
+    "bytes": 292050,
+    "etag": "\"1ead7e4dd0dda71274f507921f6073d4\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:05 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "236"
+      }
+    ],
+    "sha256": "96557f6e399c92421fbb6f43527283eefcd3d471096028e5984f5b31d90c8708"
+  },
+  "https://data.dg-edge.com/images/tracks/236/Logo2.webp": {
+    "asset": "assets/track_images/ce5030b59d410a6b7aae216cd4777c84d57a7d85b4db805f595ef70acf8b4624.png",
+    "bytes": 5440,
+    "etag": "\"ee2c0ed4b50f8fc0ab2c3a12e1e82dae\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:05 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "236"
+      }
+    ],
+    "sha256": "ce5030b59d410a6b7aae216cd4777c84d57a7d85b4db805f595ef70acf8b4624"
+  },
+  "https://data.dg-edge.com/images/tracks/236/Track2.webp": {
+    "asset": "assets/track_images/fdd36b258df63454a586bb0c6c092e42b441154e01de48306984f4692370cf7b.png",
+    "bytes": 18200,
+    "etag": "\"b1c718cbbf05d08dd527d1948e5d5f88\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:05 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "236"
+      }
+    ],
+    "sha256": "fdd36b258df63454a586bb0c6c092e42b441154e01de48306984f4692370cf7b"
+  },
+  "https://data.dg-edge.com/images/tracks/239/Back239.webp": {
+    "asset": "assets/track_images/9ee0068b7bbd0a09836e88341e864174dba058a8ad102d5620828e2693ed50f3.jpg",
+    "bytes": 349348,
+    "etag": "\"4298f419360f130884aab6ff23bfaff0\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:06 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "239"
+      }
+    ],
+    "sha256": "9ee0068b7bbd0a09836e88341e864174dba058a8ad102d5620828e2693ed50f3"
+  },
+  "https://data.dg-edge.com/images/tracks/239/Logo239.webp": {
+    "asset": "assets/track_images/74867cc1a064f2e0da0af30872d81061e641fd7eab4b706837751606bf359104.png",
+    "bytes": 7775,
+    "etag": "\"a66096ac07520dd936d35fa7a463ada9\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:06 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "239"
+      }
+    ],
+    "sha256": "74867cc1a064f2e0da0af30872d81061e641fd7eab4b706837751606bf359104"
+  },
+  "https://data.dg-edge.com/images/tracks/239/Track239.webp": {
+    "asset": "assets/track_images/839eeca57785f4c515b40290e1661013bee30f0f21f1ec0798d3ad81b3bfc479.png",
+    "bytes": 25041,
+    "etag": "\"646f63d24ac9bb354e8da51b2f0dc420\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:06 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "239"
+      }
+    ],
+    "sha256": "839eeca57785f4c515b40290e1661013bee30f0f21f1ec0798d3ad81b3bfc479"
+  },
+  "https://data.dg-edge.com/images/tracks/240/Back239.webp": {
+    "asset": "assets/track_images/9ee0068b7bbd0a09836e88341e864174dba058a8ad102d5620828e2693ed50f3.jpg",
+    "bytes": 349348,
+    "etag": "\"4298f419360f130884aab6ff23bfaff0\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:05 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "240"
+      }
+    ],
+    "sha256": "9ee0068b7bbd0a09836e88341e864174dba058a8ad102d5620828e2693ed50f3"
+  },
+  "https://data.dg-edge.com/images/tracks/240/Logo239.webp": {
+    "asset": "assets/track_images/74867cc1a064f2e0da0af30872d81061e641fd7eab4b706837751606bf359104.png",
+    "bytes": 7775,
+    "etag": "\"a66096ac07520dd936d35fa7a463ada9\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:05 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "240"
+      }
+    ],
+    "sha256": "74867cc1a064f2e0da0af30872d81061e641fd7eab4b706837751606bf359104"
+  },
+  "https://data.dg-edge.com/images/tracks/240/Track239.webp": {
+    "asset": "assets/track_images/839eeca57785f4c515b40290e1661013bee30f0f21f1ec0798d3ad81b3bfc479.png",
+    "bytes": 25041,
+    "etag": "\"646f63d24ac9bb354e8da51b2f0dc420\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:05 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "240"
+      }
+    ],
+    "sha256": "839eeca57785f4c515b40290e1661013bee30f0f21f1ec0798d3ad81b3bfc479"
+  },
+  "https://data.dg-edge.com/images/tracks/241/Back241.webp": {
+    "asset": "assets/track_images/6c446c706a59bcf2dc63dae8644147ee615ee0d9c1361aaae650e6c501180cd9.jpg",
+    "bytes": 323010,
+    "etag": "\"9008a1ab681a51d7e596181ee6eb1572\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:05 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "241"
+      }
+    ],
+    "sha256": "6c446c706a59bcf2dc63dae8644147ee615ee0d9c1361aaae650e6c501180cd9"
+  },
+  "https://data.dg-edge.com/images/tracks/241/Logo241.webp": {
+    "asset": "assets/track_images/a01f58449d2460978c5e27fc67cbc3be503724c52757b06e38c72df645526298.png",
+    "bytes": 15826,
+    "etag": "\"4b0d94d144bdef1efa40e9e488686185\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:05 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "241"
+      }
+    ],
+    "sha256": "a01f58449d2460978c5e27fc67cbc3be503724c52757b06e38c72df645526298"
+  },
+  "https://data.dg-edge.com/images/tracks/241/Track241.webp": {
+    "asset": "assets/track_images/a9fb93891e5a4b2391f431c97cf10f31d44d916dfa5b73d93bab5546f5cb2176.png",
+    "bytes": 29982,
+    "etag": "\"e9c0d0769969968d4296b7381887366a\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:05 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "241"
+      }
+    ],
+    "sha256": "a9fb93891e5a4b2391f431c97cf10f31d44d916dfa5b73d93bab5546f5cb2176"
+  },
+  "https://data.dg-edge.com/images/tracks/242/Back241.webp": {
+    "asset": "assets/track_images/6c446c706a59bcf2dc63dae8644147ee615ee0d9c1361aaae650e6c501180cd9.jpg",
+    "bytes": 323010,
+    "etag": "\"9008a1ab681a51d7e596181ee6eb1572\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:56 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "242"
+      }
+    ],
+    "sha256": "6c446c706a59bcf2dc63dae8644147ee615ee0d9c1361aaae650e6c501180cd9"
+  },
+  "https://data.dg-edge.com/images/tracks/242/Logo241.webp": {
+    "asset": "assets/track_images/a01f58449d2460978c5e27fc67cbc3be503724c52757b06e38c72df645526298.png",
+    "bytes": 15826,
+    "etag": "\"4b0d94d144bdef1efa40e9e488686185\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:56 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "242"
+      }
+    ],
+    "sha256": "a01f58449d2460978c5e27fc67cbc3be503724c52757b06e38c72df645526298"
+  },
+  "https://data.dg-edge.com/images/tracks/242/Track241.webp": {
+    "asset": "assets/track_images/a9fb93891e5a4b2391f431c97cf10f31d44d916dfa5b73d93bab5546f5cb2176.png",
+    "bytes": 29982,
+    "etag": "\"e9c0d0769969968d4296b7381887366a\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:56 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "242"
+      }
+    ],
+    "sha256": "a9fb93891e5a4b2391f431c97cf10f31d44d916dfa5b73d93bab5546f5cb2176"
+  },
+  "https://data.dg-edge.com/images/tracks/252/Back252.webp": {
+    "asset": "assets/track_images/b28c687406c20bcaae34b035e92f42c3ea9dff9c89b52df28aaf1e961dffe940.jpg",
+    "bytes": 276700,
+    "etag": "\"b7194f9543518a357a64a469e71f479e\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:07 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "252"
+      }
+    ],
+    "sha256": "b28c687406c20bcaae34b035e92f42c3ea9dff9c89b52df28aaf1e961dffe940"
+  },
+  "https://data.dg-edge.com/images/tracks/252/Logo252.webp": {
+    "asset": "assets/track_images/82bbf1e7e9433b8eba56ce096d5749f01de586733b46c1fe56635a8d3c487325.png",
+    "bytes": 6190,
+    "etag": "\"b9c67233558e809f58e70fc44713fe83\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:07 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "252"
+      }
+    ],
+    "sha256": "82bbf1e7e9433b8eba56ce096d5749f01de586733b46c1fe56635a8d3c487325"
+  },
+  "https://data.dg-edge.com/images/tracks/252/Track252.webp": {
+    "asset": "assets/track_images/f153b13675601d1e83238d4355d2226e7c9a59bcb058567fa19635b348c0e271.png",
+    "bytes": 17304,
+    "etag": "\"ed3d87bdbb36179d68ae70380f5d06ad\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:07 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "252"
+      }
+    ],
+    "sha256": "f153b13675601d1e83238d4355d2226e7c9a59bcb058567fa19635b348c0e271"
+  },
+  "https://data.dg-edge.com/images/tracks/253/Back252.webp": {
+    "asset": "assets/track_images/b28c687406c20bcaae34b035e92f42c3ea9dff9c89b52df28aaf1e961dffe940.jpg",
+    "bytes": 276700,
+    "etag": "\"b7194f9543518a357a64a469e71f479e\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:06 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "253"
+      }
+    ],
+    "sha256": "b28c687406c20bcaae34b035e92f42c3ea9dff9c89b52df28aaf1e961dffe940"
+  },
+  "https://data.dg-edge.com/images/tracks/253/Logo252.webp": {
+    "asset": "assets/track_images/82bbf1e7e9433b8eba56ce096d5749f01de586733b46c1fe56635a8d3c487325.png",
+    "bytes": 6190,
+    "etag": "\"b9c67233558e809f58e70fc44713fe83\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:06 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "253"
+      }
+    ],
+    "sha256": "82bbf1e7e9433b8eba56ce096d5749f01de586733b46c1fe56635a8d3c487325"
+  },
+  "https://data.dg-edge.com/images/tracks/253/Track252.webp": {
+    "asset": "assets/track_images/f153b13675601d1e83238d4355d2226e7c9a59bcb058567fa19635b348c0e271.png",
+    "bytes": 17304,
+    "etag": "\"ed3d87bdbb36179d68ae70380f5d06ad\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:06 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "253"
+      }
+    ],
+    "sha256": "f153b13675601d1e83238d4355d2226e7c9a59bcb058567fa19635b348c0e271"
+  },
+  "https://data.dg-edge.com/images/tracks/256/Back256.webp": {
+    "asset": "assets/track_images/49ecf3020b6eb0f26fdba22f83db6097d06d4aef0e7546f27090b926bced2e87.jpg",
+    "bytes": 162704,
+    "etag": "\"0a1deb9c3c4f514f251ef860bfc71bd7\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:57 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "256"
+      }
+    ],
+    "sha256": "49ecf3020b6eb0f26fdba22f83db6097d06d4aef0e7546f27090b926bced2e87"
+  },
+  "https://data.dg-edge.com/images/tracks/256/Logo256.webp": {
+    "asset": "assets/track_images/a8f6e644dc919aed0841370de3026376c24349651c61daa62f4b3822b233da0f.png",
+    "bytes": 5367,
+    "etag": "\"859ea2ebb85a05e662fdfb325abcef10\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:57 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "256"
+      }
+    ],
+    "sha256": "a8f6e644dc919aed0841370de3026376c24349651c61daa62f4b3822b233da0f"
+  },
+  "https://data.dg-edge.com/images/tracks/256/Track440.webp": {
+    "asset": "assets/track_images/1eedbea1ef4511d58ccc1a54a5b56aedc1f2152bc81b1f821ea4c1e67a79f147.png",
+    "bytes": 40192,
+    "etag": "\"200d70ef50df6d2fb78e4ac2b91584fa\"",
+    "last_modified": "Thu, 15 Oct 2026 21:46:25 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "256"
+      }
+    ],
+    "sha256": "1eedbea1ef4511d58ccc1a54a5b56aedc1f2152bc81b1f821ea4c1e67a79f147"
+  },
+  "https://data.dg-edge.com/images/tracks/262/Back262.webp": {
+    "asset": "assets/track_images/eaee6b5e73c49e5b581d56b78925bc51bd77a4151c97a72cbf19b3431f54c027.jpg",
+    "bytes": 262664,
+    "etag": "\"d5224bd9102a0f00be1f385659a1af1c\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:06 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "262"
+      }
+    ],
+    "sha256": "eaee6b5e73c49e5b581d56b78925bc51bd77a4151c97a72cbf19b3431f54c027"
+  },
+  "https://data.dg-edge.com/images/tracks/262/Logo262.webp": {
+    "asset": "assets/track_images/ba0e35e401a572fac9a09ca68cd90ca3e5482a3fcd78470e8910c28153e6378e.png",
+    "bytes": 5405,
+    "etag": "\"59bb87ce264f7881cd9efc841f78ce57\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:06 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "262"
+      }
+    ],
+    "sha256": "ba0e35e401a572fac9a09ca68cd90ca3e5482a3fcd78470e8910c28153e6378e"
+  },
+  "https://data.dg-edge.com/images/tracks/262/Track1308.webp": {
+    "asset": "assets/track_images/c011dd7b891ae3795908e7914140e4277f80228704677851d8b93088bc39eef2.png",
+    "bytes": 34364,
+    "etag": "\"98dd4951a56420b0132693ff0913499c\"",
+    "last_modified": "Thu, 15 Oct 2026 21:45:35 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "262"
+      }
+    ],
+    "sha256": "c011dd7b891ae3795908e7914140e4277f80228704677851d8b93088bc39eef2"
+  },
+  "https://data.dg-edge.com/images/tracks/263/Back262.webp": {
+    "asset": "assets/track_images/eaee6b5e73c49e5b581d56b78925bc51bd77a4151c97a72cbf19b3431f54c027.jpg",
+    "bytes": 262664,
+    "etag": "\"d5224bd9102a0f00be1f385659a1af1c\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:07 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "263"
+      }
+    ],
+    "sha256": "eaee6b5e73c49e5b581d56b78925bc51bd77a4151c97a72cbf19b3431f54c027"
+  },
+  "https://data.dg-edge.com/images/tracks/263/Logo262.webp": {
+    "asset": "assets/track_images/ba0e35e401a572fac9a09ca68cd90ca3e5482a3fcd78470e8910c28153e6378e.png",
+    "bytes": 5405,
+    "etag": "\"59bb87ce264f7881cd9efc841f78ce57\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:07 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "263"
+      }
+    ],
+    "sha256": "ba0e35e401a572fac9a09ca68cd90ca3e5482a3fcd78470e8910c28153e6378e"
+  },
+  "https://data.dg-edge.com/images/tracks/263/Track1317.webp": {
+    "asset": "assets/track_images/c011dd7b891ae3795908e7914140e4277f80228704677851d8b93088bc39eef2.png",
+    "bytes": 34364,
+    "etag": "\"98dd4951a56420b0132693ff0913499c\"",
+    "last_modified": "Thu, 15 Oct 2026 21:45:43 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "263"
+      }
+    ],
+    "sha256": "c011dd7b891ae3795908e7914140e4277f80228704677851d8b93088bc39eef2"
+  },
+  "https://data.dg-edge.com/images/tracks/264/Back264.webp": {
+    "asset": "assets/track_images/e585f6fe7e25d824f8551f3aa77d2ac9ae5909dd9295d4a87e06c2e801a14b6f.jpg",
+    "bytes": 249575,
+    "etag": "\"bf2be2e098805fdb73de7ccc06ed607b\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:07 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "264"
+      }
+    ],
+    "sha256": "e585f6fe7e25d824f8551f3aa77d2ac9ae5909dd9295d4a87e06c2e801a14b6f"
+  },
+  "https://data.dg-edge.com/images/tracks/264/Logo264.webp": {
+    "asset": "assets/track_images/ba0e35e401a572fac9a09ca68cd90ca3e5482a3fcd78470e8910c28153e6378e.png",
+    "bytes": 5405,
+    "etag": "\"59bb87ce264f7881cd9efc841f78ce57\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:07 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "264"
+      }
+    ],
+    "sha256": "ba0e35e401a572fac9a09ca68cd90ca3e5482a3fcd78470e8910c28153e6378e"
+  },
+  "https://data.dg-edge.com/images/tracks/264/Track1309.webp": {
+    "asset": "assets/track_images/5ded0fea18550ead9f04a98dbb7cf19f75017e96963dfdd67a36acddf3aebe4e.png",
+    "bytes": 47114,
+    "etag": "\"4660c06db0b08cbf5d9b0ef33b84a258\"",
+    "last_modified": "Thu, 15 Oct 2026 21:45:54 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "264"
+      }
+    ],
+    "sha256": "5ded0fea18550ead9f04a98dbb7cf19f75017e96963dfdd67a36acddf3aebe4e"
+  },
+  "https://data.dg-edge.com/images/tracks/265/Back264.webp": {
+    "asset": "assets/track_images/e585f6fe7e25d824f8551f3aa77d2ac9ae5909dd9295d4a87e06c2e801a14b6f.jpg",
+    "bytes": 249575,
+    "etag": "\"bf2be2e098805fdb73de7ccc06ed607b\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:06 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "265"
+      }
+    ],
+    "sha256": "e585f6fe7e25d824f8551f3aa77d2ac9ae5909dd9295d4a87e06c2e801a14b6f"
+  },
+  "https://data.dg-edge.com/images/tracks/265/Logo264.webp": {
+    "asset": "assets/track_images/ba0e35e401a572fac9a09ca68cd90ca3e5482a3fcd78470e8910c28153e6378e.png",
+    "bytes": 5405,
+    "etag": "\"59bb87ce264f7881cd9efc841f78ce57\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:06 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "265"
+      }
+    ],
+    "sha256": "ba0e35e401a572fac9a09ca68cd90ca3e5482a3fcd78470e8910c28153e6378e"
+  },
+  "https://data.dg-edge.com/images/tracks/265/Track1318.webp": {
+    "asset": "assets/track_images/5ded0fea18550ead9f04a98dbb7cf19f75017e96963dfdd67a36acddf3aebe4e.png",
+    "bytes": 47114,
+    "etag": "\"4660c06db0b08cbf5d9b0ef33b84a258\"",
+    "last_modified": "Thu, 15 Oct 2026 21:46:03 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "265"
+      }
+    ],
+    "sha256": "5ded0fea18550ead9f04a98dbb7cf19f75017e96963dfdd67a36acddf3aebe4e"
+  },
+  "https://data.dg-edge.com/images/tracks/266/Back266.webp": {
+    "asset": "assets/track_images/6762a5f406e0c8de6cb6c9cc6cc4069fa3f0a48b5e669e3c22d505e580dbf557.jpg",
+    "bytes": 322996,
+    "etag": "\"d423e9bb96e884571c8523de6519bd6e\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:57 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "266"
+      }
+    ],
+    "sha256": "6762a5f406e0c8de6cb6c9cc6cc4069fa3f0a48b5e669e3c22d505e580dbf557"
+  },
+  "https://data.dg-edge.com/images/tracks/266/Logo266.webp": {
+    "asset": "assets/track_images/ee1059a5e092cda3533de65281bee2aa88ba95b84fdbe276d127011f8cf93579.png",
+    "bytes": 15608,
+    "etag": "\"7eb133d91fcd5815fb46e7021fc2d8f5\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:57 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "266"
+      }
+    ],
+    "sha256": "ee1059a5e092cda3533de65281bee2aa88ba95b84fdbe276d127011f8cf93579"
+  },
+  "https://data.dg-edge.com/images/tracks/266/Track1007.webp": {
+    "asset": "assets/track_images/a4ba5a11e7f8a2c6208ee079f6cde3384a3952cc459c1929ef6bc8032063d4b4.png",
+    "bytes": 46211,
+    "etag": "\"9f74a93a141e0d8ea151f24f7e0230ad\"",
+    "last_modified": "Thu, 15 Oct 2026 21:46:13 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "266"
+      }
+    ],
+    "sha256": "a4ba5a11e7f8a2c6208ee079f6cde3384a3952cc459c1929ef6bc8032063d4b4"
+  },
+  "https://data.dg-edge.com/images/tracks/270/Back270.webp": {
+    "asset": "assets/track_images/11471276a4d1f0e15cf4eb4a0c90d5fd4c718716650b316650c9333456f0000c.jpg",
+    "bytes": 253355,
+    "etag": "\"f9de9facc37a2226a6bf78f162c63058\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:04 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "270"
+      }
+    ],
+    "sha256": "11471276a4d1f0e15cf4eb4a0c90d5fd4c718716650b316650c9333456f0000c"
+  },
+  "https://data.dg-edge.com/images/tracks/270/Logo270.webp": {
+    "asset": "assets/track_images/45eeee16496168dcb9fe9c98828008d8e8e8a6cac9646e2ffba24b4422f56f01.png",
+    "bytes": 12891,
+    "etag": "\"ff5427655c2c04b54598439305a48931\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:04 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "270"
+      }
+    ],
+    "sha256": "45eeee16496168dcb9fe9c98828008d8e8e8a6cac9646e2ffba24b4422f56f01"
+  },
+  "https://data.dg-edge.com/images/tracks/270/Track354.webp": {
+    "asset": "assets/track_images/c1d201195fc901881b004d11aacba0c87414062dde91dc9915421be73e5531ea.png",
+    "bytes": 25148,
+    "etag": "\"13e583cab9034f10fcc1f84b7ffd16d1\"",
+    "last_modified": "Thu, 15 Oct 2026 21:49:35 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "270"
+      }
+    ],
+    "sha256": "c1d201195fc901881b004d11aacba0c87414062dde91dc9915421be73e5531ea"
+  },
+  "https://data.dg-edge.com/images/tracks/274/Back274.webp": {
+    "asset": "assets/track_images/0d652ad3d78d0fef7d607fe0bef5ef414ad02ca4255be258177a80301e8268bc.jpg",
+    "bytes": 225961,
+    "etag": "\"11fa3c5d5863f8d3f72ff5739404ef5d\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:56 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "274"
+      }
+    ],
+    "sha256": "0d652ad3d78d0fef7d607fe0bef5ef414ad02ca4255be258177a80301e8268bc"
+  },
+  "https://data.dg-edge.com/images/tracks/274/Logo274.webp": {
+    "asset": "assets/track_images/a3ec7f6acc00b92b24b3e23d30eb28811fad9d3d023c4670086aa65205b27346.png",
+    "bytes": 5609,
+    "etag": "\"0c61dafe4dae73a0123599ec6ac12ee3\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:56 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "274"
+      }
+    ],
+    "sha256": "a3ec7f6acc00b92b24b3e23d30eb28811fad9d3d023c4670086aa65205b27346"
+  },
+  "https://data.dg-edge.com/images/tracks/274/Track274.webp": {
+    "asset": "assets/track_images/bfb69d9b32fdb90dc07a205372fb5b10c7ee11dd2cd7b3129bf98631fb1dc71b.png",
+    "bytes": 30011,
+    "etag": "\"5f881fbf49501c1eb2c507cbff387b76\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:56 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "274"
+      }
+    ],
+    "sha256": "bfb69d9b32fdb90dc07a205372fb5b10c7ee11dd2cd7b3129bf98631fb1dc71b"
+  },
+  "https://data.dg-edge.com/images/tracks/276/Back276.webp": {
+    "asset": "assets/track_images/3ed4d97b61eb8d20a68901bef69a5f5dd23e97203115408eb7f95a9c1a4b6250.jpg",
+    "bytes": 255534,
+    "etag": "\"ccda0c3ebfaadfd319c960112243d9ce\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:05 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "276"
+      }
+    ],
+    "sha256": "3ed4d97b61eb8d20a68901bef69a5f5dd23e97203115408eb7f95a9c1a4b6250"
+  },
+  "https://data.dg-edge.com/images/tracks/276/Logo276.webp": {
+    "asset": "assets/track_images/a3ec7f6acc00b92b24b3e23d30eb28811fad9d3d023c4670086aa65205b27346.png",
+    "bytes": 5609,
+    "etag": "\"0c61dafe4dae73a0123599ec6ac12ee3\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:05 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "276"
+      }
+    ],
+    "sha256": "a3ec7f6acc00b92b24b3e23d30eb28811fad9d3d023c4670086aa65205b27346"
+  },
+  "https://data.dg-edge.com/images/tracks/276/Track276.webp": {
+    "asset": "assets/track_images/26d4be2261c42203465812dd1b046f892762fa1aee4a431bc0cb61fd724fc11f.png",
+    "bytes": 27969,
+    "etag": "\"54cbd4a60c466d4f2e800ced8ecc2838\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:05 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "276"
+      }
+    ],
+    "sha256": "26d4be2261c42203465812dd1b046f892762fa1aee4a431bc0cb61fd724fc11f"
+  },
+  "https://data.dg-edge.com/images/tracks/280/Back280.webp": {
+    "asset": "assets/track_images/66b57f661c4d0c2a620d1a05ae529c0236fa1ec27407c8a0aed7d9a5f509b397.jpg",
+    "bytes": 225171,
+    "etag": "\"83dd14f052fe6ce66006eba107a57568\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:56 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "280"
+      }
+    ],
+    "sha256": "66b57f661c4d0c2a620d1a05ae529c0236fa1ec27407c8a0aed7d9a5f509b397"
+  },
+  "https://data.dg-edge.com/images/tracks/280/Logo280.webp": {
+    "asset": "assets/track_images/a3ec7f6acc00b92b24b3e23d30eb28811fad9d3d023c4670086aa65205b27346.png",
+    "bytes": 5609,
+    "etag": "\"0c61dafe4dae73a0123599ec6ac12ee3\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:56 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "280"
+      }
+    ],
+    "sha256": "a3ec7f6acc00b92b24b3e23d30eb28811fad9d3d023c4670086aa65205b27346"
+  },
+  "https://data.dg-edge.com/images/tracks/280/Track280.webp": {
+    "asset": "assets/track_images/4f352f1ddd344ed3d0dd35d7da32968493f88d4dd6fe6029999c9273dd4fe92e.png",
+    "bytes": 21515,
+    "etag": "\"b17303621fccced41e2f58ba6dfc0250\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:56 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "280"
+      }
+    ],
+    "sha256": "4f352f1ddd344ed3d0dd35d7da32968493f88d4dd6fe6029999c9273dd4fe92e"
+  },
+  "https://data.dg-edge.com/images/tracks/282/Back282.webp": {
+    "asset": "assets/track_images/320206be40d3360b5cebd8f22c152892ef434fa79f78cf1826ad0a90377ef79e.jpg",
+    "bytes": 196617,
+    "etag": "\"be3853d7fe231bc8425223607297c308\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:05 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "282"
+      }
+    ],
+    "sha256": "320206be40d3360b5cebd8f22c152892ef434fa79f78cf1826ad0a90377ef79e"
+  },
+  "https://data.dg-edge.com/images/tracks/282/Logo282.webp": {
+    "asset": "assets/track_images/a3ec7f6acc00b92b24b3e23d30eb28811fad9d3d023c4670086aa65205b27346.png",
+    "bytes": 5609,
+    "etag": "\"0c61dafe4dae73a0123599ec6ac12ee3\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:05 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "282"
+      }
+    ],
+    "sha256": "a3ec7f6acc00b92b24b3e23d30eb28811fad9d3d023c4670086aa65205b27346"
+  },
+  "https://data.dg-edge.com/images/tracks/282/Track1248.webp": {
+    "asset": "assets/track_images/d484e077ba6aba99b48a3b510b948e388282b58fd8e8c5523f7801b4d5929fd2.png",
+    "bytes": 54655,
+    "etag": "\"7e7299fd30ccb3b71ad7b273c49370b5\"",
+    "last_modified": "Thu, 15 Oct 2026 21:43:16 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "282"
+      }
+    ],
+    "sha256": "d484e077ba6aba99b48a3b510b948e388282b58fd8e8c5523f7801b4d5929fd2"
+  },
+  "https://data.dg-edge.com/images/tracks/284/Back284.webp": {
+    "asset": "assets/track_images/655092164a565f35c4e85d4451bcddb81cc28a115135b6d1351a42311501192e.jpg",
+    "bytes": 250251,
+    "etag": "\"d623b7af22d91511e591c4a973cd3aa5\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:04 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "284"
+      }
+    ],
+    "sha256": "655092164a565f35c4e85d4451bcddb81cc28a115135b6d1351a42311501192e"
+  },
+  "https://data.dg-edge.com/images/tracks/284/Logo284.webp": {
+    "asset": "assets/track_images/3ca1ca21ee77aea220b919f33b3cd3f853b2e002ccd18a7d4af2f53ea555be30.png",
+    "bytes": 8055,
+    "etag": "\"dc27893894d3a5c1af54a00d9316cb26\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:04 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "284"
+      }
+    ],
+    "sha256": "3ca1ca21ee77aea220b919f33b3cd3f853b2e002ccd18a7d4af2f53ea555be30"
+  },
+  "https://data.dg-edge.com/images/tracks/284/Track470.webp": {
+    "asset": "assets/track_images/17d27e92ca6d8ca141d5dd5987bb00af897d3c3148a6dea7a05edcdfd25e9098.png",
+    "bytes": 47500,
+    "etag": "\"777b4192b42ed9143ddbbfefb55f9fa5\"",
+    "last_modified": "Thu, 15 Oct 2026 21:43:33 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "284"
+      }
+    ],
+    "sha256": "17d27e92ca6d8ca141d5dd5987bb00af897d3c3148a6dea7a05edcdfd25e9098"
+  },
+  "https://data.dg-edge.com/images/tracks/286/Back286.webp": {
+    "asset": "assets/track_images/68574c850bd4b5bee5ea97c3e3f2e8bf67790318fba89ddf318702c876baccdc.jpg",
+    "bytes": 263280,
+    "etag": "\"354582abf246710184e5b0cae3e8aa15\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:56 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "286"
+      }
+    ],
+    "sha256": "68574c850bd4b5bee5ea97c3e3f2e8bf67790318fba89ddf318702c876baccdc"
+  },
+  "https://data.dg-edge.com/images/tracks/286/Logo286.webp": {
+    "asset": "assets/track_images/3ca1ca21ee77aea220b919f33b3cd3f853b2e002ccd18a7d4af2f53ea555be30.png",
+    "bytes": 8055,
+    "etag": "\"dc27893894d3a5c1af54a00d9316cb26\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:57 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "286"
+      }
+    ],
+    "sha256": "3ca1ca21ee77aea220b919f33b3cd3f853b2e002ccd18a7d4af2f53ea555be30"
+  },
+  "https://data.dg-edge.com/images/tracks/286/Track846.webp": {
+    "asset": "assets/track_images/398c39bdde694e16bdb1c682d3c21322f5e6cad5708e92fb14fe401476c00522.png",
+    "bytes": 32271,
+    "etag": "\"f7183491a9b00412eb095f75bbdab53e\"",
+    "last_modified": "Thu, 15 Oct 2026 21:43:43 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "286"
+      }
+    ],
+    "sha256": "398c39bdde694e16bdb1c682d3c21322f5e6cad5708e92fb14fe401476c00522"
+  },
+  "https://data.dg-edge.com/images/tracks/294/Back294.webp": {
+    "asset": "assets/track_images/3509bdb3fb746ddaf6a9028e52cca4fa3b4bc50de873755d111f27fb680cb7d6.jpg",
+    "bytes": 211549,
+    "etag": "\"fc4486d8513d8b906d2993d326ad05bd\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:57 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "294"
+      }
+    ],
+    "sha256": "3509bdb3fb746ddaf6a9028e52cca4fa3b4bc50de873755d111f27fb680cb7d6"
+  },
+  "https://data.dg-edge.com/images/tracks/294/Logo294.webp": {
+    "asset": "assets/track_images/a69ba746b9a824e3f88cd7984947bfcd2f2123413b517fda4531f602c6020862.png",
+    "bytes": 3776,
+    "etag": "\"33021ceb6fc4d7d74b925fef1429d778\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:57 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "294"
+      }
+    ],
+    "sha256": "a69ba746b9a824e3f88cd7984947bfcd2f2123413b517fda4531f602c6020862"
+  },
+  "https://data.dg-edge.com/images/tracks/294/Track294.webp": {
+    "asset": "assets/track_images/4dec7cf32abd6721569533ccad49083a72dc99ce445b3fbe3c1d0ed53b24af98.png",
+    "bytes": 17924,
+    "etag": "\"af98d1d7c4eb0e85f1100c64122307a7\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:57 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "294"
+      }
+    ],
+    "sha256": "4dec7cf32abd6721569533ccad49083a72dc99ce445b3fbe3c1d0ed53b24af98"
+  },
+  "https://data.dg-edge.com/images/tracks/295/Back294.webp": {
+    "asset": "assets/track_images/3509bdb3fb746ddaf6a9028e52cca4fa3b4bc50de873755d111f27fb680cb7d6.jpg",
+    "bytes": 211549,
+    "etag": "\"fc4486d8513d8b906d2993d326ad05bd\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:57 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "295"
+      }
+    ],
+    "sha256": "3509bdb3fb746ddaf6a9028e52cca4fa3b4bc50de873755d111f27fb680cb7d6"
+  },
+  "https://data.dg-edge.com/images/tracks/295/Logo294.webp": {
+    "asset": "assets/track_images/a69ba746b9a824e3f88cd7984947bfcd2f2123413b517fda4531f602c6020862.png",
+    "bytes": 3776,
+    "etag": "\"33021ceb6fc4d7d74b925fef1429d778\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:57 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "295"
+      }
+    ],
+    "sha256": "a69ba746b9a824e3f88cd7984947bfcd2f2123413b517fda4531f602c6020862"
+  },
+  "https://data.dg-edge.com/images/tracks/295/Track294.webp": {
+    "asset": "assets/track_images/4dec7cf32abd6721569533ccad49083a72dc99ce445b3fbe3c1d0ed53b24af98.png",
+    "bytes": 17924,
+    "etag": "\"af98d1d7c4eb0e85f1100c64122307a7\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:57 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "295"
+      }
+    ],
+    "sha256": "4dec7cf32abd6721569533ccad49083a72dc99ce445b3fbe3c1d0ed53b24af98"
+  },
+  "https://data.dg-edge.com/images/tracks/297/Back297.webp": {
+    "asset": "assets/track_images/eb9bcdf8ef42af9e837c02134674eddb04482c5b11ea167fc7e9264ae0d7e46c.jpg",
+    "bytes": 271641,
+    "etag": "\"450a53f1b93ee390ecfcfd2e04a494ef\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:07 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "297"
+      }
+    ],
+    "sha256": "eb9bcdf8ef42af9e837c02134674eddb04482c5b11ea167fc7e9264ae0d7e46c"
+  },
+  "https://data.dg-edge.com/images/tracks/297/Logo297.webp": {
+    "asset": "assets/track_images/1341445920674ff64e8857c0271dd07dfaa94f8a1a61628454124677341cfa3a.png",
+    "bytes": 6049,
+    "etag": "\"8c349d11129f7cab8d17bb66e29da409\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:07 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "297"
+      }
+    ],
+    "sha256": "1341445920674ff64e8857c0271dd07dfaa94f8a1a61628454124677341cfa3a"
+  },
+  "https://data.dg-edge.com/images/tracks/297/Track297.webp": {
+    "asset": "assets/track_images/43dcec3d941f54291de13e1d6d2da34c5df1be029705940b1dd576ae1de70b6e.png",
+    "bytes": 32824,
+    "etag": "\"d2d47ab1583246e6eabd42c7ed629335\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:07 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "297"
+      }
+    ],
+    "sha256": "43dcec3d941f54291de13e1d6d2da34c5df1be029705940b1dd576ae1de70b6e"
+  },
+  "https://data.dg-edge.com/images/tracks/299/Back299.webp": {
+    "asset": "assets/track_images/aa91bd1035081c2d4727681a44be6688a3459a0ff0846fda69e5ef3cedad07d3.jpg",
+    "bytes": 259832,
+    "etag": "\"f238cf74899e43f12f511925f1537341\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:07 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "299"
+      }
+    ],
+    "sha256": "aa91bd1035081c2d4727681a44be6688a3459a0ff0846fda69e5ef3cedad07d3"
+  },
+  "https://data.dg-edge.com/images/tracks/299/Logo299.webp": {
+    "asset": "assets/track_images/1341445920674ff64e8857c0271dd07dfaa94f8a1a61628454124677341cfa3a.png",
+    "bytes": 6049,
+    "etag": "\"8c349d11129f7cab8d17bb66e29da409\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:07 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "299"
+      }
+    ],
+    "sha256": "1341445920674ff64e8857c0271dd07dfaa94f8a1a61628454124677341cfa3a"
+  },
+  "https://data.dg-edge.com/images/tracks/299/Track299.webp": {
+    "asset": "assets/track_images/c7f7bbc2d87e2e63d3ad738e6ba20fb89271f74d93434aa009a9302d3ace122f.png",
+    "bytes": 19278,
+    "etag": "\"4d1268398bfd01ca20700113bc8790c3\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:07 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "299"
+      }
+    ],
+    "sha256": "c7f7bbc2d87e2e63d3ad738e6ba20fb89271f74d93434aa009a9302d3ace122f"
+  },
+  "https://data.dg-edge.com/images/tracks/3/Back3.webp": {
+    "asset": "assets/track_images/7616c3b6cd244ce67fd07cf8c15d49c88c8e650ee4b9b6292842d47b8fa611cb.jpg",
+    "bytes": 220557,
+    "etag": "\"149793fb23efc266878cd07f77181f0c\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:09 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "3"
+      }
+    ],
+    "sha256": "7616c3b6cd244ce67fd07cf8c15d49c88c8e650ee4b9b6292842d47b8fa611cb"
+  },
+  "https://data.dg-edge.com/images/tracks/3/Logo3.webp": {
+    "asset": "assets/track_images/dceb12ad2a13185bf1e5f0d00fb94b4fce888d35acc2d359b56c5eb018b5f9e4.png",
+    "bytes": 3544,
+    "etag": "\"c1167a9c58b7db55dcbe385c8c8c3b79\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:09 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "3"
+      }
+    ],
+    "sha256": "dceb12ad2a13185bf1e5f0d00fb94b4fce888d35acc2d359b56c5eb018b5f9e4"
+  },
+  "https://data.dg-edge.com/images/tracks/3/Track3.webp": {
+    "asset": "assets/track_images/ee74179d5143f3e797e2f11e34eb30ed42da058ab3e14c39cb43ae5463f01280.png",
+    "bytes": 8215,
+    "etag": "\"470682e0ff51e3d177ebc54c7646224e\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:09 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "3"
+      }
+    ],
+    "sha256": "ee74179d5143f3e797e2f11e34eb30ed42da058ab3e14c39cb43ae5463f01280"
+  },
+  "https://data.dg-edge.com/images/tracks/303/Back303.webp": {
+    "asset": "assets/track_images/15b547d492d0162463c93aad3d836b180e7d6d893a8095d27bc2d4f042b4ad8f.jpg",
+    "bytes": 307572,
+    "etag": "\"14e18235f2d39aca5ad22126dd06a3e3\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:03 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "303"
+      }
+    ],
+    "sha256": "15b547d492d0162463c93aad3d836b180e7d6d893a8095d27bc2d4f042b4ad8f"
+  },
+  "https://data.dg-edge.com/images/tracks/303/Logo303.webp": {
+    "asset": "assets/track_images/c6dcc3afb1e3c9f21564a13d2d8078a97737f722a291836b38f3af2612e587a6.png",
+    "bytes": 5452,
+    "etag": "\"ee4470472b5f1c851d7e72e68c145e12\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:03 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "303"
+      }
+    ],
+    "sha256": "c6dcc3afb1e3c9f21564a13d2d8078a97737f722a291836b38f3af2612e587a6"
+  },
+  "https://data.dg-edge.com/images/tracks/303/Track303.webp": {
+    "asset": "assets/track_images/a5521ce88766fa44c97659af17372760b857ab090203e562dd7598c38adcf553.png",
+    "bytes": 17567,
+    "etag": "\"3b0bbde23e7cbe5fc39401fbbfbaede1\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:03 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "303"
+      }
+    ],
+    "sha256": "a5521ce88766fa44c97659af17372760b857ab090203e562dd7598c38adcf553"
+  },
+  "https://data.dg-edge.com/images/tracks/305/Back305.webp": {
+    "asset": "assets/track_images/8ebb887e3a6143cb4d55a05ba15c47247574e0f206a075256b939faf187a8f01.jpg",
+    "bytes": 220512,
+    "etag": "\"c6b2bf0d26c2ec3217029e1e2cb86275\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:04 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "305"
+      }
+    ],
+    "sha256": "8ebb887e3a6143cb4d55a05ba15c47247574e0f206a075256b939faf187a8f01"
+  },
+  "https://data.dg-edge.com/images/tracks/305/Logo305.webp": {
+    "asset": "assets/track_images/c6dcc3afb1e3c9f21564a13d2d8078a97737f722a291836b38f3af2612e587a6.png",
+    "bytes": 5452,
+    "etag": "\"ee4470472b5f1c851d7e72e68c145e12\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:04 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "305"
+      }
+    ],
+    "sha256": "c6dcc3afb1e3c9f21564a13d2d8078a97737f722a291836b38f3af2612e587a6"
+  },
+  "https://data.dg-edge.com/images/tracks/305/Track305.webp": {
+    "asset": "assets/track_images/770c55dd7e1715151e6de23c6986e41b713896bef85e5bda328b793c4940dcf9.png",
+    "bytes": 19020,
+    "etag": "\"199115a70357d0165de664bddd5508e8\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:04 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "305"
+      }
+    ],
+    "sha256": "770c55dd7e1715151e6de23c6986e41b713896bef85e5bda328b793c4940dcf9"
+  },
+  "https://data.dg-edge.com/images/tracks/307/Back307.webp": {
+    "asset": "assets/track_images/347ee27a4aa57ea6f4ed13d37eee4f6821a28592a3ffa45596c7f9a87b3604fb.jpg",
+    "bytes": 253333,
+    "etag": "\"618897022dbeb454e291abffb5b837a0\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:54 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "307"
+      }
+    ],
+    "sha256": "347ee27a4aa57ea6f4ed13d37eee4f6821a28592a3ffa45596c7f9a87b3604fb"
+  },
+  "https://data.dg-edge.com/images/tracks/307/Logo307.webp": {
+    "asset": "assets/track_images/c6dcc3afb1e3c9f21564a13d2d8078a97737f722a291836b38f3af2612e587a6.png",
+    "bytes": 5452,
+    "etag": "\"ee4470472b5f1c851d7e72e68c145e12\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:53 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "307"
+      }
+    ],
+    "sha256": "c6dcc3afb1e3c9f21564a13d2d8078a97737f722a291836b38f3af2612e587a6"
+  },
+  "https://data.dg-edge.com/images/tracks/307/Track307.webp": {
+    "asset": "assets/track_images/f53314caed172c788f71833d9c14a91fee8e644bfb560f7a534e9bd68d7e368d.png",
+    "bytes": 17823,
+    "etag": "\"a03c626c3d6ab3356e1244d780f32d8d\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:53 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "307"
+      }
+    ],
+    "sha256": "f53314caed172c788f71833d9c14a91fee8e644bfb560f7a534e9bd68d7e368d"
+  },
+  "https://data.dg-edge.com/images/tracks/309/Back309.webp": {
+    "asset": "assets/track_images/2961c49063a83ef3dd159941a71f9cb9372496c85b48e297813af90086e2f62a.jpg",
+    "bytes": 211199,
+    "etag": "\"376ccc8648cc04ea96a3bfa9a4899b94\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:54 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "309"
+      }
+    ],
+    "sha256": "2961c49063a83ef3dd159941a71f9cb9372496c85b48e297813af90086e2f62a"
+  },
+  "https://data.dg-edge.com/images/tracks/309/Logo309.webp": {
+    "asset": "assets/track_images/c6dcc3afb1e3c9f21564a13d2d8078a97737f722a291836b38f3af2612e587a6.png",
+    "bytes": 5452,
+    "etag": "\"ee4470472b5f1c851d7e72e68c145e12\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:54 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "309"
+      }
+    ],
+    "sha256": "c6dcc3afb1e3c9f21564a13d2d8078a97737f722a291836b38f3af2612e587a6"
+  },
+  "https://data.dg-edge.com/images/tracks/309/Track309.webp": {
+    "asset": "assets/track_images/a5521ce88766fa44c97659af17372760b857ab090203e562dd7598c38adcf553.png",
+    "bytes": 17567,
+    "etag": "\"3b0bbde23e7cbe5fc39401fbbfbaede1\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:54 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "309"
+      }
+    ],
+    "sha256": "a5521ce88766fa44c97659af17372760b857ab090203e562dd7598c38adcf553"
+  },
+  "https://data.dg-edge.com/images/tracks/311/Back311.webp": {
+    "asset": "assets/track_images/55b62c5e1330104390d69deff25701b0245e2d89883f6f03fe5909db6f6f02d0.jpg",
+    "bytes": 278494,
+    "etag": "\"a13d95563c522263999246c699daf914\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:07 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "311"
+      }
+    ],
+    "sha256": "55b62c5e1330104390d69deff25701b0245e2d89883f6f03fe5909db6f6f02d0"
+  },
+  "https://data.dg-edge.com/images/tracks/311/Logo311.webp": {
+    "asset": "assets/track_images/c6dcc3afb1e3c9f21564a13d2d8078a97737f722a291836b38f3af2612e587a6.png",
+    "bytes": 5452,
+    "etag": "\"ee4470472b5f1c851d7e72e68c145e12\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:07 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "311"
+      }
+    ],
+    "sha256": "c6dcc3afb1e3c9f21564a13d2d8078a97737f722a291836b38f3af2612e587a6"
+  },
+  "https://data.dg-edge.com/images/tracks/311/Track311.webp": {
+    "asset": "assets/track_images/4c90e9681d3bcc962a2a5c878c0bbdb2dc7deecf951153a98c36fbbd7267da85.png",
+    "bytes": 18472,
+    "etag": "\"c70c7583ff5e604b787709672ca6d094\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:07 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "311"
+      }
+    ],
+    "sha256": "4c90e9681d3bcc962a2a5c878c0bbdb2dc7deecf951153a98c36fbbd7267da85"
+  },
+  "https://data.dg-edge.com/images/tracks/313/Back313.webp": {
+    "asset": "assets/track_images/dc5e94efb3d304b24611fdb866bae4a698e941ca6c866b674f5b767d81e118cd.jpg",
+    "bytes": 314483,
+    "etag": "\"d4ada791a056bd13e7b0e710f42173fe\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:02 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "313"
+      }
+    ],
+    "sha256": "dc5e94efb3d304b24611fdb866bae4a698e941ca6c866b674f5b767d81e118cd"
+  },
+  "https://data.dg-edge.com/images/tracks/313/Logo313.webp": {
+    "asset": "assets/track_images/cea2b0dcbf95a7a86f30015fdcc1beb7fb71d586a7da5b491402c3b62a98f757.png",
+    "bytes": 7659,
+    "etag": "\"d6a5c9fdfd0d0d06b1c9913f6ccb18c4\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:02 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "313"
+      }
+    ],
+    "sha256": "cea2b0dcbf95a7a86f30015fdcc1beb7fb71d586a7da5b491402c3b62a98f757"
+  },
+  "https://data.dg-edge.com/images/tracks/313/Track1024.webp": {
+    "asset": "assets/track_images/05bcbc4777f26b7717bd17ccf22ded6b5b544722f89788d06422e317b01ca5d2.png",
+    "bytes": 35368,
+    "etag": "\"d2d096f534dbc7bc278f41c43edcdffc\"",
+    "last_modified": "Thu, 15 Oct 2026 21:44:04 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "313"
+      }
+    ],
+    "sha256": "05bcbc4777f26b7717bd17ccf22ded6b5b544722f89788d06422e317b01ca5d2"
+  },
+  "https://data.dg-edge.com/images/tracks/314/Back313.webp": {
+    "asset": "assets/track_images/dc5e94efb3d304b24611fdb866bae4a698e941ca6c866b674f5b767d81e118cd.jpg",
+    "bytes": 314483,
+    "etag": "\"d4ada791a056bd13e7b0e710f42173fe\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:02 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "314"
+      }
+    ],
+    "sha256": "dc5e94efb3d304b24611fdb866bae4a698e941ca6c866b674f5b767d81e118cd"
+  },
+  "https://data.dg-edge.com/images/tracks/314/Logo313.webp": {
+    "asset": "assets/track_images/cea2b0dcbf95a7a86f30015fdcc1beb7fb71d586a7da5b491402c3b62a98f757.png",
+    "bytes": 7659,
+    "etag": "\"d6a5c9fdfd0d0d06b1c9913f6ccb18c4\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:02 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "314"
+      }
+    ],
+    "sha256": "cea2b0dcbf95a7a86f30015fdcc1beb7fb71d586a7da5b491402c3b62a98f757"
+  },
+  "https://data.dg-edge.com/images/tracks/314/Track1034.webp": {
+    "asset": "assets/track_images/05bcbc4777f26b7717bd17ccf22ded6b5b544722f89788d06422e317b01ca5d2.png",
+    "bytes": 35368,
+    "etag": "\"d2d096f534dbc7bc278f41c43edcdffc\"",
+    "last_modified": "Thu, 15 Oct 2026 21:44:21 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "314"
+      }
+    ],
+    "sha256": "05bcbc4777f26b7717bd17ccf22ded6b5b544722f89788d06422e317b01ca5d2"
+  },
+  "https://data.dg-edge.com/images/tracks/315/Back315.webp": {
+    "asset": "assets/track_images/04c3f3f30ddf7e9480115f1c70a88ad2ba0b699ca9e2d3f0abd69b9571245163.jpg",
+    "bytes": 234504,
+    "etag": "\"9d4b7febf150287cf22a9caab947b42d\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:00 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "315"
+      }
+    ],
+    "sha256": "04c3f3f30ddf7e9480115f1c70a88ad2ba0b699ca9e2d3f0abd69b9571245163"
+  },
+  "https://data.dg-edge.com/images/tracks/315/Logo315.webp": {
+    "asset": "assets/track_images/7dbb828560c53895bc031baf2ac40c244ee1edff78ec437145e0969233402b1d.png",
+    "bytes": 8105,
+    "etag": "\"72f6d121ae0b3934036779bd89a68347\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:59 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "315"
+      }
+    ],
+    "sha256": "7dbb828560c53895bc031baf2ac40c244ee1edff78ec437145e0969233402b1d"
+  },
+  "https://data.dg-edge.com/images/tracks/315/Track315.webp": {
+    "asset": "assets/track_images/1807c6ede3008cef16022fbe52a0d4871916b5fbe47af54121bebd1e816a3f60.png",
+    "bytes": 28962,
+    "etag": "\"f74bb9418053f00d1f4fc5c08d8e4d89\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:00 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "315"
+      }
+    ],
+    "sha256": "1807c6ede3008cef16022fbe52a0d4871916b5fbe47af54121bebd1e816a3f60"
+  },
+  "https://data.dg-edge.com/images/tracks/321/Back321.webp": {
+    "asset": "assets/track_images/d6d55c3e3dec5f66892e2b57619a5c0cf4d50f040bcb8dddb1cb60e877d2a732.jpg",
+    "bytes": 338433,
+    "etag": "\"a14d4efbfbf98181960c77d57e008cf3\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:10 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "321"
+      }
+    ],
+    "sha256": "d6d55c3e3dec5f66892e2b57619a5c0cf4d50f040bcb8dddb1cb60e877d2a732"
+  },
+  "https://data.dg-edge.com/images/tracks/321/Logo321.webp": {
+    "asset": "assets/track_images/294f2cd5430b755bfa8a7c34b0d8950890cca93a2a1d0ad59ec3a6dfe3bdc5d6.png",
+    "bytes": 6385,
+    "etag": "\"7c2d1aceb09e3656cd5e8d8b8685472f\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:09 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "321"
+      }
+    ],
+    "sha256": "294f2cd5430b755bfa8a7c34b0d8950890cca93a2a1d0ad59ec3a6dfe3bdc5d6"
+  },
+  "https://data.dg-edge.com/images/tracks/321/Track321.webp": {
+    "asset": "assets/track_images/7ad048689a065e57b3a0db5d1ad2e726c783f4545d9d969fb6b693f69c9da722.png",
+    "bytes": 23971,
+    "etag": "\"b7fb223b7cefa3a43aa99f303ecd73ac\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:09 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "321"
+      }
+    ],
+    "sha256": "7ad048689a065e57b3a0db5d1ad2e726c783f4545d9d969fb6b693f69c9da722"
+  },
+  "https://data.dg-edge.com/images/tracks/325/Back325.webp": {
+    "asset": "assets/track_images/81a3847a55f3392339831d7ab53ff3f1c6208dae8700c1447d7d0e62ac396dfc.jpg",
+    "bytes": 209085,
+    "etag": "\"7ee7a66af05b66c700ac126ac3c7e83e\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:02 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "325"
+      }
+    ],
+    "sha256": "81a3847a55f3392339831d7ab53ff3f1c6208dae8700c1447d7d0e62ac396dfc"
+  },
+  "https://data.dg-edge.com/images/tracks/325/Logo325.webp": {
+    "asset": "assets/track_images/37671d3fab0427032972274289f1ae0c7eb138e7b11f192f04d930caad7ab31f.png",
+    "bytes": 6457,
+    "etag": "\"04be8d1393ef853104652c555be1a2be\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:02 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "325"
+      }
+    ],
+    "sha256": "37671d3fab0427032972274289f1ae0c7eb138e7b11f192f04d930caad7ab31f"
+  },
+  "https://data.dg-edge.com/images/tracks/325/Track325.webp": {
+    "asset": "assets/track_images/dc619070daca2849c84ea8f0f7528024d6291b451b8a5ea3d6b7d5daaa6c7d0a.png",
+    "bytes": 22209,
+    "etag": "\"05cd2f1aef0f1a201713b6423d502cdf\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:02 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "325"
+      }
+    ],
+    "sha256": "dc619070daca2849c84ea8f0f7528024d6291b451b8a5ea3d6b7d5daaa6c7d0a"
+  },
+  "https://data.dg-edge.com/images/tracks/326/Back325.webp": {
+    "asset": "assets/track_images/81a3847a55f3392339831d7ab53ff3f1c6208dae8700c1447d7d0e62ac396dfc.jpg",
+    "bytes": 209085,
+    "etag": "\"7ee7a66af05b66c700ac126ac3c7e83e\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:09 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "326"
+      }
+    ],
+    "sha256": "81a3847a55f3392339831d7ab53ff3f1c6208dae8700c1447d7d0e62ac396dfc"
+  },
+  "https://data.dg-edge.com/images/tracks/326/Logo325.webp": {
+    "asset": "assets/track_images/37671d3fab0427032972274289f1ae0c7eb138e7b11f192f04d930caad7ab31f.png",
+    "bytes": 6457,
+    "etag": "\"04be8d1393ef853104652c555be1a2be\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:09 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "326"
+      }
+    ],
+    "sha256": "37671d3fab0427032972274289f1ae0c7eb138e7b11f192f04d930caad7ab31f"
+  },
+  "https://data.dg-edge.com/images/tracks/326/Track325.webp": {
+    "asset": "assets/track_images/dc619070daca2849c84ea8f0f7528024d6291b451b8a5ea3d6b7d5daaa6c7d0a.png",
+    "bytes": 22209,
+    "etag": "\"05cd2f1aef0f1a201713b6423d502cdf\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:09 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "326"
+      }
+    ],
+    "sha256": "dc619070daca2849c84ea8f0f7528024d6291b451b8a5ea3d6b7d5daaa6c7d0a"
+  },
+  "https://data.dg-edge.com/images/tracks/327/Back327.webp": {
+    "asset": "assets/track_images/5eb39f8c58a96ab27221ae59f6ae9a543ce74a4b52c33393cbd2d4908930683b.jpg",
+    "bytes": 157860,
+    "etag": "\"c98b333022561ac8ff87f6bbbfbb348d\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:07 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "327"
+      }
+    ],
+    "sha256": "5eb39f8c58a96ab27221ae59f6ae9a543ce74a4b52c33393cbd2d4908930683b"
+  },
+  "https://data.dg-edge.com/images/tracks/327/Logo327.webp": {
+    "asset": "assets/track_images/37671d3fab0427032972274289f1ae0c7eb138e7b11f192f04d930caad7ab31f.png",
+    "bytes": 6457,
+    "etag": "\"04be8d1393ef853104652c555be1a2be\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:07 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "327"
+      }
+    ],
+    "sha256": "37671d3fab0427032972274289f1ae0c7eb138e7b11f192f04d930caad7ab31f"
+  },
+  "https://data.dg-edge.com/images/tracks/327/Track327.webp": {
+    "asset": "assets/track_images/c0bab684d11f758a328d32f22a8901a0e81850506c52607c9204a96b9380217d.png",
+    "bytes": 25364,
+    "etag": "\"4b8488ff688b79da9449ba4437d3095e\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:07 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "327"
+      }
+    ],
+    "sha256": "c0bab684d11f758a328d32f22a8901a0e81850506c52607c9204a96b9380217d"
+  },
+  "https://data.dg-edge.com/images/tracks/328/Back327.webp": {
+    "asset": "assets/track_images/5eb39f8c58a96ab27221ae59f6ae9a543ce74a4b52c33393cbd2d4908930683b.jpg",
+    "bytes": 157860,
+    "etag": "\"c98b333022561ac8ff87f6bbbfbb348d\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:09 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "328"
+      }
+    ],
+    "sha256": "5eb39f8c58a96ab27221ae59f6ae9a543ce74a4b52c33393cbd2d4908930683b"
+  },
+  "https://data.dg-edge.com/images/tracks/328/Logo327.webp": {
+    "asset": "assets/track_images/37671d3fab0427032972274289f1ae0c7eb138e7b11f192f04d930caad7ab31f.png",
+    "bytes": 6457,
+    "etag": "\"04be8d1393ef853104652c555be1a2be\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:09 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "328"
+      }
+    ],
+    "sha256": "37671d3fab0427032972274289f1ae0c7eb138e7b11f192f04d930caad7ab31f"
+  },
+  "https://data.dg-edge.com/images/tracks/328/Track327.webp": {
+    "asset": "assets/track_images/c0bab684d11f758a328d32f22a8901a0e81850506c52607c9204a96b9380217d.png",
+    "bytes": 25364,
+    "etag": "\"4b8488ff688b79da9449ba4437d3095e\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:09 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "328"
+      }
+    ],
+    "sha256": "c0bab684d11f758a328d32f22a8901a0e81850506c52607c9204a96b9380217d"
+  },
+  "https://data.dg-edge.com/images/tracks/336/Back336.webp": {
+    "asset": "assets/track_images/6953ebab3dc120c998042453034e996b6f1cfc331c90a3ccc48400163a19a903.jpg",
+    "bytes": 234331,
+    "etag": "\"7a0c3e9b1004c1624952957b6cfd32c0\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:54 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "336"
+      }
+    ],
+    "sha256": "6953ebab3dc120c998042453034e996b6f1cfc331c90a3ccc48400163a19a903"
+  },
+  "https://data.dg-edge.com/images/tracks/336/Logo336.webp": {
+    "asset": "assets/track_images/43a0a03f11f6ac3cef9c569e67615c40bf4ae5cd87571324ad2872e99ed359a5.png",
+    "bytes": 5082,
+    "etag": "\"f69a7332821b4dc831d90aaab551a72c\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:54 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "336"
+      }
+    ],
+    "sha256": "43a0a03f11f6ac3cef9c569e67615c40bf4ae5cd87571324ad2872e99ed359a5"
+  },
+  "https://data.dg-edge.com/images/tracks/336/Track336.webp": {
+    "asset": "assets/track_images/ccf5263348e5a5aba2ace826a0820106086bf4c1035d3cc26f21b46145ff8108.png",
+    "bytes": 20636,
+    "etag": "\"15bb49c83f108a28d1f2399bc3c4d6f1\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:54 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "336"
+      }
+    ],
+    "sha256": "ccf5263348e5a5aba2ace826a0820106086bf4c1035d3cc26f21b46145ff8108"
+  },
+  "https://data.dg-edge.com/images/tracks/337/Back337.webp": {
+    "asset": "assets/track_images/b22317d750561146f480118899fb9ba56d098237b82d80e78fe70b9813b276a0.jpg",
+    "bytes": 286593,
+    "etag": "\"3e23ac181605404ea6feacdc21d31605\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:55 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "337"
+      }
+    ],
+    "sha256": "b22317d750561146f480118899fb9ba56d098237b82d80e78fe70b9813b276a0"
+  },
+  "https://data.dg-edge.com/images/tracks/337/Logo337.webp": {
+    "asset": "assets/track_images/c5e9bae35cb251c759078a015d9093e3e59d8a33332f294dcda53e42e86bd088.png",
+    "bytes": 7627,
+    "etag": "\"2d2d196c7daa4d58fd560d7f73d50016\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:55 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "337"
+      }
+    ],
+    "sha256": "c5e9bae35cb251c759078a015d9093e3e59d8a33332f294dcda53e42e86bd088"
+  },
+  "https://data.dg-edge.com/images/tracks/337/Track1163.webp": {
+    "asset": "assets/track_images/eebb3015d66ee753d53c2d1bf2fee376d20c2b6cb36ce32a8c6541b7ecf87986.png",
+    "bytes": 58061,
+    "etag": "\"704420b82384149dedc7a236d08ec68f\"",
+    "last_modified": "Thu, 15 Oct 2026 21:40:48 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "337"
+      }
+    ],
+    "sha256": "eebb3015d66ee753d53c2d1bf2fee376d20c2b6cb36ce32a8c6541b7ecf87986"
+  },
+  "https://data.dg-edge.com/images/tracks/338/Back338.webp": {
+    "asset": "assets/track_images/1d72b7648f5f3ca3a31622ac3b6b56e282b347ac1c45ab917f115dbf0d29ef05.jpg",
+    "bytes": 169477,
+    "etag": "\"4fa79b31c0a9c260aa544220503abada\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:54 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "338"
+      }
+    ],
+    "sha256": "1d72b7648f5f3ca3a31622ac3b6b56e282b347ac1c45ab917f115dbf0d29ef05"
+  },
+  "https://data.dg-edge.com/images/tracks/338/Logo338.webp": {
+    "asset": "assets/track_images/6d4102d492d4c056c664c460751c32fa3ceac1f9c1720c0154d068460570380a.png",
+    "bytes": 3083,
+    "etag": "\"14d40c4f126224a5e971bc295f5f5b1f\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:54 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "338"
+      }
+    ],
+    "sha256": "6d4102d492d4c056c664c460751c32fa3ceac1f9c1720c0154d068460570380a"
+  },
+  "https://data.dg-edge.com/images/tracks/338/Track338.webp": {
+    "asset": "assets/track_images/52096d3a84dd44445da3fa3971277dcf4bc9e5f96294fa1c3dd8f1fded0bb10a.png",
+    "bytes": 25680,
+    "etag": "\"b77930c137cfda3caf8729fd0087625e\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:54 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "338"
+      }
+    ],
+    "sha256": "52096d3a84dd44445da3fa3971277dcf4bc9e5f96294fa1c3dd8f1fded0bb10a"
+  },
+  "https://data.dg-edge.com/images/tracks/339/Back339.webp": {
+    "asset": "assets/track_images/025f71c5d67c838d8d5c1dc23b4c785ce7c4193411a97965bf538a6ca7eb8567.jpg",
+    "bytes": 256277,
+    "etag": "\"6124b475bf74167e66e4344f1bcc9767\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:55 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "339"
+      }
+    ],
+    "sha256": "025f71c5d67c838d8d5c1dc23b4c785ce7c4193411a97965bf538a6ca7eb8567"
+  },
+  "https://data.dg-edge.com/images/tracks/339/Logo339.webp": {
+    "asset": "assets/track_images/37671d3fab0427032972274289f1ae0c7eb138e7b11f192f04d930caad7ab31f.png",
+    "bytes": 6457,
+    "etag": "\"04be8d1393ef853104652c555be1a2be\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:55 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "339"
+      }
+    ],
+    "sha256": "37671d3fab0427032972274289f1ae0c7eb138e7b11f192f04d930caad7ab31f"
+  },
+  "https://data.dg-edge.com/images/tracks/339/Track339.webp": {
+    "asset": "assets/track_images/2b91c141529225c723413969758060daf14bb54afc67c50332ca91fd3edad7d8.png",
+    "bytes": 20890,
+    "etag": "\"293b5a5354587ee2c03c950f00cb5ce2\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:55 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "339"
+      }
+    ],
+    "sha256": "2b91c141529225c723413969758060daf14bb54afc67c50332ca91fd3edad7d8"
+  },
+  "https://data.dg-edge.com/images/tracks/340/Back340.webp": {
+    "asset": "assets/track_images/e8957fce1f48b8f118647d1d3ab970ee85fd788fe03c81ed7429e31b53d12fe7.jpg",
+    "bytes": 229097,
+    "etag": "\"2d33c51522fa56e99f1114fe0b464c98\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:01 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "340"
+      }
+    ],
+    "sha256": "e8957fce1f48b8f118647d1d3ab970ee85fd788fe03c81ed7429e31b53d12fe7"
+  },
+  "https://data.dg-edge.com/images/tracks/340/Logo340.webp": {
+    "asset": "assets/track_images/9627f0f072469bf41dbde9b0ffe9a5d455ef1cced6f54418a211d2c38d0c7f3a.png",
+    "bytes": 10902,
+    "etag": "\"ce9abdb9145708c13fe0d5015a227bf1\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:01 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "340"
+      }
+    ],
+    "sha256": "9627f0f072469bf41dbde9b0ffe9a5d455ef1cced6f54418a211d2c38d0c7f3a"
+  },
+  "https://data.dg-edge.com/images/tracks/340/Track1240.webp": {
+    "asset": "assets/track_images/b13a6237b724db23f5e5cc9649de92c26a27a0a3af1e39551e50150481e1e1d0.png",
+    "bytes": 53294,
+    "etag": "\"9ad83a7fc5ee54e7ef4c9c16c50cf0dd\"",
+    "last_modified": "Thu, 15 Oct 2026 21:41:03 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "340"
+      }
+    ],
+    "sha256": "b13a6237b724db23f5e5cc9649de92c26a27a0a3af1e39551e50150481e1e1d0"
+  },
+  "https://data.dg-edge.com/images/tracks/341/Back341.webp": {
+    "asset": "assets/track_images/19c6d86c3c19c62669af977366fee7d995444b59023ba0b6c70fa443b5add024.jpg",
+    "bytes": 314361,
+    "etag": "\"92b0cf57f3ec110f813a49f9e1ec5674\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:59 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "341"
+      }
+    ],
+    "sha256": "19c6d86c3c19c62669af977366fee7d995444b59023ba0b6c70fa443b5add024"
+  },
+  "https://data.dg-edge.com/images/tracks/341/Logo341.webp": {
+    "asset": "assets/track_images/f2f0abb4cfa289f9e5bf5d2f25fc959e4447d133e6ae7fdc8a57e859671058cc.png",
+    "bytes": 5505,
+    "etag": "\"f0bed9a211eaf45e59dd315a4f5b9e30\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:59 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "341"
+      }
+    ],
+    "sha256": "f2f0abb4cfa289f9e5bf5d2f25fc959e4447d133e6ae7fdc8a57e859671058cc"
+  },
+  "https://data.dg-edge.com/images/tracks/341/Track341.webp": {
+    "asset": "assets/track_images/d6a6f33831d074752b6def97ed7feda27f05378e8c3e73a99d692c4db6ffb6a2.png",
+    "bytes": 22198,
+    "etag": "\"4d076922c29ea46181e14b7e338fd452\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:58 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "341"
+      }
+    ],
+    "sha256": "d6a6f33831d074752b6def97ed7feda27f05378e8c3e73a99d692c4db6ffb6a2"
+  },
+  "https://data.dg-edge.com/images/tracks/342/Back3.webp": {
+    "asset": "assets/track_images/7616c3b6cd244ce67fd07cf8c15d49c88c8e650ee4b9b6292842d47b8fa611cb.jpg",
+    "bytes": 220557,
+    "etag": "\"149793fb23efc266878cd07f77181f0c\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:08 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "342"
+      }
+    ],
+    "sha256": "7616c3b6cd244ce67fd07cf8c15d49c88c8e650ee4b9b6292842d47b8fa611cb"
+  },
+  "https://data.dg-edge.com/images/tracks/342/Logo3.webp": {
+    "asset": "assets/track_images/dceb12ad2a13185bf1e5f0d00fb94b4fce888d35acc2d359b56c5eb018b5f9e4.png",
+    "bytes": 3544,
+    "etag": "\"c1167a9c58b7db55dcbe385c8c8c3b79\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:08 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "342"
+      }
+    ],
+    "sha256": "dceb12ad2a13185bf1e5f0d00fb94b4fce888d35acc2d359b56c5eb018b5f9e4"
+  },
+  "https://data.dg-edge.com/images/tracks/342/Track3.webp": {
+    "asset": "assets/track_images/ee74179d5143f3e797e2f11e34eb30ed42da058ab3e14c39cb43ae5463f01280.png",
+    "bytes": 8215,
+    "etag": "\"470682e0ff51e3d177ebc54c7646224e\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:08 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "342"
+      }
+    ],
+    "sha256": "ee74179d5143f3e797e2f11e34eb30ed42da058ab3e14c39cb43ae5463f01280"
+  },
+  "https://data.dg-edge.com/images/tracks/343/Back3.webp": {
+    "asset": "assets/track_images/7616c3b6cd244ce67fd07cf8c15d49c88c8e650ee4b9b6292842d47b8fa611cb.jpg",
+    "bytes": 220557,
+    "etag": "\"149793fb23efc266878cd07f77181f0c\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:11 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "343"
+      }
+    ],
+    "sha256": "7616c3b6cd244ce67fd07cf8c15d49c88c8e650ee4b9b6292842d47b8fa611cb"
+  },
+  "https://data.dg-edge.com/images/tracks/343/Logo3.webp": {
+    "asset": "assets/track_images/dceb12ad2a13185bf1e5f0d00fb94b4fce888d35acc2d359b56c5eb018b5f9e4.png",
+    "bytes": 3544,
+    "etag": "\"c1167a9c58b7db55dcbe385c8c8c3b79\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:11 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "343"
+      }
+    ],
+    "sha256": "dceb12ad2a13185bf1e5f0d00fb94b4fce888d35acc2d359b56c5eb018b5f9e4"
+  },
+  "https://data.dg-edge.com/images/tracks/343/Track3.webp": {
+    "asset": "assets/track_images/ee74179d5143f3e797e2f11e34eb30ed42da058ab3e14c39cb43ae5463f01280.png",
+    "bytes": 8215,
+    "etag": "\"470682e0ff51e3d177ebc54c7646224e\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:11 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "343"
+      }
+    ],
+    "sha256": "ee74179d5143f3e797e2f11e34eb30ed42da058ab3e14c39cb43ae5463f01280"
+  },
+  "https://data.dg-edge.com/images/tracks/344/Back344.webp": {
+    "asset": "assets/track_images/1177cf88ee0321ffd869273561f15afcc438451f7fcfbd57c3130777733d2508.jpg",
+    "bytes": 331743,
+    "etag": "\"0d1e809e6ac36ee0dc5e6c26d2dfa382\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:11 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "344"
+      }
+    ],
+    "sha256": "1177cf88ee0321ffd869273561f15afcc438451f7fcfbd57c3130777733d2508"
+  },
+  "https://data.dg-edge.com/images/tracks/344/Logo344.webp": {
+    "asset": "assets/track_images/9627f0f072469bf41dbde9b0ffe9a5d455ef1cced6f54418a211d2c38d0c7f3a.png",
+    "bytes": 10902,
+    "etag": "\"ce9abdb9145708c13fe0d5015a227bf1\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:10 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "344"
+      }
+    ],
+    "sha256": "9627f0f072469bf41dbde9b0ffe9a5d455ef1cced6f54418a211d2c38d0c7f3a"
+  },
+  "https://data.dg-edge.com/images/tracks/344/Track1264.webp": {
+    "asset": "assets/track_images/7e444ef9a55d4aa94b1d3d491f632b603923611b19b2965bcf49617537e732b5.png",
+    "bytes": 50349,
+    "etag": "\"8f11d4d835d91d7c77048c33ffe96935\"",
+    "last_modified": "Thu, 15 Oct 2026 21:41:15 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "344"
+      }
+    ],
+    "sha256": "7e444ef9a55d4aa94b1d3d491f632b603923611b19b2965bcf49617537e732b5"
+  },
+  "https://data.dg-edge.com/images/tracks/345/Back345.webp": {
+    "asset": "assets/track_images/fc2285f5740f817681b0797b8e73b163704fe42fa7e919378456d391557cb3b5.jpg",
+    "bytes": 309417,
+    "etag": "\"d687ffd9b9b8c6a2bf91d037c242fb80\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:08 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "345"
+      }
+    ],
+    "sha256": "fc2285f5740f817681b0797b8e73b163704fe42fa7e919378456d391557cb3b5"
+  },
+  "https://data.dg-edge.com/images/tracks/345/Logo345.webp": {
+    "asset": "assets/track_images/354c5d889162eb7feae97723513d0ab2e2b56e3cb5d99aaff4c757b620dbced0.png",
+    "bytes": 3977,
+    "etag": "\"ab7c5a0d3b99643b5a944c60c1338f78\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:08 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "345"
+      }
+    ],
+    "sha256": "354c5d889162eb7feae97723513d0ab2e2b56e3cb5d99aaff4c757b620dbced0"
+  },
+  "https://data.dg-edge.com/images/tracks/345/Track345.webp": {
+    "asset": "assets/track_images/aecd0b93cdb8790b903769e923808b43c917ffd4eb08b38ba7747b7ea2eeacc1.png",
+    "bytes": 26334,
+    "etag": "\"8bc47c6ebbe79a9c8905938a31199fed\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:08 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "345"
+      }
+    ],
+    "sha256": "aecd0b93cdb8790b903769e923808b43c917ffd4eb08b38ba7747b7ea2eeacc1"
+  },
+  "https://data.dg-edge.com/images/tracks/346/Back346.webp": {
+    "asset": "assets/track_images/9357e633ef368da22b6fe638a68a3b76f02d55a20cf3855d210154f3334dd003.jpg",
+    "bytes": 211233,
+    "etag": "\"a968d41f155339667137e6e670f892a0\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:58 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "346"
+      }
+    ],
+    "sha256": "9357e633ef368da22b6fe638a68a3b76f02d55a20cf3855d210154f3334dd003"
+  },
+  "https://data.dg-edge.com/images/tracks/346/Logo346.webp": {
+    "asset": "assets/track_images/ba0e35e401a572fac9a09ca68cd90ca3e5482a3fcd78470e8910c28153e6378e.png",
+    "bytes": 5405,
+    "etag": "\"59bb87ce264f7881cd9efc841f78ce57\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:58 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "346"
+      }
+    ],
+    "sha256": "ba0e35e401a572fac9a09ca68cd90ca3e5482a3fcd78470e8910c28153e6378e"
+  },
+  "https://data.dg-edge.com/images/tracks/346/Track1273.webp": {
+    "asset": "assets/track_images/6f0292ebd0d049cf1ad58843117107b40f56877d63fd0077481d550a829d0d40.png",
+    "bytes": 34000,
+    "etag": "\"30ee4d40e29cdd25d5836bbfd2e54023\"",
+    "last_modified": "Thu, 15 Oct 2026 21:41:36 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "346"
+      }
+    ],
+    "sha256": "6f0292ebd0d049cf1ad58843117107b40f56877d63fd0077481d550a829d0d40"
+  },
+  "https://data.dg-edge.com/images/tracks/347/Back347.webp": {
+    "asset": "assets/track_images/525e7aa08a88514662d3a62058e02b0e94f5ee1b53f12dc85b8c69914a6122c6.jpg",
+    "bytes": 252913,
+    "etag": "\"c5cfac4900192c44e9e4a1dbc07b668b\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:01 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "347"
+      }
+    ],
+    "sha256": "525e7aa08a88514662d3a62058e02b0e94f5ee1b53f12dc85b8c69914a6122c6"
+  },
+  "https://data.dg-edge.com/images/tracks/347/Logo347.webp": {
+    "asset": "assets/track_images/6599cff30d920e00fe167335dc955ca4274f519ec1276a31da7f7231be1a5b19.png",
+    "bytes": 5320,
+    "etag": "\"699a053eb2bddcfae526838ba0828715\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:01 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "347"
+      }
+    ],
+    "sha256": "6599cff30d920e00fe167335dc955ca4274f519ec1276a31da7f7231be1a5b19"
+  },
+  "https://data.dg-edge.com/images/tracks/347/Track1292.webp": {
+    "asset": "assets/track_images/4abc6310c245a8eccc2cb00c01d26faa481fc7cfe00b98607a145ba5891b4812.png",
+    "bytes": 46108,
+    "etag": "\"612bb09b4f6f73ba54f62af54113a990\"",
+    "last_modified": "Thu, 15 Oct 2026 21:41:52 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "347"
+      }
+    ],
+    "sha256": "4abc6310c245a8eccc2cb00c01d26faa481fc7cfe00b98607a145ba5891b4812"
+  },
+  "https://data.dg-edge.com/images/tracks/348/Back347.webp": {
+    "asset": "assets/track_images/525e7aa08a88514662d3a62058e02b0e94f5ee1b53f12dc85b8c69914a6122c6.jpg",
+    "bytes": 252913,
+    "etag": "\"c5cfac4900192c44e9e4a1dbc07b668b\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:59 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "348"
+      }
+    ],
+    "sha256": "525e7aa08a88514662d3a62058e02b0e94f5ee1b53f12dc85b8c69914a6122c6"
+  },
+  "https://data.dg-edge.com/images/tracks/348/Logo347.webp": {
+    "asset": "assets/track_images/6599cff30d920e00fe167335dc955ca4274f519ec1276a31da7f7231be1a5b19.png",
+    "bytes": 5320,
+    "etag": "\"699a053eb2bddcfae526838ba0828715\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:59 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "348"
+      }
+    ],
+    "sha256": "6599cff30d920e00fe167335dc955ca4274f519ec1276a31da7f7231be1a5b19"
+  },
+  "https://data.dg-edge.com/images/tracks/348/Track1293.webp": {
+    "asset": "assets/track_images/4abc6310c245a8eccc2cb00c01d26faa481fc7cfe00b98607a145ba5891b4812.png",
+    "bytes": 46108,
+    "etag": "\"612bb09b4f6f73ba54f62af54113a990\"",
+    "last_modified": "Thu, 15 Oct 2026 21:42:02 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "348"
+      }
+    ],
+    "sha256": "4abc6310c245a8eccc2cb00c01d26faa481fc7cfe00b98607a145ba5891b4812"
+  },
+  "https://data.dg-edge.com/images/tracks/349/Back349.webp": {
+    "asset": "assets/track_images/a4f5eb594fc3a8bd6dd6f1946fadfffdb9dade5839cfb126547afc21cd32a115.jpg",
+    "bytes": 256801,
+    "etag": "\"b35854210cd42d3d2f2f3f7ca9703a56\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:01 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "349"
+      }
+    ],
+    "sha256": "a4f5eb594fc3a8bd6dd6f1946fadfffdb9dade5839cfb126547afc21cd32a115"
+  },
+  "https://data.dg-edge.com/images/tracks/349/Logo349.webp": {
+    "asset": "assets/track_images/6599cff30d920e00fe167335dc955ca4274f519ec1276a31da7f7231be1a5b19.png",
+    "bytes": 5320,
+    "etag": "\"699a053eb2bddcfae526838ba0828715\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:01 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "349"
+      }
+    ],
+    "sha256": "6599cff30d920e00fe167335dc955ca4274f519ec1276a31da7f7231be1a5b19"
+  },
+  "https://data.dg-edge.com/images/tracks/349/Track1299.webp": {
+    "asset": "assets/track_images/c922017494c93f61c7fb1b2dd3a621b6c98d2cb5d4b8291a2ca6341776401df3.png",
+    "bytes": 30868,
+    "etag": "\"c348e086631c55ddd9cac3ac04c2acc0\"",
+    "last_modified": "Thu, 15 Oct 2026 21:42:15 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "349"
+      }
+    ],
+    "sha256": "c922017494c93f61c7fb1b2dd3a621b6c98d2cb5d4b8291a2ca6341776401df3"
+  },
+  "https://data.dg-edge.com/images/tracks/350/Back349.webp": {
+    "asset": "assets/track_images/a4f5eb594fc3a8bd6dd6f1946fadfffdb9dade5839cfb126547afc21cd32a115.jpg",
+    "bytes": 256801,
+    "etag": "\"b35854210cd42d3d2f2f3f7ca9703a56\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:03 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "350"
+      }
+    ],
+    "sha256": "a4f5eb594fc3a8bd6dd6f1946fadfffdb9dade5839cfb126547afc21cd32a115"
+  },
+  "https://data.dg-edge.com/images/tracks/350/Logo349.webp": {
+    "asset": "assets/track_images/6599cff30d920e00fe167335dc955ca4274f519ec1276a31da7f7231be1a5b19.png",
+    "bytes": 5320,
+    "etag": "\"699a053eb2bddcfae526838ba0828715\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:03 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "350"
+      }
+    ],
+    "sha256": "6599cff30d920e00fe167335dc955ca4274f519ec1276a31da7f7231be1a5b19"
+  },
+  "https://data.dg-edge.com/images/tracks/350/Track1300.webp": {
+    "asset": "assets/track_images/c922017494c93f61c7fb1b2dd3a621b6c98d2cb5d4b8291a2ca6341776401df3.png",
+    "bytes": 30868,
+    "etag": "\"c348e086631c55ddd9cac3ac04c2acc0\"",
+    "last_modified": "Thu, 15 Oct 2026 21:42:24 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "350"
+      }
+    ],
+    "sha256": "c922017494c93f61c7fb1b2dd3a621b6c98d2cb5d4b8291a2ca6341776401df3"
+  },
+  "https://data.dg-edge.com/images/tracks/351/Back346.webp": {
+    "asset": "assets/track_images/9357e633ef368da22b6fe638a68a3b76f02d55a20cf3855d210154f3334dd003.jpg",
+    "bytes": 211233,
+    "etag": "\"a968d41f155339667137e6e670f892a0\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:04 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "351"
+      }
+    ],
+    "sha256": "9357e633ef368da22b6fe638a68a3b76f02d55a20cf3855d210154f3334dd003"
+  },
+  "https://data.dg-edge.com/images/tracks/351/Logo346.webp": {
+    "asset": "assets/track_images/ba0e35e401a572fac9a09ca68cd90ca3e5482a3fcd78470e8910c28153e6378e.png",
+    "bytes": 5405,
+    "etag": "\"59bb87ce264f7881cd9efc841f78ce57\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:04 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "351"
+      }
+    ],
+    "sha256": "ba0e35e401a572fac9a09ca68cd90ca3e5482a3fcd78470e8910c28153e6378e"
+  },
+  "https://data.dg-edge.com/images/tracks/351/Track1316.webp": {
+    "asset": "assets/track_images/6f0292ebd0d049cf1ad58843117107b40f56877d63fd0077481d550a829d0d40.png",
+    "bytes": 34000,
+    "etag": "\"30ee4d40e29cdd25d5836bbfd2e54023\"",
+    "last_modified": "Thu, 15 Oct 2026 21:42:40 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "351"
+      }
+    ],
+    "sha256": "6f0292ebd0d049cf1ad58843117107b40f56877d63fd0077481d550a829d0d40"
+  },
+  "https://data.dg-edge.com/images/tracks/352/Back352.webp": {
+    "asset": "assets/track_images/cf1a843be7d53dff1dc4f9ae7d809dab063ca80eaa43798d476dc320fc38fcb2.jpg",
+    "bytes": 224087,
+    "etag": "\"15d9aa2dd0fd9a5e3fed874e32a800c3\"",
+    "last_modified": "Thu, 12 Dec 2024 12:40:09 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "352"
+      }
+    ],
+    "sha256": "cf1a843be7d53dff1dc4f9ae7d809dab063ca80eaa43798d476dc320fc38fcb2"
+  },
+  "https://data.dg-edge.com/images/tracks/352/Logo352.webp": {
+    "asset": "assets/track_images/cac114b945511d929bac97b08d94c7c70ebe5da8ba854b8be71e1d6d0a0bb737.webp",
+    "bytes": 8914,
+    "etag": "\"982c695ddf0ba4eb982d7207b1f5f8e3\"",
+    "last_modified": "Thu, 12 Dec 2024 12:40:07 GMT",
+    "mime": "image/webp",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "352"
+      }
+    ],
+    "sha256": "cac114b945511d929bac97b08d94c7c70ebe5da8ba854b8be71e1d6d0a0bb737"
+  },
+  "https://data.dg-edge.com/images/tracks/352/Track352.webp": {
+    "asset": "assets/track_images/cb058a38b94e9c9918ed14cae5e064e0ac0fdd86d389cb829aca16d582ad5b7f.png",
+    "bytes": 18939,
+    "etag": "\"dece6514cf4bfb9b30cc048bd4041fc9\"",
+    "last_modified": "Thu, 12 Dec 2024 12:40:09 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "352"
+      }
+    ],
+    "sha256": "cb058a38b94e9c9918ed14cae5e064e0ac0fdd86d389cb829aca16d582ad5b7f"
+  },
+  "https://data.dg-edge.com/images/tracks/353/Back353.webp": {
+    "asset": "assets/track_images/8182826059c725a48dc960ef89b445f9833944d50aed482d1e323f51a38885f8.jpg",
+    "bytes": 180755,
+    "etag": "\"0b0e5adc4e9262d5b4cb833fa487fe02\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:55 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "353"
+      }
+    ],
+    "sha256": "8182826059c725a48dc960ef89b445f9833944d50aed482d1e323f51a38885f8"
+  },
+  "https://data.dg-edge.com/images/tracks/353/Logo353.webp": {
+    "asset": "assets/track_images/a3ec7f6acc00b92b24b3e23d30eb28811fad9d3d023c4670086aa65205b27346.png",
+    "bytes": 5609,
+    "etag": "\"0c61dafe4dae73a0123599ec6ac12ee3\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:55 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "353"
+      }
+    ],
+    "sha256": "a3ec7f6acc00b92b24b3e23d30eb28811fad9d3d023c4670086aa65205b27346"
+  },
+  "https://data.dg-edge.com/images/tracks/353/Track353.webp": {
+    "asset": "assets/track_images/13e87eaa6959a9157711d8d3cbecd8b3b5208dfb9d7d2cfbc5ee7d6802e7f40d.png",
+    "bytes": 24294,
+    "etag": "\"0fae7e659d69687f8ef9d0b6a5931a19\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:55 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "353"
+      }
+    ],
+    "sha256": "13e87eaa6959a9157711d8d3cbecd8b3b5208dfb9d7d2cfbc5ee7d6802e7f40d"
+  },
+  "https://data.dg-edge.com/images/tracks/354/Back354.webp": {
+    "asset": "assets/track_images/c923f0e902a72a05daf48f28da2115015b06e98923126aedc4ff3af539d34044.jpg",
+    "bytes": 166507,
+    "etag": "\"f9079cf2b0bcaaf71f2fc902b4829aa9\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:54 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "354"
+      }
+    ],
+    "sha256": "c923f0e902a72a05daf48f28da2115015b06e98923126aedc4ff3af539d34044"
+  },
+  "https://data.dg-edge.com/images/tracks/354/Logo354.webp": {
+    "asset": "assets/track_images/c6dcc3afb1e3c9f21564a13d2d8078a97737f722a291836b38f3af2612e587a6.png",
+    "bytes": 5452,
+    "etag": "\"ee4470472b5f1c851d7e72e68c145e12\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:54 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "354"
+      }
+    ],
+    "sha256": "c6dcc3afb1e3c9f21564a13d2d8078a97737f722a291836b38f3af2612e587a6"
+  },
+  "https://data.dg-edge.com/images/tracks/354/Track354.webp": {
+    "asset": "assets/track_images/f53314caed172c788f71833d9c14a91fee8e644bfb560f7a534e9bd68d7e368d.png",
+    "bytes": 17823,
+    "etag": "\"a03c626c3d6ab3356e1244d780f32d8d\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:54 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "354"
+      }
+    ],
+    "sha256": "f53314caed172c788f71833d9c14a91fee8e644bfb560f7a534e9bd68d7e368d"
+  },
+  "https://data.dg-edge.com/images/tracks/355/Back355.webp": {
+    "asset": "assets/track_images/2f68e82339758c46a2b4543c9dbb8131abd4922e39e44ac941379e4f1296e4ad.jpg",
+    "bytes": 269415,
+    "etag": "\"b3e33e54fed989dc7a1689b49c358f31\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:55 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "355"
+      }
+    ],
+    "sha256": "2f68e82339758c46a2b4543c9dbb8131abd4922e39e44ac941379e4f1296e4ad"
+  },
+  "https://data.dg-edge.com/images/tracks/355/Logo355.webp": {
+    "asset": "assets/track_images/c0c8eda73d88cd6652b3e45d442bf2119c373c32d74e8f7003698d3767f8724b.png",
+    "bytes": 4112,
+    "etag": "\"ee28ca8eb015a681aafd3e7190f6a235\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:55 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "355"
+      }
+    ],
+    "sha256": "c0c8eda73d88cd6652b3e45d442bf2119c373c32d74e8f7003698d3767f8724b"
+  },
+  "https://data.dg-edge.com/images/tracks/355/Track444.webp": {
+    "asset": "assets/track_images/4c0336392b8060c46f78a91a0ed9e6b31ccf32bd67542064e6ba6e2caae457e7.png",
+    "bytes": 30635,
+    "etag": "\"2633f09346ed65b84522324f4c3450b9\"",
+    "last_modified": "Tue, 27 Oct 2026 21:48:22 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "355"
+      }
+    ],
+    "sha256": "4c0336392b8060c46f78a91a0ed9e6b31ccf32bd67542064e6ba6e2caae457e7"
+  },
+  "https://data.dg-edge.com/images/tracks/356/Back356.webp": {
+    "asset": "assets/track_images/5f8ac322ba9e3d5585b831b8a8cc0d00bab744cafa876f4ad7b05021a163331b.jpg",
+    "bytes": 268483,
+    "etag": "\"6b2f67c7b10af52d912db2cfbdd7bbbb\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:03 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "356"
+      }
+    ],
+    "sha256": "5f8ac322ba9e3d5585b831b8a8cc0d00bab744cafa876f4ad7b05021a163331b"
+  },
+  "https://data.dg-edge.com/images/tracks/356/Logo356.webp": {
+    "asset": "assets/track_images/fa810fb54a607d64c5a2bb45f1738889fdd95822c0095933846b79a0b8744ad8.png",
+    "bytes": 4031,
+    "etag": "\"3b4a2c99effe292ecec7a140bce63b3b\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:03 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "356"
+      }
+    ],
+    "sha256": "fa810fb54a607d64c5a2bb45f1738889fdd95822c0095933846b79a0b8744ad8"
+  },
+  "https://data.dg-edge.com/images/tracks/356/Track358.webp": {
+    "asset": "assets/track_images/be1db723e827f6eded677ae59fce97d31e04d44de06090dd8ce84522014044de.png",
+    "bytes": 56430,
+    "etag": "\"7e834ea67772ca3c3db30939f2708199\"",
+    "last_modified": "Tue, 27 Oct 2026 21:48:45 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "356"
+      }
+    ],
+    "sha256": "be1db723e827f6eded677ae59fce97d31e04d44de06090dd8ce84522014044de"
+  },
+  "https://data.dg-edge.com/images/tracks/357/Back357.webp": {
+    "asset": "assets/track_images/e8b814aa3b4a6765ec1c7c31e6c2aa389ed297955958f3fd81beae1ce986b407.jpg",
+    "bytes": 274458,
+    "etag": "\"0b85d1ac4d649ec56de396e2661e33e2\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:03 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "357"
+      }
+    ],
+    "sha256": "e8b814aa3b4a6765ec1c7c31e6c2aa389ed297955958f3fd81beae1ce986b407"
+  },
+  "https://data.dg-edge.com/images/tracks/357/Logo357.webp": {
+    "asset": "assets/track_images/74867cc1a064f2e0da0af30872d81061e641fd7eab4b706837751606bf359104.png",
+    "bytes": 7775,
+    "etag": "\"a66096ac07520dd936d35fa7a463ada9\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:03 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "357"
+      }
+    ],
+    "sha256": "74867cc1a064f2e0da0af30872d81061e641fd7eab4b706837751606bf359104"
+  },
+  "https://data.dg-edge.com/images/tracks/357/Track357.webp": {
+    "asset": "assets/track_images/7fe38353fe843eaeeb609fd38dacbf5cbb7208a9d1e212e17d0beac2a7dd64f6.png",
+    "bytes": 22759,
+    "etag": "\"d22edc85929720eb529a564d69b62d1f\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:03 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "357"
+      }
+    ],
+    "sha256": "7fe38353fe843eaeeb609fd38dacbf5cbb7208a9d1e212e17d0beac2a7dd64f6"
+  },
+  "https://data.dg-edge.com/images/tracks/358/Back358.webp": {
+    "asset": "assets/track_images/4bb3cab54cadc807b7ffb16809e92d4bc5614a905784578d3ab3e185ce8b74d6.jpg",
+    "bytes": 436274,
+    "etag": "\"57b6747d641f05d5adeec1e8b85f5ee3\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:04 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "358"
+      }
+    ],
+    "sha256": "4bb3cab54cadc807b7ffb16809e92d4bc5614a905784578d3ab3e185ce8b74d6"
+  },
+  "https://data.dg-edge.com/images/tracks/358/Logo358.webp": {
+    "asset": "assets/track_images/8ac09282a07a6189d7cfe08cf5f78b043a26064e533bcb3e7ce524c705e8f6b9.png",
+    "bytes": 5832,
+    "etag": "\"3c54e6abd94186e9d1481e6fa6310f04\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:04 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "358"
+      }
+    ],
+    "sha256": "8ac09282a07a6189d7cfe08cf5f78b043a26064e533bcb3e7ce524c705e8f6b9"
+  },
+  "https://data.dg-edge.com/images/tracks/358/Track365.webp": {
+    "asset": "assets/track_images/dd0b00e85fe5b03f70de2a1ad320b155c520e517aa0be08680294c0bc2e34731.png",
+    "bytes": 52297,
+    "etag": "\"decbbcf532897c6cf8709846ba922ee9\"",
+    "last_modified": "Tue, 27 Oct 2026 21:47:59 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "358"
+      }
+    ],
+    "sha256": "dd0b00e85fe5b03f70de2a1ad320b155c520e517aa0be08680294c0bc2e34731"
+  },
+  "https://data.dg-edge.com/images/tracks/359/Back359.webp": {
+    "asset": "assets/track_images/4da2d55bd08e7fbabb53a974ea64aa8f119cba572b13cedd350364f5f304a49a.jpg",
+    "bytes": 217722,
+    "etag": "\"c276f05bc5d91c4024fd8a05e91b1675\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:02 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "359"
+      }
+    ],
+    "sha256": "4da2d55bd08e7fbabb53a974ea64aa8f119cba572b13cedd350364f5f304a49a"
+  },
+  "https://data.dg-edge.com/images/tracks/359/Logo359.webp": {
+    "asset": "assets/track_images/0450a36695337c7c5d721f6f9b0ffe6371448ceafaee46704de84530b138f790.png",
+    "bytes": 5892,
+    "etag": "\"4d89754af7b16c6f999886905749a82b\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:02 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "359"
+      }
+    ],
+    "sha256": "0450a36695337c7c5d721f6f9b0ffe6371448ceafaee46704de84530b138f790"
+  },
+  "https://data.dg-edge.com/images/tracks/359/Track359.webp": {
+    "asset": "assets/track_images/cdfc6c4e25ba4977c6629c1dd0c4aeb642a529c24b25d51e29399d8ebb2ecf94.png",
+    "bytes": 23209,
+    "etag": "\"4cc30b89df140dbc0eae7aa7c840d04c\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:02 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "359"
+      }
+    ],
+    "sha256": "cdfc6c4e25ba4977c6629c1dd0c4aeb642a529c24b25d51e29399d8ebb2ecf94"
+  },
+  "https://data.dg-edge.com/images/tracks/360/Back360.webp": {
+    "asset": "assets/track_images/0384bee6dc5fd16246f1638d95777526a881535f7dde67501cfa800e1f485cdd.jpg",
+    "bytes": 246343,
+    "etag": "\"a072d600491e5ee22a68c07d3dccab9c\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:04 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "360"
+      }
+    ],
+    "sha256": "0384bee6dc5fd16246f1638d95777526a881535f7dde67501cfa800e1f485cdd"
+  },
+  "https://data.dg-edge.com/images/tracks/360/Logo360.webp": {
+    "asset": "assets/track_images/a8f6e644dc919aed0841370de3026376c24349651c61daa62f4b3822b233da0f.png",
+    "bytes": 5367,
+    "etag": "\"859ea2ebb85a05e662fdfb325abcef10\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:04 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "360"
+      }
+    ],
+    "sha256": "a8f6e644dc919aed0841370de3026376c24349651c61daa62f4b3822b233da0f"
+  },
+  "https://data.dg-edge.com/images/tracks/360/Track376.webp": {
+    "asset": "assets/track_images/2f01d8ef8f92c0b32c994ba4d89ba21ab4033e08bd38dd5efac5f0a5103dd97a.png",
+    "bytes": 48254,
+    "etag": "\"98fddd43c6c5bffc8d96568846ca8eba\"",
+    "last_modified": "Tue, 27 Oct 2026 21:47:39 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "360"
+      }
+    ],
+    "sha256": "2f01d8ef8f92c0b32c994ba4d89ba21ab4033e08bd38dd5efac5f0a5103dd97a"
+  },
+  "https://data.dg-edge.com/images/tracks/361/Back361.webp": {
+    "asset": "assets/track_images/ee29ee512c1c6ccc9fd18c42862e9c7b86605cb5eafd6e80426abcd02090b839.jpg",
+    "bytes": 274267,
+    "etag": "\"077097c147e8ad6d1986456b854122e6\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:02 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "361"
+      }
+    ],
+    "sha256": "ee29ee512c1c6ccc9fd18c42862e9c7b86605cb5eafd6e80426abcd02090b839"
+  },
+  "https://data.dg-edge.com/images/tracks/361/Logo361.webp": {
+    "asset": "assets/track_images/c5e9bae35cb251c759078a015d9093e3e59d8a33332f294dcda53e42e86bd088.png",
+    "bytes": 7627,
+    "etag": "\"2d2d196c7daa4d58fd560d7f73d50016\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:02 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "361"
+      }
+    ],
+    "sha256": "c5e9bae35cb251c759078a015d9093e3e59d8a33332f294dcda53e42e86bd088"
+  },
+  "https://data.dg-edge.com/images/tracks/361/Track4.webp": {
+    "asset": "assets/track_images/61cbe7be425916763abbe8205fabf309b11c6ef26293e70f3b7a90facb211ad8.png",
+    "bytes": 36916,
+    "etag": "\"542f9d981a325af1d3121a8607cd8b13\"",
+    "last_modified": "Thu, 15 Oct 2026 21:44:50 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "361"
+      }
+    ],
+    "sha256": "61cbe7be425916763abbe8205fabf309b11c6ef26293e70f3b7a90facb211ad8"
+  },
+  "https://data.dg-edge.com/images/tracks/362/Back356.webp": {
+    "asset": "assets/track_images/5f8ac322ba9e3d5585b831b8a8cc0d00bab744cafa876f4ad7b05021a163331b.jpg",
+    "bytes": 268483,
+    "etag": "\"6b2f67c7b10af52d912db2cfbdd7bbbb\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:54 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "362"
+      }
+    ],
+    "sha256": "5f8ac322ba9e3d5585b831b8a8cc0d00bab744cafa876f4ad7b05021a163331b"
+  },
+  "https://data.dg-edge.com/images/tracks/362/Logo356.webp": {
+    "asset": "assets/track_images/fa810fb54a607d64c5a2bb45f1738889fdd95822c0095933846b79a0b8744ad8.png",
+    "bytes": 4031,
+    "etag": "\"3b4a2c99effe292ecec7a140bce63b3b\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:54 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "362"
+      }
+    ],
+    "sha256": "fa810fb54a607d64c5a2bb45f1738889fdd95822c0095933846b79a0b8744ad8"
+  },
+  "https://data.dg-edge.com/images/tracks/362/Track358.webp": {
+    "asset": "assets/track_images/be1db723e827f6eded677ae59fce97d31e04d44de06090dd8ce84522014044de.png",
+    "bytes": 56430,
+    "etag": "\"7e834ea67772ca3c3db30939f2708199\"",
+    "last_modified": "Tue, 27 Oct 2026 21:47:26 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "362"
+      }
+    ],
+    "sha256": "be1db723e827f6eded677ae59fce97d31e04d44de06090dd8ce84522014044de"
+  },
+  "https://data.dg-edge.com/images/tracks/363/Back355.webp": {
+    "asset": "assets/track_images/2f68e82339758c46a2b4543c9dbb8131abd4922e39e44ac941379e4f1296e4ad.jpg",
+    "bytes": 269415,
+    "etag": "\"b3e33e54fed989dc7a1689b49c358f31\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:55 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "363"
+      }
+    ],
+    "sha256": "2f68e82339758c46a2b4543c9dbb8131abd4922e39e44ac941379e4f1296e4ad"
+  },
+  "https://data.dg-edge.com/images/tracks/363/Logo355.webp": {
+    "asset": "assets/track_images/c0c8eda73d88cd6652b3e45d442bf2119c373c32d74e8f7003698d3767f8724b.png",
+    "bytes": 4112,
+    "etag": "\"ee28ca8eb015a681aafd3e7190f6a235\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:55 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "363"
+      }
+    ],
+    "sha256": "c0c8eda73d88cd6652b3e45d442bf2119c373c32d74e8f7003698d3767f8724b"
+  },
+  "https://data.dg-edge.com/images/tracks/363/Track357.webp": {
+    "asset": "assets/track_images/4c0336392b8060c46f78a91a0ed9e6b31ccf32bd67542064e6ba6e2caae457e7.png",
+    "bytes": 30635,
+    "etag": "\"2633f09346ed65b84522324f4c3450b9\"",
+    "last_modified": "Tue, 27 Oct 2026 21:47:16 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "363"
+      }
+    ],
+    "sha256": "4c0336392b8060c46f78a91a0ed9e6b31ccf32bd67542064e6ba6e2caae457e7"
+  },
+  "https://data.dg-edge.com/images/tracks/364/Back359.webp": {
+    "asset": "assets/track_images/4da2d55bd08e7fbabb53a974ea64aa8f119cba572b13cedd350364f5f304a49a.jpg",
+    "bytes": 217722,
+    "etag": "\"c276f05bc5d91c4024fd8a05e91b1675\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:55 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "364"
+      }
+    ],
+    "sha256": "4da2d55bd08e7fbabb53a974ea64aa8f119cba572b13cedd350364f5f304a49a"
+  },
+  "https://data.dg-edge.com/images/tracks/364/Logo359.webp": {
+    "asset": "assets/track_images/0450a36695337c7c5d721f6f9b0ffe6371448ceafaee46704de84530b138f790.png",
+    "bytes": 5892,
+    "etag": "\"4d89754af7b16c6f999886905749a82b\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:55 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "364"
+      }
+    ],
+    "sha256": "0450a36695337c7c5d721f6f9b0ffe6371448ceafaee46704de84530b138f790"
+  },
+  "https://data.dg-edge.com/images/tracks/364/Track372.webp": {
+    "asset": "assets/track_images/7a81f076586f729b226acab4d6ffbd382f2099302cfc75a6b18a532240fce602.png",
+    "bytes": 49398,
+    "etag": "\"2087d5fa0789a92aa07db952afc53def\"",
+    "last_modified": "Tue, 27 Oct 2026 21:47:02 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "364"
+      }
+    ],
+    "sha256": "7a81f076586f729b226acab4d6ffbd382f2099302cfc75a6b18a532240fce602"
+  },
+  "https://data.dg-edge.com/images/tracks/365/Back357.webp": {
+    "asset": "assets/track_images/e8b814aa3b4a6765ec1c7c31e6c2aa389ed297955958f3fd81beae1ce986b407.jpg",
+    "bytes": 274458,
+    "etag": "\"0b85d1ac4d649ec56de396e2661e33e2\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:54 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "365"
+      }
+    ],
+    "sha256": "e8b814aa3b4a6765ec1c7c31e6c2aa389ed297955958f3fd81beae1ce986b407"
+  },
+  "https://data.dg-edge.com/images/tracks/365/Logo357.webp": {
+    "asset": "assets/track_images/74867cc1a064f2e0da0af30872d81061e641fd7eab4b706837751606bf359104.png",
+    "bytes": 7775,
+    "etag": "\"a66096ac07520dd936d35fa7a463ada9\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:54 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "365"
+      }
+    ],
+    "sha256": "74867cc1a064f2e0da0af30872d81061e641fd7eab4b706837751606bf359104"
+  },
+  "https://data.dg-edge.com/images/tracks/365/Track363.webp": {
+    "asset": "assets/track_images/a9bb2e38aa6bfd8c11d82bb0a81e2b08e2de8507730c276926d391ba3e559280.png",
+    "bytes": 53884,
+    "etag": "\"b740e6cac79f2f8b43b9edbd48a3a4d9\"",
+    "last_modified": "Tue, 27 Oct 2026 21:46:45 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "365"
+      }
+    ],
+    "sha256": "a9bb2e38aa6bfd8c11d82bb0a81e2b08e2de8507730c276926d391ba3e559280"
+  },
+  "https://data.dg-edge.com/images/tracks/366/Back358.webp": {
+    "asset": "assets/track_images/4bb3cab54cadc807b7ffb16809e92d4bc5614a905784578d3ab3e185ce8b74d6.jpg",
+    "bytes": 436274,
+    "etag": "\"57b6747d641f05d5adeec1e8b85f5ee3\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:02 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "366"
+      }
+    ],
+    "sha256": "4bb3cab54cadc807b7ffb16809e92d4bc5614a905784578d3ab3e185ce8b74d6"
+  },
+  "https://data.dg-edge.com/images/tracks/366/Logo358.webp": {
+    "asset": "assets/track_images/8ac09282a07a6189d7cfe08cf5f78b043a26064e533bcb3e7ce524c705e8f6b9.png",
+    "bytes": 5832,
+    "etag": "\"3c54e6abd94186e9d1481e6fa6310f04\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:02 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "366"
+      }
+    ],
+    "sha256": "8ac09282a07a6189d7cfe08cf5f78b043a26064e533bcb3e7ce524c705e8f6b9"
+  },
+  "https://data.dg-edge.com/images/tracks/366/Track602.webp": {
+    "asset": "assets/track_images/dd0b00e85fe5b03f70de2a1ad320b155c520e517aa0be08680294c0bc2e34731.png",
+    "bytes": 52297,
+    "etag": "\"decbbcf532897c6cf8709846ba922ee9\"",
+    "last_modified": "Tue, 27 Oct 2026 21:46:32 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "366"
+      }
+    ],
+    "sha256": "dd0b00e85fe5b03f70de2a1ad320b155c520e517aa0be08680294c0bc2e34731"
+  },
+  "https://data.dg-edge.com/images/tracks/367/Back360.webp": {
+    "asset": "assets/track_images/0384bee6dc5fd16246f1638d95777526a881535f7dde67501cfa800e1f485cdd.jpg",
+    "bytes": 246343,
+    "etag": "\"a072d600491e5ee22a68c07d3dccab9c\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:04 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "367"
+      }
+    ],
+    "sha256": "0384bee6dc5fd16246f1638d95777526a881535f7dde67501cfa800e1f485cdd"
+  },
+  "https://data.dg-edge.com/images/tracks/367/Logo360.webp": {
+    "asset": "assets/track_images/a8f6e644dc919aed0841370de3026376c24349651c61daa62f4b3822b233da0f.png",
+    "bytes": 5367,
+    "etag": "\"859ea2ebb85a05e662fdfb325abcef10\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:04 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "367"
+      }
+    ],
+    "sha256": "a8f6e644dc919aed0841370de3026376c24349651c61daa62f4b3822b233da0f"
+  },
+  "https://data.dg-edge.com/images/tracks/367/Track376.webp": {
+    "asset": "assets/track_images/2f01d8ef8f92c0b32c994ba4d89ba21ab4033e08bd38dd5efac5f0a5103dd97a.png",
+    "bytes": 48254,
+    "etag": "\"98fddd43c6c5bffc8d96568846ca8eba\"",
+    "last_modified": "Tue, 27 Oct 2026 21:46:11 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "367"
+      }
+    ],
+    "sha256": "2f01d8ef8f92c0b32c994ba4d89ba21ab4033e08bd38dd5efac5f0a5103dd97a"
+  },
+  "https://data.dg-edge.com/images/tracks/368/Back368.webp": {
+    "asset": "assets/track_images/75e4536c3cc2f13b537ea178ce28d8a3af0d58440c97eefd7d084224f3669fc0.jpg",
+    "bytes": 208317,
+    "etag": "\"08f6b381c448a63f2b0b428e6fb099fe\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:03 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "368"
+      }
+    ],
+    "sha256": "75e4536c3cc2f13b537ea178ce28d8a3af0d58440c97eefd7d084224f3669fc0"
+  },
+  "https://data.dg-edge.com/images/tracks/368/Logo368.webp": {
+    "asset": "assets/track_images/a8f6e644dc919aed0841370de3026376c24349651c61daa62f4b3822b233da0f.png",
+    "bytes": 5367,
+    "etag": "\"859ea2ebb85a05e662fdfb325abcef10\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:03 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "368"
+      }
+    ],
+    "sha256": "a8f6e644dc919aed0841370de3026376c24349651c61daa62f4b3822b233da0f"
+  },
+  "https://data.dg-edge.com/images/tracks/368/Track776.webp": {
+    "asset": "assets/track_images/8f416ca243d267465262bd4c0b508ebb7f4d41011ba9286c55987c62435294a3.png",
+    "bytes": 68046,
+    "etag": "\"618a665547d824e148ef7de6520c3124\"",
+    "last_modified": "Tue, 27 Oct 2026 21:45:55 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "368"
+      }
+    ],
+    "sha256": "8f416ca243d267465262bd4c0b508ebb7f4d41011ba9286c55987c62435294a3"
+  },
+  "https://data.dg-edge.com/images/tracks/369/Back368.webp": {
+    "asset": "assets/track_images/75e4536c3cc2f13b537ea178ce28d8a3af0d58440c97eefd7d084224f3669fc0.jpg",
+    "bytes": 208317,
+    "etag": "\"08f6b381c448a63f2b0b428e6fb099fe\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:03 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "369"
+      }
+    ],
+    "sha256": "75e4536c3cc2f13b537ea178ce28d8a3af0d58440c97eefd7d084224f3669fc0"
+  },
+  "https://data.dg-edge.com/images/tracks/369/Logo368.webp": {
+    "asset": "assets/track_images/a8f6e644dc919aed0841370de3026376c24349651c61daa62f4b3822b233da0f.png",
+    "bytes": 5367,
+    "etag": "\"859ea2ebb85a05e662fdfb325abcef10\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:03 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "369"
+      }
+    ],
+    "sha256": "a8f6e644dc919aed0841370de3026376c24349651c61daa62f4b3822b233da0f"
+  },
+  "https://data.dg-edge.com/images/tracks/369/Track776.webp": {
+    "asset": "assets/track_images/8f416ca243d267465262bd4c0b508ebb7f4d41011ba9286c55987c62435294a3.png",
+    "bytes": 68046,
+    "etag": "\"618a665547d824e148ef7de6520c3124\"",
+    "last_modified": "Tue, 27 Oct 2026 21:45:51 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "369"
+      }
+    ],
+    "sha256": "8f416ca243d267465262bd4c0b508ebb7f4d41011ba9286c55987c62435294a3"
+  },
+  "https://data.dg-edge.com/images/tracks/370/Back370.webp": {
+    "asset": "assets/track_images/19cacb7a519b709cadd95e66ecb564165006092eec997cf5b5bb51a02895eeab.jpg",
+    "bytes": 214532,
+    "etag": "\"102af654ed06a0b8a461b9d0f8b0cf35\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:59 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "370"
+      }
+    ],
+    "sha256": "19cacb7a519b709cadd95e66ecb564165006092eec997cf5b5bb51a02895eeab"
+  },
+  "https://data.dg-edge.com/images/tracks/370/Logo370.webp": {
+    "asset": "assets/track_images/ad36695e0233d61f9885451f9b5086b2ce69e5caa7830032a4cf57e004c60954.png",
+    "bytes": 5177,
+    "etag": "\"11db9cfed957506ff851b993a62cf4ad\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:59 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "370"
+      }
+    ],
+    "sha256": "ad36695e0233d61f9885451f9b5086b2ce69e5caa7830032a4cf57e004c60954"
+  },
+  "https://data.dg-edge.com/images/tracks/370/Track826.webp": {
+    "asset": "assets/track_images/5a49cc7ea1e2e521e7de2c899926f3e78f10704127a887d0e3c7ba4fea9b3e4c.png",
+    "bytes": 59185,
+    "etag": "\"5ed6756f8b60657d1f3f0199d5061dda\"",
+    "last_modified": "Tue, 27 Oct 2026 21:45:36 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "370"
+      }
+    ],
+    "sha256": "5a49cc7ea1e2e521e7de2c899926f3e78f10704127a887d0e3c7ba4fea9b3e4c"
+  },
+  "https://data.dg-edge.com/images/tracks/371/Back370.webp": {
+    "asset": "assets/track_images/19cacb7a519b709cadd95e66ecb564165006092eec997cf5b5bb51a02895eeab.jpg",
+    "bytes": 214532,
+    "etag": "\"102af654ed06a0b8a461b9d0f8b0cf35\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:00 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "371"
+      }
+    ],
+    "sha256": "19cacb7a519b709cadd95e66ecb564165006092eec997cf5b5bb51a02895eeab"
+  },
+  "https://data.dg-edge.com/images/tracks/371/Logo370.webp": {
+    "asset": "assets/track_images/ad36695e0233d61f9885451f9b5086b2ce69e5caa7830032a4cf57e004c60954.png",
+    "bytes": 5177,
+    "etag": "\"11db9cfed957506ff851b993a62cf4ad\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:00 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "371"
+      }
+    ],
+    "sha256": "ad36695e0233d61f9885451f9b5086b2ce69e5caa7830032a4cf57e004c60954"
+  },
+  "https://data.dg-edge.com/images/tracks/371/Track826.webp": {
+    "asset": "assets/track_images/5a49cc7ea1e2e521e7de2c899926f3e78f10704127a887d0e3c7ba4fea9b3e4c.png",
+    "bytes": 59185,
+    "etag": "\"5ed6756f8b60657d1f3f0199d5061dda\"",
+    "last_modified": "Tue, 27 Oct 2026 21:45:30 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "371"
+      }
+    ],
+    "sha256": "5a49cc7ea1e2e521e7de2c899926f3e78f10704127a887d0e3c7ba4fea9b3e4c"
+  },
+  "https://data.dg-edge.com/images/tracks/372/Back372.webp": {
+    "asset": "assets/track_images/3c6871a042f83b596a8d55f2582a6d3eeb784fb7960789cfe1caf486e1f019d5.jpg",
+    "bytes": 272468,
+    "etag": "\"f0d809f64f12f8a9af7c77df8a36d2b7\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:10 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "372"
+      }
+    ],
+    "sha256": "3c6871a042f83b596a8d55f2582a6d3eeb784fb7960789cfe1caf486e1f019d5"
+  },
+  "https://data.dg-edge.com/images/tracks/372/Logo372.webp": {
+    "asset": "assets/track_images/ad36695e0233d61f9885451f9b5086b2ce69e5caa7830032a4cf57e004c60954.png",
+    "bytes": 5177,
+    "etag": "\"11db9cfed957506ff851b993a62cf4ad\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:10 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "372"
+      }
+    ],
+    "sha256": "ad36695e0233d61f9885451f9b5086b2ce69e5caa7830032a4cf57e004c60954"
+  },
+  "https://data.dg-edge.com/images/tracks/372/Track828.webp": {
+    "asset": "assets/track_images/52fffc499f4f5562e0bdf99795e2729f9a8ec7586ddc201530746fc641d35ce1.png",
+    "bytes": 45434,
+    "etag": "\"e1fd1acb95ad39baa968a24747312122\"",
+    "last_modified": "Tue, 27 Oct 2026 21:45:17 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "372"
+      }
+    ],
+    "sha256": "52fffc499f4f5562e0bdf99795e2729f9a8ec7586ddc201530746fc641d35ce1"
+  },
+  "https://data.dg-edge.com/images/tracks/373/Back372.webp": {
+    "asset": "assets/track_images/3c6871a042f83b596a8d55f2582a6d3eeb784fb7960789cfe1caf486e1f019d5.jpg",
+    "bytes": 272468,
+    "etag": "\"f0d809f64f12f8a9af7c77df8a36d2b7\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:08 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "373"
+      }
+    ],
+    "sha256": "3c6871a042f83b596a8d55f2582a6d3eeb784fb7960789cfe1caf486e1f019d5"
+  },
+  "https://data.dg-edge.com/images/tracks/373/Logo372.webp": {
+    "asset": "assets/track_images/ad36695e0233d61f9885451f9b5086b2ce69e5caa7830032a4cf57e004c60954.png",
+    "bytes": 5177,
+    "etag": "\"11db9cfed957506ff851b993a62cf4ad\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:08 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "373"
+      }
+    ],
+    "sha256": "ad36695e0233d61f9885451f9b5086b2ce69e5caa7830032a4cf57e004c60954"
+  },
+  "https://data.dg-edge.com/images/tracks/373/Track828.webp": {
+    "asset": "assets/track_images/52fffc499f4f5562e0bdf99795e2729f9a8ec7586ddc201530746fc641d35ce1.png",
+    "bytes": 45434,
+    "etag": "\"e1fd1acb95ad39baa968a24747312122\"",
+    "last_modified": "Tue, 27 Oct 2026 21:45:03 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "373"
+      }
+    ],
+    "sha256": "52fffc499f4f5562e0bdf99795e2729f9a8ec7586ddc201530746fc641d35ce1"
+  },
+  "https://data.dg-edge.com/images/tracks/374/Back374.webp": {
+    "asset": "assets/track_images/fbe99555f6f7977a30b69ff046e19be4d5eb76d5b959c7029bad84cca7e0c066.jpg",
+    "bytes": 299512,
+    "etag": "\"7574e1d66d9024148c9c976aacee1407\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:09 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "374"
+      }
+    ],
+    "sha256": "fbe99555f6f7977a30b69ff046e19be4d5eb76d5b959c7029bad84cca7e0c066"
+  },
+  "https://data.dg-edge.com/images/tracks/374/Logo374.webp": {
+    "asset": "assets/track_images/ad36695e0233d61f9885451f9b5086b2ce69e5caa7830032a4cf57e004c60954.png",
+    "bytes": 5177,
+    "etag": "\"11db9cfed957506ff851b993a62cf4ad\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:09 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "374"
+      }
+    ],
+    "sha256": "ad36695e0233d61f9885451f9b5086b2ce69e5caa7830032a4cf57e004c60954"
+  },
+  "https://data.dg-edge.com/images/tracks/374/Track829.webp": {
+    "asset": "assets/track_images/22aa9380c69f3e99a5d37e3279788bfeef3533cc8f50b9cf7032d18d583fac29.png",
+    "bytes": 54213,
+    "etag": "\"0c07d5d0bc2203e0d761350ec978bd00\"",
+    "last_modified": "Tue, 27 Oct 2026 21:44:50 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "374"
+      }
+    ],
+    "sha256": "22aa9380c69f3e99a5d37e3279788bfeef3533cc8f50b9cf7032d18d583fac29"
+  },
+  "https://data.dg-edge.com/images/tracks/375/Back374.webp": {
+    "asset": "assets/track_images/fbe99555f6f7977a30b69ff046e19be4d5eb76d5b959c7029bad84cca7e0c066.jpg",
+    "bytes": 299512,
+    "etag": "\"7574e1d66d9024148c9c976aacee1407\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:10 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "375"
+      }
+    ],
+    "sha256": "fbe99555f6f7977a30b69ff046e19be4d5eb76d5b959c7029bad84cca7e0c066"
+  },
+  "https://data.dg-edge.com/images/tracks/375/Logo374.webp": {
+    "asset": "assets/track_images/ad36695e0233d61f9885451f9b5086b2ce69e5caa7830032a4cf57e004c60954.png",
+    "bytes": 5177,
+    "etag": "\"11db9cfed957506ff851b993a62cf4ad\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:10 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "375"
+      }
+    ],
+    "sha256": "ad36695e0233d61f9885451f9b5086b2ce69e5caa7830032a4cf57e004c60954"
+  },
+  "https://data.dg-edge.com/images/tracks/375/Track829.webp": {
+    "asset": "assets/track_images/22aa9380c69f3e99a5d37e3279788bfeef3533cc8f50b9cf7032d18d583fac29.png",
+    "bytes": 54213,
+    "etag": "\"0c07d5d0bc2203e0d761350ec978bd00\"",
+    "last_modified": "Tue, 27 Oct 2026 21:44:44 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "375"
+      }
+    ],
+    "sha256": "22aa9380c69f3e99a5d37e3279788bfeef3533cc8f50b9cf7032d18d583fac29"
+  },
+  "https://data.dg-edge.com/images/tracks/376/Back376.webp": {
+    "asset": "assets/track_images/4a45d35a6d7782d497f6f351ce74ca92efedf7b4328eabca1dae23c41765530f.jpg",
+    "bytes": 240026,
+    "etag": "\"430ed4881ae96337577e8034f2ce7244\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:00 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "376"
+      }
+    ],
+    "sha256": "4a45d35a6d7782d497f6f351ce74ca92efedf7b4328eabca1dae23c41765530f"
+  },
+  "https://data.dg-edge.com/images/tracks/376/Logo376.webp": {
+    "asset": "assets/track_images/27d6aee74e5eaa8941fc6098ba8a1434e1ff38848bd21a5cd4f250679a8ddf87.png",
+    "bytes": 8570,
+    "etag": "\"b80834465436888d0b3c30f1c581896e\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:00 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "376"
+      }
+    ],
+    "sha256": "27d6aee74e5eaa8941fc6098ba8a1434e1ff38848bd21a5cd4f250679a8ddf87"
+  },
+  "https://data.dg-edge.com/images/tracks/376/Track837.webp": {
+    "asset": "assets/track_images/299e1e87b73e1a0e50a82a9bb49ee443e8bf585df3e4851a3a65393020e72c63.png",
+    "bytes": 51822,
+    "etag": "\"99555f0a427ba9c6bae2870cfbdf88f7\"",
+    "last_modified": "Tue, 27 Oct 2026 21:44:29 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "376"
+      }
+    ],
+    "sha256": "299e1e87b73e1a0e50a82a9bb49ee443e8bf585df3e4851a3a65393020e72c63"
+  },
+  "https://data.dg-edge.com/images/tracks/377/Back380.webp": {
+    "asset": "assets/track_images/440474a536405616ea5caf47fe81c5b15505ad89068c5cbbaa1155013218a4f1.jpg",
+    "bytes": 232410,
+    "etag": "\"ab9e7edde05d23c4e48b621b731cb63b\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:59 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "377"
+      }
+    ],
+    "sha256": "440474a536405616ea5caf47fe81c5b15505ad89068c5cbbaa1155013218a4f1"
+  },
+  "https://data.dg-edge.com/images/tracks/377/Logo380.webp": {
+    "asset": "assets/track_images/a69ba746b9a824e3f88cd7984947bfcd2f2123413b517fda4531f602c6020862.png",
+    "bytes": 3776,
+    "etag": "\"33021ceb6fc4d7d74b925fef1429d778\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:59 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "377"
+      }
+    ],
+    "sha256": "a69ba746b9a824e3f88cd7984947bfcd2f2123413b517fda4531f602c6020862"
+  },
+  "https://data.dg-edge.com/images/tracks/377/Track838.webp": {
+    "asset": "assets/track_images/92c6022d5f69dfdb60861a6c056457089f4873b897d26b21b73564c815332df8.png",
+    "bytes": 43983,
+    "etag": "\"8f500a488ce42e6fa619d2dcce646d29\"",
+    "last_modified": "Tue, 27 Oct 2026 21:44:17 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "377"
+      }
+    ],
+    "sha256": "92c6022d5f69dfdb60861a6c056457089f4873b897d26b21b73564c815332df8"
+  },
+  "https://data.dg-edge.com/images/tracks/378/Back379.webp": {
+    "asset": "assets/track_images/5e93ae417931b04e60310b39edb93fec0e0c3690da37c3ed6a3bc432cde7d243.jpg",
+    "bytes": 207126,
+    "etag": "\"3c8037adfe26ce3ad67dc69f2451f942\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:01 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "378"
+      }
+    ],
+    "sha256": "5e93ae417931b04e60310b39edb93fec0e0c3690da37c3ed6a3bc432cde7d243"
+  },
+  "https://data.dg-edge.com/images/tracks/378/Logo379.webp": {
+    "asset": "assets/track_images/a69ba746b9a824e3f88cd7984947bfcd2f2123413b517fda4531f602c6020862.png",
+    "bytes": 3776,
+    "etag": "\"33021ceb6fc4d7d74b925fef1429d778\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:01 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "378"
+      }
+    ],
+    "sha256": "a69ba746b9a824e3f88cd7984947bfcd2f2123413b517fda4531f602c6020862"
+  },
+  "https://data.dg-edge.com/images/tracks/378/Track839.webp": {
+    "asset": "assets/track_images/dfdd45e5db8f16eb4536eee30c4fdc905640e40c61a242ba0d5a66af761e8ac7.png",
+    "bytes": 44680,
+    "etag": "\"edfd51a61532d2fada51e40f708b694f\"",
+    "last_modified": "Tue, 27 Oct 2026 21:43:07 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "378"
+      }
+    ],
+    "sha256": "dfdd45e5db8f16eb4536eee30c4fdc905640e40c61a242ba0d5a66af761e8ac7"
+  },
+  "https://data.dg-edge.com/images/tracks/379/Back379.webp": {
+    "asset": "assets/track_images/5e93ae417931b04e60310b39edb93fec0e0c3690da37c3ed6a3bc432cde7d243.jpg",
+    "bytes": 207126,
+    "etag": "\"3c8037adfe26ce3ad67dc69f2451f942\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:58 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "379"
+      }
+    ],
+    "sha256": "5e93ae417931b04e60310b39edb93fec0e0c3690da37c3ed6a3bc432cde7d243"
+  },
+  "https://data.dg-edge.com/images/tracks/379/Logo379.webp": {
+    "asset": "assets/track_images/a69ba746b9a824e3f88cd7984947bfcd2f2123413b517fda4531f602c6020862.png",
+    "bytes": 3776,
+    "etag": "\"33021ceb6fc4d7d74b925fef1429d778\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:58 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "379"
+      }
+    ],
+    "sha256": "a69ba746b9a824e3f88cd7984947bfcd2f2123413b517fda4531f602c6020862"
+  },
+  "https://data.dg-edge.com/images/tracks/379/Track841.webp": {
+    "asset": "assets/track_images/dfdd45e5db8f16eb4536eee30c4fdc905640e40c61a242ba0d5a66af761e8ac7.png",
+    "bytes": 44680,
+    "etag": "\"edfd51a61532d2fada51e40f708b694f\"",
+    "last_modified": "Tue, 27 Oct 2026 21:42:56 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "379"
+      }
+    ],
+    "sha256": "dfdd45e5db8f16eb4536eee30c4fdc905640e40c61a242ba0d5a66af761e8ac7"
+  },
+  "https://data.dg-edge.com/images/tracks/380/Back380.webp": {
+    "asset": "assets/track_images/440474a536405616ea5caf47fe81c5b15505ad89068c5cbbaa1155013218a4f1.jpg",
+    "bytes": 232410,
+    "etag": "\"ab9e7edde05d23c4e48b621b731cb63b\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:09 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "380"
+      }
+    ],
+    "sha256": "440474a536405616ea5caf47fe81c5b15505ad89068c5cbbaa1155013218a4f1"
+  },
+  "https://data.dg-edge.com/images/tracks/380/Logo380.webp": {
+    "asset": "assets/track_images/a69ba746b9a824e3f88cd7984947bfcd2f2123413b517fda4531f602c6020862.png",
+    "bytes": 3776,
+    "etag": "\"33021ceb6fc4d7d74b925fef1429d778\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:09 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "380"
+      }
+    ],
+    "sha256": "a69ba746b9a824e3f88cd7984947bfcd2f2123413b517fda4531f602c6020862"
+  },
+  "https://data.dg-edge.com/images/tracks/380/Track843.webp": {
+    "asset": "assets/track_images/92c6022d5f69dfdb60861a6c056457089f4873b897d26b21b73564c815332df8.png",
+    "bytes": 43983,
+    "etag": "\"8f500a488ce42e6fa619d2dcce646d29\"",
+    "last_modified": "Tue, 27 Oct 2026 21:42:41 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "380"
+      }
+    ],
+    "sha256": "92c6022d5f69dfdb60861a6c056457089f4873b897d26b21b73564c815332df8"
+  },
+  "https://data.dg-edge.com/images/tracks/381/Back381.webp": {
+    "asset": "assets/track_images/19c6d86c3c19c62669af977366fee7d995444b59023ba0b6c70fa443b5add024.jpg",
+    "bytes": 314361,
+    "etag": "\"92b0cf57f3ec110f813a49f9e1ec5674\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:10 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "381"
+      }
+    ],
+    "sha256": "19c6d86c3c19c62669af977366fee7d995444b59023ba0b6c70fa443b5add024"
+  },
+  "https://data.dg-edge.com/images/tracks/381/Logo381.webp": {
+    "asset": "assets/track_images/f2f0abb4cfa289f9e5bf5d2f25fc959e4447d133e6ae7fdc8a57e859671058cc.png",
+    "bytes": 5505,
+    "etag": "\"f0bed9a211eaf45e59dd315a4f5b9e30\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:10 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "381"
+      }
+    ],
+    "sha256": "f2f0abb4cfa289f9e5bf5d2f25fc959e4447d133e6ae7fdc8a57e859671058cc"
+  },
+  "https://data.dg-edge.com/images/tracks/381/Track874.webp": {
+    "asset": "assets/track_images/6f44606f2e07b4f5f7f50c9c8cdca7755cbb968ab5da5e3a3628654c604f5fa2.png",
+    "bytes": 57964,
+    "etag": "\"154afdf82fafbdde142bbe7d28a55b3d\"",
+    "last_modified": "Tue, 27 Oct 2026 21:42:25 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "381"
+      }
+    ],
+    "sha256": "6f44606f2e07b4f5f7f50c9c8cdca7755cbb968ab5da5e3a3628654c604f5fa2"
+  },
+  "https://data.dg-edge.com/images/tracks/382/Back382.webp": {
+    "asset": "assets/track_images/84a65e967ca4a6126d16f5a84f502d96b4d9b349dbdaa58b3eaab97de88f85bd.jpg",
+    "bytes": 312687,
+    "etag": "\"e35b2a556d28f5e8d302675d2bce73d3\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:00 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "382"
+      }
+    ],
+    "sha256": "84a65e967ca4a6126d16f5a84f502d96b4d9b349dbdaa58b3eaab97de88f85bd"
+  },
+  "https://data.dg-edge.com/images/tracks/382/Logo382.webp": {
+    "asset": "assets/track_images/21ba2025302078793f7b15a81ba0626b98f89f41eef5280760a17c47ac343c53.png",
+    "bytes": 5607,
+    "etag": "\"0ec03a140099ba60f7ef0125ba7152c2\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:00 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "382"
+      }
+    ],
+    "sha256": "21ba2025302078793f7b15a81ba0626b98f89f41eef5280760a17c47ac343c53"
+  },
+  "https://data.dg-edge.com/images/tracks/382/Track896.webp": {
+    "asset": "assets/track_images/b9544b93021b2f97a2d6110506744ccc65384350b93bea82586acf9f7559ce85.png",
+    "bytes": 58055,
+    "etag": "\"70195f2aeeb46a7b3101e508c04eb1ef\"",
+    "last_modified": "Tue, 27 Oct 2026 21:42:06 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "382"
+      }
+    ],
+    "sha256": "b9544b93021b2f97a2d6110506744ccc65384350b93bea82586acf9f7559ce85"
+  },
+  "https://data.dg-edge.com/images/tracks/383/Back383.webp": {
+    "asset": "assets/track_images/928b50103925f72a1526b8075e354f70585170c381dd0debdc5f957a95931a16.jpg",
+    "bytes": 258333,
+    "etag": "\"a6c6ebbf7276661076512fdb53f6f898\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:59 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "383"
+      }
+    ],
+    "sha256": "928b50103925f72a1526b8075e354f70585170c381dd0debdc5f957a95931a16"
+  },
+  "https://data.dg-edge.com/images/tracks/383/Logo383.webp": {
+    "asset": "assets/track_images/21ba2025302078793f7b15a81ba0626b98f89f41eef5280760a17c47ac343c53.png",
+    "bytes": 5607,
+    "etag": "\"0ec03a140099ba60f7ef0125ba7152c2\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:59 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "383"
+      }
+    ],
+    "sha256": "21ba2025302078793f7b15a81ba0626b98f89f41eef5280760a17c47ac343c53"
+  },
+  "https://data.dg-edge.com/images/tracks/383/Track898.webp": {
+    "asset": "assets/track_images/1cb6709a5cd2c78f8a3e566ccca70b86cce14ada430403eb5e8590144026c8b6.png",
+    "bytes": 49126,
+    "etag": "\"b6a354b79f61c3a777ca1ffbf237194e\"",
+    "last_modified": "Tue, 27 Oct 2026 21:41:56 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "383"
+      }
+    ],
+    "sha256": "1cb6709a5cd2c78f8a3e566ccca70b86cce14ada430403eb5e8590144026c8b6"
+  },
+  "https://data.dg-edge.com/images/tracks/384/Back384.webp": {
+    "asset": "assets/track_images/031143f11a8016d0f5ef2ed03ebe0acc28831794090406c126931e6a10cc9c7e.jpg",
+    "bytes": 235242,
+    "etag": "\"743d92fd9914b0e9c63cb02967aafca9\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:59 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "384"
+      }
+    ],
+    "sha256": "031143f11a8016d0f5ef2ed03ebe0acc28831794090406c126931e6a10cc9c7e"
+  },
+  "https://data.dg-edge.com/images/tracks/384/Logo384.webp": {
+    "asset": "assets/track_images/a69ba746b9a824e3f88cd7984947bfcd2f2123413b517fda4531f602c6020862.png",
+    "bytes": 3776,
+    "etag": "\"33021ceb6fc4d7d74b925fef1429d778\"",
+    "last_modified": "Wed, 25 Sep 2024 15:09:59 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "384"
+      }
+    ],
+    "sha256": "a69ba746b9a824e3f88cd7984947bfcd2f2123413b517fda4531f602c6020862"
+  },
+  "https://data.dg-edge.com/images/tracks/384/Track921.webp": {
+    "asset": "assets/track_images/45fe345423407b0e65e764152dcf77b47f633af0706410f0f76a854e3d51d2a3.png",
+    "bytes": 52121,
+    "etag": "\"ed3127053238b8a99bdf34231f905cc2\"",
+    "last_modified": "Thu, 15 Oct 2026 21:40:20 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "384"
+      }
+    ],
+    "sha256": "45fe345423407b0e65e764152dcf77b47f633af0706410f0f76a854e3d51d2a3"
+  },
+  "https://data.dg-edge.com/images/tracks/385/Back384.webp": {
+    "asset": "assets/track_images/031143f11a8016d0f5ef2ed03ebe0acc28831794090406c126931e6a10cc9c7e.jpg",
+    "bytes": 235242,
+    "etag": "\"743d92fd9914b0e9c63cb02967aafca9\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:00 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "385"
+      }
+    ],
+    "sha256": "031143f11a8016d0f5ef2ed03ebe0acc28831794090406c126931e6a10cc9c7e"
+  },
+  "https://data.dg-edge.com/images/tracks/385/Logo384.webp": {
+    "asset": "assets/track_images/a69ba746b9a824e3f88cd7984947bfcd2f2123413b517fda4531f602c6020862.png",
+    "bytes": 3776,
+    "etag": "\"33021ceb6fc4d7d74b925fef1429d778\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:00 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "385"
+      }
+    ],
+    "sha256": "a69ba746b9a824e3f88cd7984947bfcd2f2123413b517fda4531f602c6020862"
+  },
+  "https://data.dg-edge.com/images/tracks/385/Track922.webp": {
+    "asset": "assets/track_images/45fe345423407b0e65e764152dcf77b47f633af0706410f0f76a854e3d51d2a3.png",
+    "bytes": 52121,
+    "etag": "\"ed3127053238b8a99bdf34231f905cc2\"",
+    "last_modified": "Thu, 15 Oct 2026 21:40:08 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "385"
+      }
+    ],
+    "sha256": "45fe345423407b0e65e764152dcf77b47f633af0706410f0f76a854e3d51d2a3"
+  },
+  "https://data.dg-edge.com/images/tracks/386/Back386.webp": {
+    "asset": "assets/track_images/8182826059c725a48dc960ef89b445f9833944d50aed482d1e323f51a38885f8.jpg",
+    "bytes": 180755,
+    "etag": "\"0b0e5adc4e9262d5b4cb833fa487fe02\"",
+    "last_modified": "Mon, 11 Nov 2024 08:12:39 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "386"
+      }
+    ],
+    "sha256": "8182826059c725a48dc960ef89b445f9833944d50aed482d1e323f51a38885f8"
+  },
+  "https://data.dg-edge.com/images/tracks/386/Logo274.webp": {
+    "asset": "assets/track_images/a3ec7f6acc00b92b24b3e23d30eb28811fad9d3d023c4670086aa65205b27346.png",
+    "bytes": 5609,
+    "etag": "\"0c61dafe4dae73a0123599ec6ac12ee3\"",
+    "last_modified": "Mon, 11 Nov 2024 08:12:39 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "386"
+      }
+    ],
+    "sha256": "a3ec7f6acc00b92b24b3e23d30eb28811fad9d3d023c4670086aa65205b27346"
+  },
+  "https://data.dg-edge.com/images/tracks/386/Track95.webp": {
+    "asset": "assets/track_images/a5e2954c0d336964b3cdea0baeeb699725630c0f6ca557c024c00ea071a3d46b.png",
+    "bytes": 52495,
+    "etag": "\"963361f1a59b5ded3c7dd76092839c50\"",
+    "last_modified": "Thu, 15 Oct 2026 21:39:34 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "386"
+      }
+    ],
+    "sha256": "a5e2954c0d336964b3cdea0baeeb699725630c0f6ca557c024c00ea071a3d46b"
+  },
+  "https://data.dg-edge.com/images/tracks/387/Back387.webp": {
+    "asset": "assets/track_images/5c59d311a33bfe24dc057acb9d6d4dd1d2e9cd8c5bcaae37cb4f69a447825a54.jpg",
+    "bytes": 316153,
+    "etag": "\"bb1fdac72a3ab4340320e8a464d86f41\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:09 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "387"
+      }
+    ],
+    "sha256": "5c59d311a33bfe24dc057acb9d6d4dd1d2e9cd8c5bcaae37cb4f69a447825a54"
+  },
+  "https://data.dg-edge.com/images/tracks/387/Logo387.webp": {
+    "asset": "assets/track_images/42d33da48d33ce00f23789bc36adcc6a3517f9678747b47d2c5933e0fea5ce5a.png",
+    "bytes": 10078,
+    "etag": "\"2c255c5bacafe0ea6edca253fbfcacb1\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:09 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "387"
+      }
+    ],
+    "sha256": "42d33da48d33ce00f23789bc36adcc6a3517f9678747b47d2c5933e0fea5ce5a"
+  },
+  "https://data.dg-edge.com/images/tracks/387/Track1327.webp": {
+    "asset": "assets/track_images/7c215da21ba5b67b8faf1e278cc001a53be4d13b20690400d72fa919be4f689b.png",
+    "bytes": 53499,
+    "etag": "\"5cd74af646e7ed9983c71d5b0dce342f\"",
+    "last_modified": "Thu, 15 Oct 2026 21:39:19 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "387"
+      }
+    ],
+    "sha256": "7c215da21ba5b67b8faf1e278cc001a53be4d13b20690400d72fa919be4f689b"
+  },
+  "https://data.dg-edge.com/images/tracks/388/Back387.webp": {
+    "asset": "assets/track_images/5c59d311a33bfe24dc057acb9d6d4dd1d2e9cd8c5bcaae37cb4f69a447825a54.jpg",
+    "bytes": 316153,
+    "etag": "\"bb1fdac72a3ab4340320e8a464d86f41\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:11 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "388"
+      }
+    ],
+    "sha256": "5c59d311a33bfe24dc057acb9d6d4dd1d2e9cd8c5bcaae37cb4f69a447825a54"
+  },
+  "https://data.dg-edge.com/images/tracks/388/Logo387.webp": {
+    "asset": "assets/track_images/42d33da48d33ce00f23789bc36adcc6a3517f9678747b47d2c5933e0fea5ce5a.png",
+    "bytes": 10078,
+    "etag": "\"2c255c5bacafe0ea6edca253fbfcacb1\"",
+    "last_modified": "Wed, 25 Sep 2024 15:10:11 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "388"
+      }
+    ],
+    "sha256": "42d33da48d33ce00f23789bc36adcc6a3517f9678747b47d2c5933e0fea5ce5a"
+  },
+  "https://data.dg-edge.com/images/tracks/388/Track1328.webp": {
+    "asset": "assets/track_images/7c215da21ba5b67b8faf1e278cc001a53be4d13b20690400d72fa919be4f689b.png",
+    "bytes": 53499,
+    "etag": "\"5cd74af646e7ed9983c71d5b0dce342f\"",
+    "last_modified": "Tue, 27 Oct 2026 21:41:37 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "388"
+      }
+    ],
+    "sha256": "7c215da21ba5b67b8faf1e278cc001a53be4d13b20690400d72fa919be4f689b"
+  },
+  "https://data.dg-edge.com/images/tracks/389/Back389.webp": {
+    "asset": "assets/track_images/65d8a8b2f36d492e8b6f0133e452ba8f29729665852580c9939bf98b971483a1.jpg",
+    "bytes": 296482,
+    "etag": "\"0fb7edb30191770e22b4a1bdfd7b1af8\"",
+    "last_modified": "Thu, 04 Dec 2025 15:08:37 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "389"
+      }
+    ],
+    "sha256": "65d8a8b2f36d492e8b6f0133e452ba8f29729665852580c9939bf98b971483a1"
+  },
+  "https://data.dg-edge.com/images/tracks/389/Logo389.webp": {
+    "asset": "assets/track_images/85db4b72f1c1e2aea32cb1502831dc7b13c2bec4de853c5737c8a7b0d79ea265.png",
+    "bytes": 28899,
+    "etag": "\"b815c959c8b0c00e5f01ec29a8927a98\"",
+    "last_modified": "Thu, 04 Dec 2025 15:08:37 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "389"
+      }
+    ],
+    "sha256": "85db4b72f1c1e2aea32cb1502831dc7b13c2bec4de853c5737c8a7b0d79ea265"
+  },
+  "https://data.dg-edge.com/images/tracks/389/Track1333.webp": {
+    "asset": "assets/track_images/44cce28ca8d21843ed394be537e36d87d05208dc49a3b78b524551b9548bec7b.png",
+    "bytes": 59886,
+    "etag": "\"ff5f76f76d7758ec01f39a4ddc32c32f\"",
+    "last_modified": "Tue, 27 Oct 2026 21:41:20 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "389"
+      }
+    ],
+    "sha256": "44cce28ca8d21843ed394be537e36d87d05208dc49a3b78b524551b9548bec7b"
+  },
+  "https://data.dg-edge.com/images/tracks/390/Back390.webp": {
+    "asset": "assets/track_images/5b76ce4257b4b64fb6d0f6f26d8556dec330c5b13182c21955da02909747b8cc.jpg",
+    "bytes": 422085,
+    "etag": "\"35fc9765c2155ddc041358f84efcda77\"",
+    "last_modified": "Thu, 04 Dec 2025 15:08:37 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "390"
+      }
+    ],
+    "sha256": "5b76ce4257b4b64fb6d0f6f26d8556dec330c5b13182c21955da02909747b8cc"
+  },
+  "https://data.dg-edge.com/images/tracks/390/Logo390.webp": {
+    "asset": "assets/track_images/051f5ea49396136d4a196b8da86ed6960ed4e7559dfa77e2bdf9e95b389a35e5.png",
+    "bytes": 3257,
+    "etag": "\"110bc4ac414fcf32001f8afc9d7dac59\"",
+    "last_modified": "Thu, 04 Dec 2025 15:08:36 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "390"
+      }
+    ],
+    "sha256": "051f5ea49396136d4a196b8da86ed6960ed4e7559dfa77e2bdf9e95b389a35e5"
+  },
+  "https://data.dg-edge.com/images/tracks/390/Track1322.webp": {
+    "asset": "assets/track_images/3c258fcccdec9c0bd62330b38f73144eba7bf36671d7db484f4b83d41a69d549.png",
+    "bytes": 42579,
+    "etag": "\"421901d2b70264f41cc033284fc4cc48\"",
+    "last_modified": "Tue, 27 Oct 2026 21:41:02 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "390"
+      }
+    ],
+    "sha256": "3c258fcccdec9c0bd62330b38f73144eba7bf36671d7db484f4b83d41a69d549"
+  },
+  "https://data.dg-edge.com/images/tracks/391/Back280.webp": {
+    "asset": "assets/track_images/66b57f661c4d0c2a620d1a05ae529c0236fa1ec27407c8a0aed7d9a5f509b397.jpg",
+    "bytes": 225171,
+    "etag": "\"83dd14f052fe6ce66006eba107a57568\"",
+    "last_modified": "Fri, 06 Mar 2026 16:55:18 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "391"
+      }
+    ],
+    "sha256": "66b57f661c4d0c2a620d1a05ae529c0236fa1ec27407c8a0aed7d9a5f509b397"
+  },
+  "https://data.dg-edge.com/images/tracks/391/Logo280.webp": {
+    "asset": "assets/track_images/a3ec7f6acc00b92b24b3e23d30eb28811fad9d3d023c4670086aa65205b27346.png",
+    "bytes": 5609,
+    "etag": "\"0c61dafe4dae73a0123599ec6ac12ee3\"",
+    "last_modified": "Fri, 06 Mar 2026 16:55:18 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "391"
+      }
+    ],
+    "sha256": "a3ec7f6acc00b92b24b3e23d30eb28811fad9d3d023c4670086aa65205b27346"
+  },
+  "https://data.dg-edge.com/images/tracks/391/Track1339.webp": {
+    "asset": "assets/track_images/84bf9ad9ed2385f479a5572cfcc7248f91fbfff91fb34a666984ff7752cadf1a.png",
+    "bytes": 60306,
+    "etag": "\"85abd4821ad223c32cbb90c429fea30f\"",
+    "last_modified": "Tue, 27 Oct 2026 21:40:38 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "391"
+      }
+    ],
+    "sha256": "84bf9ad9ed2385f479a5572cfcc7248f91fbfff91fb34a666984ff7752cadf1a"
+  },
+  "https://data.dg-edge.com/images/tracks/392/Track1340.webp": {
+    "asset": "assets/track_images/e1aa8978c8a3dac1cb2e8a16a2446f891790b954f2ad2679fe795b52b318b098.png",
+    "bytes": 48964,
+    "etag": "\"a791d930b235de26475481a8435e8ab0\"",
+    "last_modified": "Thu, 15 Oct 2026 11:42:13 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "track",
+        "track_id": "392"
+      }
+    ],
+    "sha256": "e1aa8978c8a3dac1cb2e8a16a2446f891790b954f2ad2679fe795b52b318b098"
+  },
+  "https://data.dg-edge.com/images/tracks/392/back1340-new.webp": {
+    "asset": "assets/track_images/a782c9bc690322ced4721a3886670ecc1d88eb3d2dd1930f4804d55a2955c32e.jpg",
+    "bytes": 307604,
+    "etag": "\"cc0843790d10cf77ec618d81130cc415\"",
+    "last_modified": "Thu, 15 Oct 2026 13:22:14 GMT",
+    "mime": "image/jpeg",
+    "references": [
+      {
+        "role": "background",
+        "track_id": "392"
+      }
+    ],
+    "sha256": "a782c9bc690322ced4721a3886670ecc1d88eb3d2dd1930f4804d55a2955c32e"
+  },
+  "https://data.dg-edge.com/images/tracks/392/logo1340-new.webp": {
+    "asset": "assets/track_images/0779ce5c9a24b2c42318c504fbcb453e80a92d26198588246cbf10b981d39d02.png",
+    "bytes": 8118,
+    "etag": "\"b36ad4b3a72d63c64cc648ac7c14a6f3\"",
+    "last_modified": "Thu, 15 Oct 2026 13:22:13 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "logo",
+        "track_id": "392"
+      }
+    ],
+    "sha256": "0779ce5c9a24b2c42318c504fbcb453e80a92d26198588246cbf10b981d39d02"
+  },
+  "https://gtsh-rank.com/images/course/122.png": {
+    "asset": "assets/track_images/52a1d798c6351cd33f78aae8a6be99cc704f0823f57070ae2767c8793076d133.png",
+    "bytes": 1401798,
+    "etag": "\"1563c6-5f6ed5c227f40\"",
+    "last_modified": "Wed, 15 Mar 2023 09:56:37 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "gtsh_layout"
+      }
+    ],
+    "sha256": "52a1d798c6351cd33f78aae8a6be99cc704f0823f57070ae2767c8793076d133"
+  },
+  "https://gtsh-rank.com/images/course/1240.png": {
+    "asset": "assets/track_images/f0134747d928723bbb2ea8e4fcb82580bccbde07475183ee1d54d27e2bc29d4d.png",
+    "bytes": 1401649,
+    "etag": "\"156331-5f6ed5c8d4f00\"",
+    "last_modified": "Wed, 15 Mar 2023 09:56:44 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "gtsh_layout"
+      }
+    ],
+    "sha256": "f0134747d928723bbb2ea8e4fcb82580bccbde07475183ee1d54d27e2bc29d4d"
+  },
+  "https://gtsh-rank.com/images/course/1292.png": {
+    "asset": "assets/track_images/88437ebd23e83f11c6a33d972c0d9547ba1545634434515c73ae313006482bb2.png",
+    "bytes": 897426,
+    "etag": "\"db192-600ec500439c0\"",
+    "last_modified": "Thu, 20 Jul 2023 14:53:35 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "gtsh_layout"
+      }
+    ],
+    "sha256": "88437ebd23e83f11c6a33d972c0d9547ba1545634434515c73ae313006482bb2"
+  },
+  "https://gtsh-rank.com/images/course/1340.png": {
+    "asset": "assets/track_images/e0c67f45b14c2a0c23076d359f55b63d768fec401c0b6eefa2a07b45e80a8197.png",
+    "bytes": 167754,
+    "etag": "\"28f4a-65e6dd365a2b2\"",
+    "last_modified": "Thu, 22 Oct 2026 13:27:31 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "gtsh_layout"
+      }
+    ],
+    "sha256": "e0c67f45b14c2a0c23076d359f55b63d768fec401c0b6eefa2a07b45e80a8197"
+  },
+  "https://gtsh-rank.com/images/course/847.png": {
+    "asset": "assets/track_images/250b80d1bffb945fabebfe09416cc098da2506eca5a332e8ec8cce64985e0699.png",
+    "bytes": 1527861,
+    "etag": "\"175035-5f6ed5c5f8840\"",
+    "last_modified": "Wed, 15 Mar 2023 09:56:41 GMT",
+    "mime": "image/png",
+    "references": [
+      {
+        "role": "gtsh_layout"
+      }
+    ],
+    "sha256": "250b80d1bffb945fabebfe09416cc098da2506eca5a332e8ec8cce64985e0699"
+  }
+}

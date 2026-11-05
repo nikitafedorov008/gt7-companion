@@ -1,6 +1,6 @@
 import 'package:gt7_companion/l10n/ui_messages.dart';
 // START_MODULE_CONTRACT
-// PURPOSE: Show the five home services in a width-driven, content-height layout.
+// PURPOSE: Show the four home services in a width-driven, content-height layout.
 // SCOPE: Service cards and their navigation callbacks.
 // DEPENDS: none
 // LINKS: M-WIDGET-SERVICE-MENU, V-M-WIDGET-SERVICE-MENU
@@ -18,24 +18,20 @@ class ServiceMenu extends StatelessWidget {
     required this.onUsed,
     required this.onLegendary,
     required this.onGTAuto,
-    required this.onApex,
   });
 
   final VoidCallback onBrandCentral;
   final VoidCallback onUsed;
   final VoidCallback onLegendary;
   final VoidCallback onGTAuto;
-  final VoidCallback onApex;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return LayoutBuilder(
       builder: (context, constraints) {
-        final columns = constraints.maxWidth >= 1200
-            ? 5
-            : constraints.maxWidth >= 900
-            ? 3
+        final columns = constraints.maxWidth >= 900
+            ? 4
             : constraints.maxWidth >= 344
             ? 2
             : 1;
@@ -137,43 +133,6 @@ class ServiceMenu extends StatelessWidget {
                 'assets/images/gt_auto.webp',
                 height: logoHeight,
                 fit: BoxFit.contain,
-              ),
-            ),
-            _ServiceCard(
-              width: width,
-              id: 'apex',
-              label: 'Beyond the Apex',
-              onTap: onApex,
-              gradient: LinearGradient(
-                colors: [
-                  theme.colorScheme.surfaceContainerHighest,
-                  theme.colorScheme.surface,
-                ],
-              ),
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      context.tr('bA'),
-                      style: theme.textTheme.displayMedium?.copyWith(
-                        fontSize: logoHeight * .9,
-                        fontWeight: FontWeight.w900,
-                        letterSpacing: -4,
-                        height: .95,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      context.tr('THE GRAN TURISMO MAGAZINE'),
-                      style: theme.textTheme.labelSmall?.copyWith(
-                        fontSize: 8,
-                        letterSpacing: .7,
-                      ),
-                    ),
-                  ],
-                ),
               ),
             ),
           ],

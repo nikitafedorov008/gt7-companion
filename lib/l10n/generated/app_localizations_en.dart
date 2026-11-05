@@ -1928,4 +1928,88 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get telemetryIdleHelp => 'GT7 telemetry on your local network.';
+
+  @override
+  String get dealerMileage => 'Distance driven';
+
+  @override
+  String get dealerPriceHistory => 'Price history';
+
+  @override
+  String get dealerSave => 'Add to wishlist';
+
+  @override
+  String get dealerSaved => 'In wishlist';
+
+  @override
+  String get dealerRemove => 'Remove from wishlist';
+
+  @override
+  String get dealerInStock => 'In stock';
+
+  @override
+  String get dealerLimited => 'Limited stock';
+
+  @override
+  String get dealerNewArrival => 'New arrival';
+
+  @override
+  String get dealerStockUnknown => 'Availability unknown';
+
+  @override
+  String get dealerMore => 'Learn more';
+
+  @override
+  String get dealerLess => 'Hide description';
+
+  @override
+  String get dealerNoHistory => 'No description available for this car.';
+
+  @override
+  String get dealerWishlistEmpty => 'Your wishlist is empty';
+
+  @override
+  String get dealerWishlistHint => 'Save cars from Used Cars or Legend Cars.';
+
+  @override
+  String get dealerWishlistError =>
+      'Could not save your wishlist. Please try again.';
+
+  @override
+  String get dealerCatalogError =>
+      'Some vehicle specifications are unavailable.';
+
+  @override
+  String get dealerPriceError => 'Price history could not be opened.';
+
+  @override
+  String get dealerUnknownCar => 'Unavailable car';
+
+  @override
+  String get dealerRetry => 'Retry';
+
+  @override
+  String get dealerClose => 'Close';
+
+  @override
+  String get dealerSoldOut => 'Sold out';
+
+  @override
+  String get dealerUpdated => 'Updated';
+
+  @override
+  String get dealerWishlistLocal => 'Saved on this device';
+
+  @override
+  String get dealerChartZoomIn => 'Zoom in';
+
+  @override
+  String get dealerChartZoomOut => 'Zoom out';
+
+  @override
+  String get dealerChartReset => 'Fit chart';
+
+  @override
+  String get dealerChartSource =>
+      'Source: GT7Info · Pinch or use + / − to zoom.';
 }

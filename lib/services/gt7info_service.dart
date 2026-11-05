@@ -1,9 +1,31 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import '../models/gt7info/gt7info_data.dart';
 
 class GT7InfoService extends ChangeNotifier {
+  GT7InfoService({http.Client? httpClient, AssetBundle? bundle})
+    : _http = httpClient ?? http.Client(),
+      _bundle = bundle ?? rootBundle;
+  final http.Client _http;
+  final AssetBundle _bundle;
+  Future<void>? _bundled;
+  Future<void> loadBundled() => _bundled ??= _loadBundled();
+  Future<void> _loadBundled() async {
+    final snapshot =
+        jsonDecode(await _bundle.loadString('assets/cars/dealer_snapshot.json'))
+            as Map<String, dynamic>;
+    _data = GT7InfoData.fromJson(snapshot['gt7info'] as Map<String, dynamic>);
+    notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _http.close();
+    super.dispose();
+  }
+
   static const String _apiUrl = 'https://ddm999.github.io/gt7info/data.json';
 
   GT7InfoData? _data;
@@ -20,7 +42,7 @@ class GT7InfoService extends ChangeNotifier {
     if (_isLoading) return;
 
     // Skip if data already loaded and not force refreshing
-    if (!forceRefresh && _data != null) {
+    if (!forceRefresh && _lastUpdated != null) {
       return;
     }
 
@@ -29,7 +51,9 @@ class GT7InfoService extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final response = await http.get(Uri.parse(_apiUrl));
+      final response = await _http
+          .get(Uri.parse(_apiUrl))
+          .timeout(const Duration(seconds: 12));
 
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body);

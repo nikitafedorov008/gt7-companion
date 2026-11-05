@@ -6,6 +6,7 @@ import 'package:gt7_companion/l10n/ui_messages.dart';
 // record holder, how the field breaks down by rating and by country — and this
 // is where that lands.
 import 'package:flutter/material.dart';
+import 'track_artwork.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
@@ -205,21 +206,22 @@ class _Header extends StatelessWidget {
               child: Stack(
                 fit: StackFit.expand,
                 children: [
-                  Image.network(
-                    race.trackBackgroundImage!,
+                  TrackArtwork(
+                    url: race.trackBackgroundImage!,
+                    trackId: race.dgEdge?.trackId,
+                    role: 'background',
                     fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) =>
-                        Container(color: Colors.white10),
                   ),
                   if (race.trackImage != null)
                     Align(
                       alignment: Alignment.bottomRight,
                       child: Padding(
                         padding: const EdgeInsets.all(12),
-                        child: Image.network(
-                          race.trackImage!,
+                        child: TrackArtwork(
+                          url: race.trackImage!,
+                          trackId: race.dgEdge?.trackId,
+                          role: 'track',
                           fit: BoxFit.contain,
-                          errorBuilder: (_, __, ___) => const SizedBox.shrink(),
                         ),
                       ),
                     ),
@@ -227,6 +229,19 @@ class _Header extends StatelessWidget {
               ),
             ),
           ),
+        if (race.trackLogotype != null) ...[
+          const SizedBox(height: 12),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: TrackArtwork(
+              url: race.trackLogotype!,
+              trackId: race.dgEdge?.trackId,
+              role: 'logo',
+              width: 180,
+              height: 44,
+            ),
+          ),
+        ],
         const SizedBox(height: 14),
         Row(
           children: [

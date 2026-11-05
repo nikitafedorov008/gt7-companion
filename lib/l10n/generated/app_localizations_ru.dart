@@ -1944,4 +1944,89 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get telemetryIdleHelp => 'Телеметрия GT7 в вашей локальной сети.';
+
+  @override
+  String get dealerMileage => 'Пробег';
+
+  @override
+  String get dealerPriceHistory => 'История цены';
+
+  @override
+  String get dealerSave => 'В избранное';
+
+  @override
+  String get dealerSaved => 'В избранном';
+
+  @override
+  String get dealerRemove => 'Убрать из избранного';
+
+  @override
+  String get dealerInStock => 'В наличии';
+
+  @override
+  String get dealerLimited => 'Ограниченное наличие';
+
+  @override
+  String get dealerNewArrival => 'Новое поступление';
+
+  @override
+  String get dealerStockUnknown => 'Наличие неизвестно';
+
+  @override
+  String get dealerMore => 'Подробнее';
+
+  @override
+  String get dealerLess => 'Свернуть описание';
+
+  @override
+  String get dealerNoHistory => 'Описание этого автомобиля пока недоступно.';
+
+  @override
+  String get dealerWishlistEmpty => 'В избранном пока нет автомобилей';
+
+  @override
+  String get dealerWishlistHint =>
+      'Добавляйте автомобили из Used Cars или Legend Cars.';
+
+  @override
+  String get dealerWishlistError =>
+      'Не удалось сохранить избранное. Попробуйте ещё раз.';
+
+  @override
+  String get dealerCatalogError =>
+      'Некоторые характеристики автомобилей недоступны.';
+
+  @override
+  String get dealerPriceError => 'Не удалось открыть историю цены.';
+
+  @override
+  String get dealerUnknownCar => 'Автомобиль недоступен';
+
+  @override
+  String get dealerRetry => 'Повторить';
+
+  @override
+  String get dealerClose => 'Закрыть';
+
+  @override
+  String get dealerSoldOut => 'Распродано';
+
+  @override
+  String get dealerUpdated => 'Обновлено';
+
+  @override
+  String get dealerWishlistLocal => 'Сохранено на этом устройстве';
+
+  @override
+  String get dealerChartZoomIn => 'Увеличить';
+
+  @override
+  String get dealerChartZoomOut => 'Уменьшить';
+
+  @override
+  String get dealerChartReset => 'Вместить график';
+
+  @override
+  String get dealerChartSource =>
+      'Источник: GT7Info · Увеличивайте жестом или кнопками + / −.';
 }

@@ -1,3 +1,4 @@
+import '../gt_loading_indicator.dart';
 import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'dart:ui' as ui;
 
@@ -437,7 +438,7 @@ class _LoadingPlaceholder extends StatelessWidget {
       child: SizedBox(
         width: 24,
         height: 24,
-        child: CircularProgressIndicator(strokeWidth: 2),
+        child: GtLoadingIndicator(size: 24),
       ),
     );
   }

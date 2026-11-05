@@ -1,3 +1,4 @@
+import '../gt_loading_indicator.dart';
 import 'package:gt7_companion/widgets/window_navigation_safe_area.dart';
 import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'package:flutter/material.dart';
@@ -449,9 +450,8 @@ class _Photo extends StatelessWidget {
     url,
     key: ValueKey('$url-$attempt'),
     fit: BoxFit.contain,
-    loadingBuilder: (context, child, progress) => progress == null
-        ? child
-        : const Center(child: CircularProgressIndicator()),
+    loadingBuilder: (context, child, progress) =>
+        progress == null ? child : const Center(child: GtLoadingIndicator()),
     errorBuilder: (_, _, _) => Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,

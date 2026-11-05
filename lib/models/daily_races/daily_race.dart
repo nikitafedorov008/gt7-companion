@@ -127,7 +127,7 @@ class DailyRace {
   /// inspect the two backing objects.
 
   String? get trackLogotype => dgEdge?.trackLogotype;
-  String? get trackImage => dgEdge?.trackImage;
+  String? get trackImage => dgEdge?.trackImage ?? gtsh?.trackImage;
   String? get trackBackgroundImage => dgEdge?.trackBackgroundImage;
 
   // Figures each provider publishes and the other does not. Exposed here so

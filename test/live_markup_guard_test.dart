@@ -69,13 +69,18 @@ void main() {
     );
     expect(first.raceLetter, isNotNull);
     expect(first.weekLabel, contains('Week'));
-    expect(first.playersCount, greaterThan(0));
-    expect(first.leadTimeMs, greaterThan(0));
+    // The redesigned live cards hide leaderboard totals and fastest time.
+    // Archived cards still publish them; check complete statistics there.
+    final statistics = races.firstWhere(
+      (r) => r.playersCount != null && r.leadTimeMs != null,
+    );
+    expect(statistics.playersCount, greaterThan(0));
+    expect(statistics.leadTimeMs, greaterThan(0));
 
     // The rating histogram must account for every player, which only holds if
     // the JSON attribute decoded correctly.
-    expect(first.ratingsMatrix, isNotEmpty);
-    expect(first.ratedPlayersCount, first.playersCount);
+    expect(statistics.ratingsMatrix, isNotEmpty);
+    expect(statistics.ratedPlayersCount, statistics.playersCount);
 
     // At least one card should be the running week.
     expect(races.any((r) => r.isActive == true), isTrue);

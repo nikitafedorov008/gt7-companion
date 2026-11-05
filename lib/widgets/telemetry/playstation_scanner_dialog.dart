@@ -1,3 +1,4 @@
+import '../gt_loading_indicator.dart';
 import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'package:flutter/material.dart';
 import '../../services/network_scanner.dart';
@@ -129,7 +130,7 @@ class _PlayStationScannerDialogState extends State<PlayStationScannerDialog> {
                   padding: EdgeInsets.all(32.0),
                   child: Column(
                     children: [
-                      CircularProgressIndicator(),
+                      GtLoadingIndicator(),
                       SizedBox(height: 16),
                       Text(context.tr('Scanning network...')),
                     ],

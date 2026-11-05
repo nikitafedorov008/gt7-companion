@@ -45,7 +45,11 @@ class Car {
     this.imageUrl, // NEW
   });
 
-  String get flagUrl => 'https://flagcdn.com/h24/$region.png';
+  String get flagUrl => RegExp(r'^[a-z]{2}$').hasMatch(region) && region != 'xx'
+      ? 'https://flagcdn.com/h24/$region.png'
+      : '';
+  String get thumbnailUrl =>
+      'https://www.gran-turismo.com/common/dist/gt7/carlist/car_thumbnails/car${id.replaceFirst(RegExp(r'^(?:car)+'), '')}.png';
 
   bool get isSoldOut => state == 'soldout';
   bool get isLimitedStock => state == 'limited';
@@ -94,7 +98,7 @@ class Car {
     }
 
     // Fallback to GT7Info format
-    return 'https://www.gran-turismo.com/common/dist/gt7/carlist/car_thumbnails/car$id.png';
+    return thumbnailUrl;
   }
 
   String _formatCredits(int credits) {

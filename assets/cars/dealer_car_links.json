@@ -1,0 +1,5282 @@
+{
+  "1500-biposto-bertone-b-a-t-1-52": {
+    "id": "car1932",
+    "manufacturer": "Abarth"
+  },
+  "155-2-5-v6-ti-93": {
+    "id": "car365",
+    "manufacturer": "Alfa Romeo"
+  },
+  "180sx-type-x-96": {
+    "id": "car24",
+    "manufacturer": "Nissan"
+  },
+  "2000gt-67": {
+    "id": "car604",
+    "manufacturer": "Toyota"
+  },
+  "peugeot-205-gti-88": {
+    "id": "car3564",
+    "manufacturer": "Peugeot"
+  },
+  "205-turbo-16-evolution-2-86": {
+    "id": "car105",
+    "manufacturer": "Peugeot"
+  },
+  "volvo-240-se-estate-93": {
+    "id": "car3549",
+    "manufacturer": "Volvo"
+  },
+  "250-gt-berlinetta-passo-corto-61": {
+    "id": "car1931",
+    "manufacturer": "Ferrari"
+  },
+  "250-gto-62": {
+    "id": "car2010",
+    "manufacturer": "Ferrari"
+  },
+  "2j-70": {
+    "id": "car1069",
+    "manufacturer": "Chaparral"
+  },
+  "3-0-csl-71": {
+    "id": "car3454",
+    "manufacturer": "BMW"
+  },
+  "3-0-csl-73": {
+    "id": "car3422",
+    "manufacturer": "BMW"
+  },
+  "300-sel-6-8-amg-71": {
+    "id": "car3388",
+    "manufacturer": "AMG"
+  },
+  "300-sl-w194-52": {
+    "id": "car3441",
+    "manufacturer": "Mercedes-Benz"
+  },
+  "300-sl-coupe-54": {
+    "id": "car387",
+    "manufacturer": "Mercedes-Benz"
+  },
+  "308-gtb-75": {
+    "id": "car3443",
+    "manufacturer": "Ferrari"
+  },
+  "330-p4-67": {
+    "id": "car1551",
+    "manufacturer": "Ferrari"
+  },
+  "356-a-1500-gs-carrera-56": {
+    "id": "car3375",
+    "manufacturer": "Porsche"
+  },
+  "356-a-1500-gs-gt-carrera-speedster-56": {
+    "id": "car3365",
+    "manufacturer": "Porsche"
+  },
+  "365-gtb4-71": {
+    "id": "car2018",
+    "manufacturer": "Ferrari"
+  },
+  "ferrari-430-scuderia-07": {
+    "id": "car1544",
+    "manufacturer": "Ferrari"
+  },
+  "458-italia-09": {
+    "id": "car1504",
+    "manufacturer": "Ferrari"
+  },
+  "500-1-2-8v-lounge-ss-08": {
+    "id": "car1527",
+    "manufacturer": "FIAT"
+  },
+  "500-f-68": {
+    "id": "car1523",
+    "manufacturer": "FIAT"
+  },
+  "500-mondial-pinin-farina-coupe-54": {
+    "id": "car2011",
+    "manufacturer": "Ferrari"
+  },
+  "512-bb-76": {
+    "id": "car1410",
+    "manufacturer": "Ferrari"
+  },
+  "787b-91": {
+    "id": "car296",
+    "manufacturer": "Mazda"
+  },
+  "8c-2900b-touring-berlinetta-38": {
+    "id": "car3415",
+    "manufacturer": "Alfa Romeo"
+  },
+  "8c-competizione-08": {
+    "id": "car1578",
+    "manufacturer": "Alfa Romeo"
+  },
+  "911-carrera-rs-964-92": {
+    "id": "car3431",
+    "manufacturer": "Porsche"
+  },
+  "911-carrera-rs-993-95": {
+    "id": "car3439",
+    "manufacturer": "Porsche"
+  },
+  "911-carrera-rs-cs-993-95": {
+    "id": "car3404",
+    "manufacturer": "Porsche"
+  },
+  "911-gt1-strassenversion-97": {
+    "id": "car3400",
+    "manufacturer": "Porsche"
+  },
+  "911-gt3-996-01": {
+    "id": "car3358",
+    "manufacturer": "Porsche"
+  },
+  "911-gt3-997-09": {
+    "id": "car3359",
+    "manufacturer": "Porsche"
+  },
+  "911-turbo-930-81": {
+    "id": "car3385",
+    "manufacturer": "Porsche"
+  },
+  "917k-70": {
+    "id": "car3410",
+    "manufacturer": "Porsche"
+  },
+  "962-c-88": {
+    "id": "car3373",
+    "manufacturer": "Porsche"
+  },
+  "a110-72": {
+    "id": "car1796",
+    "manufacturer": "Alpine"
+  },
+  "a112-abarth-85": {
+    "id": "car3442",
+    "manufacturer": "Autobianchi"
+  },
+  "a220-race-car-68": {
+    "id": "car3457",
+    "manufacturer": "Alpine"
+  },
+  "a6gcs-53-spyder-54": {
+    "id": "car3489",
+    "manufacturer": "Maserati"
+  },
+  "abarth-500-09": {
+    "id": "car1973",
+    "manufacturer": "Abarth"
+  },
+  "abarth-595-ss-70": {
+    "id": "car3438",
+    "manufacturer": "Abarth"
+  },
+  "renault-avantime-3-0-v6-24-v-02": {
+    "id": "car729",
+    "manufacturer": "Renault"
+  },
+  "citroen-bx-19-trs-87": {
+    "id": "car3573",
+    "manufacturer": "Citroën"
+  },
+  "beat-91": {
+    "id": "car137",
+    "manufacturer": "Honda"
+  },
+  "clk-lm-98": {
+    "id": "car3397",
+    "manufacturer": "Mercedes-Benz"
+  },
+  "ctr3-07": {
+    "id": "car3398",
+    "manufacturer": "RUF"
+  },
+  "camaro-z28-69": {
+    "id": "car31",
+    "manufacturer": "Chevrolet"
+  },
+  "cappuccino-91": {
+    "id": "car779",
+    "manufacturer": "Suzuki"
+  },
+  "celica-gt-four-st205-94": {
+    "id": "car3471",
+    "manufacturer": "Toyota"
+  },
+  "challenger-r-t-70": {
+    "id": "car1543",
+    "manufacturer": "Dodge"
+  },
+  "honda-civic-si-extra-ef-87": {
+    "id": "car3563",
+    "manufacturer": "Honda"
+  },
+  "honda-civic-si-r-ii-eg-93": {
+    "id": "car37",
+    "manufacturer": "Honda"
+  },
+  "civic-type-r-ek-97": {
+    "id": "car821",
+    "manufacturer": "Honda"
+  },
+  "civic-type-r-ek-98": {
+    "id": "car204",
+    "manufacturer": "Honda"
+  },
+  "civic-type-r-ek-touring-car": {
+    "id": "car1689",
+    "manufacturer": "Honda"
+  },
+  "clio-v6-24v-00": {
+    "id": "car334",
+    "manufacturer": "Renault"
+  },
+  "cobra-427-66": {
+    "id": "car315",
+    "manufacturer": "Shelby"
+  },
+  "cobra-daytona-coupe-64": {
+    "id": "car1926",
+    "manufacturer": "Shelby"
+  },
+  "copen-02": {
+    "id": "car145",
+    "manufacturer": "Daihatsu"
+  },
+  "corolla-levin-1600gt-apex-ae86-83": {
+    "id": "car63",
+    "manufacturer": "Toyota"
+  },
+  "corvette-c2-63": {
+    "id": "car818",
+    "manufacturer": "Chevrolet"
+  },
+  "corvette-convertible-c3-69": {
+    "id": "car1542",
+    "manufacturer": "Chevrolet"
+  },
+  "corvette-stingray-c3-69": {
+    "id": "car41",
+    "manufacturer": "Chevrolet"
+  },
+  "corvette-stingray-racer-concept-59": {
+    "id": "car2059",
+    "manufacturer": "Chevrolet"
+  },
+  "chevrolet-corvette-z06-c5-01": {
+    "id": "car3570",
+    "manufacturer": "Chevrolet"
+  },
+  "corvette-zr-1-c4-89": {
+    "id": "car942",
+    "manufacturer": "Chevrolet"
+  },
+  "corvette-zr1-c6-09": {
+    "id": "car1480",
+    "manufacturer": "Chevrolet"
+  },
+  "countach-25th-anniversary-88": {
+    "id": "car1481",
+    "manufacturer": "Lamborghini"
+  },
+  "countach-lp400-74": {
+    "id": "car1484",
+    "manufacturer": "Lamborghini"
+  },
+  "d-type-54": {
+    "id": "car3376",
+    "manufacturer": "Jaguar"
+  },
+  "db3s-53": {
+    "id": "car3363",
+    "manufacturer": "Aston Martin"
+  },
+  "db5-64": {
+    "id": "car3445",
+    "manufacturer": "Aston Martin"
+  },
+  "delorean-s2-04": {
+    "id": "car1027",
+    "manufacturer": "DMC"
+  },
+  "delta-hf-integrale-evoluzione-91": {
+    "id": "car829",
+    "manufacturer": "Lancia"
+  },
+  "diablo-gt-00": {
+    "id": "car1990",
+    "manufacturer": "Lamborghini"
+  },
+  "dino-246-gt-71": {
+    "id": "car1895",
+    "manufacturer": "Ferrari"
+  },
+  "e-type-coupe-61": {
+    "id": "car3361",
+    "manufacturer": "Jaguar"
+  },
+  "ford-escort-rs-cosworth-92": {
+    "id": "car3555",
+    "manufacturer": "Ford"
+  },
+  "eunos-roadster-na-89": {
+    "id": "car201",
+    "manufacturer": "Mazda"
+  },
+  "f40-92": {
+    "id": "car1409",
+    "manufacturer": "Ferrari"
+  },
+  "f430-06": {
+    "id": "car1378",
+    "manufacturer": "Ferrari"
+  },
+  "f50-95": {
+    "id": "car3362",
+    "manufacturer": "Ferrari"
+  },
+  "mitsubishi-fto-gp-version-r-97": {
+    "id": "car51",
+    "manufacturer": "Mitsubishi"
+  },
+  "fairlady-240zg-hs30-71": {
+    "id": "car48",
+    "manufacturer": "Nissan"
+  },
+  "fairlady-z-z34-08": {
+    "id": "car1458",
+    "manufacturer": "Nissan"
+  },
+  "fairlady-z-300zx-tt-2seater-89": {
+    "id": "car709",
+    "manufacturer": "Nissan"
+  },
+  "fairlady-z-432-69": {
+    "id": "car3429",
+    "manufacturer": "Nissan"
+  },
+  "fairlady-z-version-s-z33-07": {
+    "id": "car1384",
+    "manufacturer": "Nissan"
+  },
+  "firebird-trans-am-78": {
+    "id": "car1985",
+    "manufacturer": "Pontiac"
+  },
+  "ford-gt-06": {
+    "id": "car1426",
+    "manufacturer": "Ford"
+  },
+  "ford-roadster": {
+    "id": "car3444",
+    "manufacturer": "Ford"
+  },
+  "g-t-350-65": {
+    "id": "car1925",
+    "manufacturer": "Shelby"
+  },
+  "giulia-tz2-carrozzata-da-zagato-65": {
+    "id": "car1645",
+    "manufacturer": "Alfa Romeo"
+  },
+  "gt-r-gt500-99": {
+    "id": "car485",
+    "manufacturer": "Nissan"
+  },
+  "gt40-mark-i-66": {
+    "id": "car1935",
+    "manufacturer": "Ford"
+  },
+  "gto-84": {
+    "id": "car2017",
+    "manufacturer": "Ferrari"
+  },
+  "gto-the-judge-69": {
+    "id": "car3462",
+    "manufacturer": "Pontiac"
+  },
+  "gto-twin-turbo-91": {
+    "id": "car3384",
+    "manufacturer": "Mitsubishi"
+  },
+  "lamborghini-gallardo-lp-560-4-08": {
+    "id": "car1506",
+    "manufacturer": "Lamborghini"
+  },
+  "giulia-sprint-gt-veloce-67": {
+    "id": "car3530",
+    "manufacturer": "Alfa Romeo"
+  },
+  "golf-i-gti-83": {
+    "id": "car3403",
+    "manufacturer": "Volkswagen"
+  },
+  "granturismo-s-08": {
+    "id": "car1539",
+    "manufacturer": "Maserati"
+  },
+  "impreza-22b-sti-98": {
+    "id": "car451",
+    "manufacturer": "Subaru"
+  },
+  "impreza-coupe-wrx-type-r-sti-ver-vi-99": {
+    "id": "car379",
+    "manufacturer": "Subaru"
+  },
+  "impreza-sedan-wrx-s-ti-04": {
+    "id": "car3432",
+    "manufacturer": "Subaru"
+  },
+  "integra-type-r-dc2-95": {
+    "id": "car688",
+    "manufacturer": "Honda"
+  },
+  "integra-type-r-dc2-98": {
+    "id": "car203",
+    "manufacturer": "Honda"
+  },
+  "renault-kangoo-1-4-01": {
+    "id": "car3567",
+    "manufacturer": "Renault"
+  },
+  "lancer-evolution-iii-gsr-95": {
+    "id": "car931",
+    "manufacturer": "Mitsubishi"
+  },
+  "lancer-evolution-iv-gsr-96": {
+    "id": "car301",
+    "manufacturer": "Mitsubishi"
+  },
+  "mitsubishi-lancer-evolution-ix-mr-gsr-06": {
+    "id": "car3424",
+    "manufacturer": "Mitsubishi"
+  },
+  "lancer-evolution-v-gsr-98": {
+    "id": "car211",
+    "manufacturer": "Mitsubishi"
+  },
+  "lancer-evolution-vi-gsr-t-m-scp-99": {
+    "id": "car1508",
+    "manufacturer": "Mitsubishi"
+  },
+  "mitsubishi-lancer-evolution-viii-mr-gsr-04": {
+    "id": "car799",
+    "manufacturer": "Mitsubishi"
+  },
+  "m3-03": {
+    "id": "car3389",
+    "manufacturer": "BMW"
+  },
+  "m3-07": {
+    "id": "car1399",
+    "manufacturer": "BMW"
+  },
+  "m3-89": {
+    "id": "car3453",
+    "manufacturer": "BMW"
+  },
+  "bmw-m3-97": {
+    "id": "car3551",
+    "manufacturer": "BMW"
+  },
+  "m3-sport-evolution-89": {
+    "id": "car3344",
+    "manufacturer": "BMW"
+  },
+  "mini-cooper-s-05": {
+    "id": "car1370",
+    "manufacturer": "MINI"
+  },
+  "mp4-12c-10": {
+    "id": "car1722",
+    "manufacturer": "McLaren"
+  },
+  "mp4-4-88": {
+    "id": "car3475",
+    "manufacturer": "McLaren"
+  },
+  "mr2-gt-s-97": {
+    "id": "car207",
+    "manufacturer": "Toyota"
+  },
+  "mangusta-69": {
+    "id": "car3437",
+    "manufacturer": "De Tomaso"
+  },
+  "mark-iv-race-car-67": {
+    "id": "car1565",
+    "manufacturer": "Ford"
+  },
+  "mclaren-f1-94": {
+    "id": "car1540",
+    "manufacturer": "McLaren"
+  },
+  "mclaren-f1-gtr-bmw-95": {
+    "id": "car1984",
+    "manufacturer": "McLaren"
+  },
+  "mclaren-f1-gtr-race-car-97": {
+    "id": "car216",
+    "manufacturer": "BMW"
+  },
+  "mito-09": {
+    "id": "car1933",
+    "manufacturer": "Alfa Romeo"
+  },
+  "mini-cooper-s-65": {
+    "id": "car3356",
+    "manufacturer": "MINI"
+  },
+  "miura-p400-bertone-prototype-67": {
+    "id": "car1582",
+    "manufacturer": "Lamborghini"
+  },
+  "murcielago-lp-640-09": {
+    "id": "car1545",
+    "manufacturer": "Lamborghini"
+  },
+  "mustang-boss-429-69": {
+    "id": "car3487",
+    "manufacturer": "Ford"
+  },
+  "mustang-mach-1-71": {
+    "id": "car1729",
+    "manufacturer": "Ford"
+  },
+  "nsx-type-r-02": {
+    "id": "car396",
+    "manufacturer": "Honda"
+  },
+  "nsx-type-r-92": {
+    "id": "car293",
+    "manufacturer": "Honda"
+  },
+  "fiat-panda-30-cl-85": {
+    "id": "car3575",
+    "manufacturer": "FIAT"
+  },
+  "pantera-71": {
+    "id": "car3341",
+    "manufacturer": "De Tomaso"
+  },
+  "prius-g-09": {
+    "id": "car1537",
+    "manufacturer": "Toyota"
+  },
+  "r32-gt-r-nismo-90": {
+    "id": "car3524",
+    "manufacturer": "Nissan"
+  },
+  "r32-gt-r-v-spec-ii-94": {
+    "id": "car773",
+    "manufacturer": "Nissan"
+  },
+  "r33-gt-r-v-spec-97": {
+    "id": "car489",
+    "manufacturer": "Nissan"
+  },
+  "r34-gt-r-v-spec-ii-nuer-02": {
+    "id": "car210",
+    "manufacturer": "Nissan"
+  },
+  "renault-r4-gtl-85": {
+    "id": "car3547",
+    "manufacturer": "Renault"
+  },
+  "r5-turbo-80": {
+    "id": "car173",
+    "manufacturer": "Renault"
+  },
+  "r8-4-2-07": {
+    "id": "car1365",
+    "manufacturer": "Audi"
+  },
+  "r8-gordini-66": {
+    "id": "car1986",
+    "manufacturer": "Renault"
+  },
+  "r92cp-92": {
+    "id": "car954",
+    "manufacturer": "Nissan"
+  },
+  "rx-7-gt-x-fc-90": {
+    "id": "car374",
+    "manufacturer": "Mazda"
+  },
+  "rx-7-spirit-r-type-a-fd-02": {
+    "id": "car205",
+    "manufacturer": "Mazda"
+  },
+  "rx500-70": {
+    "id": "car1975",
+    "manufacturer": "Mazda"
+  },
+  "s-barker-tourer-29": {
+    "id": "car3428",
+    "manufacturer": "Mercedes-Benz"
+  },
+  "s2000-99": {
+    "id": "car514",
+    "manufacturer": "Honda"
+  },
+  "s800-66": {
+    "id": "car135",
+    "manufacturer": "Honda"
+  },
+  "silvia-spec-r-aero-s15-02": {
+    "id": "car1448",
+    "manufacturer": "Nissan"
+  },
+  "slr-mclaren-09": {
+    "id": "car1528",
+    "manufacturer": "Mercedes-Benz"
+  },
+  "sls-amg-10": {
+    "id": "car1507",
+    "manufacturer": "AMG"
+  },
+  "sambabus-typ-2-62": {
+    "id": "car1671",
+    "manufacturer": "Volkswagen"
+  },
+  "sauber-mercedes-c9-89": {
+    "id": "car998",
+    "manufacturer": "Mercedes-Benz"
+  },
+  "scirocco-r-10": {
+    "id": "car1773",
+    "manufacturer": "Volkswagen"
+  },
+  "sierra-rs-500-cosworth-87": {
+    "id": "car3466",
+    "manufacturer": "Ford"
+  },
+  "sileighty-98": {
+    "id": "car104",
+    "manufacturer": "Nissan"
+  },
+  "silvia-k-s-aero-s14-96": {
+    "id": "car78",
+    "manufacturer": "Nissan"
+  },
+  "silvia-k-s-dia-selection-s13-90": {
+    "id": "car1461",
+    "manufacturer": "Nissan"
+  },
+  "silvia-k-s-type-s-s14-94": {
+    "id": "car3513",
+    "manufacturer": "Nissan"
+  },
+  "silvia-q-s-s13-88": {
+    "id": "car919",
+    "manufacturer": "Nissan"
+  },
+  "nissan-skyline-gts-r-r31-87": {
+    "id": "car102",
+    "manufacturer": "Nissan"
+  },
+  "skyline-hard-top-2000gt-r-kpgc10-70": {
+    "id": "car837",
+    "manufacturer": "Nissan"
+  },
+  "skyline-super-silhouette-84": {
+    "id": "car3493",
+    "manufacturer": "Nissan"
+  },
+  "sport-quattro-s1-pikes-peak-87": {
+    "id": "car1927",
+    "manufacturer": "Audi"
+  },
+  "sports-800-65": {
+    "id": "car1044",
+    "manufacturer": "Toyota"
+  },
+  "sprinter-trueno-1600gt-apex-ae86-83": {
+    "id": "car810",
+    "manufacturer": "Toyota"
+  },
+  "sprinter-trueno-1600gt-apex-s-shigeno-version": {
+    "id": "car345",
+    "manufacturer": "Toyota"
+  },
+  "spyder-type-550-1500rs-55": {
+    "id": "car3446",
+    "manufacturer": "Porsche"
+  },
+  "stratos-73": {
+    "id": "car533",
+    "manufacturer": "Lancia"
+  },
+  "super-bee-70": {
+    "id": "car3377",
+    "manufacturer": "Dodge"
+  },
+  "superbird-70": {
+    "id": "car665",
+    "manufacturer": "Plymouth"
+  },
+  "supra-3-0gt-turbo-a-88": {
+    "id": "car843",
+    "manufacturer": "Toyota"
+  },
+  "supra-gt500-97": {
+    "id": "car1470",
+    "manufacturer": "Toyota"
+  },
+  "supra-rz-97": {
+    "id": "car82",
+    "manufacturer": "Toyota"
+  },
+  "swift-sport-07": {
+    "id": "car1385",
+    "manufacturer": "Suzuki"
+  },
+  "tt-coupe-3-2-quattro-03": {
+    "id": "car959",
+    "manufacturer": "Audi"
+  },
+  "audi-tts-coupe-09": {
+    "id": "car1541",
+    "manufacturer": "Audi"
+  },
+  "testarossa-91": {
+    "id": "car3434",
+    "manufacturer": "Ferrari"
+  },
+  "tuscan-speed-6-00": {
+    "id": "car187",
+    "manufacturer": "TVR"
+  },
+  "v6-escudo-pikes-peak-special-98": {
+    "id": "car808",
+    "manufacturer": "Suzuki"
+  },
+  "viper-gts-02": {
+    "id": "car1373",
+    "manufacturer": "Dodge"
+  },
+  "viper-srt10-coupe-06": {
+    "id": "car1402",
+    "manufacturer": "Dodge"
+  },
+  "volkswagen-1200-66": {
+    "id": "car1778",
+    "manufacturer": "Volkswagen"
+  },
+  "willys-mb-45": {
+    "id": "car3430",
+    "manufacturer": "Jeep"
+  },
+  "xj13-66": {
+    "id": "car1553",
+    "manufacturer": "Jaguar"
+  },
+  "xjr-9-88": {
+    "id": "car1067",
+    "manufacturer": "Jaguar"
+  },
+  "xnr-ghia-roadster-60": {
+    "id": "car1900",
+    "manufacturer": "Plymouth"
+  },
+  "bmw-z4-3-0i-03": {
+    "id": "car655",
+    "manufacturer": "BMW"
+  },
+  "z8-01": {
+    "id": "car1893",
+    "manufacturer": "BMW"
+  },
+  "name:nissanskylinegtsrr3187": {
+    "id": "car102",
+    "manufacturer": "Nissan"
+  },
+  "name:skylinegtsrr3187": {
+    "id": "car102",
+    "manufacturer": "Nissan"
+  },
+  "name:dmcdeloreans204": {
+    "id": "car1027",
+    "manufacturer": "DMC"
+  },
+  "name:deloreans204": {
+    "id": "car1027",
+    "manufacturer": "DMC"
+  },
+  "name:nissansileighty98": {
+    "id": "car104",
+    "manufacturer": "Nissan"
+  },
+  "name:sileighty98": {
+    "id": "car104",
+    "manufacturer": "Nissan"
+  },
+  "name:fordgtlmracecarspecii": {
+    "id": "car1040",
+    "manufacturer": "Ford"
+  },
+  "name:toyotasports80065": {
+    "id": "car1044",
+    "manufacturer": "Toyota"
+  },
+  "name:sports80065": {
+    "id": "car1044",
+    "manufacturer": "Toyota"
+  },
+  "name:peugeot205turbo16evolution286": {
+    "id": "car105",
+    "manufacturer": "Peugeot"
+  },
+  "name:205turbo16evolution286": {
+    "id": "car105",
+    "manufacturer": "Peugeot"
+  },
+  "name:jaguarxjr988": {
+    "id": "car1067",
+    "manufacturer": "Jaguar"
+  },
+  "name:xjr988": {
+    "id": "car1067",
+    "manufacturer": "Jaguar"
+  },
+  "name:chaparral2j70": {
+    "id": "car1069",
+    "manufacturer": "Chaparral"
+  },
+  "name:2j70": {
+    "id": "car1069",
+    "manufacturer": "Chaparral"
+  },
+  "name:toyotagtonets02099": {
+    "id": "car116",
+    "manufacturer": "Toyota"
+  },
+  "name:gtonets02099": {
+    "id": "car116",
+    "manufacturer": "Toyota"
+  },
+  "name:hondas80066": {
+    "id": "car135",
+    "manufacturer": "Honda"
+  },
+  "name:s80066": {
+    "id": "car135",
+    "manufacturer": "Honda"
+  },
+  "name:audir842fsirtronic07": {
+    "id": "car1365",
+    "manufacturer": "Audi"
+  },
+  "name:r84207": {
+    "id": "car1365",
+    "manufacturer": "Audi"
+  },
+  "name:hondabeat91": {
+    "id": "car137",
+    "manufacturer": "Honda"
+  },
+  "name:beat91": {
+    "id": "car137",
+    "manufacturer": "Honda"
+  },
+  "name:minicoopers05": {
+    "id": "car1370",
+    "manufacturer": "MINI"
+  },
+  "name:dodgevipergts02": {
+    "id": "car1373",
+    "manufacturer": "Dodge"
+  },
+  "name:vipergts02": {
+    "id": "car1373",
+    "manufacturer": "Dodge"
+  },
+  "name:ferrarif43006": {
+    "id": "car1378",
+    "manufacturer": "Ferrari"
+  },
+  "name:f43006": {
+    "id": "car1378",
+    "manufacturer": "Ferrari"
+  },
+  "name:nissanfairladyzversionsz3307": {
+    "id": "car1384",
+    "manufacturer": "Nissan"
+  },
+  "name:fairladyzversionsz3307": {
+    "id": "car1384",
+    "manufacturer": "Nissan"
+  },
+  "name:suzukiswiftsport07": {
+    "id": "car1385",
+    "manufacturer": "Suzuki"
+  },
+  "name:swiftsport07": {
+    "id": "car1385",
+    "manufacturer": "Suzuki"
+  },
+  "name:bmwm3coup07": {
+    "id": "car1399",
+    "manufacturer": "BMW"
+  },
+  "name:m307": {
+    "id": "car1399",
+    "manufacturer": "BMW"
+  },
+  "name:hondansxgt50000": {
+    "id": "car140",
+    "manufacturer": "Honda"
+  },
+  "name:nsxgt50000": {
+    "id": "car140",
+    "manufacturer": "Honda"
+  },
+  "name:dodgevipersrt10coupe06": {
+    "id": "car1402",
+    "manufacturer": "Dodge"
+  },
+  "name:vipersrt10coupe06": {
+    "id": "car1402",
+    "manufacturer": "Dodge"
+  },
+  "name:ferrarif4092": {
+    "id": "car1409",
+    "manufacturer": "Ferrari"
+  },
+  "name:f4092": {
+    "id": "car1409",
+    "manufacturer": "Ferrari"
+  },
+  "name:ferrari512bb76": {
+    "id": "car1410",
+    "manufacturer": "Ferrari"
+  },
+  "name:512bb76": {
+    "id": "car1410",
+    "manufacturer": "Ferrari"
+  },
+  "name:fordgtlmspeciitestcar": {
+    "id": "car1425",
+    "manufacturer": "Ford"
+  },
+  "name:fordgt06": {
+    "id": "car1426",
+    "manufacturer": "Ford"
+  },
+  "name:minesbnr34gtrn1base": {
+    "id": "car1427",
+    "manufacturer": "Mine's"
+  },
+  "name:bnr34gtrn1base": {
+    "id": "car1427",
+    "manufacturer": "Mine's"
+  },
+  "name:reamemiyafd3srx7": {
+    "id": "car1431",
+    "manufacturer": "RE Amemiya"
+  },
+  "name:amuses2000gt1turbo": {
+    "id": "car1433",
+    "manufacturer": "Amuse"
+  },
+  "name:nissansilviaspecraeros1502": {
+    "id": "car1448",
+    "manufacturer": "Nissan"
+  },
+  "name:silviaspecraeros1502": {
+    "id": "car1448",
+    "manufacturer": "Nissan"
+  },
+  "name:daihatsucopenactivetop02": {
+    "id": "car145",
+    "manufacturer": "Daihatsu"
+  },
+  "name:copen02": {
+    "id": "car145",
+    "manufacturer": "Daihatsu"
+  },
+  "name:nissanfairladyzz3408": {
+    "id": "car1458",
+    "manufacturer": "Nissan"
+  },
+  "name:fairladyzz3408": {
+    "id": "car1458",
+    "manufacturer": "Nissan"
+  },
+  "name:nissansilviaksdiaselections1390": {
+    "id": "car1461",
+    "manufacturer": "Nissan"
+  },
+  "name:silviaksdiaselections1390": {
+    "id": "car1461",
+    "manufacturer": "Nissan"
+  },
+  "name:nissangtrgt50008": {
+    "id": "car1466",
+    "manufacturer": "Nissan"
+  },
+  "name:gtrgt50008": {
+    "id": "car1466",
+    "manufacturer": "Nissan"
+  },
+  "name:toyotasupragt50097": {
+    "id": "car1470",
+    "manufacturer": "Toyota"
+  },
+  "name:supragt50097": {
+    "id": "car1470",
+    "manufacturer": "Toyota"
+  },
+  "name:enzoferrari02": {
+    "id": "car1474",
+    "manufacturer": "Ferrari"
+  },
+  "name:chevroletcorvettezr1c609": {
+    "id": "car1480",
+    "manufacturer": "Chevrolet"
+  },
+  "name:corvettezr1c609": {
+    "id": "car1480",
+    "manufacturer": "Chevrolet"
+  },
+  "name:lamborghinicountach25thanniversary88": {
+    "id": "car1481",
+    "manufacturer": "Lamborghini"
+  },
+  "name:countach25thanniversary88": {
+    "id": "car1481",
+    "manufacturer": "Lamborghini"
+  },
+  "name:lamborghinicountachlp40074": {
+    "id": "car1484",
+    "manufacturer": "Lamborghini"
+  },
+  "name:countachlp40074": {
+    "id": "car1484",
+    "manufacturer": "Lamborghini"
+  },
+  "name:ferrari458italia09": {
+    "id": "car1504",
+    "manufacturer": "Ferrari"
+  },
+  "name:458italia09": {
+    "id": "car1504",
+    "manufacturer": "Ferrari"
+  },
+  "name:lamborghinigallardolp560408": {
+    "id": "car1506",
+    "manufacturer": "Lamborghini"
+  },
+  "name:gallardolp560408": {
+    "id": "car1506",
+    "manufacturer": "Lamborghini"
+  },
+  "name:mercedesbenzslsamg10": {
+    "id": "car1507",
+    "manufacturer": "AMG"
+  },
+  "name:slsamg10": {
+    "id": "car1507",
+    "manufacturer": "AMG"
+  },
+  "name:mitsubishilancerevolutionvigsrtmeditionspecialcolorpackage99": {
+    "id": "car1508",
+    "manufacturer": "Mitsubishi"
+  },
+  "name:lancerevolutionvigsrtmscp99": {
+    "id": "car1508",
+    "manufacturer": "Mitsubishi"
+  },
+  "name:hondansxgt50008": {
+    "id": "car1510",
+    "manufacturer": "Honda"
+  },
+  "name:nsxgt50008": {
+    "id": "car1510",
+    "manufacturer": "Honda"
+  },
+  "name:lexussc430gt50008": {
+    "id": "car1516",
+    "manufacturer": "Lexus"
+  },
+  "name:sc430gt50008": {
+    "id": "car1516",
+    "manufacturer": "Lexus"
+  },
+  "name:fiat500f68": {
+    "id": "car1523",
+    "manufacturer": "FIAT"
+  },
+  "name:500f68": {
+    "id": "car1523",
+    "manufacturer": "FIAT"
+  },
+  "name:fiat500128vloungess08": {
+    "id": "car1527",
+    "manufacturer": "FIAT"
+  },
+  "name:500128vloungess08": {
+    "id": "car1527",
+    "manufacturer": "FIAT"
+  },
+  "name:mercedesbenzslrmclaren09": {
+    "id": "car1528",
+    "manufacturer": "Mercedes-Benz"
+  },
+  "name:slrmclaren09": {
+    "id": "car1528",
+    "manufacturer": "Mercedes-Benz"
+  },
+  "name:paganizondar09": {
+    "id": "car1536",
+    "manufacturer": "Pagani"
+  },
+  "name:zondar09": {
+    "id": "car1536",
+    "manufacturer": "Pagani"
+  },
+  "name:toyotapriusg09": {
+    "id": "car1537",
+    "manufacturer": "Toyota"
+  },
+  "name:priusg09": {
+    "id": "car1537",
+    "manufacturer": "Toyota"
+  },
+  "name:maseratigranturismos08": {
+    "id": "car1539",
+    "manufacturer": "Maserati"
+  },
+  "name:granturismos08": {
+    "id": "car1539",
+    "manufacturer": "Maserati"
+  },
+  "name:mclarenf194": {
+    "id": "car1540",
+    "manufacturer": "McLaren"
+  },
+  "name:audittscoup09": {
+    "id": "car1541",
+    "manufacturer": "Audi"
+  },
+  "name:ttscoup09": {
+    "id": "car1541",
+    "manufacturer": "Audi"
+  },
+  "name:chevroletcorvettestingrayconvertiblec369": {
+    "id": "car1542",
+    "manufacturer": "Chevrolet"
+  },
+  "name:corvetteconvertiblec369": {
+    "id": "car1542",
+    "manufacturer": "Chevrolet"
+  },
+  "name:dodgechallengerrt70": {
+    "id": "car1543",
+    "manufacturer": "Dodge"
+  },
+  "name:challengerrt70": {
+    "id": "car1543",
+    "manufacturer": "Dodge"
+  },
+  "name:ferrari430scuderia07": {
+    "id": "car1544",
+    "manufacturer": "Ferrari"
+  },
+  "name:430scuderia07": {
+    "id": "car1544",
+    "manufacturer": "Ferrari"
+  },
+  "name:lamborghinimurcilagolp64009": {
+    "id": "car1545",
+    "manufacturer": "Lamborghini"
+  },
+  "name:murcilagolp64009": {
+    "id": "car1545",
+    "manufacturer": "Lamborghini"
+  },
+  "name:amusenismo380rssuperleggera": {
+    "id": "car1549",
+    "manufacturer": "Amuse"
+  },
+  "name:ferrari330p467": {
+    "id": "car1551",
+    "manufacturer": "Ferrari"
+  },
+  "name:330p467": {
+    "id": "car1551",
+    "manufacturer": "Ferrari"
+  },
+  "name:jaguarxj1366": {
+    "id": "car1553",
+    "manufacturer": "Jaguar"
+  },
+  "name:xj1366": {
+    "id": "car1553",
+    "manufacturer": "Jaguar"
+  },
+  "name:lexuslfa10": {
+    "id": "car1562",
+    "manufacturer": "Lexus"
+  },
+  "name:lfa10": {
+    "id": "car1562",
+    "manufacturer": "Lexus"
+  },
+  "name:renaultsportmganetrophy11": {
+    "id": "car1563",
+    "manufacturer": "Renault"
+  },
+  "name:mganetrophy11": {
+    "id": "car1563",
+    "manufacturer": "Renault"
+  },
+  "name:fordmarkivracecar67": {
+    "id": "car1565",
+    "manufacturer": "Ford"
+  },
+  "name:markivracecar67": {
+    "id": "car1565",
+    "manufacturer": "Ford"
+  },
+  "name:alfaromeo8ccompetizione08": {
+    "id": "car1578",
+    "manufacturer": "Alfa Romeo"
+  },
+  "name:8ccompetizione08": {
+    "id": "car1578",
+    "manufacturer": "Alfa Romeo"
+  },
+  "name:gtbycitronroadcar": {
+    "id": "car1581",
+    "manufacturer": "Citroën"
+  },
+  "name:lamborghinimiurap400bertoneprototype67": {
+    "id": "car1582",
+    "manufacturer": "Lamborghini"
+  },
+  "name:miurap400bertoneprototype67": {
+    "id": "car1582",
+    "manufacturer": "Lamborghini"
+  },
+  "name:alfaromeogiuliatz2carrozzatadazagato65": {
+    "id": "car1645",
+    "manufacturer": "Alfa Romeo"
+  },
+  "name:giuliatz2carrozzatadazagato65": {
+    "id": "car1645",
+    "manufacturer": "Alfa Romeo"
+  },
+  "name:peugeot908hdifap10": {
+    "id": "car1646",
+    "manufacturer": "Peugeot"
+  },
+  "name:908hdifap10": {
+    "id": "car1646",
+    "manufacturer": "Peugeot"
+  },
+  "name:volkswagensambabustyp2t162": {
+    "id": "car1671",
+    "manufacturer": "Volkswagen"
+  },
+  "name:sambabustyp262": {
+    "id": "car1671",
+    "manufacturer": "Volkswagen"
+  },
+  "name:hondacivictyperektouringcar": {
+    "id": "car1689",
+    "manufacturer": "Honda"
+  },
+  "name:civictyperektouringcar": {
+    "id": "car1689",
+    "manufacturer": "Honda"
+  },
+  "name:mclarenmp412c10": {
+    "id": "car1722",
+    "manufacturer": "McLaren"
+  },
+  "name:mp412c10": {
+    "id": "car1722",
+    "manufacturer": "McLaren"
+  },
+  "name:fordmustangmach171": {
+    "id": "car1729",
+    "manufacturer": "Ford"
+  },
+  "name:mustangmach171": {
+    "id": "car1729",
+    "manufacturer": "Ford"
+  },
+  "name:renaultr5turbo80": {
+    "id": "car173",
+    "manufacturer": "Renault"
+  },
+  "name:r5turbo80": {
+    "id": "car173",
+    "manufacturer": "Renault"
+  },
+  "name:mazdaroadstertouringcar": {
+    "id": "car1746",
+    "manufacturer": "Mazda"
+  },
+  "name:roadstertouringcar": {
+    "id": "car1746",
+    "manufacturer": "Mazda"
+  },
+  "name:lamborghiniaventadorlp700411": {
+    "id": "car1770",
+    "manufacturer": "Lamborghini"
+  },
+  "name:aventadorlp700411": {
+    "id": "car1770",
+    "manufacturer": "Lamborghini"
+  },
+  "name:volkswagensciroccor10": {
+    "id": "car1773",
+    "manufacturer": "Volkswagen"
+  },
+  "name:sciroccor10": {
+    "id": "car1773",
+    "manufacturer": "Volkswagen"
+  },
+  "name:volkswagen120066": {
+    "id": "car1778",
+    "manufacturer": "Volkswagen"
+  },
+  "name:alpinea1101600s72": {
+    "id": "car1796",
+    "manufacturer": "Alpine"
+  },
+  "name:a11072": {
+    "id": "car1796",
+    "manufacturer": "Alpine"
+  },
+  "name:mercedesbenzslsamggt311": {
+    "id": "car1797",
+    "manufacturer": "AMG"
+  },
+  "name:slsamggt311": {
+    "id": "car1797",
+    "manufacturer": "AMG"
+  },
+  "name:tvrtuscanspeed600": {
+    "id": "car187",
+    "manufacturer": "TVR"
+  },
+  "name:tuscanspeed600": {
+    "id": "car187",
+    "manufacturer": "TVR"
+  },
+  "name:bmwz801": {
+    "id": "car1893",
+    "manufacturer": "BMW"
+  },
+  "name:z801": {
+    "id": "car1893",
+    "manufacturer": "BMW"
+  },
+  "name:ferraridino246gt71": {
+    "id": "car1895",
+    "manufacturer": "Ferrari"
+  },
+  "name:dino246gt71": {
+    "id": "car1895",
+    "manufacturer": "Ferrari"
+  },
+  "name:teslamodelssignatureperformance12": {
+    "id": "car1896",
+    "manufacturer": "Tesla"
+  },
+  "name:modelssignatureperformance12": {
+    "id": "car1896",
+    "manufacturer": "Tesla"
+  },
+  "name:astonmartinone7711": {
+    "id": "car1898",
+    "manufacturer": "Aston Martin"
+  },
+  "name:one7711": {
+    "id": "car1898",
+    "manufacturer": "Aston Martin"
+  },
+  "name:plymouthxnrghiaroadster60": {
+    "id": "car1900",
+    "manufacturer": "Plymouth"
+  },
+  "name:xnrghiaroadster60": {
+    "id": "car1900",
+    "manufacturer": "Plymouth"
+  },
+  "name:bmwz4gt311": {
+    "id": "car1902",
+    "manufacturer": "BMW"
+  },
+  "name:z4gt311": {
+    "id": "car1902",
+    "manufacturer": "BMW"
+  },
+  "name:bmwm3gt11": {
+    "id": "car1904",
+    "manufacturer": "BMW"
+  },
+  "name:m3gt11": {
+    "id": "car1904",
+    "manufacturer": "BMW"
+  },
+  "name:nissangtrnismogt313": {
+    "id": "car1905",
+    "manufacturer": "Nissan"
+  },
+  "name:gtrnismogt313": {
+    "id": "car1905",
+    "manufacturer": "Nissan"
+  },
+  "name:ktmxbowr12": {
+    "id": "car1907",
+    "manufacturer": "KTM"
+  },
+  "name:xbowr12": {
+    "id": "car1907",
+    "manufacturer": "KTM"
+  },
+  "name:chevroletcorvettec7stingray14": {
+    "id": "car1916",
+    "manufacturer": "Chevrolet"
+  },
+  "name:corvettec714": {
+    "id": "car1916",
+    "manufacturer": "Chevrolet"
+  },
+  "name:shelbygt35065": {
+    "id": "car1925",
+    "manufacturer": "Shelby"
+  },
+  "name:gt35065": {
+    "id": "car1925",
+    "manufacturer": "Shelby"
+  },
+  "name:shelbycobradaytonacoupe64": {
+    "id": "car1926",
+    "manufacturer": "Shelby"
+  },
+  "name:cobradaytonacoupe64": {
+    "id": "car1926",
+    "manufacturer": "Shelby"
+  },
+  "name:audisportquattros1pikespeak87": {
+    "id": "car1927",
+    "manufacturer": "Audi"
+  },
+  "name:sportquattros1pikespeak87": {
+    "id": "car1927",
+    "manufacturer": "Audi"
+  },
+  "name:ferrari250gtberlinettapassocorto61": {
+    "id": "car1931",
+    "manufacturer": "Ferrari"
+  },
+  "name:250gtberlinettapassocorto61": {
+    "id": "car1931",
+    "manufacturer": "Ferrari"
+  },
+  "name:abarth1500bipostobertonebat152": {
+    "id": "car1932",
+    "manufacturer": "Abarth"
+  },
+  "name:1500bipostobertonebat152": {
+    "id": "car1932",
+    "manufacturer": "Abarth"
+  },
+  "name:alfaromeomito14tsport09": {
+    "id": "car1933",
+    "manufacturer": "Alfa Romeo"
+  },
+  "name:mito09": {
+    "id": "car1933",
+    "manufacturer": "Alfa Romeo"
+  },
+  "name:fordgt40marki66": {
+    "id": "car1935",
+    "manufacturer": "Ford"
+  },
+  "name:gt40marki66": {
+    "id": "car1935",
+    "manufacturer": "Ford"
+  },
+  "name:dodgevipergts13": {
+    "id": "car1956",
+    "manufacturer": "Dodge"
+  },
+  "name:vipergts13": {
+    "id": "car1956",
+    "manufacturer": "Dodge"
+  },
+  "name:audir18tdi11": {
+    "id": "car1965",
+    "manufacturer": "Audi"
+  },
+  "name:r18tdi11": {
+    "id": "car1965",
+    "manufacturer": "Audi"
+  },
+  "name:abarth50009": {
+    "id": "car1973",
+    "manufacturer": "Abarth"
+  },
+  "name:mazdarx50070": {
+    "id": "car1975",
+    "manufacturer": "Mazda"
+  },
+  "name:rx50070": {
+    "id": "car1975",
+    "manufacturer": "Mazda"
+  },
+  "name:mclarenf1gtrbmw95": {
+    "id": "car1984",
+    "manufacturer": "McLaren"
+  },
+  "name:pontiacfirebirdtransam78": {
+    "id": "car1985",
+    "manufacturer": "Pontiac"
+  },
+  "name:firebirdtransam78": {
+    "id": "car1985",
+    "manufacturer": "Pontiac"
+  },
+  "name:renaultr8gordini66": {
+    "id": "car1986",
+    "manufacturer": "Renault"
+  },
+  "name:r8gordini66": {
+    "id": "car1986",
+    "manufacturer": "Renault"
+  },
+  "name:renaultsportmganerstrophy11": {
+    "id": "car1987",
+    "manufacturer": "Renault"
+  },
+  "name:mganerstrophy11": {
+    "id": "car1987",
+    "manufacturer": "Renault"
+  },
+  "name:lamborghinidiablogt00": {
+    "id": "car1990",
+    "manufacturer": "Lamborghini"
+  },
+  "name:diablogt00": {
+    "id": "car1990",
+    "manufacturer": "Lamborghini"
+  },
+  "name:mazdaeunosroadsternaspecialpackage89": {
+    "id": "car201",
+    "manufacturer": "Mazda"
+  },
+  "name:eunosroadsterna89": {
+    "id": "car201",
+    "manufacturer": "Mazda"
+  },
+  "name:ferrari250gto62": {
+    "id": "car2010",
+    "manufacturer": "Ferrari"
+  },
+  "name:250gto62": {
+    "id": "car2010",
+    "manufacturer": "Ferrari"
+  },
+  "name:ferrari500mondialpininfarinacoupe54": {
+    "id": "car2011",
+    "manufacturer": "Ferrari"
+  },
+  "name:500mondialpininfarinacoupe54": {
+    "id": "car2011",
+    "manufacturer": "Ferrari"
+  },
+  "name:ferrarigto84": {
+    "id": "car2017",
+    "manufacturer": "Ferrari"
+  },
+  "name:gto84": {
+    "id": "car2017",
+    "manufacturer": "Ferrari"
+  },
+  "name:ferrari365gtb471": {
+    "id": "car2018",
+    "manufacturer": "Ferrari"
+  },
+  "name:365gtb471": {
+    "id": "car2018",
+    "manufacturer": "Ferrari"
+  },
+  "name:toyotaaquas11": {
+    "id": "car2026",
+    "manufacturer": "Toyota"
+  },
+  "name:aquas11": {
+    "id": "car2026",
+    "manufacturer": "Toyota"
+  },
+  "name:hondaintegratyperdc298": {
+    "id": "car203",
+    "manufacturer": "Honda"
+  },
+  "name:integratyperdc298": {
+    "id": "car203",
+    "manufacturer": "Honda"
+  },
+  "name:hondacivictyperek98": {
+    "id": "car204",
+    "manufacturer": "Honda"
+  },
+  "name:civictyperek98": {
+    "id": "car204",
+    "manufacturer": "Honda"
+  },
+  "name:bugattiveyron16413": {
+    "id": "car2049",
+    "manufacturer": "Bugatti"
+  },
+  "name:veyron16413": {
+    "id": "car2049",
+    "manufacturer": "Bugatti"
+  },
+  "name:mazdarx7spiritrtypeafd02": {
+    "id": "car205",
+    "manufacturer": "Mazda"
+  },
+  "name:rx7spiritrtypeafd02": {
+    "id": "car205",
+    "manufacturer": "Mazda"
+  },
+  "name:paganihuayra13": {
+    "id": "car2050",
+    "manufacturer": "Pagani"
+  },
+  "name:huayra13": {
+    "id": "car2050",
+    "manufacturer": "Pagani"
+  },
+  "name:hyundaigenesiscoupe38track13": {
+    "id": "car2051",
+    "manufacturer": "Hyundai"
+  },
+  "name:genesiscoupe3813": {
+    "id": "car2051",
+    "manufacturer": "Hyundai"
+  },
+  "name:mercedesbenzamgvisiongranturismo": {
+    "id": "car2055",
+    "manufacturer": "AMG"
+  },
+  "name:mercedesbenzamgvgt": {
+    "id": "car2055",
+    "manufacturer": "AMG"
+  },
+  "name:chevroletcorvettestingrayracerconcept59": {
+    "id": "car2059",
+    "manufacturer": "Chevrolet"
+  },
+  "name:corvettestingrayracerconcept59": {
+    "id": "car2059",
+    "manufacturer": "Chevrolet"
+  },
+  "name:granturismoracingkart125shifter": {
+    "id": "car2060",
+    "manufacturer": "Gran Turismo"
+  },
+  "name:racingkart125shifter": {
+    "id": "car2060",
+    "manufacturer": "Gran Turismo"
+  },
+  "name:toyotamr2gts97": {
+    "id": "car207",
+    "manufacturer": "Toyota"
+  },
+  "name:mr2gts97": {
+    "id": "car207",
+    "manufacturer": "Toyota"
+  },
+  "name:bmwm4coup14": {
+    "id": "car2074",
+    "manufacturer": "BMW"
+  },
+  "name:m414": {
+    "id": "car2074",
+    "manufacturer": "BMW"
+  },
+  "name:mercedesbenzamgvisiongranturismoracingseries": {
+    "id": "car2076",
+    "manufacturer": "AMG"
+  },
+  "name:mercedesbenzamgvgtracingseries": {
+    "id": "car2076",
+    "manufacturer": "AMG"
+  },
+  "name:granturismoredbullx2014standard": {
+    "id": "car2077",
+    "manufacturer": "Gran Turismo"
+  },
+  "name:redbullx2014standard": {
+    "id": "car2077",
+    "manufacturer": "Gran Turismo"
+  },
+  "name:granturismoredbullx2014junior": {
+    "id": "car2078",
+    "manufacturer": "Gran Turismo"
+  },
+  "name:redbullx2014junior": {
+    "id": "car2078",
+    "manufacturer": "Gran Turismo"
+  },
+  "name:toyotaft1": {
+    "id": "car2080",
+    "manufacturer": "Toyota"
+  },
+  "name:ft1": {
+    "id": "car2080",
+    "manufacturer": "Toyota"
+  },
+  "name:bmwvisiongranturismo": {
+    "id": "car2087",
+    "manufacturer": "BMW"
+  },
+  "name:bmwvgt": {
+    "id": "car2087",
+    "manufacturer": "BMW"
+  },
+  "name:mitsubishiconceptxrphevevolutionvisiongranturismo": {
+    "id": "car2095",
+    "manufacturer": "Mitsubishi"
+  },
+  "name:conceptxrphevevolutionvgt": {
+    "id": "car2095",
+    "manufacturer": "Mitsubishi"
+  },
+  "name:volkswagengtiroadstervisiongranturismo": {
+    "id": "car2098",
+    "manufacturer": "Volkswagen"
+  },
+  "name:gtiroadstervgt": {
+    "id": "car2098",
+    "manufacturer": "Volkswagen"
+  },
+  "name:subaruvizivgtvisiongranturismo": {
+    "id": "car2099",
+    "manufacturer": "Subaru"
+  },
+  "name:vizivgtvgt": {
+    "id": "car2099",
+    "manufacturer": "Subaru"
+  },
+  "name:nissanskylinegtrvspeciinrr3402": {
+    "id": "car210",
+    "manufacturer": "Nissan"
+  },
+  "name:r34gtrvspeciinr02": {
+    "id": "car210",
+    "manufacturer": "Nissan"
+  },
+  "name:toyotats030hybrid12": {
+    "id": "car2101",
+    "manufacturer": "Toyota"
+  },
+  "name:ts030hybrid12": {
+    "id": "car2101",
+    "manufacturer": "Toyota"
+  },
+  "name:astonmartindp100visiongranturismo": {
+    "id": "car2103",
+    "manufacturer": "Aston Martin"
+  },
+  "name:dp100vgt": {
+    "id": "car2103",
+    "manufacturer": "Aston Martin"
+  },
+  "name:toyotaft1visiongranturismo": {
+    "id": "car2106",
+    "manufacturer": "Toyota"
+  },
+  "name:ft1vgt": {
+    "id": "car2106",
+    "manufacturer": "Toyota"
+  },
+  "name:chevroletchaparral2xvisiongranturismo": {
+    "id": "car2107",
+    "manufacturer": "Chaparral"
+  },
+  "name:chaparral2xvgt": {
+    "id": "car2107",
+    "manufacturer": "Chaparral"
+  },
+  "name:dodgesrttomahawkxvisiongranturismo": {
+    "id": "car2108",
+    "manufacturer": "Dodge"
+  },
+  "name:srttomahawkxvgt": {
+    "id": "car2108",
+    "manufacturer": "Dodge"
+  },
+  "name:miniclubmanvisiongranturismo": {
+    "id": "car2109",
+    "manufacturer": "MINI"
+  },
+  "name:miniclubmanvgt": {
+    "id": "car2109",
+    "manufacturer": "MINI"
+  },
+  "name:mitsubishilancerevolutionvgsr98": {
+    "id": "car211",
+    "manufacturer": "Mitsubishi"
+  },
+  "name:lancerevolutionvgsr98": {
+    "id": "car211",
+    "manufacturer": "Mitsubishi"
+  },
+  "name:dodgesrttomahawkgtsrvisiongranturismo": {
+    "id": "car2110",
+    "manufacturer": "Dodge"
+  },
+  "name:srttomahawkgtsrvgt": {
+    "id": "car2110",
+    "manufacturer": "Dodge"
+  },
+  "name:dodgesrttomahawksvisiongranturismo": {
+    "id": "car2111",
+    "manufacturer": "Dodge"
+  },
+  "name:srttomahawksvgt": {
+    "id": "car2111",
+    "manufacturer": "Dodge"
+  },
+  "name:alpinevisiongranturismo": {
+    "id": "car2112",
+    "manufacturer": "Alpine"
+  },
+  "name:alpinevgt": {
+    "id": "car2112",
+    "manufacturer": "Alpine"
+  },
+  "name:peugeotvisiongranturismo": {
+    "id": "car2113",
+    "manufacturer": "Peugeot"
+  },
+  "name:peugeotvgt": {
+    "id": "car2113",
+    "manufacturer": "Peugeot"
+  },
+  "name:alpinevisiongranturismoracemode": {
+    "id": "car2116",
+    "manufacturer": "Alpine"
+  },
+  "name:alpinevgtrace": {
+    "id": "car2116",
+    "manufacturer": "Alpine"
+  },
+  "name:infiniticonceptvisiongranturismo": {
+    "id": "car2117",
+    "manufacturer": "Infiniti"
+  },
+  "name:infiniticonceptvgt": {
+    "id": "car2117",
+    "manufacturer": "Infiniti"
+  },
+  "name:mazdalm55visiongranturismo": {
+    "id": "car2118",
+    "manufacturer": "Mazda"
+  },
+  "name:lm55vgt": {
+    "id": "car2118",
+    "manufacturer": "Mazda"
+  },
+  "name:italdesignexeneovisiongranturismostreetmode": {
+    "id": "car2119",
+    "manufacturer": "Italdesign"
+  },
+  "name:italdesignvgtstreetmode": {
+    "id": "car2119",
+    "manufacturer": "Italdesign"
+  },
+  "name:italdesignexeneovisiongranturismooffroadmode": {
+    "id": "car2120",
+    "manufacturer": "Italdesign"
+  },
+  "name:italdesignvgtoffroadmode": {
+    "id": "car2120",
+    "manufacturer": "Italdesign"
+  },
+  "name:hondasportsvisiongranturismo": {
+    "id": "car2121",
+    "manufacturer": "Honda"
+  },
+  "name:hondasportsvgt": {
+    "id": "car2121",
+    "manufacturer": "Honda"
+  },
+  "name:isorivoltazagatovisiongranturismo": {
+    "id": "car2122",
+    "manufacturer": "Zagato"
+  },
+  "name:isorivoltazagatovgt": {
+    "id": "car2122",
+    "manufacturer": "Zagato"
+  },
+  "name:lexuslflcgtvisiongranturismo": {
+    "id": "car2123",
+    "manufacturer": "Lexus"
+  },
+  "name:lflcgtvgt": {
+    "id": "car2123",
+    "manufacturer": "Lexus"
+  },
+  "name:volkswagengtisupersportvisiongranturismo": {
+    "id": "car2124",
+    "manufacturer": "Volkswagen"
+  },
+  "name:gtisupersportvgt": {
+    "id": "car2124",
+    "manufacturer": "Volkswagen"
+  },
+  "name:nissangtrlmnismo15": {
+    "id": "car2127",
+    "manufacturer": "Nissan"
+  },
+  "name:gtrlmnismo15": {
+    "id": "car2127",
+    "manufacturer": "Nissan"
+  },
+  "name:astonmartinv12vantagegt312": {
+    "id": "car2131",
+    "manufacturer": "Aston Martin"
+  },
+  "name:v12vantagegt312": {
+    "id": "car2131",
+    "manufacturer": "Aston Martin"
+  },
+  "name:bugattivisiongranturismo": {
+    "id": "car2134",
+    "manufacturer": "Bugatti"
+  },
+  "name:bugattivgt": {
+    "id": "car2134",
+    "manufacturer": "Bugatti"
+  },
+  "name:hyundain2025visiongranturismo": {
+    "id": "car2135",
+    "manufacturer": "Hyundai"
+  },
+  "name:hyundain2025vgt": {
+    "id": "car2135",
+    "manufacturer": "Hyundai"
+  },
+  "name:alfaromeo4claunchedition14": {
+    "id": "car2136",
+    "manufacturer": "Alfa Romeo"
+  },
+  "name:4c14": {
+    "id": "car2136",
+    "manufacturer": "Alfa Romeo"
+  },
+  "name:fordmustanggtpremiumfastback15": {
+    "id": "car2138",
+    "manufacturer": "Ford"
+  },
+  "name:mustanggt15": {
+    "id": "car2138",
+    "manufacturer": "Ford"
+  },
+  "name:lexusrcf14": {
+    "id": "car2139",
+    "manufacturer": "Lexus"
+  },
+  "name:rcf14": {
+    "id": "car2139",
+    "manufacturer": "Lexus"
+  },
+  "name:volkswagengolfviigti14": {
+    "id": "car2141",
+    "manufacturer": "Volkswagen"
+  },
+  "name:golfviigti14": {
+    "id": "car2141",
+    "manufacturer": "Volkswagen"
+  },
+  "name:nissanconcept2020visiongranturismo": {
+    "id": "car2142",
+    "manufacturer": "Nissan"
+  },
+  "name:nissanconcept2020vgt": {
+    "id": "car2142",
+    "manufacturer": "Nissan"
+  },
+  "name:audir8lms15": {
+    "id": "car2143",
+    "manufacturer": "Audi"
+  },
+  "name:r8lms15": {
+    "id": "car2143",
+    "manufacturer": "Audi"
+  },
+  "name:toyotasfr15": {
+    "id": "car2144",
+    "manufacturer": "Toyota"
+  },
+  "name:sfr15": {
+    "id": "car2144",
+    "manufacturer": "Toyota"
+  },
+  "name:fordfocusst15": {
+    "id": "car2145",
+    "manufacturer": "Ford"
+  },
+  "name:focusst15": {
+    "id": "car2145",
+    "manufacturer": "Ford"
+  },
+  "name:jaguarftypercoup14": {
+    "id": "car2146",
+    "manufacturer": "Jaguar"
+  },
+  "name:ftyper14": {
+    "id": "car2146",
+    "manufacturer": "Jaguar"
+  },
+  "name:lamborghiniveneno14": {
+    "id": "car2147",
+    "manufacturer": "Lamborghini"
+  },
+  "name:veneno14": {
+    "id": "car2147",
+    "manufacturer": "Lamborghini"
+  },
+  "name:mazdaroadstersnd15": {
+    "id": "car2148",
+    "manufacturer": "Mazda"
+  },
+  "name:roadstersnd15": {
+    "id": "car2148",
+    "manufacturer": "Mazda"
+  },
+  "name:mercedesamggts15": {
+    "id": "car2149",
+    "manufacturer": "AMG"
+  },
+  "name:mitsubishilancerevolutionfinaledition15": {
+    "id": "car2150",
+    "manufacturer": "Mitsubishi"
+  },
+  "name:lancerevolutionfinal15": {
+    "id": "car2150",
+    "manufacturer": "Mitsubishi"
+  },
+  "name:dodgechargersrthellcat15": {
+    "id": "car2152",
+    "manufacturer": "Dodge"
+  },
+  "name:chargersrthellcat15": {
+    "id": "car2152",
+    "manufacturer": "Dodge"
+  },
+  "name:subaruwrxstitypes14": {
+    "id": "car2153",
+    "manufacturer": "Subaru"
+  },
+  "name:wrxstitypes14": {
+    "id": "car2153",
+    "manufacturer": "Subaru"
+  },
+  "name:toyota86gt15": {
+    "id": "car2154",
+    "manufacturer": "Toyota"
+  },
+  "name:86gt15": {
+    "id": "car2154",
+    "manufacturer": "Toyota"
+  },
+  "name:volkswagenpologti14": {
+    "id": "car2155",
+    "manufacturer": "Volkswagen"
+  },
+  "name:pologti14": {
+    "id": "car2155",
+    "manufacturer": "Volkswagen"
+  },
+  "name:hondaproject24poweredbyrc213v": {
+    "id": "car2156",
+    "manufacturer": "Honda"
+  },
+  "name:24poweredbyrc213v": {
+    "id": "car2156",
+    "manufacturer": "Honda"
+  },
+  "name:astonmartinvantagegr4": {
+    "id": "car2157",
+    "manufacturer": "Aston Martin"
+  },
+  "name:v8vantagegr4": {
+    "id": "car2157",
+    "manufacturer": "Aston Martin"
+  },
+  "name:ferrari458italiagt313": {
+    "id": "car2158",
+    "manufacturer": "Ferrari"
+  },
+  "name:458italiagt313": {
+    "id": "car2158",
+    "manufacturer": "Ferrari"
+  },
+  "name:fordmustanggr3": {
+    "id": "car2159",
+    "manufacturer": "Ford"
+  },
+  "name:mustanggr3": {
+    "id": "car2159",
+    "manufacturer": "Ford"
+  },
+  "name:bmwmclarenf1gtrracecar97": {
+    "id": "car216",
+    "manufacturer": "BMW"
+  },
+  "name:mclarenf1gtrracecar97": {
+    "id": "car216",
+    "manufacturer": "BMW"
+  },
+  "name:hyundaigenesisgr3": {
+    "id": "car2160",
+    "manufacturer": "Hyundai"
+  },
+  "name:genesisgr3": {
+    "id": "car2160",
+    "manufacturer": "Hyundai"
+  },
+  "name:nissangtrgr4": {
+    "id": "car2161",
+    "manufacturer": "Nissan"
+  },
+  "name:gtrgr4": {
+    "id": "car2161",
+    "manufacturer": "Nissan"
+  },
+  "name:ferrarilaferrari13": {
+    "id": "car2162",
+    "manufacturer": "Ferrari"
+  },
+  "name:laferrari13": {
+    "id": "car2162",
+    "manufacturer": "Ferrari"
+  },
+  "name:hyundaigenesisgr4": {
+    "id": "car2163",
+    "manufacturer": "Hyundai"
+  },
+  "name:genesisgr4": {
+    "id": "car2163",
+    "manufacturer": "Hyundai"
+  },
+  "name:fordmustanggr4": {
+    "id": "car2164",
+    "manufacturer": "Ford"
+  },
+  "name:mustanggr4": {
+    "id": "car2164",
+    "manufacturer": "Ford"
+  },
+  "name:alfaromeo4cgr4": {
+    "id": "car2166",
+    "manufacturer": "Alfa Romeo"
+  },
+  "name:4cgr4": {
+    "id": "car2166",
+    "manufacturer": "Alfa Romeo"
+  },
+  "name:nissangtrpremiumedition17": {
+    "id": "car2167",
+    "manufacturer": "Nissan"
+  },
+  "name:gtr17": {
+    "id": "car2167",
+    "manufacturer": "Nissan"
+  },
+  "name:audittscoup14": {
+    "id": "car2169",
+    "manufacturer": "Audi"
+  },
+  "name:ttscoup14": {
+    "id": "car2169",
+    "manufacturer": "Audi"
+  },
+  "name:mercedesbenza45amg4matic13": {
+    "id": "car2170",
+    "manufacturer": "AMG"
+  },
+  "name:a45amg13": {
+    "id": "car2170",
+    "manufacturer": "AMG"
+  },
+  "name:lamborghinihuracnlp610415": {
+    "id": "car2171",
+    "manufacturer": "Lamborghini"
+  },
+  "name:huracnlp610415": {
+    "id": "car2171",
+    "manufacturer": "Lamborghini"
+  },
+  "name:ds3racing11": {
+    "id": "car2172",
+    "manufacturer": "DS AUTOMOBILES"
+  },
+  "name:mazdaatenzasedanxdlpackage15": {
+    "id": "car2173",
+    "manufacturer": "Mazda"
+  },
+  "name:atenzasedanxdlpackage15": {
+    "id": "car2173",
+    "manufacturer": "Mazda"
+  },
+  "name:mclaren650scoupe14": {
+    "id": "car2174",
+    "manufacturer": "McLaren"
+  },
+  "name:650s14": {
+    "id": "car2174",
+    "manufacturer": "McLaren"
+  },
+  "name:astonmartinv8vantages15": {
+    "id": "car2175",
+    "manufacturer": "Aston Martin"
+  },
+  "name:v8vantages15": {
+    "id": "car2175",
+    "manufacturer": "Aston Martin"
+  },
+  "name:peugeotrczgtline15": {
+    "id": "car2176",
+    "manufacturer": "Peugeot"
+  },
+  "name:rczgtline15": {
+    "id": "car2176",
+    "manufacturer": "Peugeot"
+  },
+  "name:lamborghinihuracngt315": {
+    "id": "car2177",
+    "manufacturer": "Lamborghini"
+  },
+  "name:huracngt315": {
+    "id": "car2177",
+    "manufacturer": "Lamborghini"
+  },
+  "name:toyotasfrracingconcept16": {
+    "id": "car2178",
+    "manufacturer": "Toyota"
+  },
+  "name:sfrracingconcept16": {
+    "id": "car2178",
+    "manufacturer": "Toyota"
+  },
+  "name:bugattivisiongranturismogr1": {
+    "id": "car2179",
+    "manufacturer": "Bugatti"
+  },
+  "name:bugattivgtgr1": {
+    "id": "car2179",
+    "manufacturer": "Bugatti"
+  },
+  "name:hyundain2025visiongranturismogr1": {
+    "id": "car2180",
+    "manufacturer": "Hyundai"
+  },
+  "name:hyundain2025vgtgr1": {
+    "id": "car2180",
+    "manufacturer": "Hyundai"
+  },
+  "name:mazdalm55visiongranturismogr1": {
+    "id": "car2181",
+    "manufacturer": "Mazda"
+  },
+  "name:lm55vgtgr1": {
+    "id": "car2181",
+    "manufacturer": "Mazda"
+  },
+  "name:mclaren650sgt315": {
+    "id": "car2182",
+    "manufacturer": "McLaren"
+  },
+  "name:650sgt315": {
+    "id": "car2182",
+    "manufacturer": "McLaren"
+  },
+  "name:chevroletcorvettec7gr3": {
+    "id": "car2183",
+    "manufacturer": "Chevrolet"
+  },
+  "name:corvettec7gr3": {
+    "id": "car2183",
+    "manufacturer": "Chevrolet"
+  },
+  "name:jaguarftypegr3": {
+    "id": "car2184",
+    "manufacturer": "Jaguar"
+  },
+  "name:ftypegr3": {
+    "id": "car2184",
+    "manufacturer": "Jaguar"
+  },
+  "name:mitsubishilancerevolutionfinaleditiongr3": {
+    "id": "car2185",
+    "manufacturer": "Mitsubishi"
+  },
+  "name:lancerevolutionfinalgr3": {
+    "id": "car2185",
+    "manufacturer": "Mitsubishi"
+  },
+  "name:subaruwrxgr3": {
+    "id": "car2186",
+    "manufacturer": "Subaru"
+  },
+  "name:wrxgr3": {
+    "id": "car2186",
+    "manufacturer": "Subaru"
+  },
+  "name:toyotaft1visiongranturismogr3": {
+    "id": "car2187",
+    "manufacturer": "Toyota"
+  },
+  "name:ft1vgtgr3": {
+    "id": "car2187",
+    "manufacturer": "Toyota"
+  },
+  "name:renaultsportrs01gt316": {
+    "id": "car2188",
+    "manufacturer": "Renault"
+  },
+  "name:rs01gt316": {
+    "id": "car2188",
+    "manufacturer": "Renault"
+  },
+  "name:gtbycitronracecargr3": {
+    "id": "car2190",
+    "manufacturer": "Citroën"
+  },
+  "name:volkswagengtivisiongranturismogr3": {
+    "id": "car2192",
+    "manufacturer": "Volkswagen"
+  },
+  "name:volkswagengtivgtgr3": {
+    "id": "car2192",
+    "manufacturer": "Volkswagen"
+  },
+  "name:nissan180sxtypex96": {
+    "id": "car24",
+    "manufacturer": "Nissan"
+  },
+  "name:180sxtypex96": {
+    "id": "car24",
+    "manufacturer": "Nissan"
+  },
+  "name:hondansxtyper92": {
+    "id": "car293",
+    "manufacturer": "Honda"
+  },
+  "name:nsxtyper92": {
+    "id": "car293",
+    "manufacturer": "Honda"
+  },
+  "name:mazda787b91": {
+    "id": "car296",
+    "manufacturer": "Mazda"
+  },
+  "name:787b91": {
+    "id": "car296",
+    "manufacturer": "Mazda"
+  },
+  "name:mitsubishilancerevolutionivgsr96": {
+    "id": "car301",
+    "manufacturer": "Mitsubishi"
+  },
+  "name:lancerevolutionivgsr96": {
+    "id": "car301",
+    "manufacturer": "Mitsubishi"
+  },
+  "name:chevroletcamaroz2869": {
+    "id": "car31",
+    "manufacturer": "Chevrolet"
+  },
+  "name:camaroz2869": {
+    "id": "car31",
+    "manufacturer": "Chevrolet"
+  },
+  "name:shelbycobra42766": {
+    "id": "car315",
+    "manufacturer": "Shelby"
+  },
+  "name:cobra42766": {
+    "id": "car315",
+    "manufacturer": "Shelby"
+  },
+  "name:peugeotvisiongranturismogr3": {
+    "id": "car3183",
+    "manufacturer": "Peugeot"
+  },
+  "name:peugeotvgtgr3": {
+    "id": "car3183",
+    "manufacturer": "Peugeot"
+  },
+  "name:alfaromeo4cgr3": {
+    "id": "car3185",
+    "manufacturer": "Alfa Romeo"
+  },
+  "name:4cgr3": {
+    "id": "car3185",
+    "manufacturer": "Alfa Romeo"
+  },
+  "name:alpinevisiongranturismo2017": {
+    "id": "car3187",
+    "manufacturer": "Alpine"
+  },
+  "name:alpinevgt17": {
+    "id": "car3187",
+    "manufacturer": "Alpine"
+  },
+  "name:dodgesrttomahawkvisiongranturismogr1": {
+    "id": "car3188",
+    "manufacturer": "Dodge"
+  },
+  "name:srttomahawkvgtgr1": {
+    "id": "car3188",
+    "manufacturer": "Dodge"
+  },
+  "name:mercedesbenzslsamggr4": {
+    "id": "car3192",
+    "manufacturer": "AMG"
+  },
+  "name:slsamggr4": {
+    "id": "car3192",
+    "manufacturer": "AMG"
+  },
+  "name:bmwm4safetycar": {
+    "id": "car3209",
+    "manufacturer": "BMW"
+  },
+  "name:m4safetycar": {
+    "id": "car3209",
+    "manufacturer": "BMW"
+  },
+  "name:mercedesamggtsafetycar": {
+    "id": "car3210",
+    "manufacturer": "AMG"
+  },
+  "name:hondacivictyperfk215": {
+    "id": "car3214",
+    "manufacturer": "Honda"
+  },
+  "name:civictyperfk215": {
+    "id": "car3214",
+    "manufacturer": "Honda"
+  },
+  "name:peugeot208gtibypeugeotsport14": {
+    "id": "car3215",
+    "manufacturer": "Peugeot"
+  },
+  "name:208gtibypeugeotsport14": {
+    "id": "car3215",
+    "manufacturer": "Peugeot"
+  },
+  "name:renaultsportrs0116": {
+    "id": "car3216",
+    "manufacturer": "Renault"
+  },
+  "name:rs0116": {
+    "id": "car3216",
+    "manufacturer": "Renault"
+  },
+  "name:chevroletcamaross16": {
+    "id": "car3217",
+    "manufacturer": "Chevrolet"
+  },
+  "name:camaross16": {
+    "id": "car3217",
+    "manufacturer": "Chevrolet"
+  },
+  "name:bmwm6gt3endurancemodel16": {
+    "id": "car3218",
+    "manufacturer": "BMW"
+  },
+  "name:m6gt3endurancemodel16": {
+    "id": "car3218",
+    "manufacturer": "BMW"
+  },
+  "name:hondansx17": {
+    "id": "car3219",
+    "manufacturer": "Honda"
+  },
+  "name:nsx17": {
+    "id": "car3219",
+    "manufacturer": "Honda"
+  },
+  "name:renaultsportcliors220edctrophy15": {
+    "id": "car3220",
+    "manufacturer": "Renault"
+  },
+  "name:cliors220trophy15": {
+    "id": "car3220",
+    "manufacturer": "Renault"
+  },
+  "name:bmwm6gt3sprintmodel16": {
+    "id": "car3221",
+    "manufacturer": "BMW"
+  },
+  "name:m6gt3sprintmodel16": {
+    "id": "car3221",
+    "manufacturer": "BMW"
+  },
+  "name:toyota86grmn16": {
+    "id": "car3222",
+    "manufacturer": "Toyota"
+  },
+  "name:86grmn16": {
+    "id": "car3222",
+    "manufacturer": "Toyota"
+  },
+  "name:dodgevipersrtgt3r15": {
+    "id": "car3223",
+    "manufacturer": "Dodge"
+  },
+  "name:vipersrtgt3r15": {
+    "id": "car3223",
+    "manufacturer": "Dodge"
+  },
+  "name:mercedesamggt316": {
+    "id": "car3224",
+    "manufacturer": "AMG"
+  },
+  "name:nissangtrsafetycar": {
+    "id": "car3225",
+    "manufacturer": "Nissan"
+  },
+  "name:gtrsafetycar": {
+    "id": "car3225",
+    "manufacturer": "Nissan"
+  },
+  "name:lexuslc50017": {
+    "id": "car3227",
+    "manufacturer": "Lexus"
+  },
+  "name:lc50017": {
+    "id": "car3227",
+    "manufacturer": "Lexus"
+  },
+  "name:lexusrcfgt3prototype16": {
+    "id": "car3228",
+    "manufacturer": "Lexus"
+  },
+  "name:rcfgt3prototype16": {
+    "id": "car3228",
+    "manufacturer": "Lexus"
+  },
+  "name:fordmustanggrbrallycar": {
+    "id": "car3229",
+    "manufacturer": "Ford"
+  },
+  "name:mustanggrbrallycar": {
+    "id": "car3229",
+    "manufacturer": "Ford"
+  },
+  "name:mitsubishilancerevolutionfinaleditiongrbrallycar": {
+    "id": "car3230",
+    "manufacturer": "Mitsubishi"
+  },
+  "name:lancerevolutionfinalgrbrallycar": {
+    "id": "car3230",
+    "manufacturer": "Mitsubishi"
+  },
+  "name:volkswagensciroccogr4": {
+    "id": "car3231",
+    "manufacturer": "Volkswagen"
+  },
+  "name:sciroccogr4": {
+    "id": "car3231",
+    "manufacturer": "Volkswagen"
+  },
+  "name:subaruwrxgrbrallycar": {
+    "id": "car3232",
+    "manufacturer": "Subaru"
+  },
+  "name:wrxgrbrallycar": {
+    "id": "car3232",
+    "manufacturer": "Subaru"
+  },
+  "name:hyundaigenesisgrbrallycar": {
+    "id": "car3234",
+    "manufacturer": "Hyundai"
+  },
+  "name:genesisgrbrallycar": {
+    "id": "car3234",
+    "manufacturer": "Hyundai"
+  },
+  "name:hondansxgr3": {
+    "id": "car3235",
+    "manufacturer": "Honda"
+  },
+  "name:nsxgr3": {
+    "id": "car3235",
+    "manufacturer": "Honda"
+  },
+  "name:mazdaatenzagr3": {
+    "id": "car3237",
+    "manufacturer": "Mazda"
+  },
+  "name:atenzagr3": {
+    "id": "car3237",
+    "manufacturer": "Mazda"
+  },
+  "name:peugeotrczgr3": {
+    "id": "car3238",
+    "manufacturer": "Peugeot"
+  },
+  "name:rczgr3": {
+    "id": "car3238",
+    "manufacturer": "Peugeot"
+  },
+  "name:hondansxgrbrallycar": {
+    "id": "car3239",
+    "manufacturer": "Honda"
+  },
+  "name:nsxgrbrallycar": {
+    "id": "car3239",
+    "manufacturer": "Honda"
+  },
+  "name:nissangtrgrbrallycar": {
+    "id": "car3241",
+    "manufacturer": "Nissan"
+  },
+  "name:gtrgrbrallycar": {
+    "id": "car3241",
+    "manufacturer": "Nissan"
+  },
+  "name:peugeotrczgrbrallycar": {
+    "id": "car3242",
+    "manufacturer": "Peugeot"
+  },
+  "name:rczgrbrallycar": {
+    "id": "car3242",
+    "manufacturer": "Peugeot"
+  },
+  "name:bmwm4gr4": {
+    "id": "car3245",
+    "manufacturer": "BMW"
+  },
+  "name:m4gr4": {
+    "id": "car3245",
+    "manufacturer": "BMW"
+  },
+  "name:bugattiveyrongr4": {
+    "id": "car3246",
+    "manufacturer": "Bugatti"
+  },
+  "name:veyrongr4": {
+    "id": "car3246",
+    "manufacturer": "Bugatti"
+  },
+  "name:chevroletcorvettec7gr4": {
+    "id": "car3247",
+    "manufacturer": "Chevrolet"
+  },
+  "name:corvettec7gr4": {
+    "id": "car3247",
+    "manufacturer": "Chevrolet"
+  },
+  "name:gtbycitrongr4": {
+    "id": "car3248",
+    "manufacturer": "Citroën"
+  },
+  "name:dodgevipergr4": {
+    "id": "car3249",
+    "manufacturer": "Dodge"
+  },
+  "name:vipergr4": {
+    "id": "car3249",
+    "manufacturer": "Dodge"
+  },
+  "name:hondansxgr4": {
+    "id": "car3251",
+    "manufacturer": "Honda"
+  },
+  "name:nsxgr4": {
+    "id": "car3251",
+    "manufacturer": "Honda"
+  },
+  "name:jaguarftypegr4": {
+    "id": "car3252",
+    "manufacturer": "Jaguar"
+  },
+  "name:ftypegr4": {
+    "id": "car3252",
+    "manufacturer": "Jaguar"
+  },
+  "name:lamborghinihuracngr4": {
+    "id": "car3253",
+    "manufacturer": "Lamborghini"
+  },
+  "name:huracngr4": {
+    "id": "car3253",
+    "manufacturer": "Lamborghini"
+  },
+  "name:lexusrcfgr4": {
+    "id": "car3254",
+    "manufacturer": "Lexus"
+  },
+  "name:rcfgr4": {
+    "id": "car3254",
+    "manufacturer": "Lexus"
+  },
+  "name:mazdaatenzagr4": {
+    "id": "car3256",
+    "manufacturer": "Mazda"
+  },
+  "name:atenzagr4": {
+    "id": "car3256",
+    "manufacturer": "Mazda"
+  },
+  "name:mclaren650sgr4": {
+    "id": "car3257",
+    "manufacturer": "McLaren"
+  },
+  "name:650sgr4": {
+    "id": "car3257",
+    "manufacturer": "McLaren"
+  },
+  "name:mitsubishilancerevolutionfinaleditiongr4": {
+    "id": "car3258",
+    "manufacturer": "Mitsubishi"
+  },
+  "name:lancerevolutionfinalgr4": {
+    "id": "car3258",
+    "manufacturer": "Mitsubishi"
+  },
+  "name:peugeotrczgr4": {
+    "id": "car3259",
+    "manufacturer": "Peugeot"
+  },
+  "name:rczgr4": {
+    "id": "car3259",
+    "manufacturer": "Peugeot"
+  },
+  "name:renaultsportmganegr4": {
+    "id": "car3260",
+    "manufacturer": "Renault"
+  },
+  "name:mganegr4": {
+    "id": "car3260",
+    "manufacturer": "Renault"
+  },
+  "name:subaruwrxgr4": {
+    "id": "car3261",
+    "manufacturer": "Subaru"
+  },
+  "name:wrxgr4": {
+    "id": "car3261",
+    "manufacturer": "Subaru"
+  },
+  "name:toyota86gr4": {
+    "id": "car3262",
+    "manufacturer": "Toyota"
+  },
+  "name:86gr4": {
+    "id": "car3262",
+    "manufacturer": "Toyota"
+  },
+  "name:ferrari458italiagr4": {
+    "id": "car3263",
+    "manufacturer": "Ferrari"
+  },
+  "name:458italiagr4": {
+    "id": "car3263",
+    "manufacturer": "Ferrari"
+  },
+  "name:fordfocusgrbrallycar": {
+    "id": "car3264",
+    "manufacturer": "Ford"
+  },
+  "name:focusgrbrallycar": {
+    "id": "car3264",
+    "manufacturer": "Ford"
+  },
+  "name:toyota86grbrallycar": {
+    "id": "car3265",
+    "manufacturer": "Toyota"
+  },
+  "name:86grbrallycar": {
+    "id": "car3265",
+    "manufacturer": "Toyota"
+  },
+  "name:bmwi315": {
+    "id": "car3266",
+    "manufacturer": "BMW"
+  },
+  "name:i315": {
+    "id": "car3266",
+    "manufacturer": "BMW"
+  },
+  "name:ferrarif12berlinetta12": {
+    "id": "car3267",
+    "manufacturer": "Ferrari"
+  },
+  "name:f12berlinetta12": {
+    "id": "car3267",
+    "manufacturer": "Ferrari"
+  },
+  "name:porsche911gt3rs99116": {
+    "id": "car3268",
+    "manufacturer": "Porsche"
+  },
+  "name:911gt3rs99116": {
+    "id": "car3268",
+    "manufacturer": "Porsche"
+  },
+  "name:toyota86gtlimited16": {
+    "id": "car3295",
+    "manufacturer": "Toyota"
+  },
+  "name:86gtlimited16": {
+    "id": "car3295",
+    "manufacturer": "Toyota"
+  },
+  "name:chevroletcorvettec7gr3roadcar": {
+    "id": "car3296",
+    "manufacturer": "Chevrolet"
+  },
+  "name:corvettec7gr3roadcar": {
+    "id": "car3296",
+    "manufacturer": "Chevrolet"
+  },
+  "name:subaruwrxstiisleofmantimeattackcar16": {
+    "id": "car3297",
+    "manufacturer": "Subaru"
+  },
+  "name:wrxstiisleofman16": {
+    "id": "car3297",
+    "manufacturer": "Subaru"
+  },
+  "name:audittcup16": {
+    "id": "car3298",
+    "manufacturer": "Audi"
+  },
+  "name:ttcup16": {
+    "id": "car3298",
+    "manufacturer": "Audi"
+  },
+  "name:alfaromeo4cgr3roadcar": {
+    "id": "car3299",
+    "manufacturer": "Alfa Romeo"
+  },
+  "name:4cgr3roadcar": {
+    "id": "car3299",
+    "manufacturer": "Alfa Romeo"
+  },
+  "name:fordmustanggr3roadcar": {
+    "id": "car3300",
+    "manufacturer": "Ford"
+  },
+  "name:mustanggr3roadcar": {
+    "id": "car3300",
+    "manufacturer": "Ford"
+  },
+  "name:mitsubishilancerevolutionfinaleditiongrbroadcar": {
+    "id": "car3301",
+    "manufacturer": "Mitsubishi"
+  },
+  "name:lancerevolutionfinalgrbroadcar": {
+    "id": "car3301",
+    "manufacturer": "Mitsubishi"
+  },
+  "name:peugeotrczgr3roadcar": {
+    "id": "car3303",
+    "manufacturer": "Peugeot"
+  },
+  "name:rczgr3roadcar": {
+    "id": "car3303",
+    "manufacturer": "Peugeot"
+  },
+  "name:subaruwrxgrbroadcar": {
+    "id": "car3304",
+    "manufacturer": "Subaru"
+  },
+  "name:wrxgrbroadcar": {
+    "id": "car3304",
+    "manufacturer": "Subaru"
+  },
+  "name:volkswagenbeetlegr3": {
+    "id": "car3305",
+    "manufacturer": "Volkswagen"
+  },
+  "name:beetlegr3": {
+    "id": "car3305",
+    "manufacturer": "Volkswagen"
+  },
+  "name:mazdaatenzagr3roadcar": {
+    "id": "car3306",
+    "manufacturer": "Mazda"
+  },
+  "name:atenzagr3roadcar": {
+    "id": "car3306",
+    "manufacturer": "Mazda"
+  },
+  "name:astonmartinvulcan16": {
+    "id": "car3309",
+    "manufacturer": "Aston Martin"
+  },
+  "name:vulcan16": {
+    "id": "car3309",
+    "manufacturer": "Aston Martin"
+  },
+  "name:porschecaymangt4clubsport16": {
+    "id": "car3310",
+    "manufacturer": "Porsche"
+  },
+  "name:caymangt4clubsport16": {
+    "id": "car3310",
+    "manufacturer": "Porsche"
+  },
+  "name:porsche911rsr99117": {
+    "id": "car3311",
+    "manufacturer": "Porsche"
+  },
+  "name:911rsr99117": {
+    "id": "car3311",
+    "manufacturer": "Porsche"
+  },
+  "name:toyotats050hybrid16": {
+    "id": "car3312",
+    "manufacturer": "Toyota"
+  },
+  "name:ts050hybrid16": {
+    "id": "car3312",
+    "manufacturer": "Toyota"
+  },
+  "name:porsche919hybrid16": {
+    "id": "car3313",
+    "manufacturer": "Porsche"
+  },
+  "name:919hybrid16": {
+    "id": "car3313",
+    "manufacturer": "Porsche"
+  },
+  "name:audivisiongranturismo": {
+    "id": "car3314",
+    "manufacturer": "Audi"
+  },
+  "name:audivgt": {
+    "id": "car3314",
+    "manufacturer": "Audi"
+  },
+  "name:mclarenultimatevisiongranturismo": {
+    "id": "car3315",
+    "manufacturer": "McLaren"
+  },
+  "name:mclarenvgt": {
+    "id": "car3315",
+    "manufacturer": "McLaren"
+  },
+  "name:daihatsucopenrjvisiongranturismo": {
+    "id": "car3316",
+    "manufacturer": "Daihatsu"
+  },
+  "name:copenrjvgt": {
+    "id": "car3316",
+    "manufacturer": "Daihatsu"
+  },
+  "name:peugeotl500rhybridvisiongranturismo2017": {
+    "id": "car3332",
+    "manufacturer": "Peugeot"
+  },
+  "name:l500rhybridvgt2017": {
+    "id": "car3332",
+    "manufacturer": "Peugeot"
+  },
+  "name:peugeotl750rhybridvisiongranturismo2017": {
+    "id": "car3333",
+    "manufacturer": "Peugeot"
+  },
+  "name:l750rhybridvgt2017": {
+    "id": "car3333",
+    "manufacturer": "Peugeot"
+  },
+  "name:audir1816": {
+    "id": "car3334",
+    "manufacturer": "Audi"
+  },
+  "name:r1816": {
+    "id": "car3334",
+    "manufacturer": "Audi"
+  },
+  "name:mclarenultimatevisiongranturismogr1": {
+    "id": "car3335",
+    "manufacturer": "McLaren"
+  },
+  "name:mclarenvgtgr1": {
+    "id": "car3335",
+    "manufacturer": "McLaren"
+  },
+  "name:fordf150svtraptor11": {
+    "id": "car3336",
+    "manufacturer": "Ford"
+  },
+  "name:f150svtraptor11": {
+    "id": "car3336",
+    "manufacturer": "Ford"
+  },
+  "name:alpinea110premiredition17": {
+    "id": "car3337",
+    "manufacturer": "Alpine"
+  },
+  "name:a11017": {
+    "id": "car3337",
+    "manufacturer": "Alpine"
+  },
+  "name:chrisholstromconcepts1967chevynova": {
+    "id": "car3338",
+    "manufacturer": "Chris Holstrom Concepts"
+  },
+  "name:chc1967chevynova": {
+    "id": "car3338",
+    "manufacturer": "Chris Holstrom Concepts"
+  },
+  "name:subarubrzdriftcar17": {
+    "id": "car3339",
+    "manufacturer": "Subaru"
+  },
+  "name:brzdriftcar17": {
+    "id": "car3339",
+    "manufacturer": "Subaru"
+  },
+  "name:renaultsportcliov624v00": {
+    "id": "car334",
+    "manufacturer": "Renault"
+  },
+  "name:cliov624v00": {
+    "id": "car334",
+    "manufacturer": "Renault"
+  },
+  "name:lexusrcfgt317": {
+    "id": "car3340",
+    "manufacturer": "Lexus"
+  },
+  "name:rcfgt317": {
+    "id": "car3340",
+    "manufacturer": "Lexus"
+  },
+  "name:detomasopantera71": {
+    "id": "car3341",
+    "manufacturer": "De Tomaso"
+  },
+  "name:pantera71": {
+    "id": "car3341",
+    "manufacturer": "De Tomaso"
+  },
+  "name:granturismof1500ta": {
+    "id": "car3342",
+    "manufacturer": "Gran Turismo"
+  },
+  "name:f1500ta": {
+    "id": "car3342",
+    "manufacturer": "Gran Turismo"
+  },
+  "name:astonmartindb1116": {
+    "id": "car3343",
+    "manufacturer": "Aston Martin"
+  },
+  "name:db1116": {
+    "id": "car3343",
+    "manufacturer": "Aston Martin"
+  },
+  "name:bmwm3sportevolution89": {
+    "id": "car3344",
+    "manufacturer": "BMW"
+  },
+  "name:m3sportevolution89": {
+    "id": "car3344",
+    "manufacturer": "BMW"
+  },
+  "name:nissangtrnismo17": {
+    "id": "car3345",
+    "manufacturer": "Nissan"
+  },
+  "name:gtrnismo17": {
+    "id": "car3345",
+    "manufacturer": "Nissan"
+  },
+  "name:eckertsrodcustommachforty": {
+    "id": "car3346",
+    "manufacturer": "Eckert's Rod & Custom"
+  },
+  "name:machforty": {
+    "id": "car3346",
+    "manufacturer": "Eckert's Rod & Custom"
+  },
+  "name:hondansxconceptgt16": {
+    "id": "car3348",
+    "manufacturer": "Honda"
+  },
+  "name:nsxconceptgt16": {
+    "id": "car3348",
+    "manufacturer": "Honda"
+  },
+  "name:lexusrcfgt50016": {
+    "id": "car3349",
+    "manufacturer": "Lexus"
+  },
+  "name:rcfgt50016": {
+    "id": "car3349",
+    "manufacturer": "Lexus"
+  },
+  "name:nissangtrnismogt50016": {
+    "id": "car3350",
+    "manufacturer": "Nissan"
+  },
+  "name:gtrnismogt50016": {
+    "id": "car3350",
+    "manufacturer": "Nissan"
+  },
+  "name:audietronvisiongranturismo": {
+    "id": "car3351",
+    "manufacturer": "Audi"
+  },
+  "name:audietronvgt": {
+    "id": "car3351",
+    "manufacturer": "Audi"
+  },
+  "name:toyotagrsupraracingconcept18": {
+    "id": "car3352",
+    "manufacturer": "Toyota"
+  },
+  "name:grsupraracingconcept18": {
+    "id": "car3352",
+    "manufacturer": "Toyota"
+  },
+  "name:renaultsportcliors220edctrophy16": {
+    "id": "car3353",
+    "manufacturer": "Renault"
+  },
+  "name:cliors220trophy16": {
+    "id": "car3353",
+    "manufacturer": "Renault"
+  },
+  "name:subarubrzs15": {
+    "id": "car3354",
+    "manufacturer": "Subaru"
+  },
+  "name:brzs15": {
+    "id": "car3354",
+    "manufacturer": "Subaru"
+  },
+  "name:minicoopers65": {
+    "id": "car3356",
+    "manufacturer": "MINI"
+  },
+  "name:hondas66015": {
+    "id": "car3357",
+    "manufacturer": "Honda"
+  },
+  "name:s66015": {
+    "id": "car3357",
+    "manufacturer": "Honda"
+  },
+  "name:porsche911gt399601": {
+    "id": "car3358",
+    "manufacturer": "Porsche"
+  },
+  "name:911gt399601": {
+    "id": "car3358",
+    "manufacturer": "Porsche"
+  },
+  "name:porsche911gt399709": {
+    "id": "car3359",
+    "manufacturer": "Porsche"
+  },
+  "name:911gt399709": {
+    "id": "car3359",
+    "manufacturer": "Porsche"
+  },
+  "name:mclarenp1gtr16": {
+    "id": "car3360",
+    "manufacturer": "McLaren"
+  },
+  "name:jaguaretypecoup61": {
+    "id": "car3361",
+    "manufacturer": "Jaguar"
+  },
+  "name:etypecoup61": {
+    "id": "car3361",
+    "manufacturer": "Jaguar"
+  },
+  "name:ferrarif5095": {
+    "id": "car3362",
+    "manufacturer": "Ferrari"
+  },
+  "name:f5095": {
+    "id": "car3362",
+    "manufacturer": "Ferrari"
+  },
+  "name:astonmartindb3s53": {
+    "id": "car3363",
+    "manufacturer": "Aston Martin"
+  },
+  "name:db3s53": {
+    "id": "car3363",
+    "manufacturer": "Aston Martin"
+  },
+  "name:greddyfuguz": {
+    "id": "car3364",
+    "manufacturer": "GReddy"
+  },
+  "name:porsche356a1500gsgtcarreraspeedster56": {
+    "id": "car3365",
+    "manufacturer": "Porsche"
+  },
+  "name:356a1500gsgtcarreraspeedster56": {
+    "id": "car3365",
+    "manufacturer": "Porsche"
+  },
+  "name:toyotagrsuprarz19": {
+    "id": "car3367",
+    "manufacturer": "Toyota"
+  },
+  "name:grsuprarz19": {
+    "id": "car3367",
+    "manufacturer": "Toyota"
+  },
+  "name:toyotatundratrdpro19": {
+    "id": "car3368",
+    "manufacturer": "Toyota"
+  },
+  "name:tundratrdpro19": {
+    "id": "car3368",
+    "manufacturer": "Toyota"
+  },
+  "name:radicalsr3sl13": {
+    "id": "car3369",
+    "manufacturer": "Radical"
+  },
+  "name:sr3sl13": {
+    "id": "car3369",
+    "manufacturer": "Radical"
+  },
+  "name:hondafithybrid14": {
+    "id": "car3370",
+    "manufacturer": "Honda"
+  },
+  "name:fithybrid14": {
+    "id": "car3370",
+    "manufacturer": "Honda"
+  },
+  "name:dallarasf19superformulatoyota19": {
+    "id": "car3371",
+    "manufacturer": "Super Formula"
+  },
+  "name:sf19superformulatoyota19": {
+    "id": "car3371",
+    "manufacturer": "Super Formula"
+  },
+  "name:dallarasf19superformulahonda19": {
+    "id": "car3372",
+    "manufacturer": "Super Formula"
+  },
+  "name:sf19superformulahonda19": {
+    "id": "car3372",
+    "manufacturer": "Super Formula"
+  },
+  "name:porsche962c88": {
+    "id": "car3373",
+    "manufacturer": "Porsche"
+  },
+  "name:962c88": {
+    "id": "car3373",
+    "manufacturer": "Porsche"
+  },
+  "name:granturismoredbullx2019competition": {
+    "id": "car3374",
+    "manufacturer": "Gran Turismo"
+  },
+  "name:redbullx2019competition": {
+    "id": "car3374",
+    "manufacturer": "Gran Turismo"
+  },
+  "name:porsche356a1500gscarrera56": {
+    "id": "car3375",
+    "manufacturer": "Porsche"
+  },
+  "name:356a1500gscarrera56": {
+    "id": "car3375",
+    "manufacturer": "Porsche"
+  },
+  "name:jaguardtype54": {
+    "id": "car3376",
+    "manufacturer": "Jaguar"
+  },
+  "name:dtype54": {
+    "id": "car3376",
+    "manufacturer": "Jaguar"
+  },
+  "name:dodgesuperbee70": {
+    "id": "car3377",
+    "manufacturer": "Dodge"
+  },
+  "name:superbee70": {
+    "id": "car3377",
+    "manufacturer": "Dodge"
+  },
+  "name:mazdademioxdtouring15": {
+    "id": "car3383",
+    "manufacturer": "Mazda"
+  },
+  "name:demioxdtouring15": {
+    "id": "car3383",
+    "manufacturer": "Mazda"
+  },
+  "name:mitsubishigtotwinturbo91": {
+    "id": "car3384",
+    "manufacturer": "Mitsubishi"
+  },
+  "name:gtotwinturbo91": {
+    "id": "car3384",
+    "manufacturer": "Mitsubishi"
+  },
+  "name:porsche911turbo93081": {
+    "id": "car3385",
+    "manufacturer": "Porsche"
+  },
+  "name:911turbo93081": {
+    "id": "car3385",
+    "manufacturer": "Porsche"
+  },
+  "name:chevroletcamarozl11lepackage18": {
+    "id": "car3387",
+    "manufacturer": "Chevrolet"
+  },
+  "name:camarozl11lepackage18": {
+    "id": "car3387",
+    "manufacturer": "Chevrolet"
+  },
+  "name:mercedesbenz300sel68amg71": {
+    "id": "car3388",
+    "manufacturer": "AMG"
+  },
+  "name:300sel68amg71": {
+    "id": "car3388",
+    "manufacturer": "AMG"
+  },
+  "name:bmwm3coup03": {
+    "id": "car3389",
+    "manufacturer": "BMW"
+  },
+  "name:m303": {
+    "id": "car3389",
+    "manufacturer": "BMW"
+  },
+  "name:porschetaycanturbos19": {
+    "id": "car3390",
+    "manufacturer": "Porsche"
+  },
+  "name:taycanturbos19": {
+    "id": "car3390",
+    "manufacturer": "Porsche"
+  },
+  "name:fordshelbygt350r16": {
+    "id": "car3391",
+    "manufacturer": "Ford"
+  },
+  "name:shelbygt350r16": {
+    "id": "car3391",
+    "manufacturer": "Ford"
+  },
+  "name:lamborghiniaventadorlp7504superveloce15": {
+    "id": "car3392",
+    "manufacturer": "Lamborghini"
+  },
+  "name:aventadorlp7504sv15": {
+    "id": "car3392",
+    "manufacturer": "Lamborghini"
+  },
+  "name:porschecarreragt04": {
+    "id": "car3393",
+    "manufacturer": "Porsche"
+  },
+  "name:carreragt04": {
+    "id": "car3393",
+    "manufacturer": "Porsche"
+  },
+  "name:astonmartindbr9gt110": {
+    "id": "car3394",
+    "manufacturer": "Aston Martin"
+  },
+  "name:dbr9gt110": {
+    "id": "car3394",
+    "manufacturer": "Aston Martin"
+  },
+  "name:caterhamsevensuperlightr50008": {
+    "id": "car3395",
+    "manufacturer": "Caterham"
+  },
+  "name:sevensuperlightr50008": {
+    "id": "car3395",
+    "manufacturer": "Caterham"
+  },
+  "name:jaguarvisiongranturismocoup": {
+    "id": "car3396",
+    "manufacturer": "Jaguar"
+  },
+  "name:jaguarvgtcoup": {
+    "id": "car3396",
+    "manufacturer": "Jaguar"
+  },
+  "name:mercedesbenzclklm98": {
+    "id": "car3397",
+    "manufacturer": "Mercedes-Benz"
+  },
+  "name:clklm98": {
+    "id": "car3397",
+    "manufacturer": "Mercedes-Benz"
+  },
+  "name:rufctr307": {
+    "id": "car3398",
+    "manufacturer": "RUF"
+  },
+  "name:ctr307": {
+    "id": "car3398",
+    "manufacturer": "RUF"
+  },
+  "name:toyotagrsupraracecar19": {
+    "id": "car3399",
+    "manufacturer": "Toyota"
+  },
+  "name:grsupraracecar19": {
+    "id": "car3399",
+    "manufacturer": "Toyota"
+  },
+  "name:porsche911gt1strassenversion97": {
+    "id": "car3400",
+    "manufacturer": "Porsche"
+  },
+  "name:911gt1strassenversion97": {
+    "id": "car3400",
+    "manufacturer": "Porsche"
+  },
+  "name:toyotacrownathleteg13": {
+    "id": "car3401",
+    "manufacturer": "Toyota"
+  },
+  "name:crownathleteg13": {
+    "id": "car3401",
+    "manufacturer": "Toyota"
+  },
+  "name:fordgt17": {
+    "id": "car3402",
+    "manufacturer": "Ford"
+  },
+  "name:volkswagengolfigti83": {
+    "id": "car3403",
+    "manufacturer": "Volkswagen"
+  },
+  "name:golfigti83": {
+    "id": "car3403",
+    "manufacturer": "Volkswagen"
+  },
+  "name:porsche911carrerarsclubsport99395": {
+    "id": "car3404",
+    "manufacturer": "Porsche"
+  },
+  "name:911carrerarscs99395": {
+    "id": "car3404",
+    "manufacturer": "Porsche"
+  },
+  "name:audir8lmsevo19": {
+    "id": "car3405",
+    "manufacturer": "Audi"
+  },
+  "name:r8lmsevo19": {
+    "id": "car3405",
+    "manufacturer": "Audi"
+  },
+  "name:dodgechargersrthellcatsafetycar": {
+    "id": "car3406",
+    "manufacturer": "Dodge"
+  },
+  "name:chargersrthellcatsafetycar": {
+    "id": "car3406",
+    "manufacturer": "Dodge"
+  },
+  "name:renaultsportmganerstrophysafetycar": {
+    "id": "car3407",
+    "manufacturer": "Renault"
+  },
+  "name:mganerstrophysafetycar": {
+    "id": "car3407",
+    "manufacturer": "Renault"
+  },
+  "name:toyotacrownathletegsafetycar": {
+    "id": "car3408",
+    "manufacturer": "Toyota"
+  },
+  "name:crownathletegsafetycar": {
+    "id": "car3408",
+    "manufacturer": "Toyota"
+  },
+  "name:bacmono16": {
+    "id": "car3409",
+    "manufacturer": "BAC"
+  },
+  "name:mono16": {
+    "id": "car3409",
+    "manufacturer": "BAC"
+  },
+  "name:porsche917k70": {
+    "id": "car3410",
+    "manufacturer": "Porsche"
+  },
+  "name:917k70": {
+    "id": "car3410",
+    "manufacturer": "Porsche"
+  },
+  "name:alfaromeogiuliagtam20": {
+    "id": "car3411",
+    "manufacturer": "Alfa Romeo"
+  },
+  "name:giuliagtam20": {
+    "id": "car3411",
+    "manufacturer": "Alfa Romeo"
+  },
+  "name:audir8coupv10plus16": {
+    "id": "car3412",
+    "manufacturer": "Audi"
+  },
+  "name:r8coupv10plus16": {
+    "id": "car3412",
+    "manufacturer": "Audi"
+  },
+  "name:subarubrzstisport18": {
+    "id": "car3413",
+    "manufacturer": "Subaru"
+  },
+  "name:brzstisport18": {
+    "id": "car3413",
+    "manufacturer": "Subaru"
+  },
+  "name:lambov12visiongranturismo": {
+    "id": "car3414",
+    "manufacturer": "Lamborghini"
+  },
+  "name:lambov12vgt": {
+    "id": "car3414",
+    "manufacturer": "Lamborghini"
+  },
+  "name:alfaromeo8c2900btouringberlinetta38": {
+    "id": "car3415",
+    "manufacturer": "Alfa Romeo"
+  },
+  "name:8c2900btouringberlinetta38": {
+    "id": "car3415",
+    "manufacturer": "Alfa Romeo"
+  },
+  "name:mercedesamggtr17": {
+    "id": "car3416",
+    "manufacturer": "AMG"
+  },
+  "name:jaguarvisiongranturismosv": {
+    "id": "car3417",
+    "manufacturer": "Jaguar"
+  },
+  "name:jaguarvgtsv": {
+    "id": "car3417",
+    "manufacturer": "Jaguar"
+  },
+  "name:toyotagrsuprarz20": {
+    "id": "car3418",
+    "manufacturer": "Toyota"
+  },
+  "name:grsuprarz20": {
+    "id": "car3418",
+    "manufacturer": "Toyota"
+  },
+  "name:mazdarxvisiongt3concept": {
+    "id": "car3419",
+    "manufacturer": "Mazda"
+  },
+  "name:rxvisiongt3concept": {
+    "id": "car3419",
+    "manufacturer": "Mazda"
+  },
+  "name:fordfocusrs18": {
+    "id": "car3420",
+    "manufacturer": "Ford"
+  },
+  "name:focusrs18": {
+    "id": "car3420",
+    "manufacturer": "Ford"
+  },
+  "name:maseratimerakss80": {
+    "id": "car3421",
+    "manufacturer": "Maserati"
+  },
+  "name:merakss80": {
+    "id": "car3421",
+    "manufacturer": "Maserati"
+  },
+  "name:bmw30csl73": {
+    "id": "car3422",
+    "manufacturer": "BMW"
+  },
+  "name:30csl73": {
+    "id": "car3422",
+    "manufacturer": "BMW"
+  },
+  "name:wickedfabricationgt51": {
+    "id": "car3423",
+    "manufacturer": "Wicked Fabrication"
+  },
+  "name:mitsubishilancerevolutionixmrgsr06": {
+    "id": "car3424",
+    "manufacturer": "Mitsubishi"
+  },
+  "name:lancerevolutionixmrgsr06": {
+    "id": "car3424",
+    "manufacturer": "Mitsubishi"
+  },
+  "name:roadstershoprampage": {
+    "id": "car3426",
+    "manufacturer": "Roadster Shop"
+  },
+  "name:mazdarx8spiritr12": {
+    "id": "car3427",
+    "manufacturer": "Mazda"
+  },
+  "name:rx8spiritr12": {
+    "id": "car3427",
+    "manufacturer": "Mazda"
+  },
+  "name:mercedesbenzsbarkertourer29": {
+    "id": "car3428",
+    "manufacturer": "Mercedes-Benz"
+  },
+  "name:sbarkertourer29": {
+    "id": "car3428",
+    "manufacturer": "Mercedes-Benz"
+  },
+  "name:nissanfairladyz43269": {
+    "id": "car3429",
+    "manufacturer": "Nissan"
+  },
+  "name:fairladyz43269": {
+    "id": "car3429",
+    "manufacturer": "Nissan"
+  },
+  "name:jeepwillysmb45": {
+    "id": "car3430",
+    "manufacturer": "Jeep"
+  },
+  "name:willysmb45": {
+    "id": "car3430",
+    "manufacturer": "Jeep"
+  },
+  "name:porsche911carrerars96492": {
+    "id": "car3431",
+    "manufacturer": "Porsche"
+  },
+  "name:911carrerars96492": {
+    "id": "car3431",
+    "manufacturer": "Porsche"
+  },
+  "name:subaruimprezasedanwrxsti04": {
+    "id": "car3432",
+    "manufacturer": "Subaru"
+  },
+  "name:imprezasedanwrxsti04": {
+    "id": "car3432",
+    "manufacturer": "Subaru"
+  },
+  "name:ferrarifxxk14": {
+    "id": "car3433",
+    "manufacturer": "Ferrari"
+  },
+  "name:fxxk14": {
+    "id": "car3433",
+    "manufacturer": "Ferrari"
+  },
+  "name:ferraritestarossa91": {
+    "id": "car3434",
+    "manufacturer": "Ferrari"
+  },
+  "name:testarossa91": {
+    "id": "car3434",
+    "manufacturer": "Ferrari"
+  },
+  "name:fordgtracecar18": {
+    "id": "car3436",
+    "manufacturer": "Ford"
+  },
+  "name:detomasomangusta69": {
+    "id": "car3437",
+    "manufacturer": "De Tomaso"
+  },
+  "name:mangusta69": {
+    "id": "car3437",
+    "manufacturer": "De Tomaso"
+  },
+  "name:fiatabarth595esseesse70": {
+    "id": "car3438",
+    "manufacturer": "Abarth"
+  },
+  "name:abarth595ss70": {
+    "id": "car3438",
+    "manufacturer": "Abarth"
+  },
+  "name:porsche911carrerars99395": {
+    "id": "car3439",
+    "manufacturer": "Porsche"
+  },
+  "name:911carrerars99395": {
+    "id": "car3439",
+    "manufacturer": "Porsche"
+  },
+  "name:porsche911turbosleichtbau96493": {
+    "id": "car3440",
+    "manufacturer": "Porsche"
+  },
+  "name:911turbosleichtbau96493": {
+    "id": "car3440",
+    "manufacturer": "Porsche"
+  },
+  "name:mercedesbenz300slw19452": {
+    "id": "car3441",
+    "manufacturer": "Mercedes-Benz"
+  },
+  "name:300slw19452": {
+    "id": "car3441",
+    "manufacturer": "Mercedes-Benz"
+  },
+  "name:autobianchia112abarth85": {
+    "id": "car3442",
+    "manufacturer": "Autobianchi"
+  },
+  "name:a112abarth85": {
+    "id": "car3442",
+    "manufacturer": "Autobianchi"
+  },
+  "name:ferrari308gtb75": {
+    "id": "car3443",
+    "manufacturer": "Ferrari"
+  },
+  "name:308gtb75": {
+    "id": "car3443",
+    "manufacturer": "Ferrari"
+  },
+  "name:1932fordroadster": {
+    "id": "car3444",
+    "manufacturer": "Ford"
+  },
+  "name:fordroadster": {
+    "id": "car3444",
+    "manufacturer": "Ford"
+  },
+  "name:astonmartindb564": {
+    "id": "car3445",
+    "manufacturer": "Aston Martin"
+  },
+  "name:db564": {
+    "id": "car3445",
+    "manufacturer": "Aston Martin"
+  },
+  "name:porschespydertype5501500rs55": {
+    "id": "car3446",
+    "manufacturer": "Porsche"
+  },
+  "name:spydertype5501500rs55": {
+    "id": "car3446",
+    "manufacturer": "Porsche"
+  },
+  "name:astonmartinvantage18": {
+    "id": "car3447",
+    "manufacturer": "Aston Martin"
+  },
+  "name:vantage18": {
+    "id": "car3447",
+    "manufacturer": "Aston Martin"
+  },
+  "name:chevroletcorvettec7zr119": {
+    "id": "car3449",
+    "manufacturer": "Chevrolet"
+  },
+  "name:corvettec7zr119": {
+    "id": "car3449",
+    "manufacturer": "Chevrolet"
+  },
+  "name:toyotatrueno3door1600gtapexae86shuichishigenoversion": {
+    "id": "car345",
+    "manufacturer": "Toyota"
+  },
+  "name:sprintertrueno1600gtapexsshigenoversion": {
+    "id": "car345",
+    "manufacturer": "Toyota"
+  },
+  "name:nissangtrnismogt318": {
+    "id": "car3450",
+    "manufacturer": "Nissan"
+  },
+  "name:gtrnismogt318": {
+    "id": "car3450",
+    "manufacturer": "Nissan"
+  },
+  "name:toyotagryaris1steditionrzhighperformance20": {
+    "id": "car3451",
+    "manufacturer": "Toyota"
+  },
+  "name:gryarisrzhighperformance20": {
+    "id": "car3451",
+    "manufacturer": "Toyota"
+  },
+  "name:porsche917livinglegend": {
+    "id": "car3452",
+    "manufacturer": "Porsche"
+  },
+  "name:917livinglegend": {
+    "id": "car3452",
+    "manufacturer": "Porsche"
+  },
+  "name:bmwm389": {
+    "id": "car3453",
+    "manufacturer": "BMW"
+  },
+  "name:m389": {
+    "id": "car3453",
+    "manufacturer": "BMW"
+  },
+  "name:bmw30csl71": {
+    "id": "car3454",
+    "manufacturer": "BMW"
+  },
+  "name:30csl71": {
+    "id": "car3454",
+    "manufacturer": "BMW"
+  },
+  "name:suzukiswiftsport17": {
+    "id": "car3456",
+    "manufacturer": "Suzuki"
+  },
+  "name:swiftsport17": {
+    "id": "car3456",
+    "manufacturer": "Suzuki"
+  },
+  "name:alpinea220racecar68": {
+    "id": "car3457",
+    "manufacturer": "Alpine"
+  },
+  "name:a220racecar68": {
+    "id": "car3457",
+    "manufacturer": "Alpine"
+  },
+  "name:mercedesamgc63s15": {
+    "id": "car3458",
+    "manufacturer": "AMG"
+  },
+  "name:porsche918spyder13": {
+    "id": "car3459",
+    "manufacturer": "Porsche"
+  },
+  "name:918spyder13": {
+    "id": "car3459",
+    "manufacturer": "Porsche"
+  },
+  "name:pontiacgtothejudge69": {
+    "id": "car3462",
+    "manufacturer": "Pontiac"
+  },
+  "name:gtothejudge69": {
+    "id": "car3462",
+    "manufacturer": "Pontiac"
+  },
+  "name:chevroletcorvettec158": {
+    "id": "car3464",
+    "manufacturer": "Chevrolet"
+  },
+  "name:corvettec158": {
+    "id": "car3464",
+    "manufacturer": "Chevrolet"
+  },
+  "name:fordsierrars500cosworth87": {
+    "id": "car3466",
+    "manufacturer": "Ford"
+  },
+  "name:sierrars500cosworth87": {
+    "id": "car3466",
+    "manufacturer": "Ford"
+  },
+  "name:hondacivictyperlimitededitionfk820": {
+    "id": "car3467",
+    "manufacturer": "Honda"
+  },
+  "name:civictyperlimitededitionfk820": {
+    "id": "car3467",
+    "manufacturer": "Honda"
+  },
+  "name:rufrgt4216": {
+    "id": "car3468",
+    "manufacturer": "RUF"
+  },
+  "name:rgt4216": {
+    "id": "car3468",
+    "manufacturer": "RUF"
+  },
+  "name:ferrarif8tributo19": {
+    "id": "car3469",
+    "manufacturer": "Ferrari"
+  },
+  "name:f8tributo19": {
+    "id": "car3469",
+    "manufacturer": "Ferrari"
+  },
+  "name:ferrari812superfast17": {
+    "id": "car3470",
+    "manufacturer": "Ferrari"
+  },
+  "name:812superfast17": {
+    "id": "car3470",
+    "manufacturer": "Ferrari"
+  },
+  "name:toyotacelicagtfourst20594": {
+    "id": "car3471",
+    "manufacturer": "Toyota"
+  },
+  "name:celicagtfourst20594": {
+    "id": "car3471",
+    "manufacturer": "Toyota"
+  },
+  "name:bugattichiron16": {
+    "id": "car3473",
+    "manufacturer": "Bugatti"
+  },
+  "name:chiron16": {
+    "id": "car3473",
+    "manufacturer": "Bugatti"
+  },
+  "name:subarubrzgt30021": {
+    "id": "car3474",
+    "manufacturer": "Subaru"
+  },
+  "name:brzgt30021": {
+    "id": "car3474",
+    "manufacturer": "Subaru"
+  },
+  "name:mclarenmp4488": {
+    "id": "car3475",
+    "manufacturer": "McLaren"
+  },
+  "name:mp4488": {
+    "id": "car3475",
+    "manufacturer": "McLaren"
+  },
+  "name:suzukivisiongranturismo": {
+    "id": "car3476",
+    "manufacturer": "Suzuki"
+  },
+  "name:suzukivgt": {
+    "id": "car3476",
+    "manufacturer": "Suzuki"
+  },
+  "name:nissansilviaspecraeros15touringcar": {
+    "id": "car3477",
+    "manufacturer": "Nissan"
+  },
+  "name:silviaspecraeros15touringcar": {
+    "id": "car3477",
+    "manufacturer": "Nissan"
+  },
+  "name:porschevisiongranturismo": {
+    "id": "car3478",
+    "manufacturer": "Porsche"
+  },
+  "name:porschevgt": {
+    "id": "car3478",
+    "manufacturer": "Porsche"
+  },
+  "name:jaguarvisiongranturismoroadster": {
+    "id": "car3479",
+    "manufacturer": "Jaguar"
+  },
+  "name:jaguarvgtroadster": {
+    "id": "car3479",
+    "manufacturer": "Jaguar"
+  },
+  "name:suzukiswiftsportkatanaeditiongr4": {
+    "id": "car3480",
+    "manufacturer": "Suzuki"
+  },
+  "name:swiftsportgr4": {
+    "id": "car3480",
+    "manufacturer": "Suzuki"
+  },
+  "name:toyotagr86rz21": {
+    "id": "car3481",
+    "manufacturer": "Toyota"
+  },
+  "name:gr86rz21": {
+    "id": "car3481",
+    "manufacturer": "Toyota"
+  },
+  "name:volvov40t5rdesign13": {
+    "id": "car3482",
+    "manufacturer": "Volvo"
+  },
+  "name:v40t5rdesign13": {
+    "id": "car3482",
+    "manufacturer": "Volvo"
+  },
+  "name:bmwm2competition18": {
+    "id": "car3483",
+    "manufacturer": "BMW"
+  },
+  "name:m2competition18": {
+    "id": "car3483",
+    "manufacturer": "BMW"
+  },
+  "name:mercedesamggtblackseries20": {
+    "id": "car3485",
+    "manufacturer": "AMG"
+  },
+  "name:dodgechallengersrtdemon18": {
+    "id": "car3486",
+    "manufacturer": "Dodge"
+  },
+  "name:challengersrtdemon18": {
+    "id": "car3486",
+    "manufacturer": "Dodge"
+  },
+  "name:fordmustangboss42969": {
+    "id": "car3487",
+    "manufacturer": "Ford"
+  },
+  "name:mustangboss42969": {
+    "id": "car3487",
+    "manufacturer": "Ford"
+  },
+  "name:porschecaymangt416": {
+    "id": "car3488",
+    "manufacturer": "Porsche"
+  },
+  "name:caymangt416": {
+    "id": "car3488",
+    "manufacturer": "Porsche"
+  },
+  "name:maseratia6gcs53spyder54": {
+    "id": "car3489",
+    "manufacturer": "Maserati"
+  },
+  "name:a6gcs53spyder54": {
+    "id": "car3489",
+    "manufacturer": "Maserati"
+  },
+  "name:porschecarreragts90464": {
+    "id": "car3490",
+    "manufacturer": "Porsche"
+  },
+  "name:carreragts90464": {
+    "id": "car3490",
+    "manufacturer": "Porsche"
+  },
+  "name:nissanskylinesupersilhouettegroup584": {
+    "id": "car3493",
+    "manufacturer": "Nissan"
+  },
+  "name:skylinesupersilhouette84": {
+    "id": "car3493",
+    "manufacturer": "Nissan"
+  },
+  "name:toyotaalphardexecutivelounge18": {
+    "id": "car3494",
+    "manufacturer": "Toyota"
+  },
+  "name:alphardexecutivelounge18": {
+    "id": "car3494",
+    "manufacturer": "Toyota"
+  },
+  "name:mazdarxvision15": {
+    "id": "car3495",
+    "manufacturer": "Mazda"
+  },
+  "name:rxvision15": {
+    "id": "car3495",
+    "manufacturer": "Mazda"
+  },
+  "name:toyotagr010hybrid21": {
+    "id": "car3499",
+    "manufacturer": "Toyota"
+  },
+  "name:gr010hybrid21": {
+    "id": "car3499",
+    "manufacturer": "Toyota"
+  },
+  "name:genesisg7033tawdprestigepackage22": {
+    "id": "car3500",
+    "manufacturer": "Genesis"
+  },
+  "name:g7033tawdppackage22": {
+    "id": "car3500",
+    "manufacturer": "Genesis"
+  },
+  "name:genesisg70gr4": {
+    "id": "car3501",
+    "manufacturer": "Genesis"
+  },
+  "name:g70gr4": {
+    "id": "car3501",
+    "manufacturer": "Genesis"
+  },
+  "name:genesisxgr3": {
+    "id": "car3502",
+    "manufacturer": "Genesis"
+  },
+  "name:nissanzperformance23": {
+    "id": "car3504",
+    "manufacturer": "Nissan"
+  },
+  "name:zperformance23": {
+    "id": "car3504",
+    "manufacturer": "Nissan"
+  },
+  "name:subarubrzs21": {
+    "id": "car3506",
+    "manufacturer": "Subaru"
+  },
+  "name:brzs21": {
+    "id": "car3506",
+    "manufacturer": "Subaru"
+  },
+  "name:porschevisiongranturismospyder": {
+    "id": "car3507",
+    "manufacturer": "Porsche"
+  },
+  "name:porschevgtspyder": {
+    "id": "car3507",
+    "manufacturer": "Porsche"
+  },
+  "name:suzukivisiongranturismogr3version": {
+    "id": "car3508",
+    "manufacturer": "Suzuki"
+  },
+  "name:suzukivgtgr3": {
+    "id": "car3508",
+    "manufacturer": "Suzuki"
+  },
+  "name:porsche911carrerars90173": {
+    "id": "car3509",
+    "manufacturer": "Porsche"
+  },
+  "name:911carrerars90173": {
+    "id": "car3509",
+    "manufacturer": "Porsche"
+  },
+  "name:ferrarivisiongranturismo": {
+    "id": "car3510",
+    "manufacturer": "Ferrari"
+  },
+  "name:ferrarivgt": {
+    "id": "car3510",
+    "manufacturer": "Ferrari"
+  },
+  "name:volkswagenidr19": {
+    "id": "car3511",
+    "manufacturer": "Volkswagen"
+  },
+  "name:idr19": {
+    "id": "car3511",
+    "manufacturer": "Volkswagen"
+  },
+  "name:mazdaroadsternrand22": {
+    "id": "car3512",
+    "manufacturer": "Mazda"
+  },
+  "name:roadsternrand22": {
+    "id": "car3512",
+    "manufacturer": "Mazda"
+  },
+  "name:nissansilviakstypess1494": {
+    "id": "car3513",
+    "manufacturer": "Nissan"
+  },
+  "name:silviakstypess1494": {
+    "id": "car3513",
+    "manufacturer": "Nissan"
+  },
+  "name:citronds21pallas70": {
+    "id": "car3514",
+    "manufacturer": "Citroën"
+  },
+  "name:ds21pallas70": {
+    "id": "car3514",
+    "manufacturer": "Citroën"
+  },
+  "name:chevroletcorvettec8stingray20": {
+    "id": "car3518",
+    "manufacturer": "Chevrolet"
+  },
+  "name:corvettec820": {
+    "id": "car3518",
+    "manufacturer": "Chevrolet"
+  },
+  "name:porsche95987": {
+    "id": "car3519",
+    "manufacturer": "Porsche"
+  },
+  "name:95987": {
+    "id": "car3519",
+    "manufacturer": "Porsche"
+  },
+  "name:nismo400r95": {
+    "id": "car3520",
+    "manufacturer": "Nismo"
+  },
+  "name:400r95": {
+    "id": "car3520",
+    "manufacturer": "Nismo"
+  },
+  "name:mazda3xburgundyselection19": {
+    "id": "car3521",
+    "manufacturer": "Mazda"
+  },
+  "name:mazda319": {
+    "id": "car3521",
+    "manufacturer": "Mazda"
+  },
+  "name:greeningautocompanymaverick": {
+    "id": "car3522",
+    "manufacturer": "Greening Auto Company"
+  },
+  "name:gacmaverick": {
+    "id": "car3522",
+    "manufacturer": "Greening Auto Company"
+  },
+  "name:audirs5turbodtm19": {
+    "id": "car3523",
+    "manufacturer": "Audi"
+  },
+  "name:rs5turbodtm19": {
+    "id": "car3523",
+    "manufacturer": "Audi"
+  },
+  "name:nissangtrnismor3290": {
+    "id": "car3524",
+    "manufacturer": "Nissan"
+  },
+  "name:r32gtrnismo90": {
+    "id": "car3524",
+    "manufacturer": "Nissan"
+  },
+  "name:hondara27265": {
+    "id": "car3525",
+    "manufacturer": "Honda"
+  },
+  "name:ra27265": {
+    "id": "car3525",
+    "manufacturer": "Honda"
+  },
+  "name:garagercrcivic": {
+    "id": "car3526",
+    "manufacturer": "Garage RCR"
+  },
+  "name:dallarasf23superformulahonda23": {
+    "id": "car3528",
+    "manufacturer": "Super Formula"
+  },
+  "name:sf23superformulahonda23": {
+    "id": "car3528",
+    "manufacturer": "Super Formula"
+  },
+  "name:dallarasf23superformulatoyota23": {
+    "id": "car3529",
+    "manufacturer": "Super Formula"
+  },
+  "name:sf23superformulatoyota23": {
+    "id": "car3529",
+    "manufacturer": "Super Formula"
+  },
+  "name:alfaromeogiuliasprintgtveloce67": {
+    "id": "car3530",
+    "manufacturer": "Alfa Romeo"
+  },
+  "name:giuliasprintgtveloce67": {
+    "id": "car3530",
+    "manufacturer": "Alfa Romeo"
+  },
+  "name:mercedesamggt320": {
+    "id": "car3531",
+    "manufacturer": "AMG"
+  },
+  "name:astonmartinvalkyrie21": {
+    "id": "car3532",
+    "manufacturer": "Aston Martin"
+  },
+  "name:valkyrie21": {
+    "id": "car3532",
+    "manufacturer": "Aston Martin"
+  },
+  "name:maseratimc2020": {
+    "id": "car3533",
+    "manufacturer": "Maserati"
+  },
+  "name:mc2020": {
+    "id": "car3533",
+    "manufacturer": "Maserati"
+  },
+  "name:toyotaambulancehimedic21": {
+    "id": "car3534",
+    "manufacturer": "Toyota"
+  },
+  "name:himedic21": {
+    "id": "car3534",
+    "manufacturer": "Toyota"
+  },
+  "name:toyotagrcorollamorizoedition22": {
+    "id": "car3535",
+    "manufacturer": "Toyota"
+  },
+  "name:grcorollamorizoedition22": {
+    "id": "car3535",
+    "manufacturer": "Toyota"
+  },
+  "name:hondacivictyperfl522": {
+    "id": "car3536",
+    "manufacturer": "Honda"
+  },
+  "name:civictyperfl522": {
+    "id": "car3536",
+    "manufacturer": "Honda"
+  },
+  "name:mazda3gr4": {
+    "id": "car3537",
+    "manufacturer": "Mazda"
+  },
+  "name:dodgechargerrt426hemi68": {
+    "id": "car3538",
+    "manufacturer": "Dodge"
+  },
+  "name:chargerrt426hemi68": {
+    "id": "car3538",
+    "manufacturer": "Dodge"
+  },
+  "name:porsche911gt3rs99222": {
+    "id": "car3539",
+    "manufacturer": "Porsche"
+  },
+  "name:911gt3rs99222": {
+    "id": "car3539",
+    "manufacturer": "Porsche"
+  },
+  "name:teslamodel3performance23": {
+    "id": "car3540",
+    "manufacturer": "Tesla"
+  },
+  "name:model3performance23": {
+    "id": "car3540",
+    "manufacturer": "Tesla"
+  },
+  "name:bvlgarialuminiumvisiongranturismo": {
+    "id": "car3541",
+    "manufacturer": "BVLGARI"
+  },
+  "name:bvlgarialuminiumvgt": {
+    "id": "car3541",
+    "manufacturer": "BVLGARI"
+  },
+  "name:kodavisiongranturismo": {
+    "id": "car3542",
+    "manufacturer": "Škoda"
+  },
+  "name:kodavgt": {
+    "id": "car3542",
+    "manufacturer": "Škoda"
+  },
+  "name:genesisxgranberlinettavisiongranturismoconcept": {
+    "id": "car3543",
+    "manufacturer": "Genesis"
+  },
+  "name:genesisxgranberlinettavgtconcept": {
+    "id": "car3543",
+    "manufacturer": "Genesis"
+  },
+  "name:genesisxgranracervisiongranturismoconcept": {
+    "id": "car3544",
+    "manufacturer": "Genesis"
+  },
+  "name:genesisxgranracervgtconcept": {
+    "id": "car3544",
+    "manufacturer": "Genesis"
+  },
+  "name:suzukijimnyxc18": {
+    "id": "car3545",
+    "manufacturer": "Suzuki"
+  },
+  "name:jimnyxc18": {
+    "id": "car3545",
+    "manufacturer": "Suzuki"
+  },
+  "name:afeelaprototype2024": {
+    "id": "car3546",
+    "manufacturer": "AFEELA"
+  },
+  "name:renaultr4gtl85": {
+    "id": "car3547",
+    "manufacturer": "Renault"
+  },
+  "name:r4gtl85": {
+    "id": "car3547",
+    "manufacturer": "Renault"
+  },
+  "name:lamborghiniurus18": {
+    "id": "car3548",
+    "manufacturer": "Lamborghini"
+  },
+  "name:urus18": {
+    "id": "car3548",
+    "manufacturer": "Lamborghini"
+  },
+  "name:volvo240seestate93": {
+    "id": "car3549",
+    "manufacturer": "Volvo"
+  },
+  "name:240seestate93": {
+    "id": "car3549",
+    "manufacturer": "Volvo"
+  },
+  "name:subaruimprezarallycar98": {
+    "id": "car3550",
+    "manufacturer": "Subaru"
+  },
+  "name:imprezarallycar98": {
+    "id": "car3550",
+    "manufacturer": "Subaru"
+  },
+  "name:bmwm397": {
+    "id": "car3551",
+    "manufacturer": "BMW"
+  },
+  "name:m397": {
+    "id": "car3551",
+    "manufacturer": "BMW"
+  },
+  "name:nissangtrpremiumeditiontspec24": {
+    "id": "car3553",
+    "manufacturer": "Nissan"
+  },
+  "name:gtrpremiumeditiontspec24": {
+    "id": "car3553",
+    "manufacturer": "Nissan"
+  },
+  "name:toyotahiacevandx16": {
+    "id": "car3554",
+    "manufacturer": "Toyota"
+  },
+  "name:hiacevandx16": {
+    "id": "car3554",
+    "manufacturer": "Toyota"
+  },
+  "name:fordescortrscosworth92": {
+    "id": "car3555",
+    "manufacturer": "Ford"
+  },
+  "name:escortrscosworth92": {
+    "id": "car3555",
+    "manufacturer": "Ford"
+  },
+  "name:mercedesbenzunimogtype41162": {
+    "id": "car3556",
+    "manufacturer": "Mercedes-Benz"
+  },
+  "name:unimogtype41162": {
+    "id": "car3556",
+    "manufacturer": "Mercedes-Benz"
+  },
+  "name:mercedesbenzw196r55": {
+    "id": "car3557",
+    "manufacturer": "Mercedes-Benz"
+  },
+  "name:w196r55": {
+    "id": "car3557",
+    "manufacturer": "Mercedes-Benz"
+  },
+  "name:porsche911turbos99220": {
+    "id": "car3558",
+    "manufacturer": "Porsche"
+  },
+  "name:911turbos99220": {
+    "id": "car3558",
+    "manufacturer": "Porsche"
+  },
+  "name:suzukijimnysierrajc18": {
+    "id": "car3559",
+    "manufacturer": "Suzuki"
+  },
+  "name:jimnysierrajc18": {
+    "id": "car3559",
+    "manufacturer": "Suzuki"
+  },
+  "name:porschemissionx23": {
+    "id": "car3560",
+    "manufacturer": "Porsche"
+  },
+  "name:missionx23": {
+    "id": "car3560",
+    "manufacturer": "Porsche"
+  },
+  "name:hyundaiioniq5n24": {
+    "id": "car3561",
+    "manufacturer": "Hyundai"
+  },
+  "name:ioniq5n24": {
+    "id": "car3561",
+    "manufacturer": "Hyundai"
+  },
+  "name:granturismof3500a": {
+    "id": "car3562",
+    "manufacturer": "Gran Turismo"
+  },
+  "name:f3500a": {
+    "id": "car3562",
+    "manufacturer": "Gran Turismo"
+  },
+  "name:hondacivicsiextraef87": {
+    "id": "car3563",
+    "manufacturer": "Honda"
+  },
+  "name:civicsiextraef87": {
+    "id": "car3563",
+    "manufacturer": "Honda"
+  },
+  "name:peugeot205gti88": {
+    "id": "car3564",
+    "manufacturer": "Peugeot"
+  },
+  "name:205gti88": {
+    "id": "car3564",
+    "manufacturer": "Peugeot"
+  },
+  "name:toyotachrs18": {
+    "id": "car3565",
+    "manufacturer": "Toyota"
+  },
+  "name:chrs18": {
+    "id": "car3565",
+    "manufacturer": "Toyota"
+  },
+  "name:mazdacx30xsmartedition21": {
+    "id": "car3566",
+    "manufacturer": "Mazda"
+  },
+  "name:cx30xsmartedition21": {
+    "id": "car3566",
+    "manufacturer": "Mazda"
+  },
+  "name:renaultkangoo1401": {
+    "id": "car3567",
+    "manufacturer": "Renault"
+  },
+  "name:kangoo1401": {
+    "id": "car3567",
+    "manufacturer": "Renault"
+  },
+  "name:nissanqashqaitekna1902wdepower22": {
+    "id": "car3568",
+    "manufacturer": "Nissan"
+  },
+  "name:qashqaiteknaepower22": {
+    "id": "car3568",
+    "manufacturer": "Nissan"
+  },
+  "name:nismor34gtrztune05": {
+    "id": "car3569",
+    "manufacturer": "Nismo"
+  },
+  "name:r34gtrztune05": {
+    "id": "car3569",
+    "manufacturer": "Nismo"
+  },
+  "name:chevroletcorvettez06c501": {
+    "id": "car3570",
+    "manufacturer": "Chevrolet"
+  },
+  "name:corvettez06c501": {
+    "id": "car3570",
+    "manufacturer": "Chevrolet"
+  },
+  "name:suzukicarrykc12": {
+    "id": "car3571",
+    "manufacturer": "Suzuki"
+  },
+  "name:carrykc12": {
+    "id": "car3571",
+    "manufacturer": "Suzuki"
+  },
+  "name:hondacrvehevexblackedition21": {
+    "id": "car3572",
+    "manufacturer": "Honda"
+  },
+  "name:crvehevexblackedition21": {
+    "id": "car3572",
+    "manufacturer": "Honda"
+  },
+  "name:citronbx19trs87": {
+    "id": "car3573",
+    "manufacturer": "Citroën"
+  },
+  "name:bx19trs87": {
+    "id": "car3573",
+    "manufacturer": "Citroën"
+  },
+  "name:peugeotsuv2008allure21": {
+    "id": "car3574",
+    "manufacturer": "Peugeot"
+  },
+  "name:2008allure21": {
+    "id": "car3574",
+    "manufacturer": "Peugeot"
+  },
+  "name:fiatpanda30cl85": {
+    "id": "car3575",
+    "manufacturer": "FIAT"
+  },
+  "name:panda30cl85": {
+    "id": "car3575",
+    "manufacturer": "FIAT"
+  },
+  "name:hondanoners22": {
+    "id": "car3576",
+    "manufacturer": "Honda"
+  },
+  "name:noners22": {
+    "id": "car3576",
+    "manufacturer": "Honda"
+  },
+  "name:opelcorsagsevisiongranturismo": {
+    "id": "car3577",
+    "manufacturer": "Opel"
+  },
+  "name:opelcorsagsevgt": {
+    "id": "car3577",
+    "manufacturer": "Opel"
+  },
+  "name:mazdaspiritracingroadster12r25": {
+    "id": "car3578",
+    "manufacturer": "Mazda"
+  },
+  "name:afeela126": {
+    "id": "car3579",
+    "manufacturer": "AFEELA"
+  },
+  "name:chevroletcorvettecxconcept25": {
+    "id": "car3581",
+    "manufacturer": "Chevrolet"
+  },
+  "name:corvettecxconcept25": {
+    "id": "car3581",
+    "manufacturer": "Chevrolet"
+  },
+  "name:chevroletcorvettecxrvisiongranturismoconcept": {
+    "id": "car3582",
+    "manufacturer": "Chevrolet"
+  },
+  "name:corvettecxrvgtconcept": {
+    "id": "car3582",
+    "manufacturer": "Chevrolet"
+  },
+  "name:toyotarav4adventure20": {
+    "id": "car3583",
+    "manufacturer": "Toyota"
+  },
+  "name:rav4adventure20": {
+    "id": "car3583",
+    "manufacturer": "Toyota"
+  },
+  "name:toyotalandcruiserfj40v74": {
+    "id": "car3584",
+    "manufacturer": "Toyota"
+  },
+  "name:landcruiserfj40v74": {
+    "id": "car3584",
+    "manufacturer": "Toyota"
+  },
+  "name:hyundaielantran23": {
+    "id": "car3585",
+    "manufacturer": "Hyundai"
+  },
+  "name:elantran23": {
+    "id": "car3585",
+    "manufacturer": "Hyundai"
+  },
+  "name:polestar5performance26": {
+    "id": "car3586",
+    "manufacturer": "Polestar"
+  },
+  "name:ferrari296gtb22": {
+    "id": "car3587",
+    "manufacturer": "Ferrari"
+  },
+  "name:296gtb22": {
+    "id": "car3587",
+    "manufacturer": "Ferrari"
+  },
+  "name:ferrari296gt323": {
+    "id": "car3588",
+    "manufacturer": "Ferrari"
+  },
+  "name:296gt323": {
+    "id": "car3588",
+    "manufacturer": "Ferrari"
+  },
+  "name:granturismof3500b": {
+    "id": "car3589",
+    "manufacturer": "Gran Turismo"
+  },
+  "name:f3500b": {
+    "id": "car3589",
+    "manufacturer": "Gran Turismo"
+  },
+  "name:hyundaielantrantc24": {
+    "id": "car3590",
+    "manufacturer": "Hyundai"
+  },
+  "name:elantrantc24": {
+    "id": "car3590",
+    "manufacturer": "Hyundai"
+  },
+  "name:renaultespacef195": {
+    "id": "car3591",
+    "manufacturer": "Renault"
+  },
+  "name:espacef195": {
+    "id": "car3591",
+    "manufacturer": "Renault"
+  },
+  "name:chevroletcamaro1969racemod": {
+    "id": "car3592",
+    "manufacturer": "Chevrolet"
+  },
+  "name:camaro1969racemod": {
+    "id": "car3592",
+    "manufacturer": "Chevrolet"
+  },
+  "name:xiaomisu7ultra25": {
+    "id": "car3599",
+    "manufacturer": "Xiaomi"
+  },
+  "name:su7ultra25": {
+    "id": "car3599",
+    "manufacturer": "Xiaomi"
+  },
+  "name:chevroletchevelless454sportcoup70": {
+    "id": "car36",
+    "manufacturer": "Chevrolet"
+  },
+  "name:chevelless45470": {
+    "id": "car36",
+    "manufacturer": "Chevrolet"
+  },
+  "name:porsche911gt3r99222": {
+    "id": "car3600",
+    "manufacturer": "Porsche"
+  },
+  "name:911gt3r99222": {
+    "id": "car3600",
+    "manufacturer": "Porsche"
+  },
+  "name:renaultcapturseditiontce14021": {
+    "id": "car3601",
+    "manufacturer": "Renault"
+  },
+  "name:captursedition21": {
+    "id": "car3601",
+    "manufacturer": "Renault"
+  },
+  "name:yangwangu924": {
+    "id": "car3602",
+    "manufacturer": "Yangwang"
+  },
+  "name:u924": {
+    "id": "car3602",
+    "manufacturer": "Yangwang"
+  },
+  "name:renaulttwingo93": {
+    "id": "car3603",
+    "manufacturer": "Renault"
+  },
+  "name:twingo93": {
+    "id": "car3603",
+    "manufacturer": "Renault"
+  },
+  "name:bmwmhybridv825": {
+    "id": "car3604",
+    "manufacturer": "BMW"
+  },
+  "name:mhybridv825": {
+    "id": "car3604",
+    "manufacturer": "BMW"
+  },
+  "name:ferrari499p23": {
+    "id": "car3605",
+    "manufacturer": "Ferrari"
+  },
+  "name:499p23": {
+    "id": "car3605",
+    "manufacturer": "Ferrari"
+  },
+  "name:peugeot9x825": {
+    "id": "car3606",
+    "manufacturer": "Peugeot"
+  },
+  "name:9x825": {
+    "id": "car3606",
+    "manufacturer": "Peugeot"
+  },
+  "name:porsche96324": {
+    "id": "car3607",
+    "manufacturer": "Porsche"
+  },
+  "name:96324": {
+    "id": "car3607",
+    "manufacturer": "Porsche"
+  },
+  "name:porsche911turbossafetycar992": {
+    "id": "car3608",
+    "manufacturer": "Porsche"
+  },
+  "name:911turbossafetycar992": {
+    "id": "car3608",
+    "manufacturer": "Porsche"
+  },
+  "name:mazdarxvisiongt3evo26": {
+    "id": "car3609",
+    "manufacturer": "Mazda"
+  },
+  "name:rxvisiongt3evo26": {
+    "id": "car3609",
+    "manufacturer": "Mazda"
+  },
+  "name:hyundaiioniq6n25": {
+    "id": "car3610",
+    "manufacturer": "Hyundai"
+  },
+  "name:ioniq6n25": {
+    "id": "car3610",
+    "manufacturer": "Hyundai"
+  },
+  "name:toyotamarkiitourerv97": {
+    "id": "car3611",
+    "manufacturer": "Toyota"
+  },
+  "name:markiitourerv97": {
+    "id": "car3611",
+    "manufacturer": "Toyota"
+  },
+  "name:toyotachasertourerv97": {
+    "id": "car3612",
+    "manufacturer": "Toyota"
+  },
+  "name:chasertourerv97": {
+    "id": "car3612",
+    "manufacturer": "Toyota"
+  },
+  "name:alfaromeo15525v6ti93": {
+    "id": "car365",
+    "manufacturer": "Alfa Romeo"
+  },
+  "name:15525v6ti93": {
+    "id": "car365",
+    "manufacturer": "Alfa Romeo"
+  },
+  "name:citron2cv6charleston86": {
+    "id": "car3653",
+    "manufacturer": "Citroën"
+  },
+  "name:2cv6charleston86": {
+    "id": "car3653",
+    "manufacturer": "Citroën"
+  },
+  "name:ferrarif355berlinetta94": {
+    "id": "car3654",
+    "manufacturer": "Ferrari"
+  },
+  "name:f355berlinetta94": {
+    "id": "car3654",
+    "manufacturer": "Ferrari"
+  },
+  "name:hondastepwgnspadapremiumline23": {
+    "id": "car3655",
+    "manufacturer": "Honda"
+  },
+  "name:stepwgnspadapremiumline23": {
+    "id": "car3655",
+    "manufacturer": "Honda"
+  },
+  "name:xiaomivisiongranturismo": {
+    "id": "car3656",
+    "manufacturer": "Xiaomi"
+  },
+  "name:xiaomivgt": {
+    "id": "car3656",
+    "manufacturer": "Xiaomi"
+  },
+  "name:hondacivicsiriieg93": {
+    "id": "car37",
+    "manufacturer": "Honda"
+  },
+  "name:civicsiriieg93": {
+    "id": "car37",
+    "manufacturer": "Honda"
+  },
+  "name:mazdarx7gtxfc90": {
+    "id": "car374",
+    "manufacturer": "Mazda"
+  },
+  "name:rx7gtxfc90": {
+    "id": "car374",
+    "manufacturer": "Mazda"
+  },
+  "name:subaruimprezacoupewrxtyperstiversionvi99": {
+    "id": "car379",
+    "manufacturer": "Subaru"
+  },
+  "name:imprezacoupewrxtyperstivervi99": {
+    "id": "car379",
+    "manufacturer": "Subaru"
+  },
+  "name:mercedesbenz300slcoup54": {
+    "id": "car387",
+    "manufacturer": "Mercedes-Benz"
+  },
+  "name:300slcoup54": {
+    "id": "car387",
+    "manufacturer": "Mercedes-Benz"
+  },
+  "name:hondansxtyper02": {
+    "id": "car396",
+    "manufacturer": "Honda"
+  },
+  "name:nsxtyper02": {
+    "id": "car396",
+    "manufacturer": "Honda"
+  },
+  "name:chevroletcorvettestingrayl46350c369": {
+    "id": "car41",
+    "manufacturer": "Chevrolet"
+  },
+  "name:corvettestingrayc369": {
+    "id": "car41",
+    "manufacturer": "Chevrolet"
+  },
+  "name:subaruimpreza22bstiversion98": {
+    "id": "car451",
+    "manufacturer": "Subaru"
+  },
+  "name:impreza22bsti98": {
+    "id": "car451",
+    "manufacturer": "Subaru"
+  },
+  "name:nissanfairlady240zghs3071": {
+    "id": "car48",
+    "manufacturer": "Nissan"
+  },
+  "name:fairlady240zghs3071": {
+    "id": "car48",
+    "manufacturer": "Nissan"
+  },
+  "name:nissangtrgt50099": {
+    "id": "car485",
+    "manufacturer": "Nissan"
+  },
+  "name:gtrgt50099": {
+    "id": "car485",
+    "manufacturer": "Nissan"
+  },
+  "name:nissanskylinegtrvspecr3397": {
+    "id": "car489",
+    "manufacturer": "Nissan"
+  },
+  "name:r33gtrvspec97": {
+    "id": "car489",
+    "manufacturer": "Nissan"
+  },
+  "name:mitsubishiftogpversionr97": {
+    "id": "car51",
+    "manufacturer": "Mitsubishi"
+  },
+  "name:ftogpversionr97": {
+    "id": "car51",
+    "manufacturer": "Mitsubishi"
+  },
+  "name:hondas200099": {
+    "id": "car514",
+    "manufacturer": "Honda"
+  },
+  "name:s200099": {
+    "id": "car514",
+    "manufacturer": "Honda"
+  },
+  "name:lanciastratos73": {
+    "id": "car533",
+    "manufacturer": "Lancia"
+  },
+  "name:stratos73": {
+    "id": "car533",
+    "manufacturer": "Lancia"
+  },
+  "name:jaguarxj22092": {
+    "id": "car543",
+    "manufacturer": "Jaguar"
+  },
+  "name:xj22092": {
+    "id": "car543",
+    "manufacturer": "Jaguar"
+  },
+  "name:mercedesbenz190e2516evolutionii91": {
+    "id": "car575",
+    "manufacturer": "Mercedes-Benz"
+  },
+  "name:190e2516evolutionii91": {
+    "id": "car575",
+    "manufacturer": "Mercedes-Benz"
+  },
+  "name:toyota2000gt67": {
+    "id": "car604",
+    "manufacturer": "Toyota"
+  },
+  "name:2000gt67": {
+    "id": "car604",
+    "manufacturer": "Toyota"
+  },
+  "name:toyotacorollalevin3door1600gtapexae8683": {
+    "id": "car63",
+    "manufacturer": "Toyota"
+  },
+  "name:corollalevin1600gtapexae8683": {
+    "id": "car63",
+    "manufacturer": "Toyota"
+  },
+  "name:bmwz430i03": {
+    "id": "car655",
+    "manufacturer": "BMW"
+  },
+  "name:z430i03": {
+    "id": "car655",
+    "manufacturer": "BMW"
+  },
+  "name:plymouthsuperbird70": {
+    "id": "car665",
+    "manufacturer": "Plymouth"
+  },
+  "name:superbird70": {
+    "id": "car665",
+    "manufacturer": "Plymouth"
+  },
+  "name:hondacivicsigroupaversion87": {
+    "id": "car683",
+    "manufacturer": "Honda"
+  },
+  "name:civicsigroupaversion87": {
+    "id": "car683",
+    "manufacturer": "Honda"
+  },
+  "name:hondaintegratyperdc295": {
+    "id": "car688",
+    "manufacturer": "Honda"
+  },
+  "name:integratyperdc295": {
+    "id": "car688",
+    "manufacturer": "Honda"
+  },
+  "name:nissanfairladyz300zxtwinturbo2seaterz3289": {
+    "id": "car709",
+    "manufacturer": "Nissan"
+  },
+  "name:fairladyz300zxtt2seater89": {
+    "id": "car709",
+    "manufacturer": "Nissan"
+  },
+  "name:renaultavantime30v624v02": {
+    "id": "car729",
+    "manufacturer": "Renault"
+  },
+  "name:avantime30v624v02": {
+    "id": "car729",
+    "manufacturer": "Renault"
+  },
+  "name:lanciadeltahfintegralerallycar92": {
+    "id": "car761",
+    "manufacturer": "Lancia"
+  },
+  "name:deltahfintegralerallycar92": {
+    "id": "car761",
+    "manufacturer": "Lancia"
+  },
+  "name:nissanskylinegtrvspeciir3294": {
+    "id": "car773",
+    "manufacturer": "Nissan"
+  },
+  "name:r32gtrvspecii94": {
+    "id": "car773",
+    "manufacturer": "Nissan"
+  },
+  "name:suzukicappuccinoea11r91": {
+    "id": "car779",
+    "manufacturer": "Suzuki"
+  },
+  "name:cappuccino91": {
+    "id": "car779",
+    "manufacturer": "Suzuki"
+  },
+  "name:nissansilviaksaeros1496": {
+    "id": "car78",
+    "manufacturer": "Nissan"
+  },
+  "name:silviaksaeros1496": {
+    "id": "car78",
+    "manufacturer": "Nissan"
+  },
+  "name:toyotacelicagtfourrallycarst20595": {
+    "id": "car781",
+    "manufacturer": "Toyota"
+  },
+  "name:celicagtfourrallycarst20595": {
+    "id": "car781",
+    "manufacturer": "Toyota"
+  },
+  "name:mitsubishilancerevolutionviiimrgsr04": {
+    "id": "car799",
+    "manufacturer": "Mitsubishi"
+  },
+  "name:lancerevolutionviiimrgsr04": {
+    "id": "car799",
+    "manufacturer": "Mitsubishi"
+  },
+  "name:suzukiv6escudopikespeakspecial98": {
+    "id": "car808",
+    "manufacturer": "Suzuki"
+  },
+  "name:v6escudopikespeakspecial98": {
+    "id": "car808",
+    "manufacturer": "Suzuki"
+  },
+  "name:toyotasprintertrueno3door1600gtapexae8683": {
+    "id": "car810",
+    "manufacturer": "Toyota"
+  },
+  "name:sprintertrueno1600gtapexae8683": {
+    "id": "car810",
+    "manufacturer": "Toyota"
+  },
+  "name:chevroletcorvettestingraysportcoupec263": {
+    "id": "car818",
+    "manufacturer": "Chevrolet"
+  },
+  "name:corvettec263": {
+    "id": "car818",
+    "manufacturer": "Chevrolet"
+  },
+  "name:toyotasuprarz97": {
+    "id": "car82",
+    "manufacturer": "Toyota"
+  },
+  "name:suprarz97": {
+    "id": "car82",
+    "manufacturer": "Toyota"
+  },
+  "name:hondacivictyperek97": {
+    "id": "car821",
+    "manufacturer": "Honda"
+  },
+  "name:civictyperek97": {
+    "id": "car821",
+    "manufacturer": "Honda"
+  },
+  "name:lanciadeltahfintegraleevoluzione91": {
+    "id": "car829",
+    "manufacturer": "Lancia"
+  },
+  "name:deltahfintegraleevoluzione91": {
+    "id": "car829",
+    "manufacturer": "Lancia"
+  },
+  "name:nissanskyline2000gtrkpgc11073": {
+    "id": "car836",
+    "manufacturer": "Nissan"
+  },
+  "name:skyline2000gtrkpgc11073": {
+    "id": "car836",
+    "manufacturer": "Nissan"
+  },
+  "name:nissanskylinehardtop2000gtrkpgc1070": {
+    "id": "car837",
+    "manufacturer": "Nissan"
+  },
+  "name:skylinehardtop2000gtrkpgc1070": {
+    "id": "car837",
+    "manufacturer": "Nissan"
+  },
+  "name:toyotasupra30gtturboa88": {
+    "id": "car843",
+    "manufacturer": "Toyota"
+  },
+  "name:supra30gtturboa88": {
+    "id": "car843",
+    "manufacturer": "Toyota"
+  },
+  "name:nissansilviaqss1388": {
+    "id": "car919",
+    "manufacturer": "Nissan"
+  },
+  "name:silviaqss1388": {
+    "id": "car919",
+    "manufacturer": "Nissan"
+  },
+  "name:mitsubishilancerevolutioniiigsr95": {
+    "id": "car931",
+    "manufacturer": "Mitsubishi"
+  },
+  "name:lancerevolutioniiigsr95": {
+    "id": "car931",
+    "manufacturer": "Mitsubishi"
+  },
+  "name:chevroletcorvettezr1c489": {
+    "id": "car942",
+    "manufacturer": "Chevrolet"
+  },
+  "name:corvettezr1c489": {
+    "id": "car942",
+    "manufacturer": "Chevrolet"
+  },
+  "name:nissanr92cp92": {
+    "id": "car954",
+    "manufacturer": "Nissan"
+  },
+  "name:r92cp92": {
+    "id": "car954",
+    "manufacturer": "Nissan"
+  },
+  "name:audittcoup32quattro03": {
+    "id": "car959",
+    "manufacturer": "Audi"
+  },
+  "name:ttcoup32quattro03": {
+    "id": "car959",
+    "manufacturer": "Audi"
+  },
+  "name:mazdafinirx7typerfd91": {
+    "id": "car967",
+    "manufacturer": "Mazda"
+  },
+  "name:finirx7typerfd91": {
+    "id": "car967",
+    "manufacturer": "Mazda"
+  },
+  "name:saubermercedesc989": {
+    "id": "car998",
+    "manufacturer": "Mercedes-Benz"
+  }
+}

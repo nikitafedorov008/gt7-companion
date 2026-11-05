@@ -1,3 +1,4 @@
+import '../gt_loading_indicator.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -451,12 +452,9 @@ class _ConnectionStatus extends StatelessWidget {
               if (phase == ConnectionPhase.searching &&
                   !MediaQuery.disableAnimationsOf(context))
                 SizedBox(
-                  width: 8,
-                  height: 8,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 1,
-                    color: color,
-                  ),
+                  width: 18,
+                  height: 18,
+                  child: GtLoadingIndicator(size: 18),
                 )
               else
                 Icon(

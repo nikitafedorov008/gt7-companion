@@ -99,9 +99,15 @@ class TelemetryConnectionRepository extends ChangeNotifier
         !_autoAttempt &&
         !_manualBusy &&
         (phase == ConnectionPhase.live || phase == ConnectionPhase.waiting)) {
-      _suppressed = true;
       _cancel();
-      _set(ConnectionPhase.manual);
+      if (telemetry.errorMessage != null) {
+        // Socket failures permit recovery; only user disconnects suppress it.
+        _set(ConnectionPhase.lost);
+        _scheduleRetry();
+      } else {
+        _suppressed = true;
+        _set(ConnectionPhase.manual);
+      }
       return;
     }
     if (hasFreshData) {
@@ -177,7 +183,10 @@ class TelemetryConnectionRepository extends ChangeNotifier
       await telemetry.disconnect();
       if (!_valid(generation)) return;
       if (!discovery.broadcastAvailable) {
-        _set(ConnectionPhase.unavailable);
+        // A known address remains retryable even when DDP broadcast is absent.
+        _set(
+          saved == null ? ConnectionPhase.unavailable : ConnectionPhase.lost,
+        );
         return;
       }
       _set(ConnectionPhase.searching);

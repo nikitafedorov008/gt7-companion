@@ -35,7 +35,6 @@ void main() {
                         onUsed: () => taps.add('used'),
                         onLegendary: () => taps.add('legendary'),
                         onGTAuto: () => taps.add('gtauto'),
-                        onApex: () => taps.add('apex'),
                       ),
                     ),
                   ),
@@ -43,21 +42,14 @@ void main() {
               ),
             );
             await tester.pumpAndSettle();
+            expect(find.byKey(const ValueKey('service-apex')), findsNothing);
             final cards = [
-              for (final id in [
-                'brand-central',
-                'used',
-                'legendary',
-                'gtauto',
-                'apex',
-              ])
+              for (final id in ['brand-central', 'used', 'legendary', 'gtauto'])
                 find.byKey(ValueKey('service-$id')),
             ];
             final rects = cards.map(tester.getRect).toList();
-            final columns = width - 32 >= 1200
-                ? 5
-                : width - 32 >= 900
-                ? 3
+            final columns = width - 32 >= 900
+                ? 4
                 : width - 32 >= 344
                 ? 2
                 : 1;
@@ -87,13 +79,7 @@ void main() {
               await tester.tap(card);
               await tester.pump();
             }
-            expect(taps, [
-              'brand-central',
-              'used',
-              'legendary',
-              'gtauto',
-              'apex',
-            ]);
+            expect(taps, ['brand-central', 'used', 'legendary', 'gtauto']);
             expect(tester.takeException(), isNull);
           },
         );

@@ -45,6 +45,23 @@ class _FakeMusicPlayer implements MusicPlayer {
   void finishTrack() => _onComplete?.call();
 }
 
+class _DelayedMusicPlayer extends _FakeMusicPlayer {
+  final ready = Completer<void>();
+  bool audible = false;
+  @override
+  Future<void> play(String asset, {required double volume}) async {
+    await ready.future;
+    await super.play(asset, volume: volume);
+    audible = true;
+  }
+
+  @override
+  Future<void> pause() async {
+    audible = false;
+    await super.pause();
+  }
+}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -151,5 +168,44 @@ void main() {
     expect(player.played, hasLength(1), reason: 'no second start');
     expect(player.pauseCount, 1);
     expect(player.resumeCount, 1);
+  });
+  test(
+    'late player load cannot start music after window becomes hidden',
+    () async {
+      final delayed = _DelayedMusicPlayer();
+      final music = MusicService(player: delayed, fadeDuration: Duration.zero);
+      addTearDown(music.dispose);
+      final load = music.load();
+      await Future<void>.delayed(Duration.zero);
+      music.didChangeAppLifecycleState(AppLifecycleState.hidden);
+      delayed.ready.complete();
+      await load;
+      await music.flush();
+      expect(delayed.audible, isFalse);
+      expect(delayed.volumes.every((v) => v == 0), isTrue);
+    },
+  );
+
+  test(
+    'loading preferences while already hidden never starts playback',
+    () async {
+      final music = buildService();
+      addTearDown(music.dispose);
+      music.didChangeAppLifecycleState(AppLifecycleState.hidden);
+      await music.load();
+      await music.flush();
+      expect(player.played, isEmpty);
+    },
+  );
+
+  test('late resume followed by hide ends with paused player', () async {
+    final music = buildService();
+    addTearDown(music.dispose);
+    await music.load();
+    music.didChangeAppLifecycleState(AppLifecycleState.resumed);
+    music.didChangeAppLifecycleState(AppLifecycleState.hidden);
+    await music.flush();
+    expect(player.pauseCount, greaterThan(0));
+    expect(player.resumeCount, 0);
   });
 }

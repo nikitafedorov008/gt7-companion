@@ -101,8 +101,6 @@ class _HomePageState extends State<HomePage> {
                       onUsed: () => _openUsedCarDealer(context),
                       onLegendary: () => _openLegendaryCarDealer(context),
                       onGTAuto: () => _openGTAuto(context),
-                      onApex: () =>
-                          context.router.push(const ApexDisplayRoute()),
                     ),
                     const SizedBox(height: 24),
                     const DailyRacesDisplay(ifFutureExistsNotShowPast: true),

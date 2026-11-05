@@ -1,325 +1,234 @@
-import 'package:gt7_companion/l10n/ui_messages.dart';
-// FILE: lib/widgets/car_dealer/used/used_car_grid_item.dart
-// VERSION: 1.0.0
-// START_MODULE_CONTRACT
-//   PURPOSE: Render one used-dealer car as a tappable card with its photo, name, price and stock state.
-//   SCOPE: Card layout, image fallback chain, price-history launch.
-//   DEPENDS: M-MODEL-CAR, M-REPO-CAR
-//   LINKS: M-WIDGET-CAR-DEALER, V-M-WIDGET-CAR-DEALER
-//   ROLE: RUNTIME
-//   MAP_MODE: EXPORTS
-// END_MODULE_CONTRACT
-//
-// START_MODULE_MAP
-//   UsedCarCardItem - used-dealer car card with photo, price and stock badge.
-// END_MODULE_MAP
-
 import 'package:flutter/material.dart';
-import 'package:extended_image/extended_image.dart';
-import 'package:flutter_avif/flutter_avif.dart';
+import 'package:provider/provider.dart';
+import '../../../l10n/ui_messages.dart';
 import '../../../models/car_dealer/car.dart';
-import '../car_status_badge.dart';
-import 'package:url_launcher/url_launcher.dart';
+import '../../../repositories/dealer_catalog_repository.dart';
+import '../card_artwork.dart';
+import '../dealer_card_parts.dart';
+import '../dealer_theme.dart';
 
 class UsedCarCardItem extends StatelessWidget {
+  const UsedCarCardItem({super.key, required this.car, this.onTap});
   final Car car;
-
-  const UsedCarCardItem({super.key, required this.car});
-
+  final VoidCallback? onTap;
   @override
   Widget build(BuildContext context) {
-    String carImageUrl = _getCarImageUrl();
-
-    return GestureDetector(
-      onTap: () => _launchPriceHistory(car.id),
-      child: Container(
-        margin: const EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-          // 280 was out of range: Color.fromARGB masks the channel with & 0xff, so the
-          // card has always rendered at alpha 24/255 (9.4%). Keep that value explicit.
-          color: Colors.grey.withAlpha(24),
-          borderRadius: BorderRadius.circular(8.0),
-          border: Border.all(color: Colors.grey[300]!, width: 1),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // Car Image (Left)
-            Expanded(
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(8),
-                  bottomLeft: Radius.circular(8),
-                ),
-                child: FractionallySizedBox(
-                  widthFactor: 0.8,
-                  child: _buildImageWidget(
-                    carImageUrl,
-                    width: 120,
-                    height: 120,
-                    fit: BoxFit.contain,
+    final theme = Theme.of(context), colors = Theme.of(context).colorScheme;
+    return Consumer<DealerCatalogRepository>(
+      builder: (context, catalog, _) {
+        final details = catalog.details(car, context.l10n.localeName);
+        return Material(
+          color: colors.surfaceContainerLow,
+          borderRadius: BorderRadius.circular(2),
+          clipBehavior: Clip.antiAlias,
+          child: InkWell(
+            key: ValueKey('dealer-used-car-${details.id}'),
+            onTap: onTap,
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Expanded(
+                    child: Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        CardArtwork(
+                          url: car.carImageUrl,
+                          fallbackUrl: details.thumbnailUrl,
+                          fit: BoxFit.contain,
+                          cacheWidth: 640,
+                          thumbnailOverlay: const UsedDealerWatermark(),
+                          thumbnailBackground: dealerThumbnailBackground(
+                            car.region,
+                          ),
+                          imageBuilder: (context, image, isThumbnail) => Stack(
+                            fit: StackFit.expand,
+                            children: [
+                              ColorFiltered(
+                                colorFilter: ColorFilter.mode(
+                                  colors.scrim.withValues(
+                                    alpha: car.isSoldOut ? .6 : 0,
+                                  ),
+                                  BlendMode.srcATop,
+                                ),
+                                child: image,
+                              ),
+                              Positioned(
+                                left: 8,
+                                right: 8,
+                                bottom: isThumbnail ? 8 : 20,
+                                child: const _Mileage(),
+                              ),
+                            ],
+                          ),
+                        ),
+                        if (car.isSoldOut)
+                          Center(
+                            child: Transform.rotate(
+                              angle: -.2,
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: colors.error,
+                                    width: 2,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 4,
+                                  ),
+                                  child: Text(
+                                    'SOLD OUT',
+                                    style: theme.textTheme.titleMedium
+                                        ?.copyWith(
+                                          color: colors.error,
+                                          fontWeight: FontWeight.w800,
+                                        ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
                   ),
-                ),
-              ),
-            ),
-
-            // Info Section (Right)
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: FractionallySizedBox(
-                  widthFactor: 0.9,
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    alignment: Alignment.centerLeft,
+                  const SizedBox(width: 8),
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        // Manufacturer + Flag
                         Row(
                           children: [
-                            if (car.region.isNotEmpty)
-                              Image.network(
-                                car.flagUrl,
-                                width: 20,
-                                height: 14,
-                                fit: BoxFit.contain,
+                            if (car.flagUrl.isNotEmpty) ...[
+                              CardArtwork(
+                                url: car.flagUrl,
+                                width: 16,
+                                height: 11,
                               ),
-                            const SizedBox(width: 6),
-                            Text(
-                              context.tr(car.manufacturer.toUpperCase()),
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 11,
-                                color: Colors.grey,
+                              const SizedBox(width: 5),
+                            ],
+                            Expanded(
+                              child: Text(
+                                details.manufacturer.toUpperCase(),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: theme.textTheme.labelSmall?.copyWith(
+                                  fontSize: 11,
+                                  letterSpacing: 0,
+                                ),
                               ),
                             ),
                           ],
                         ),
-
-                        const SizedBox(height: 4),
-
-                        // Car Name
+                        const SizedBox(height: 5),
                         Text(
-                          context.tr(car.name),
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
-                          ),
-                          overflow: TextOverflow.ellipsis,
+                          details.name,
                           maxLines: 2,
-                        ),
-
-                        const SizedBox(height: 4),
-
-                        // Status: SOLD OUT / LIMITED STOCK
-                        if (car.isSoldOut)
-                          CarStatusBadge(
-                            text: 'SOLD OUT',
-                            background: Colors.red[100]!,
-                            foreground: Colors.red[800]!,
-                          )
-                        else if (car.isLimitedStock)
-                          CarStatusBadge(
-                            text: 'LIMITED STOCK',
-                            background: Colors.orange[100]!,
-                            foreground: Colors.orange[800]!,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.titleSmall?.copyWith(
+                            fontSize: 14,
+                            height: 1.05,
+                            letterSpacing: 0,
+                            fontWeight: FontWeight.w700,
                           ),
-
-                        const SizedBox(height: 8),
-
-                        // PP + Miles
+                        ),
+                        const Spacer(),
                         Row(
                           children: [
-                            const Icon(
-                              Icons.speed,
-                              size: 14,
-                              color: Colors.grey,
-                            ),
-                            const SizedBox(width: 4),
-                            Text(
-                              context.tr(
-                                '${_formatMiles(car.estimateDays)} mi',
-                              ),
-                              style: const TextStyle(
-                                fontSize: 12,
-                                color: Colors.grey,
+                            Flexible(
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                alignment: Alignment.centerLeft,
+                                child: DealerPoints(details: details),
                               ),
                             ),
-                            const SizedBox(width: 12),
-                            const Icon(
-                              Icons.trending_up,
-                              size: 14,
-                              color: Colors.grey,
-                            ),
                             const SizedBox(width: 4),
-                            Text(
-                              context.tr('PP ${car.sort ?? 0}'),
-                              style: const TextStyle(
-                                fontSize: 12,
-                                color: Colors.grey,
+                            Expanded(
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: Text(
+                                    '${details.drive} / ${details.aspiration}',
+                                    style: theme.textTheme.labelMedium
+                                        ?.copyWith(
+                                          fontWeight: FontWeight.w700,
+                                          fontStyle: FontStyle.italic,
+                                          letterSpacing: 0,
+                                        ),
+                                  ),
+                                ),
                               ),
                             ),
                           ],
                         ),
-
-                        const SizedBox(height: 8),
-
-                        // Stars
-                        Row(
-                          children: List.generate(5, (index) {
-                            return Icon(
-                              Icons.star,
-                              size: 14,
-                              color: index < 3
-                                  ? Colors.yellow
-                                  : Colors.grey[300],
-                            );
-                          }),
-                        ),
-
-                        const SizedBox(height: 8),
-
-                        // Price
-                        Text(
-                          context.tr(car.displayPrice),
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
+                        const SizedBox(height: 3),
+                        SizedBox(
+                          height:
+                              24 *
+                              (MediaQuery.textScalerOf(context).scale(14) / 14)
+                                  .clamp(1.0, double.infinity),
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: DealerStockLabel(
+                              details: details,
+                              onlySpecial: true,
+                            ),
                           ),
+                        ),
+                        const SizedBox(height: 3),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: DealerPrice(details: details),
                         ),
                       ],
                     ),
                   ),
-                ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _Mileage extends StatelessWidget {
+  const _Mileage();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final shadows = [
+      Shadow(
+        color: theme.colorScheme.scrim.withValues(alpha: .7),
+        blurRadius: 3,
+      ),
+    ];
+    return Semantics(
+      label: '${context.l10n.dealerMileage} —',
+      child: Row(
+        children: [
+          Icon(
+            Icons.speed_outlined,
+            size: 19,
+            color: const Color(0xFFFFFFFF),
+            shadows: shadows,
+          ),
+          const SizedBox(width: 5),
+          Text(
+            '—',
+            style: theme.textTheme.labelMedium?.copyWith(
+              color: const Color(0xFFFFFFFF),
+              shadows: shadows,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ],
       ),
     );
-  }
-
-  String _getCarImageUrl() => car.carImageUrl;
-
-  Widget _buildImageWidget(
-    String imageUrl, {
-    double? width,
-    double? height,
-    BoxFit fit = BoxFit.cover,
-  }) {
-    Widget placeholder = Container(
-      width: width,
-      height: height,
-      color: Colors.grey[300],
-      child: const Icon(Icons.car_repair, size: 16, color: Colors.grey),
-    );
-
-    // Standard fallback image in case of errors
-    Widget fallbackImage = Container(
-      width: width,
-      height: height,
-      color: Colors.grey[200],
-      child: const Icon(
-        Icons.image_not_supported_outlined,
-        size: 24,
-        color: Colors.grey,
-      ),
-    );
-
-    if (imageUrl.contains('imagedelivery.net')) {
-      // Для изображений из GTDB показываем стандартное изображение как placeholder,
-      // а затем заменяем на изображение из GTDB если оно загрузится
-      String gt7StandardUrl =
-          'https://www.gran-turismo.com/common/dist/gt7/carlist/car_thumbnails/car${car.id}.png';
-
-      // Сначала загружаем стандартное изображение
-      return ExtendedImage.network(
-        gt7StandardUrl, // Сначала показываем стандартное изображение
-        // width: width,
-        // height: height,
-        fit: fit,
-        cache: true,
-        loadStateChanged: (ExtendedImageState standardState) {
-          // Загружаем изображение из GTDB поверх стандартного
-          Widget gtdbImage = AvifImage.network(
-            imageUrl, // Это изображение из GTDB
-            // width: width,
-            // height: height,
-            fit: BoxFit.contain,
-            loadingBuilder: (context, child, loadingProgress) =>
-                loadingProgress == null
-                ? child
-                : Container(), // Не показываем placeholder для GTDB
-            errorBuilder: (context, error, stackTrace) =>
-                Container(), // Не показываем ошибку GTDB
-          );
-
-          if (standardState.extendedImageLoadState == LoadState.loading) {
-            // Если стандартное изображение еще грузится, показываем placeholder
-            return Stack(
-              alignment: Alignment.center,
-              children: [
-                placeholder, // placeholder пока грузится стандартное изображение
-                gtdbImage, // попутно грузим изображение из GTDB
-              ],
-            );
-          } else if (standardState.extendedImageLoadState ==
-              LoadState.completed) {
-            // Если стандартное изображение загрузилось, показываем его с возможностью замены на GTDB
-            return Stack(
-              alignment: Alignment.center,
-              children: [
-                standardState.completedWidget, // стандартное изображение
-                gtdbImage, // поверх него изображение из GTDB, если оно загрузится
-              ],
-            );
-          } else {
-            // В случае ошибки стандартного изображения показываем fallback
-            return Stack(
-              alignment: Alignment.center,
-              children: [
-                fallbackImage, // fallback при ошибке
-                gtdbImage, // попутно пробуем загрузить изображение из GTDB
-              ],
-            );
-          }
-        },
-      );
-    } else {
-      return ExtendedImage.network(
-        imageUrl,
-        width: width,
-        height: height,
-        fit: fit,
-        cache: true,
-        loadStateChanged: (ExtendedImageState state) {
-          if (state.extendedImageLoadState == LoadState.loading ||
-              state.extendedImageLoadState == LoadState.failed) {
-            return state.extendedImageLoadState == LoadState.loading
-                ? placeholder
-                : fallbackImage;
-          }
-          return null;
-        },
-      );
-    }
-  }
-
-  Future<void> _launchPriceHistory(String carId) async {
-    final url = 'https://ddm999.github.io/gt7info/cars/prices_$carId.png';
-    try {
-      await launchUrl(Uri.parse(url));
-    } catch (e) {
-      debugPrint('Error launching URL: $e');
-    }
-  }
-
-  String _formatMiles(int days) {
-    return (days * 1000).toString();
   }
 }

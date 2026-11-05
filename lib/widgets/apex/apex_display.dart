@@ -1,4 +1,4 @@
-import 'package:gt7_companion/widgets/window_navigation_safe_area.dart';
+import '../gt_loading_indicator.dart';
 import 'package:gt7_companion/l10n/ui_messages.dart';
 // START_MODULE_CONTRACT
 // PURPOSE: Read Beyond the Apex inside the application at any window width.
@@ -12,6 +12,7 @@ import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'apex_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../models/apex/apex_content.dart';
@@ -48,88 +49,127 @@ class _ApexDisplayState extends State<ApexDisplay> with WidgetsBindingObserver {
   }
 
   @override
-  Widget build(BuildContext context) => Consumer<ApexService>(
-    builder: (context, service, _) {
-      return LayoutBuilder(
-        builder: (context, constraints) {
-          final wide = constraints.maxWidth >= 880;
-          return Scaffold(
-            appBar: WindowNavigationAppBar(
-              child: AppBar(
-                leading: BackButton(onPressed: () => context.router.maybePop()),
-                title: Text(
-                  context.tr('Beyond the Apex'),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                actions: [
-                  if (!wide)
-                    Builder(
-                      builder: (context) => IconButton(
-                        key: const ValueKey('apex-contents-button'),
-                        tooltip: context.tr(
-                          service.label('Содержание', 'Contents'),
+  Widget build(BuildContext context) {
+    return Theme(
+      data: apexMagazineTheme(Theme.of(context)),
+      child: Builder(
+        builder: (context) => Consumer<ApexService>(
+          builder: (context, service, _) {
+            return LayoutBuilder(
+              builder: (context, constraints) {
+                final wide =
+                    constraints.maxWidth >= 1000 &&
+                    MediaQuery.textScalerOf(context).scale(1) <= 1.25;
+                return Scaffold(
+                  endDrawer: wide
+                      ? null
+                      : Drawer(
+                          child: SafeArea(
+                            child: _ApexContents(
+                              service: service,
+                              onSelect: (reference) {
+                                Navigator.of(context).pop();
+                                unawaited(service.selectArticle(reference));
+                              },
+                            ),
+                          ),
                         ),
-                        icon: const Icon(Icons.menu_book_outlined),
-                        onPressed: () => Scaffold.of(context).openEndDrawer(),
-                      ),
-                    ),
-                  IconButton(
-                    tooltip: context.tr(
-                      service.label('Открыть оригинал', 'Open original'),
-                    ),
-                    icon: const Icon(Icons.open_in_new),
-                    onPressed: () => _openOriginal(context, service),
-                  ),
-                ],
-              ),
-            ),
-            endDrawer: wide
-                ? null
-                : Drawer(
-                    child: SafeArea(
-                      child: _ApexContents(
-                        service: service,
-                        onSelect: (reference) {
-                          Navigator.of(context).pop();
-                          unawaited(service.selectArticle(reference));
-                        },
-                      ),
-                    ),
-                  ),
-            body: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                if (wide) ...[
-                  SizedBox(
-                    width: 280,
-                    child: _ApexContents(
-                      service: service,
-                      onSelect: (reference) =>
-                          unawaited(service.selectArticle(reference)),
-                    ),
-                  ),
-                  const VerticalDivider(width: 1),
-                ],
-                Expanded(
-                  child: service.isLoading
-                      ? const Center(child: CircularProgressIndicator())
-                      : service.error != null
-                      ? _ReaderError(service: service)
-                      : service.article == null
-                      ? const SizedBox.shrink()
-                      : _ArticleView(
-                          key: ValueKey(service.selected.path),
-                          service: service,
+                  body: SafeArea(
+                    top: true,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  'Beyond the Apex',
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.titleMedium,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              if (!wide)
+                                Builder(
+                                  builder: (context) => IconButton(
+                                    key: const ValueKey('apex-contents-button'),
+                                    tooltip: context.tr(
+                                      service.label('Содержание', 'Contents'),
+                                    ),
+                                    icon: const Icon(Icons.menu_book_outlined),
+                                    onPressed: () =>
+                                        Scaffold.of(context).openEndDrawer(),
+                                  ),
+                                ),
+                              IconButton(
+                                tooltip: context.tr(
+                                  service.label(
+                                    'Открыть оригинал',
+                                    'Open original',
+                                  ),
+                                ),
+                                icon: const Icon(Icons.open_in_new),
+                                onPressed: () =>
+                                    _openOriginal(context, service),
+                              ),
+                              IconButton(
+                                key: const ValueKey('apex-close'),
+                                tooltip: MaterialLocalizations.of(
+                                  context,
+                                ).closeButtonTooltip,
+                                icon: const Icon(Icons.close_sharp),
+                                onPressed: () => context.router.maybePop(),
+                              ),
+                            ],
+                          ),
                         ),
-                ),
-              ],
-            ),
-          );
-        },
-      );
-    },
-  );
+                        Expanded(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              if (wide) ...[
+                                SizedBox(
+                                  key: const ValueKey('apex-contents-rail'),
+                                  width: 350,
+                                  child: _ApexContents(
+                                    service: service,
+                                    onSelect: (reference) => unawaited(
+                                      service.selectArticle(reference),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                              ],
+                              Expanded(
+                                child: service.isLoading
+                                    ? const Center(child: GtLoadingIndicator())
+                                    : service.error != null
+                                    ? _ReaderError(service: service)
+                                    : service.article == null
+                                    ? const SizedBox.shrink()
+                                    : _ArticleView(
+                                        key: ValueKey(service.selected.path),
+                                        service: service,
+                                        wide: wide,
+                                      ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            );
+          },
+        ),
+      ),
+    );
+  }
 }
 
 Future<void> _openOriginal(BuildContext context, ApexService service) async {
@@ -167,78 +207,133 @@ class _ApexContents extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return ListView(
-      padding: const EdgeInsets.fromLTRB(12, 20, 12, 112),
+      padding: const EdgeInsets.fromLTRB(24, 24, 24, 32),
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(8, 0, 8, 16),
-          child: Text(
-            context.tr(service.label('Содержание', 'Contents')),
-            style: theme.textTheme.titleLarge,
-          ),
-        ),
-        TextButton(
-          onPressed: () => onSelect(ApexArticleRef.introduction),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Text(context.tr('The Gran Turismo Magazine')),
-          ),
-        ),
-        const Divider(),
-        for (var i = 0; i < service.chapters.length; i++)
-          ExpansionTile(
-            key: ValueKey(
-              'chapter-$i-${service.chapters[i].sections.any((s) => s.articles.any((a) => a.path == service.selected.path))}',
-            ),
-            initiallyExpanded: service.chapters[i].sections.any(
-              (s) => s.articles.any((a) => a.path == service.selected.path),
-            ),
-            tilePadding: const EdgeInsets.symmetric(horizontal: 8),
-            title: Text(
-              context.tr(service.chapters[i].title),
-              style: theme.textTheme.titleSmall,
-            ),
-            children: [
-              for (final section in service.chapters[i].sections) ...[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(12, 16, 12, 6),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      context.tr(section.title),
-                      style: theme.textTheme.labelLarge?.copyWith(
-                        color: theme.colorScheme.onSurfaceVariant,
-                      ),
+          padding: const EdgeInsets.only(bottom: 16),
+          child: InkWell(
+            key: const ValueKey('apex-cover'),
+            onTap: () => onSelect(ApexArticleRef.introduction),
+            child: Row(
+              children: [
+                const Icon(Icons.menu_book_outlined, size: 20),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    context.tr(service.label('Содержание', 'Contents')),
+                    style: theme.textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 ),
-                for (final article in section.articles)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 2),
-                    child: TextButton(
-                      key: ValueKey('apex-article-${article.path}'),
-                      style: TextButton.styleFrom(
-                        alignment: Alignment.centerLeft,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 12,
-                        ),
-                        foregroundColor: service.selected.path == article.path
-                            ? theme.colorScheme.primary
-                            : theme.colorScheme.onSurface,
-                        backgroundColor: service.selected.path == article.path
-                            ? theme.colorScheme.primary.withValues(alpha: .10)
-                            : null,
-                      ),
-                      onPressed: () => onSelect(article),
+              ],
+            ),
+          ),
+        ),
+        Divider(height: 4, thickness: 4, color: theme.colorScheme.onSurface),
+        const SizedBox(height: 16),
+        for (var i = 0; i < service.chapters.length; i++)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 6),
+            child: Material(
+              key: ValueKey('apex-chapter-$i'),
+              color: theme.colorScheme.surfaceContainerLow,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(4),
+                side: BorderSide(color: theme.colorScheme.outline),
+              ),
+              clipBehavior: Clip.antiAlias,
+              child: ExpansionTile(
+                key: ValueKey(
+                  'chapter-$i-${service.chapters[i].sections.any((s) => s.articles.any((a) => a.path == service.selected.path))}',
+                ),
+                initiallyExpanded: service.chapters[i].sections.any(
+                  (s) => s.articles.any((a) => a.path == service.selected.path),
+                ),
+                tilePadding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 6,
+                ),
+                title: _ChapterTitle(
+                  title: context.tr(service.chapters[i].title),
+                ),
+                childrenPadding: const EdgeInsets.only(bottom: 8),
+                children: [
+                  for (final section in service.chapters[i].sections) ...[
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(12, 16, 12, 6),
                       child: Align(
                         alignment: Alignment.centerLeft,
-                        child: Text(context.tr(article.title)),
+                        child: Text(
+                          context.tr(section.title),
+                          style: theme.textTheme.labelLarge?.copyWith(
+                            color: theme.colorScheme.onSurfaceVariant,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-              ],
-            ],
+                    for (final article in section.articles)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 2),
+                        child: TextButton(
+                          key: ValueKey('apex-article-${article.path}'),
+                          style: TextButton.styleFrom(
+                            alignment: Alignment.centerLeft,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 12,
+                            ),
+                            foregroundColor:
+                                service.selected.path == article.path
+                                ? theme.colorScheme.primary
+                                : theme.colorScheme.onSurface,
+                            backgroundColor:
+                                service.selected.path == article.path
+                                ? theme.colorScheme.surfaceContainer
+                                : null,
+                          ),
+                          onPressed: () => onSelect(article),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(context.tr(article.title)),
+                          ),
+                        ),
+                      ),
+                  ],
+                ],
+              ),
+            ),
           ),
+        const SizedBox(height: 20),
+        Divider(height: 4, thickness: 4, color: theme.colorScheme.onSurface),
+      ],
+    );
+  }
+}
+
+class _ChapterTitle extends StatelessWidget {
+  const _ChapterTitle({required this.title});
+  final String title;
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final split = title.indexOf(':');
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (split >= 0) ...[
+          Text(
+            title.substring(0, split + 1).toUpperCase(),
+            style: theme.textTheme.labelSmall,
+          ),
+          const SizedBox(height: 4),
+        ],
+        Text(
+          split >= 0 ? title.substring(split + 1).trim() : title,
+          style: theme.textTheme.titleSmall?.copyWith(
+            fontWeight: FontWeight.w700,
+          ),
+        ),
       ],
     );
   }
@@ -292,12 +387,19 @@ class _ReaderError extends StatelessWidget {
 }
 
 class _ArticleView extends StatelessWidget {
-  const _ArticleView({super.key, required this.service});
+  const _ArticleView({super.key, required this.service, this.wide = false});
   final ApexService service;
+  final bool wide;
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final blocks = service.article!.blocks;
+    final sectionHeading = blocks
+        .where(
+          (block) =>
+              block.kind == ApexBlockKind.heading && block.headingLevel == 4,
+        )
+        .firstOrNull;
     final articles = [ApexArticleRef.introduction, ...service.articles];
     final index = articles.indexWhere((a) => a.path == service.selected.path);
     return Align(
@@ -306,19 +408,28 @@ class _ArticleView extends StatelessWidget {
         constraints: const BoxConstraints(maxWidth: 880),
         child: ListView.builder(
           key: const ValueKey('apex-article-scroll'),
-          padding: const EdgeInsets.fromLTRB(24, 28, 24, 112),
+          padding: EdgeInsets.fromLTRB(
+            24,
+            service.selected.path == '/top' && wide ? 64 : 24,
+            24,
+            40,
+          ),
           itemCount: blocks.length + 2,
           itemBuilder: (context, i) {
             if (i == 0) {
+              if (service.selected.path == '/top')
+                return const SizedBox.shrink();
               return Padding(
                 padding: const EdgeInsets.only(bottom: 24),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      context.tr('THE GRAN TURISMO MAGAZINE'),
+                      context.tr(
+                        sectionHeading?.text ?? 'THE GRAN TURISMO MAGAZINE',
+                      ),
                       style: theme.textTheme.labelMedium?.copyWith(
-                        letterSpacing: 2,
+                        letterSpacing: .5,
                         color: theme.colorScheme.primary,
                       ),
                     ),
@@ -330,7 +441,7 @@ class _ArticleView extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    const Divider(),
+                    Divider(color: theme.colorScheme.onSurface, thickness: 3),
                   ],
                 ),
               );
@@ -379,6 +490,8 @@ class _ArticleView extends StatelessWidget {
                 ],
               );
             }
+            if (identical(blocks[i - 1], sectionHeading))
+              return const SizedBox.shrink();
             return Directionality(
               textDirection: service.language.isRtl
                   ? TextDirection.rtl
@@ -401,41 +514,38 @@ class _ArticleBlock extends StatelessWidget {
     if (block.kind == ApexBlockKind.image) {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 16),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: Image.network(
-            block.imageUrl.toString(),
-            fit: BoxFit.contain,
-            semanticLabel: block.text.isEmpty
-                ? context.read<ApexService>().label(
-                    'Иллюстрация Beyond the Apex',
-                    'Beyond the Apex illustration',
-                  )
-                : block.text,
-            loadingBuilder: (context, child, progress) => progress == null
-                ? child
-                : const SizedBox(
-                    height: 180,
-                    child: Center(child: CircularProgressIndicator()),
-                  ),
-            errorBuilder: (context, error, stack) => Container(
-              padding: const EdgeInsets.all(24),
-              color: theme.colorScheme.surfaceContainerHighest,
-              child: Column(
-                children: [
-                  const Icon(Icons.image_not_supported_outlined),
-                  const SizedBox(height: 8),
-                  Text(
-                    context.tr(
-                      context.read<ApexService>().label(
-                        'Иллюстрация недоступна',
-                        'Illustration unavailable',
-                      ),
+        child: Image.network(
+          block.imageUrl.toString(),
+          fit: BoxFit.contain,
+          semanticLabel: block.text.isEmpty
+              ? context.read<ApexService>().label(
+                  'Иллюстрация Beyond the Apex',
+                  'Beyond the Apex illustration',
+                )
+              : block.text,
+          loadingBuilder: (context, child, progress) => progress == null
+              ? child
+              : const SizedBox(
+                  height: 180,
+                  child: Center(child: GtLoadingIndicator()),
+                ),
+          errorBuilder: (context, error, stack) => Container(
+            padding: const EdgeInsets.all(24),
+            color: theme.colorScheme.surfaceContainerHighest,
+            child: Column(
+              children: [
+                const Icon(Icons.image_not_supported_outlined),
+                const SizedBox(height: 8),
+                Text(
+                  context.tr(
+                    context.read<ApexService>().label(
+                      'Иллюстрация недоступна',
+                      'Illustration unavailable',
                     ),
-                    style: theme.textTheme.bodySmall,
                   ),
-                ],
-              ),
+                  style: theme.textTheme.bodySmall,
+                ),
+              ],
             ),
           ),
         ),

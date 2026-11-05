@@ -1,0 +1,557 @@
+{
+  "10": {
+    "name": "Suzuka Circuit",
+    "dg_edge_id": "297",
+    "method": "external_id"
+  },
+  "1007": {
+    "name": "Michelin Raceway Road Atlanta",
+    "dg_edge_id": "266",
+    "method": "external_id"
+  },
+  "1024": {
+    "name": "Trial Mountain Circuit",
+    "dg_edge_id": "313",
+    "method": "external_id"
+  },
+  "1034": {
+    "name": "Trial Mountain Circuit - Reverse",
+    "dg_edge_id": "314",
+    "method": "external_id"
+  },
+  "1069": {
+    "name": "High Speed Ring Reverse",
+    "dg_edge_id": "253",
+    "method": "external_id"
+  },
+  "11": {
+    "name": "High Speed Ring",
+    "dg_edge_id": "252",
+    "method": "external_id"
+  },
+  "116": {
+    "name": "Mount Panorama Motor Racing Circuit",
+    "dg_edge_id": "336",
+    "method": "external_id"
+  },
+  "1163": {
+    "name": "Daytona Road Course",
+    "dg_edge_id": "337",
+    "method": "external_id"
+  },
+  "119": {
+    "name": "Brands Hatch Grand Prix Circuit",
+    "dg_edge_id": "338",
+    "method": "external_id"
+  },
+  "122": {
+    "name": "Willow Springs International Raceway: Big Willow",
+    "dg_edge_id": "339",
+    "method": "external_id"
+  },
+  "1224": {
+    "name": "Alsace - Test Course",
+    "dg_edge_id": "176",
+    "method": "external_id"
+  },
+  "1225": {
+    "name": "Alsace - Test Course Reverse",
+    "dg_edge_id": "177",
+    "method": "external_id"
+  },
+  "1226": {
+    "name": "Autodrome Lago Maggiore - East",
+    "dg_edge_id": "186",
+    "method": "external_id"
+  },
+  "123": {
+    "name": "Willow Springs International Raceway: Streets of Willow Springs",
+    "dg_edge_id": "325",
+    "method": "external_id"
+  },
+  "1231": {
+    "name": "Autodrome Lago Maggiore - East Reverse",
+    "dg_edge_id": "187",
+    "method": "external_id"
+  },
+  "1232": {
+    "name": "Autodrome Lago Maggiore - West",
+    "dg_edge_id": "188",
+    "method": "external_id"
+  },
+  "1233": {
+    "name": "Autodrome Lago Maggiore - West Reverse",
+    "dg_edge_id": "189",
+    "method": "external_id"
+  },
+  "1247": {
+    "name": "Nurburgring Endurance",
+    "dg_edge_id": "280",
+    "method": "external_id"
+  },
+  "1248": {
+    "name": "Nurburgring Sprint",
+    "dg_edge_id": "282",
+    "method": "external_id"
+  },
+  "125": {
+    "name": "Willow Springs International Raceway: Horse Thief Mile",
+    "dg_edge_id": "327",
+    "method": "external_id"
+  },
+  "1260": {
+    "name": "Special Stage Route X",
+    "dg_edge_id": "3",
+    "method": "external_id"
+  },
+  "1261": {
+    "name": "Special Stage Route X 400",
+    "dg_edge_id": "342",
+    "method": "external_id"
+  },
+  "1262": {
+    "name": "Special Stage Route X 1000",
+    "dg_edge_id": "343",
+    "method": "external_id"
+  },
+  "1269": {
+    "name": "Spa 24h Layout",
+    "dg_edge_id": "345",
+    "method": "external_id"
+  },
+  "1292": {
+    "name": "Grand Valley - Highway 1",
+    "dg_edge_id": "347",
+    "method": "external_id"
+  },
+  "1293": {
+    "name": "Grand Valley - Highway 1 Reverse",
+    "dg_edge_id": "348",
+    "method": "external_id"
+  },
+  "1299": {
+    "name": "Grand Valley - South",
+    "dg_edge_id": "349",
+    "method": "external_id"
+  },
+  "1300": {
+    "name": "Grand Valley - South Reverse",
+    "dg_edge_id": "350",
+    "method": "external_id"
+  },
+  "152": {
+    "name": "Autodromo de Interlagos",
+    "dg_edge_id": "190",
+    "method": "external_id"
+  },
+  "154": {
+    "name": "Goodwood Motor Circuit",
+    "dg_edge_id": "352",
+    "method": "external_id"
+  },
+  "16": {
+    "name": "Fuji International Speedway",
+    "dg_edge_id": "1",
+    "method": "external_id"
+  },
+  "2001": {
+    "name": "Eiger Nordwand",
+    "dg_edge_id": "387",
+    "method": "explicit_supplementary_alias"
+  },
+  "2002": {
+    "name": "Eiger Nordwand Reverse",
+    "dg_edge_id": "388",
+    "method": "explicit_supplementary_alias"
+  },
+  "2003": {
+    "name": "Yas Marina Circuit",
+    "dg_edge_id": "389",
+    "method": "explicit_supplementary_alias"
+  },
+  "2004": {
+    "name": "Circuit Gilles-Villeneuve",
+    "dg_edge_id": "390",
+    "method": "explicit_supplementary_alias"
+  },
+  "346": {
+    "name": "Brands Hatch Indy Circuit",
+    "dg_edge_id": "208",
+    "method": "external_id"
+  },
+  "347": {
+    "name": "Nurburgring Nordschleife Tourist Layout",
+    "dg_edge_id": "274",
+    "method": "external_id"
+  },
+  "348": {
+    "name": "Nurburgring 24h",
+    "dg_edge_id": "276",
+    "method": "external_id"
+  },
+  "349": {
+    "name": "Nurburgring GP",
+    "dg_edge_id": "353",
+    "method": "external_id"
+  },
+  "351": {
+    "name": "Tokyo Expressway - Central Clockwise",
+    "dg_edge_id": "354",
+    "method": "external_id"
+  },
+  "353": {
+    "name": "Fishermans Ranch",
+    "dg_edge_id": "241",
+    "method": "external_id"
+  },
+  "354": {
+    "name": "Northern Isle Speedway",
+    "dg_edge_id": "270",
+    "method": "external_id"
+  },
+  "356": {
+    "name": "Blue Moon Bay Speedway",
+    "dg_edge_id": "200",
+    "method": "external_id"
+  },
+  "357": {
+    "name": "BB Raceway",
+    "dg_edge_id": "355",
+    "method": "external_id"
+  },
+  "358": {
+    "name": "Alsace - Village",
+    "dg_edge_id": "356",
+    "method": "external_id"
+  },
+  "361": {
+    "name": "Tokyo Expressway - East Clockwise",
+    "dg_edge_id": "303",
+    "method": "external_id"
+  },
+  "362": {
+    "name": "Tokyo Expressway - South Clockwise",
+    "dg_edge_id": "305",
+    "method": "external_id"
+  },
+  "363": {
+    "name": "Dragon Trail - Seaside",
+    "dg_edge_id": "357",
+    "method": "external_id"
+  },
+  "365": {
+    "name": "Autodrome Lago Maggiore - Full Course",
+    "dg_edge_id": "358",
+    "method": "external_id"
+  },
+  "372": {
+    "name": "Colorado Springs - Lake",
+    "dg_edge_id": "359",
+    "method": "external_id"
+  },
+  "376": {
+    "name": "Kyoto Driving Park - Yamagiwa",
+    "dg_edge_id": "360",
+    "method": "external_id"
+  },
+  "4": {
+    "name": "Daytona Tri-Oval",
+    "dg_edge_id": "361",
+    "method": "external_id"
+  },
+  "41": {
+    "name": "WeatherTech Raceway Laguna Seca",
+    "dg_edge_id": "321",
+    "method": "external_id"
+  },
+  "439": {
+    "name": "Alsace - Village Reverse",
+    "dg_edge_id": "362",
+    "method": "external_id"
+  },
+  "440": {
+    "name": "Kyoto Driving Park - Miyabi",
+    "dg_edge_id": "256",
+    "method": "external_id"
+  },
+  "442": {
+    "name": "Suzuka Circuit East Course",
+    "dg_edge_id": "299",
+    "method": "external_id"
+  },
+  "443": {
+    "name": "Fishermans Ranch Reverse",
+    "dg_edge_id": "242",
+    "method": "external_id"
+  },
+  "444": {
+    "name": "BB Raceway Reverse",
+    "dg_edge_id": "363",
+    "method": "external_id"
+  },
+  "449": {
+    "name": "Blue Moon Bay Speedway Reverse",
+    "dg_edge_id": "201",
+    "method": "external_id"
+  },
+  "450": {
+    "name": "Tokyo Expressway - Central Counterclockwise",
+    "dg_edge_id": "307",
+    "method": "external_id"
+  },
+  "451": {
+    "name": "Tokyo Expressway - East Counterclockwise",
+    "dg_edge_id": "309",
+    "method": "external_id"
+  },
+  "452": {
+    "name": "Willow Springs International Raceway: Horse Thief Mile Reverse",
+    "dg_edge_id": "328",
+    "method": "external_id"
+  },
+  "453": {
+    "name": "Sardegna - Windmills",
+    "dg_edge_id": "294",
+    "method": "external_id"
+  },
+  "454": {
+    "name": "24 Heures du Mans Racing Circuit",
+    "dg_edge_id": "170",
+    "method": "external_id"
+  },
+  "462": {
+    "name": "Circuit de Spa-Francorchamps",
+    "dg_edge_id": "226",
+    "method": "external_id"
+  },
+  "469": {
+    "name": "Autodromo Nazionale Monza",
+    "dg_edge_id": "192",
+    "method": "external_id"
+  },
+  "470": {
+    "name": "Red Bull Ring",
+    "dg_edge_id": "284",
+    "method": "external_id"
+  },
+  "471": {
+    "name": "Tsukuba Circuit",
+    "dg_edge_id": "315",
+    "method": "external_id"
+  },
+  "51": {
+    "name": "Deep Forest Raceway",
+    "dg_edge_id": "2",
+    "method": "external_id"
+  },
+  "598": {
+    "name": "Willow Springs International Raceway: Streets of Willow Springs Reverse",
+    "dg_edge_id": "326",
+    "method": "external_id"
+  },
+  "599": {
+    "name": "Sardegna - Windmills Reverse",
+    "dg_edge_id": "295",
+    "method": "external_id"
+  },
+  "600": {
+    "name": "Colorado Springs - Lake Reverse",
+    "dg_edge_id": "364",
+    "method": "external_id"
+  },
+  "601": {
+    "name": "Dragon Trail - Seaside Reverse",
+    "dg_edge_id": "365",
+    "method": "external_id"
+  },
+  "602": {
+    "name": "Autodrome Lago Maggiore - Full Course Reverse",
+    "dg_edge_id": "366",
+    "method": "external_id"
+  },
+  "613": {
+    "name": "Kyoto Driving Park - Yamagiwa Reverse",
+    "dg_edge_id": "367",
+    "method": "external_id"
+  },
+  "742": {
+    "name": "Autodromo Nazionale Monza No Chicane",
+    "dg_edge_id": "194",
+    "method": "external_id"
+  },
+  "747": {
+    "name": "Deep Forest Raceway Reverse",
+    "dg_edge_id": "236",
+    "method": "external_id"
+  },
+  "776": {
+    "name": "Kyoto Driving Park - Yamagiwa+Miyabi",
+    "dg_edge_id": "368",
+    "method": "external_id"
+  },
+  "777": {
+    "name": "Kyoto Driving Park - Yamagiwa+Miyabi Reverse",
+    "dg_edge_id": "369",
+    "method": "external_id"
+  },
+  "790": {
+    "name": "Autodrome Lago Maggiore - East End Reverse",
+    "dg_edge_id": "183",
+    "method": "external_id"
+  },
+  "791": {
+    "name": "Autodrome Lago Maggiore - Centre Reverse",
+    "dg_edge_id": "181",
+    "method": "external_id"
+  },
+  "792": {
+    "name": "Autodrome Lago Maggiore - West End",
+    "dg_edge_id": "184",
+    "method": "external_id"
+  },
+  "793": {
+    "name": "Autodrome Lago Maggiore - Centre",
+    "dg_edge_id": "180",
+    "method": "external_id"
+  },
+  "794": {
+    "name": "Autodrome Lago Maggiore - West End Reverse",
+    "dg_edge_id": "185",
+    "method": "external_id"
+  },
+  "795": {
+    "name": "Autodrome Lago Maggiore - East End",
+    "dg_edge_id": "182",
+    "method": "external_id"
+  },
+  "819": {
+    "name": "Blue Moon Bay Speedway - Infield B",
+    "dg_edge_id": "204",
+    "method": "external_id"
+  },
+  "820": {
+    "name": "Blue Moon Bay Speedway - Infield A",
+    "dg_edge_id": "202",
+    "method": "external_id"
+  },
+  "822": {
+    "name": "Blue Moon Bay Speedway - Infield A Reverse",
+    "dg_edge_id": "203",
+    "method": "external_id"
+  },
+  "823": {
+    "name": "Blue Moon Bay Speedway - Infield B Reverse",
+    "dg_edge_id": "205",
+    "method": "external_id"
+  },
+  "825": {
+    "name": "Circuit de Sainte-Croix - A",
+    "dg_edge_id": "370",
+    "method": "external_id"
+  },
+  "826": {
+    "name": "Circuit de Sainte-Croix - A Reverse",
+    "dg_edge_id": "371",
+    "method": "external_id"
+  },
+  "827": {
+    "name": "Circuit de Sainte-Croix - B",
+    "dg_edge_id": "372",
+    "method": "external_id"
+  },
+  "828": {
+    "name": "Circuit de Sainte-Croix - B Reverse",
+    "dg_edge_id": "373",
+    "method": "external_id"
+  },
+  "829": {
+    "name": "Circuit de Sainte-Croix - C",
+    "dg_edge_id": "374",
+    "method": "external_id"
+  },
+  "830": {
+    "name": "Circuit de Sainte-Croix - C Reverse",
+    "dg_edge_id": "375",
+    "method": "external_id"
+  },
+  "837": {
+    "name": "Fuji International Speedway (Short)",
+    "dg_edge_id": "376",
+    "method": "external_id"
+  },
+  "838": {
+    "name": "Sardegna - Road Track - C Reverse",
+    "dg_edge_id": "377",
+    "method": "external_id"
+  },
+  "839": {
+    "name": "Sardegna - Road Track - B Reverse",
+    "dg_edge_id": "378",
+    "method": "external_id"
+  },
+  "841": {
+    "name": "Sardegna - Road Track - B",
+    "dg_edge_id": "379",
+    "method": "external_id"
+  },
+  "843": {
+    "name": "Sardegna - Road Track - C",
+    "dg_edge_id": "380",
+    "method": "external_id"
+  },
+  "846": {
+    "name": "Red Bull Ring Short Track",
+    "dg_edge_id": "286",
+    "method": "external_id"
+  },
+  "847": {
+    "name": "Dragon Trail - Gardens",
+    "dg_edge_id": "239",
+    "method": "external_id"
+  },
+  "853": {
+    "name": "Dragon Trail - Gardens Reverse",
+    "dg_edge_id": "240",
+    "method": "external_id"
+  },
+  "854": {
+    "name": "24 Heures du Mans Racing Circuit No Chicane",
+    "dg_edge_id": "172",
+    "method": "external_id"
+  },
+  "874": {
+    "name": "Circuit de Barcelona-Catalunya Grand Prix Layout",
+    "dg_edge_id": "381",
+    "method": "external_id"
+  },
+  "896": {
+    "name": "Autopolis International Racing Course",
+    "dg_edge_id": "382",
+    "method": "external_id"
+  },
+  "898": {
+    "name": "Autopolis International Racing Course - Short Course",
+    "dg_edge_id": "383",
+    "method": "external_id"
+  },
+  "915": {
+    "name": "Tokyo Expressway - South Counterclockwise",
+    "dg_edge_id": "311",
+    "method": "external_id"
+  },
+  "921": {
+    "name": "Sardegna - Road Track - A",
+    "dg_edge_id": "384",
+    "method": "external_id"
+  },
+  "922": {
+    "name": "Sardegna - Road Track - A Reverse",
+    "dg_edge_id": "385",
+    "method": "external_id"
+  },
+  "95": {
+    "name": "Nurburgring Nordschleife",
+    "dg_edge_id": "386",
+    "method": "external_id"
+  }
+}

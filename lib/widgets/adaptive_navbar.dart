@@ -166,6 +166,32 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
                     color: theme.colorScheme.onSurface.withValues(alpha: .08),
                   ),
                   InkWell(
+                    key: const ValueKey('gt-menu-apex'),
+                    onTap: () => Navigator.of(dialogContext).pop('apex'),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 16,
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.newspaper_outlined, size: 24),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Text(
+                              'Beyond the Apex',
+                              style: theme.textTheme.bodyMedium,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Divider(
+                    height: 1,
+                    color: theme.colorScheme.onSurface.withValues(alpha: .08),
+                  ),
+                  InkWell(
                     key: const ValueKey('gt-menu-home'),
                     onTap: () => Navigator.of(dialogContext).pop('home'),
                     child: ListTile(
@@ -190,6 +216,17 @@ class AdaptiveNavBar extends StatelessWidget implements PreferredSizeWidget {
     );
     if (!context.mounted) return;
     if (choice == 'home') _goHome(context);
+    if (choice == 'apex') {
+      final tabs = AutoTabsRouter.of(context);
+      final previousTab = tabs.activeIndex;
+      final home = tabs.stackRouterOfIndex(0)!;
+      tabs.setActiveIndex(0);
+      if (home.current.name == ApexDisplayRoute.name) return;
+      await home.push(const ApexDisplayRoute());
+      if (context.mounted && tabs.activeIndex == 0) {
+        tabs.setActiveIndex(previousTab);
+      }
+    }
     if (choice == 'settings') {
       context.router.root.push(const SettingsDisplayRoute());
     }

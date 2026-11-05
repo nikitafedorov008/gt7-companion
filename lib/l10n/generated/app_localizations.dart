@@ -3637,6 +3637,168 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'GT7 telemetry on your local network.'**
   String get telemetryIdleHelp;
+
+  /// No description provided for @dealerMileage.
+  ///
+  /// In en, this message translates to:
+  /// **'Distance driven'**
+  String get dealerMileage;
+
+  /// No description provided for @dealerPriceHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Price history'**
+  String get dealerPriceHistory;
+
+  /// No description provided for @dealerSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to wishlist'**
+  String get dealerSave;
+
+  /// No description provided for @dealerSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'In wishlist'**
+  String get dealerSaved;
+
+  /// No description provided for @dealerRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from wishlist'**
+  String get dealerRemove;
+
+  /// No description provided for @dealerInStock.
+  ///
+  /// In en, this message translates to:
+  /// **'In stock'**
+  String get dealerInStock;
+
+  /// No description provided for @dealerLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Limited stock'**
+  String get dealerLimited;
+
+  /// No description provided for @dealerNewArrival.
+  ///
+  /// In en, this message translates to:
+  /// **'New arrival'**
+  String get dealerNewArrival;
+
+  /// No description provided for @dealerStockUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Availability unknown'**
+  String get dealerStockUnknown;
+
+  /// No description provided for @dealerMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn more'**
+  String get dealerMore;
+
+  /// No description provided for @dealerLess.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide description'**
+  String get dealerLess;
+
+  /// No description provided for @dealerNoHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'No description available for this car.'**
+  String get dealerNoHistory;
+
+  /// No description provided for @dealerWishlistEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Your wishlist is empty'**
+  String get dealerWishlistEmpty;
+
+  /// No description provided for @dealerWishlistHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Save cars from Used Cars or Legend Cars.'**
+  String get dealerWishlistHint;
+
+  /// No description provided for @dealerWishlistError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save your wishlist. Please try again.'**
+  String get dealerWishlistError;
+
+  /// No description provided for @dealerCatalogError.
+  ///
+  /// In en, this message translates to:
+  /// **'Some vehicle specifications are unavailable.'**
+  String get dealerCatalogError;
+
+  /// No description provided for @dealerPriceError.
+  ///
+  /// In en, this message translates to:
+  /// **'Price history could not be opened.'**
+  String get dealerPriceError;
+
+  /// No description provided for @dealerUnknownCar.
+  ///
+  /// In en, this message translates to:
+  /// **'Unavailable car'**
+  String get dealerUnknownCar;
+
+  /// No description provided for @dealerRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get dealerRetry;
+
+  /// No description provided for @dealerClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get dealerClose;
+
+  /// No description provided for @dealerSoldOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Sold out'**
+  String get dealerSoldOut;
+
+  /// No description provided for @dealerUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Updated'**
+  String get dealerUpdated;
+
+  /// No description provided for @dealerWishlistLocal.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved on this device'**
+  String get dealerWishlistLocal;
+
+  /// No description provided for @dealerChartZoomIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Zoom in'**
+  String get dealerChartZoomIn;
+
+  /// No description provided for @dealerChartZoomOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Zoom out'**
+  String get dealerChartZoomOut;
+
+  /// No description provided for @dealerChartReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Fit chart'**
+  String get dealerChartReset;
+
+  /// No description provided for @dealerChartSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Source: GT7Info · Pinch or use + / − to zoom.'**
+  String get dealerChartSource;
 }
 
 class _AppLocalizationsDelegate

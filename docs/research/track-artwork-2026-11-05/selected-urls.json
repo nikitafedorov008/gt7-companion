@@ -1,0 +1,2234 @@
+{
+  "https://data.dg-edge.com/images/tracks/176/Track176.webp": [
+    {
+      "track_id": "176",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/176/Logo176.webp": [
+    {
+      "track_id": "176",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/176/Back176.webp": [
+    {
+      "track_id": "176",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/177/Track176.webp": [
+    {
+      "track_id": "177",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/177/Logo176.webp": [
+    {
+      "track_id": "177",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/177/Back176.webp": [
+    {
+      "track_id": "177",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/356/Track358.webp": [
+    {
+      "track_id": "356",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/356/Logo356.webp": [
+    {
+      "track_id": "356",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/356/Back356.webp": [
+    {
+      "track_id": "356",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/362/Track358.webp": [
+    {
+      "track_id": "362",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/362/Logo356.webp": [
+    {
+      "track_id": "362",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/362/Back356.webp": [
+    {
+      "track_id": "362",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/180/Track180.webp": [
+    {
+      "track_id": "180",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/180/Logo180.webp": [
+    {
+      "track_id": "180",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/180/Back180.webp": [
+    {
+      "track_id": "180",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/181/Track180.webp": [
+    {
+      "track_id": "181",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/181/Logo180.webp": [
+    {
+      "track_id": "181",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/181/Back180.webp": [
+    {
+      "track_id": "181",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/186/Track186.webp": [
+    {
+      "track_id": "186",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/186/Logo186.webp": [
+    {
+      "track_id": "186",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/186/Back186.webp": [
+    {
+      "track_id": "186",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/182/Track182.webp": [
+    {
+      "track_id": "182",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/182/Logo182.webp": [
+    {
+      "track_id": "182",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/182/Back182.webp": [
+    {
+      "track_id": "182",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/183/Track182.webp": [
+    {
+      "track_id": "183",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/183/Logo182.webp": [
+    {
+      "track_id": "183",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/183/Back182.webp": [
+    {
+      "track_id": "183",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/187/Track186.webp": [
+    {
+      "track_id": "187",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/187/Logo186.webp": [
+    {
+      "track_id": "187",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/187/Back186.webp": [
+    {
+      "track_id": "187",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/358/Track365.webp": [
+    {
+      "track_id": "358",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/358/Logo358.webp": [
+    {
+      "track_id": "358",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/358/Back358.webp": [
+    {
+      "track_id": "358",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/366/Track602.webp": [
+    {
+      "track_id": "366",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/366/Logo358.webp": [
+    {
+      "track_id": "366",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/366/Back358.webp": [
+    {
+      "track_id": "366",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/188/Track188.webp": [
+    {
+      "track_id": "188",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/188/Logo188.webp": [
+    {
+      "track_id": "188",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/188/Back188.webp": [
+    {
+      "track_id": "188",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/184/Track184.webp": [
+    {
+      "track_id": "184",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/184/Logo184.webp": [
+    {
+      "track_id": "184",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/184/Back184.webp": [
+    {
+      "track_id": "184",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/185/Track184.webp": [
+    {
+      "track_id": "185",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/185/Logo184.webp": [
+    {
+      "track_id": "185",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/185/Back184.webp": [
+    {
+      "track_id": "185",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/189/Track188.webp": [
+    {
+      "track_id": "189",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/189/Logo188.webp": [
+    {
+      "track_id": "189",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/189/Back188.webp": [
+    {
+      "track_id": "189",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/170/Track170.webp": [
+    {
+      "track_id": "170",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/170/Logo170.webp": [
+    {
+      "track_id": "170",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/170/Back170.webp": [
+    {
+      "track_id": "170",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/172/Track172.webp": [
+    {
+      "track_id": "172",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/172/Logo172.webp": [
+    {
+      "track_id": "172",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/172/Back172.webp": [
+    {
+      "track_id": "172",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/190/Track190.webp": [
+    {
+      "track_id": "190",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/190/Logo190.webp": [
+    {
+      "track_id": "190",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/190/Back190.webp": [
+    {
+      "track_id": "190",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/382/Track896.webp": [
+    {
+      "track_id": "382",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/382/Logo382.webp": [
+    {
+      "track_id": "382",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/382/Back382.webp": [
+    {
+      "track_id": "382",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/383/Track898.webp": [
+    {
+      "track_id": "383",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/383/Logo383.webp": [
+    {
+      "track_id": "383",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/383/Back383.webp": [
+    {
+      "track_id": "383",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/192/Track192.webp": [
+    {
+      "track_id": "192",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/192/Logo192.webp": [
+    {
+      "track_id": "192",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/192/Back192.webp": [
+    {
+      "track_id": "192",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/194/Track194.webp": [
+    {
+      "track_id": "194",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/194/Logo194.webp": [
+    {
+      "track_id": "194",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/194/Back194.webp": [
+    {
+      "track_id": "194",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/338/Track338.webp": [
+    {
+      "track_id": "338",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/338/Logo338.webp": [
+    {
+      "track_id": "338",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/338/Back338.webp": [
+    {
+      "track_id": "338",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/208/Track208.webp": [
+    {
+      "track_id": "208",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/208/Logo208.webp": [
+    {
+      "track_id": "208",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/208/Back208.webp": [
+    {
+      "track_id": "208",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/200/Track200.webp": [
+    {
+      "track_id": "200",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/200/Logo200.webp": [
+    {
+      "track_id": "200",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/200/Back200.webp": [
+    {
+      "track_id": "200",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/202/Track202.webp": [
+    {
+      "track_id": "202",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/202/Logo202.webp": [
+    {
+      "track_id": "202",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/202/Back202.webp": [
+    {
+      "track_id": "202",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/203/Track202.webp": [
+    {
+      "track_id": "203",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/203/Logo202.webp": [
+    {
+      "track_id": "203",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/203/Back202.webp": [
+    {
+      "track_id": "203",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/204/Track819.webp": [
+    {
+      "track_id": "204",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/204/Logo204.webp": [
+    {
+      "track_id": "204",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/204/Back204.webp": [
+    {
+      "track_id": "204",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/205/Track823.webp": [
+    {
+      "track_id": "205",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/205/Logo204.webp": [
+    {
+      "track_id": "205",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/205/Back204.webp": [
+    {
+      "track_id": "205",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/201/Track200.webp": [
+    {
+      "track_id": "201",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/201/Logo200.webp": [
+    {
+      "track_id": "201",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/201/Back200.webp": [
+    {
+      "track_id": "201",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/370/Track826.webp": [
+    {
+      "track_id": "370",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/370/Logo370.webp": [
+    {
+      "track_id": "370",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/370/Back370.webp": [
+    {
+      "track_id": "370",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/372/Track828.webp": [
+    {
+      "track_id": "372",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/372/Logo372.webp": [
+    {
+      "track_id": "372",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/372/Back372.webp": [
+    {
+      "track_id": "372",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/373/Track828.webp": [
+    {
+      "track_id": "373",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/373/Logo372.webp": [
+    {
+      "track_id": "373",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/373/Back372.webp": [
+    {
+      "track_id": "373",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/374/Track829.webp": [
+    {
+      "track_id": "374",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/374/Logo374.webp": [
+    {
+      "track_id": "374",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/374/Back374.webp": [
+    {
+      "track_id": "374",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/375/Track829.webp": [
+    {
+      "track_id": "375",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/375/Logo374.webp": [
+    {
+      "track_id": "375",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/375/Back374.webp": [
+    {
+      "track_id": "375",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/371/Track826.webp": [
+    {
+      "track_id": "371",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/371/Logo370.webp": [
+    {
+      "track_id": "371",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/371/Back370.webp": [
+    {
+      "track_id": "371",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/355/Track444.webp": [
+    {
+      "track_id": "355",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/355/Logo355.webp": [
+    {
+      "track_id": "355",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/355/Back355.webp": [
+    {
+      "track_id": "355",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/363/Track357.webp": [
+    {
+      "track_id": "363",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/363/Logo355.webp": [
+    {
+      "track_id": "363",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/363/Back355.webp": [
+    {
+      "track_id": "363",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/381/Track874.webp": [
+    {
+      "track_id": "381",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/381/Logo381.webp": [
+    {
+      "track_id": "381",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/381/Back381.webp": [
+    {
+      "track_id": "381",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/341/Track341.webp": [
+    {
+      "track_id": "341",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/341/Logo341.webp": [
+    {
+      "track_id": "341",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/341/Back341.webp": [
+    {
+      "track_id": "341",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/216/Track1250.webp": [
+    {
+      "track_id": "216",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/216/Logo216.webp": [
+    {
+      "track_id": "216",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/216/Back216.webp": [
+    {
+      "track_id": "216",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/218/Track1265.webp": [
+    {
+      "track_id": "218",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/218/Logo218.webp": [
+    {
+      "track_id": "218",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/218/Back218.webp": [
+    {
+      "track_id": "218",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/226/Track226.webp": [
+    {
+      "track_id": "226",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/226/Logo226.webp": [
+    {
+      "track_id": "226",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/226/Back226.webp": [
+    {
+      "track_id": "226",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/345/Track345.webp": [
+    {
+      "track_id": "345",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/345/Logo345.webp": [
+    {
+      "track_id": "345",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/345/Back345.webp": [
+    {
+      "track_id": "345",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/390/Track1322.webp": [
+    {
+      "track_id": "390",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/390/Logo390.webp": [
+    {
+      "track_id": "390",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/390/Back390.webp": [
+    {
+      "track_id": "390",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/2/Track2.webp": [
+    {
+      "track_id": "2",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/2/Logo2.webp": [
+    {
+      "track_id": "2",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/2/Back2.webp": [
+    {
+      "track_id": "2",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/236/Track2.webp": [
+    {
+      "track_id": "236",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/236/Logo2.webp": [
+    {
+      "track_id": "236",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/236/Back2.webp": [
+    {
+      "track_id": "236",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/359/Track359.webp": [
+    {
+      "track_id": "359",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/359/Logo359.webp": [
+    {
+      "track_id": "359",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/359/Back359.webp": [
+    {
+      "track_id": "359",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/364/Track372.webp": [
+    {
+      "track_id": "364",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/364/Logo359.webp": [
+    {
+      "track_id": "364",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/364/Back359.webp": [
+    {
+      "track_id": "364",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/337/Track1163.webp": [
+    {
+      "track_id": "337",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/337/Logo337.webp": [
+    {
+      "track_id": "337",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/337/Back337.webp": [
+    {
+      "track_id": "337",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/361/Track4.webp": [
+    {
+      "track_id": "361",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/361/Logo361.webp": [
+    {
+      "track_id": "361",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/361/Back361.webp": [
+    {
+      "track_id": "361",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/387/Track1327.webp": [
+    {
+      "track_id": "387",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/387/Logo387.webp": [
+    {
+      "track_id": "387",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/387/Back387.webp": [
+    {
+      "track_id": "387",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/388/Track1328.webp": [
+    {
+      "track_id": "388",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/388/Logo387.webp": [
+    {
+      "track_id": "388",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/388/Back387.webp": [
+    {
+      "track_id": "388",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/241/Track241.webp": [
+    {
+      "track_id": "241",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/241/Logo241.webp": [
+    {
+      "track_id": "241",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/241/Back241.webp": [
+    {
+      "track_id": "241",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/242/Track241.webp": [
+    {
+      "track_id": "242",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/242/Logo241.webp": [
+    {
+      "track_id": "242",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/242/Back241.webp": [
+    {
+      "track_id": "242",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/357/Track357.webp": [
+    {
+      "track_id": "357",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/357/Logo357.webp": [
+    {
+      "track_id": "357",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/357/Back357.webp": [
+    {
+      "track_id": "357",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/239/Track239.webp": [
+    {
+      "track_id": "239",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/239/Logo239.webp": [
+    {
+      "track_id": "239",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/239/Back239.webp": [
+    {
+      "track_id": "239",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/240/Track239.webp": [
+    {
+      "track_id": "240",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/240/Logo239.webp": [
+    {
+      "track_id": "240",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/240/Back239.webp": [
+    {
+      "track_id": "240",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/365/Track363.webp": [
+    {
+      "track_id": "365",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/365/Logo357.webp": [
+    {
+      "track_id": "365",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/365/Back357.webp": [
+    {
+      "track_id": "365",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/1/Track1.webp": [
+    {
+      "track_id": "1",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/1/Logo1.webp": [
+    {
+      "track_id": "1",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/1/Back1.webp": [
+    {
+      "track_id": "1",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/376/Track837.webp": [
+    {
+      "track_id": "376",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/376/Logo376.webp": [
+    {
+      "track_id": "376",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/376/Back376.webp": [
+    {
+      "track_id": "376",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/352/Track352.webp": [
+    {
+      "track_id": "352",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/352/Logo352.webp": [
+    {
+      "track_id": "352",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/352/Back352.webp": [
+    {
+      "track_id": "352",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/252/Track252.webp": [
+    {
+      "track_id": "252",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/252/Logo252.webp": [
+    {
+      "track_id": "252",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/252/Back252.webp": [
+    {
+      "track_id": "252",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/253/Track252.webp": [
+    {
+      "track_id": "253",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/253/Logo252.webp": [
+    {
+      "track_id": "253",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/253/Back252.webp": [
+    {
+      "track_id": "253",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/347/Track1292.webp": [
+    {
+      "track_id": "347",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/347/Logo347.webp": [
+    {
+      "track_id": "347",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/347/Back347.webp": [
+    {
+      "track_id": "347",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/348/Track1293.webp": [
+    {
+      "track_id": "348",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/348/Logo347.webp": [
+    {
+      "track_id": "348",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/348/Back347.webp": [
+    {
+      "track_id": "348",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/349/Track1299.webp": [
+    {
+      "track_id": "349",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/349/Logo349.webp": [
+    {
+      "track_id": "349",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/349/Back349.webp": [
+    {
+      "track_id": "349",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/350/Track1300.webp": [
+    {
+      "track_id": "350",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/350/Logo349.webp": [
+    {
+      "track_id": "350",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/350/Back349.webp": [
+    {
+      "track_id": "350",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/256/Track440.webp": [
+    {
+      "track_id": "256",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/256/Logo256.webp": [
+    {
+      "track_id": "256",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/256/Back256.webp": [
+    {
+      "track_id": "256",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/360/Track376.webp": [
+    {
+      "track_id": "360",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/360/Logo360.webp": [
+    {
+      "track_id": "360",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/360/Back360.webp": [
+    {
+      "track_id": "360",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/368/Track776.webp": [
+    {
+      "track_id": "368",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/368/Logo368.webp": [
+    {
+      "track_id": "368",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/368/Back368.webp": [
+    {
+      "track_id": "368",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/369/Track776.webp": [
+    {
+      "track_id": "369",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/369/Logo368.webp": [
+    {
+      "track_id": "369",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/369/Back368.webp": [
+    {
+      "track_id": "369",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/367/Track376.webp": [
+    {
+      "track_id": "367",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/367/Logo360.webp": [
+    {
+      "track_id": "367",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/367/Back360.webp": [
+    {
+      "track_id": "367",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/262/Track1308.webp": [
+    {
+      "track_id": "262",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/262/Logo262.webp": [
+    {
+      "track_id": "262",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/262/Back262.webp": [
+    {
+      "track_id": "262",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/264/Track1309.webp": [
+    {
+      "track_id": "264",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/264/Logo264.webp": [
+    {
+      "track_id": "264",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/264/Back264.webp": [
+    {
+      "track_id": "264",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/265/Track1318.webp": [
+    {
+      "track_id": "265",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/265/Logo264.webp": [
+    {
+      "track_id": "265",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/265/Back264.webp": [
+    {
+      "track_id": "265",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/263/Track1317.webp": [
+    {
+      "track_id": "263",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/263/Logo262.webp": [
+    {
+      "track_id": "263",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/263/Back262.webp": [
+    {
+      "track_id": "263",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/346/Track1273.webp": [
+    {
+      "track_id": "346",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/346/Logo346.webp": [
+    {
+      "track_id": "346",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/346/Back346.webp": [
+    {
+      "track_id": "346",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/351/Track1316.webp": [
+    {
+      "track_id": "351",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/351/Logo346.webp": [
+    {
+      "track_id": "351",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/351/Back346.webp": [
+    {
+      "track_id": "351",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/336/Track336.webp": [
+    {
+      "track_id": "336",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/336/Logo336.webp": [
+    {
+      "track_id": "336",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/336/Back336.webp": [
+    {
+      "track_id": "336",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/270/Track354.webp": [
+    {
+      "track_id": "270",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/270/Logo270.webp": [
+    {
+      "track_id": "270",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/270/Back270.webp": [
+    {
+      "track_id": "270",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/266/Track1007.webp": [
+    {
+      "track_id": "266",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/266/Logo266.webp": [
+    {
+      "track_id": "266",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/266/Back266.webp": [
+    {
+      "track_id": "266",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/386/Track95.webp": [
+    {
+      "track_id": "386",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/386/Logo274.webp": [
+    {
+      "track_id": "386",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/386/Back386.webp": [
+    {
+      "track_id": "386",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/276/Track276.webp": [
+    {
+      "track_id": "276",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/276/Logo276.webp": [
+    {
+      "track_id": "276",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/276/Back276.webp": [
+    {
+      "track_id": "276",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/280/Track280.webp": [
+    {
+      "track_id": "280",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/280/Logo280.webp": [
+    {
+      "track_id": "280",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/280/Back280.webp": [
+    {
+      "track_id": "280",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/391/Track1339.webp": [
+    {
+      "track_id": "391",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/391/Logo280.webp": [
+    {
+      "track_id": "391",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/391/Back280.webp": [
+    {
+      "track_id": "391",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/353/Track353.webp": [
+    {
+      "track_id": "353",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/353/Logo353.webp": [
+    {
+      "track_id": "353",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/353/Back353.webp": [
+    {
+      "track_id": "353",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/274/Track274.webp": [
+    {
+      "track_id": "274",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/274/Logo274.webp": [
+    {
+      "track_id": "274",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/274/Back274.webp": [
+    {
+      "track_id": "274",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/282/Track1248.webp": [
+    {
+      "track_id": "282",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/282/Logo282.webp": [
+    {
+      "track_id": "282",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/282/Back282.webp": [
+    {
+      "track_id": "282",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/284/Track470.webp": [
+    {
+      "track_id": "284",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/284/Logo284.webp": [
+    {
+      "track_id": "284",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/284/Back284.webp": [
+    {
+      "track_id": "284",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/286/Track846.webp": [
+    {
+      "track_id": "286",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/286/Logo286.webp": [
+    {
+      "track_id": "286",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/286/Back286.webp": [
+    {
+      "track_id": "286",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/392/Track1340.webp": [
+    {
+      "track_id": "392",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/392/logo1340-new.webp": [
+    {
+      "track_id": "392",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/392/back1340-new.webp": [
+    {
+      "track_id": "392",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/384/Track921.webp": [
+    {
+      "track_id": "384",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/384/Logo384.webp": [
+    {
+      "track_id": "384",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/384/Back384.webp": [
+    {
+      "track_id": "384",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/379/Track841.webp": [
+    {
+      "track_id": "379",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/379/Logo379.webp": [
+    {
+      "track_id": "379",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/379/Back379.webp": [
+    {
+      "track_id": "379",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/378/Track839.webp": [
+    {
+      "track_id": "378",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/378/Logo379.webp": [
+    {
+      "track_id": "378",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/378/Back379.webp": [
+    {
+      "track_id": "378",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/380/Track843.webp": [
+    {
+      "track_id": "380",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/380/Logo380.webp": [
+    {
+      "track_id": "380",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/380/Back380.webp": [
+    {
+      "track_id": "380",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/377/Track838.webp": [
+    {
+      "track_id": "377",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/377/Logo380.webp": [
+    {
+      "track_id": "377",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/377/Back380.webp": [
+    {
+      "track_id": "377",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/385/Track922.webp": [
+    {
+      "track_id": "385",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/385/Logo384.webp": [
+    {
+      "track_id": "385",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/385/Back384.webp": [
+    {
+      "track_id": "385",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/294/Track294.webp": [
+    {
+      "track_id": "294",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/294/Logo294.webp": [
+    {
+      "track_id": "294",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/294/Back294.webp": [
+    {
+      "track_id": "294",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/295/Track294.webp": [
+    {
+      "track_id": "295",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/295/Logo294.webp": [
+    {
+      "track_id": "295",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/295/Back294.webp": [
+    {
+      "track_id": "295",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/3/Track3.webp": [
+    {
+      "track_id": "3",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/3/Logo3.webp": [
+    {
+      "track_id": "3",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/3/Back3.webp": [
+    {
+      "track_id": "3",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/343/Track3.webp": [
+    {
+      "track_id": "343",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/343/Logo3.webp": [
+    {
+      "track_id": "343",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/343/Back3.webp": [
+    {
+      "track_id": "343",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/342/Track3.webp": [
+    {
+      "track_id": "342",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/342/Logo3.webp": [
+    {
+      "track_id": "342",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/342/Back3.webp": [
+    {
+      "track_id": "342",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/297/Track297.webp": [
+    {
+      "track_id": "297",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/297/Logo297.webp": [
+    {
+      "track_id": "297",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/297/Back297.webp": [
+    {
+      "track_id": "297",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/299/Track299.webp": [
+    {
+      "track_id": "299",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/299/Logo299.webp": [
+    {
+      "track_id": "299",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/299/Back299.webp": [
+    {
+      "track_id": "299",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/303/Track303.webp": [
+    {
+      "track_id": "303",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/303/Logo303.webp": [
+    {
+      "track_id": "303",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/303/Back303.webp": [
+    {
+      "track_id": "303",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/354/Track354.webp": [
+    {
+      "track_id": "354",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/354/Logo354.webp": [
+    {
+      "track_id": "354",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/354/Back354.webp": [
+    {
+      "track_id": "354",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/307/Track307.webp": [
+    {
+      "track_id": "307",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/307/Logo307.webp": [
+    {
+      "track_id": "307",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/307/Back307.webp": [
+    {
+      "track_id": "307",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/309/Track309.webp": [
+    {
+      "track_id": "309",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/309/Logo309.webp": [
+    {
+      "track_id": "309",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/309/Back309.webp": [
+    {
+      "track_id": "309",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/305/Track305.webp": [
+    {
+      "track_id": "305",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/305/Logo305.webp": [
+    {
+      "track_id": "305",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/305/Back305.webp": [
+    {
+      "track_id": "305",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/311/Track311.webp": [
+    {
+      "track_id": "311",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/311/Logo311.webp": [
+    {
+      "track_id": "311",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/311/Back311.webp": [
+    {
+      "track_id": "311",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/313/Track1024.webp": [
+    {
+      "track_id": "313",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/313/Logo313.webp": [
+    {
+      "track_id": "313",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/313/Back313.webp": [
+    {
+      "track_id": "313",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/314/Track1034.webp": [
+    {
+      "track_id": "314",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/314/Logo313.webp": [
+    {
+      "track_id": "314",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/314/Back313.webp": [
+    {
+      "track_id": "314",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/315/Track315.webp": [
+    {
+      "track_id": "315",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/315/Logo315.webp": [
+    {
+      "track_id": "315",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/315/Back315.webp": [
+    {
+      "track_id": "315",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/321/Track321.webp": [
+    {
+      "track_id": "321",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/321/Logo321.webp": [
+    {
+      "track_id": "321",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/321/Back321.webp": [
+    {
+      "track_id": "321",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/339/Track339.webp": [
+    {
+      "track_id": "339",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/339/Logo339.webp": [
+    {
+      "track_id": "339",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/339/Back339.webp": [
+    {
+      "track_id": "339",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/327/Track327.webp": [
+    {
+      "track_id": "327",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/327/Logo327.webp": [
+    {
+      "track_id": "327",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/327/Back327.webp": [
+    {
+      "track_id": "327",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/328/Track327.webp": [
+    {
+      "track_id": "328",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/328/Logo327.webp": [
+    {
+      "track_id": "328",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/328/Back327.webp": [
+    {
+      "track_id": "328",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/325/Track325.webp": [
+    {
+      "track_id": "325",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/325/Logo325.webp": [
+    {
+      "track_id": "325",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/325/Back325.webp": [
+    {
+      "track_id": "325",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/326/Track325.webp": [
+    {
+      "track_id": "326",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/326/Logo325.webp": [
+    {
+      "track_id": "326",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/326/Back325.webp": [
+    {
+      "track_id": "326",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/389/Track1333.webp": [
+    {
+      "track_id": "389",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/389/Logo389.webp": [
+    {
+      "track_id": "389",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/389/Back389.webp": [
+    {
+      "track_id": "389",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/340/Track1240.webp": [
+    {
+      "track_id": "340",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/340/Logo340.webp": [
+    {
+      "track_id": "340",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/340/Back340.webp": [
+    {
+      "track_id": "340",
+      "role": "background"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/344/Track1264.webp": [
+    {
+      "track_id": "344",
+      "role": "track"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/344/Logo344.webp": [
+    {
+      "track_id": "344",
+      "role": "logo"
+    }
+  ],
+  "https://data.dg-edge.com/images/tracks/344/Back344.webp": [
+    {
+      "track_id": "344",
+      "role": "background"
+    }
+  ]
+}

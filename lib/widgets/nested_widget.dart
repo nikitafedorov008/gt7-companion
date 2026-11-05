@@ -21,7 +21,7 @@ class NestedWidget extends StatelessWidget {
     return AutoTabsRouter.pageView(
       // primary app sections exposed as tabs
       routes: const [
-        HomePageRoute(),
+        HomeShellRoute(),
         WishlistPageRoute(),
         ProfilePageRoute(),
         TelemetryDetailsScreenRoute(),

@@ -12,94 +12,113 @@ class CarRepository extends ChangeNotifier {
 
   List<Car> _allCars = [];
   bool _isLoading = false;
+  bool _fetching = false;
   String? _errorMessage;
 
   List<Car> get allCars => _allCars;
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
+  String get dataDate => _gt7InfoService.data?.updateTimestamp ?? '';
+  bool get isOffline =>
+      _errorMessage != null &&
+      _gt7InfoService.lastUpdated == null &&
+      _gtdbService.lastUpdated == null;
 
   CarRepository(this._gt7InfoService, this._gtdbService);
 
   Future<void> fetchAllCars({bool forceRefresh = false}) async {
-    if (_isLoading) return;
+    if (_fetching) return;
+    _fetching = true;
 
-    _isLoading = true;
+    _isLoading = _allCars.isEmpty;
     _errorMessage = null;
     notifyListeners();
 
     try {
-      // Fetch data from both services
-      await _gt7InfoService.fetchGT7InfoData(forceRefresh: forceRefresh);
-      await _gtdbService.fetchGTDBData(forceRefresh: forceRefresh);
-
-      // Combine data from both sources
-      final gt7InfoCars = _extractGT7InfoCars();
-      final gtdbCars = _extractGTDBCars();
-
-      // Combine and deduplicate cars
-      final combinedCars = <String, Car>{};
-
-      // Add GT7Info cars
-      for (final car in gt7InfoCars) {
-        final unifiedId = _generateUnifiedCarId(car.id);
-        combinedCars[unifiedId] = car;
-      }
-
-      // Add GTDB cars
-      for (final car in gtdbCars) {
-        final unifiedId = _generateUnifiedCarId(car.id);
-
-        // Проверяем, есть ли уже GT7Info car с тем же именем
-        Car? matchingCarByname = _findMatchingCarByName(car, gt7InfoCars);
-
-        // Для легендарных автомобилей из GTDB - добавляем только если есть совпадение в GT7Info
-        if (car.source?.contains('gtdb_legend') ?? false) {
-          if (matchingCarByname != null) {
-            // Если нашли совпадение по имени, используем ID от GT7Info для объединения
-            final gt7InfoUnifiedId = _generateUnifiedCarId(
-              matchingCarByname.id,
-            );
-            if (combinedCars.containsKey(gt7InfoUnifiedId)) {
-              // Объединяем информацию
-              final existingCar = combinedCars[gt7InfoUnifiedId]!;
-              combinedCars[gt7InfoUnifiedId] = _mergeCarData(existingCar, car);
-            } else {
-              combinedCars[gt7InfoUnifiedId] = car;
-            }
-          }
-          // Если нет совпадения в GT7Info, пропускаем этот легендарный автомобиль
-        } else {
-          // Для used cars используем обычную логику - добавляем если есть в GTDB
-          if (matchingCarByname != null) {
-            // Если нашли совпадение по имени, используем ID от GT7Info для объединения
-            final gt7InfoUnifiedId = _generateUnifiedCarId(
-              matchingCarByname.id,
-            );
-            if (combinedCars.containsKey(gt7InfoUnifiedId)) {
-              // Объединяем информацию
-              final existingCar = combinedCars[gt7InfoUnifiedId]!;
-              combinedCars[gt7InfoUnifiedId] = _mergeCarData(existingCar, car);
-            } else {
-              combinedCars[gt7InfoUnifiedId] = car;
-            }
-          } else if (combinedCars.containsKey(unifiedId)) {
-            // If car exists from both sources with same ID, merge information
-            final existingCar = combinedCars[unifiedId]!;
-            combinedCars[unifiedId] = _mergeCarData(existingCar, car);
-          } else {
-            combinedCars[unifiedId] = car;
-          }
-        }
-      }
-
-      _allCars = combinedCars.values.toList();
-      _errorMessage = null;
-    } catch (e) {
-      _errorMessage = 'Error loading unified car data: $e';
+      await Future.wait([
+        _gt7InfoService.loadBundled(),
+        _gtdbService.loadBundled(),
+      ]);
+      _composeCars();
+      _isLoading = false;
+      notifyListeners();
+      await Future.wait([
+        _gt7InfoService.fetchGT7InfoData(forceRefresh: forceRefresh),
+        _gtdbService.fetchGTDBData(forceRefresh: forceRefresh),
+      ]);
+      _composeCars();
+      final failures = [
+        _gt7InfoService.errorMessage,
+        _gtdbService.errorMessage,
+      ].whereType<String>().toList();
+      _errorMessage = failures.isEmpty ? null : failures.join('; ');
+    } catch (error) {
+      _errorMessage = 'Error loading unified car data: $error';
     } finally {
+      _fetching = false;
       _isLoading = false;
       notifyListeners();
     }
+  }
+
+  void _composeCars() {
+    // Combine data from both sources
+    final gt7InfoCars = _extractGT7InfoCars();
+    final gtdbCars = _extractGTDBCars();
+
+    // Combine and deduplicate cars
+    final combinedCars = <String, Car>{};
+
+    // Add GT7Info cars
+    for (final car in gt7InfoCars) {
+      final unifiedId = _generateUnifiedCarId(car.id);
+      combinedCars[unifiedId] = car;
+    }
+
+    // Add GTDB cars
+    for (final car in gtdbCars) {
+      final unifiedId = _generateUnifiedCarId(car.id);
+
+      // Проверяем, есть ли уже GT7Info car с тем же именем
+      Car? matchingCarByname = _findMatchingCarByName(car, gt7InfoCars);
+
+      // Для легендарных автомобилей из GTDB - добавляем только если есть совпадение в GT7Info
+      if (car.source?.contains('gtdb_legend') ?? false) {
+        if (matchingCarByname != null) {
+          // Если нашли совпадение по имени, используем ID от GT7Info для объединения
+          final gt7InfoUnifiedId = _generateUnifiedCarId(matchingCarByname.id);
+          if (combinedCars.containsKey(gt7InfoUnifiedId)) {
+            // Объединяем информацию
+            final existingCar = combinedCars[gt7InfoUnifiedId]!;
+            combinedCars[gt7InfoUnifiedId] = _mergeCarData(existingCar, car);
+          } else {
+            combinedCars[gt7InfoUnifiedId] = car;
+          }
+        }
+        // Если нет совпадения в GT7Info, пропускаем этот легендарный автомобиль
+      } else {
+        // Для used cars используем обычную логику - добавляем если есть в GTDB
+        if (matchingCarByname != null) {
+          // Если нашли совпадение по имени, используем ID от GT7Info для объединения
+          final gt7InfoUnifiedId = _generateUnifiedCarId(matchingCarByname.id);
+          if (combinedCars.containsKey(gt7InfoUnifiedId)) {
+            // Объединяем информацию
+            final existingCar = combinedCars[gt7InfoUnifiedId]!;
+            combinedCars[gt7InfoUnifiedId] = _mergeCarData(existingCar, car);
+          } else {
+            combinedCars[gt7InfoUnifiedId] = car;
+          }
+        } else if (combinedCars.containsKey(unifiedId)) {
+          // If car exists from both sources with same ID, merge information
+          final existingCar = combinedCars[unifiedId]!;
+          combinedCars[unifiedId] = _mergeCarData(existingCar, car);
+        } else {
+          combinedCars[unifiedId] = car;
+        }
+      }
+    }
+
+    _allCars = combinedCars.values.toList();
   }
 
   List<Car> _extractGT7InfoCars() {

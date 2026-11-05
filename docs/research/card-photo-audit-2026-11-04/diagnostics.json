@@ -1,0 +1,13 @@
+{
+  "used_api_error": "TLS hostname mismatch for api.playstationdb.com; certificate validation retained",
+  "invalid_fallback_probes": [
+    {
+      "url": "https://www.gran-turismo.com/common/dist/gt7/carlist/car_thumbnails/carcar344.png",
+      "status": 404
+    },
+    {
+      "url": "https://flagcdn.com/h24/xx.png",
+      "status": 404
+    }
+  ]
+}

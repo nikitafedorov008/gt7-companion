@@ -79,6 +79,8 @@ flutter:
   assets:
     - assets/images/
     - assets/images/brand_central/
+    - assets/card_images/
+    - assets/track_images/
     - assets/cars/
     - assets/tracks/
     - assets/sfx/

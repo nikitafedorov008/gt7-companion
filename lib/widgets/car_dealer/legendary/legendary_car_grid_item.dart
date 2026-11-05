@@ -1,450 +1,199 @@
-import 'package:gt7_companion/l10n/ui_messages.dart';
-// FILE: lib/widgets/car_dealer/legendary/legendary_car_grid_item.dart
-// VERSION: 1.0.0
-// START_MODULE_CONTRACT
-//   PURPOSE: Render one legendary-dealer car as a card, including the tilted frame it is painted with, and launch its price history.
-//   SCOPE: Card layout, custom frame decoration and painter, image fallback chain.
-//   DEPENDS: M-MODEL-CAR, M-REPO-CAR
-//   LINKS: M-WIDGET-CAR-DEALER, V-M-WIDGET-CAR-DEALER
-//   ROLE: RUNTIME
-//   MAP_MODE: EXPORTS
-// END_MODULE_CONTRACT
-//
-// START_MODULE_MAP
-//   LegendaryCarCardItem - legendary-dealer car card with its tilted frame.
-//   CustomDecoration - decoration that paints the tilted legendary frame around the card.
-//   CustomDecorationPainter - box painter behind CustomDecoration.
-// END_MODULE_MAP
-
 import 'package:flutter/material.dart';
-import 'package:extended_image/extended_image.dart';
-import 'package:flutter_avif/flutter_avif.dart';
-import '../../../models/car_dealer/car.dart';
-import '../car_status_badge.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+import '../../../l10n/ui_messages.dart';
+import '../../../models/car_dealer/car.dart';
+import '../../../repositories/dealer_catalog_repository.dart';
+import '../card_artwork.dart';
+import '../dealer_card_parts.dart';
 
+/// Open collection columns measured against the GT7 Hagerty reference.
 class LegendaryCarCardItem extends StatelessWidget {
+  const LegendaryCarCardItem({super.key, required this.car, this.onTap});
   final Car car;
-
-  const LegendaryCarCardItem({super.key, required this.car});
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    String carImageUrl = _getCarImageUrl();
-
-    return GestureDetector(
-      onTap: () => _launchPriceHistory(car.id),
-      child: Container(
-        margin: const EdgeInsets.all(8.0),
-        // decoration: BoxDecoration(
-        //   borderRadius: BorderRadius.circular(2.0),
-        //   border: Border.all(color: Colors.grey[300]!, width: 1),
-        // ),
-        decoration: CustomDecoration(frameSFactor: .06, gap: 0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Align(
-              alignment: Alignment.topCenter.add(AlignmentDirectional(0.6, 0)),
-              child: SvgPicture.asset(
-                'assets/images/legend_hagerty_icon.svg',
-                height: 32,
-                width: 32,
+    final theme = Theme.of(context), colors = Theme.of(context).colorScheme;
+    return Consumer<DealerCatalogRepository>(
+      builder: (context, catalog, _) {
+        final details = catalog.details(car, context.l10n.localeName);
+        return Material(
+          color: colors.surface.withValues(alpha: 0),
+          child: InkWell(
+            key: ValueKey('dealer-legendary-car-${details.id}'),
+            onTap: onTap,
+            child: CustomPaint(
+              painter: _CollectionCorners(
+                colors.onSurface.withValues(alpha: .2),
               ),
-            ),
-
-            // Manufacturer logotype
-            Padding(
-              padding: const EdgeInsets.only(top: 18.0),
-              child: FractionallySizedBox(
-                widthFactor: 0.30,
-                child: Image.network(
-                  'https://vl.imgix.net/img/${car.manufacturer.toLowerCase().replaceAll(' ', '-')}-logo.png',
-                ),
-              ),
-            ),
-
-            // Manufacturer
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: FractionallySizedBox(
-                  widthFactor: 0.9,
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    alignment: Alignment.centerLeft,
+              child: LayoutBuilder(
+                builder: (context, bounds) {
+                  final h = bounds.maxHeight;
+                  return Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: bounds.maxWidth * .1,
+                    ),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        const SizedBox(width: 6),
-                        Align(
-                          child: Text(
-                            context.tr(car.manufacturer),
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11,
-                              color: Colors.white70,
+                        SizedBox(
+                          height: h * .055,
+                          child: Align(
+                            alignment: Alignment.topRight,
+                            child: SvgPicture.asset(
+                              'assets/images/legend_hagerty_icon.svg',
+                              width: 23,
+                              height: 23,
                             ),
                           ),
                         ),
-
+                        SizedBox(height: h * .055),
+                        SizedBox(
+                          height: h * .095,
+                          child: details.logoUrl != null
+                              ? CardArtwork(
+                                  url: details.logoUrl!,
+                                  fit: BoxFit.contain,
+                                  cacheWidth: 256,
+                                )
+                              : Center(
+                                  child: Text(
+                                    details.manufacturer,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                        ),
+                        SizedBox(height: h * .07),
+                        SizedBox(
+                          height: h * .145,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Text(
+                                details.manufacturer,
+                                style: theme.textTheme.labelSmall?.copyWith(
+                                  fontSize: 11,
+                                  letterSpacing: 0,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                details.name,
+                                style: theme.textTheme.titleSmall?.copyWith(
+                                  fontSize: 14,
+                                  height: 1.12,
+                                  letterSpacing: 0,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Divider(
+                          height: 1,
+                          thickness: .7,
+                          color: colors.primary.withValues(alpha: .65),
+                        ),
+                        SizedBox(
+                          height: h * .08,
+                          child: Align(
+                            alignment: Alignment.topRight,
+                            child: Text(
+                              details.year,
+                              style: theme.textTheme.headlineLarge?.copyWith(
+                                fontSize: 30,
+                                height: 1.2,
+                                letterSpacing: -.8,
+                                color: colors.onSurfaceVariant,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: h * .025),
+                        SizedBox(
+                          height: h * .19,
+                          child: Opacity(
+                            opacity: car.isSoldOut ? .4 : 1,
+                            child: CardArtwork(
+                              key: ValueKey(
+                                'dealer-legendary-image-${details.id}',
+                              ),
+                              url: details.thumbnailUrl,
+                              fit: BoxFit.contain,
+                              cacheWidth: 640,
+                            ),
+                          ),
+                        ),
+                        Divider(
+                          height: 1,
+                          thickness: .7,
+                          color: colors.primary.withValues(alpha: .65),
+                        ),
+                        const SizedBox(height: 10),
+                        DealerPrice(details: details),
                         const SizedBox(height: 4),
-
-                        // Car Name
-                        Text(
-                          context.tr(car.name),
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white70,
+                        Tooltip(
+                          message: context.l10n.dealerMileage,
+                          child: Text(
+                            '—',
+                            style: theme.textTheme.labelSmall?.copyWith(
+                              fontSize: 11,
+                              letterSpacing: 0,
+                            ),
                           ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
                         ),
+                        const SizedBox(height: 14),
+                        DealerStockLabel(details: details, onlySpecial: true),
                       ],
                     ),
-                  ),
-                ),
+                  );
+                },
               ),
             ),
-
-            const SizedBox(height: 4),
-
-            Divider(
-              height: 30.0,
-              thickness: 0.4,
-              color: Colors.lightBlue,
-              indent: 24.0,
-              endIndent: 24.0,
-              radius: BorderRadius.circular(24),
-            ),
-
-            // Car Image (Top)
-            Expanded(
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(8),
-                  bottomLeft: Radius.circular(8),
-                ),
-                child: FractionallySizedBox(
-                  widthFactor: 0.8,
-                  child: _buildImageWidget(
-                    carImageUrl,
-                    width: 120,
-                    height: 120,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              ),
-            ),
-
-            Divider(
-              height: 30.0,
-              thickness: 0.4,
-              color: Colors.lightBlue,
-              indent: 24.0,
-              endIndent: 24.0,
-              radius: BorderRadius.circular(24),
-            ),
-
-            // Info Section (Bottom)
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: FractionallySizedBox(
-                  widthFactor: 0.9,
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    alignment: Alignment.centerLeft,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        // Price
-                        Text(
-                          context.tr(car.displayPrice),
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white70,
-                          ),
-                        ),
-
-                        // Miles
-                        Text(
-                          context.tr('${_formatMiles(car.estimateDays)} miles'),
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-
-            // Status: SOLD OUT / LIMITED STOCK
-            if (car.isSoldOut)
-              CarStatusBadge(
-                text: 'SOLD OUT',
-                background: Colors.red[100]!,
-                foreground: Colors.red[800]!,
-              )
-            else if (car.isLimitedStock)
-              CarStatusBadge(
-                text: 'LIMITED STOCK',
-                background: Colors.orange[100]!,
-                foreground: Colors.orange[800]!,
-              ),
-
-            const SizedBox(height: 8),
-          ],
-        ),
-      ),
-    );
-  }
-
-  String _getCarImageUrl() => car.carImageUrl;
-
-  Widget _buildImageWidget(
-    String imageUrl, {
-    double? width,
-    double? height,
-    BoxFit fit = BoxFit.cover,
-  }) {
-    Widget placeholder = Container(
-      width: width,
-      height: height,
-      color: Colors.grey[300],
-      child: const Icon(Icons.car_repair, size: 16, color: Colors.grey),
-    );
-
-    // Standard fallback image in case of errors
-    Widget fallbackImage = Container(
-      width: width,
-      height: height,
-      color: Colors.grey[200],
-      child: const Icon(
-        Icons.image_not_supported_outlined,
-        size: 24,
-        color: Colors.grey,
-      ),
-    );
-
-    if (imageUrl.contains('imagedelivery.net')) {
-      // Для изображений из GTDB показываем стандартное изображение как placeholder,
-      // а затем заменяем на изображение из GTDB если оно загрузится
-      String gt7StandardUrl =
-          'https://www.gran-turismo.com/common/dist/gt7/carlist/car_thumbnails/car${car.id}.png';
-
-      // Сначала загружаем стандартное изображение
-      return ExtendedImage.network(
-        gt7StandardUrl, // Сначала показываем стандартное изображение
-        // width: width,
-        // height: height,
-        fit: fit,
-        cache: true,
-        loadStateChanged: (ExtendedImageState standardState) {
-          // Загружаем изображение из GTDB поверх стандартного
-          Widget gtdbImage = AvifImage.network(
-            imageUrl, // Это изображение из GTDB
-            // width: width,
-            // height: height,
-            fit: BoxFit.contain,
-            loadingBuilder: (context, child, loadingProgress) =>
-                loadingProgress == null
-                ? child
-                : Container(), // Не показываем placeholder для GTDB
-            errorBuilder: (context, error, stackTrace) =>
-                Container(), // Не показываем ошибку GTDB
-          );
-
-          if (standardState.extendedImageLoadState == LoadState.loading) {
-            // Если стандартное изображение еще грузится, показываем placeholder
-            return Stack(
-              alignment: Alignment.center,
-              children: [
-                placeholder, // placeholder пока грузится стандартное изображение
-                gtdbImage, // попутно грузим изображение из GTDB
-              ],
-            );
-          } else if (standardState.extendedImageLoadState ==
-              LoadState.completed) {
-            // Если стандартное изображение загрузилось, показываем его с возможностью замены на GTDB
-            return Stack(
-              alignment: Alignment.center,
-              children: [
-                standardState.completedWidget, // стандартное изображение
-                gtdbImage, // поверх него изображение из GTDB, если оно загрузится
-              ],
-            );
-          } else {
-            // В случае ошибки стандартного изображения показываем fallback
-            return Stack(
-              alignment: Alignment.center,
-              children: [
-                fallbackImage, // fallback при ошибке
-                gtdbImage, // попутно пробуем загрузить изображение из GTDB
-              ],
-            );
-          }
-        },
-      );
-    } else {
-      return ExtendedImage.network(
-        imageUrl,
-        width: width,
-        height: height,
-        fit: fit,
-        cache: true,
-        loadStateChanged: (ExtendedImageState state) {
-          if (state.extendedImageLoadState == LoadState.loading ||
-              state.extendedImageLoadState == LoadState.failed) {
-            return state.extendedImageLoadState == LoadState.loading
-                ? placeholder
-                : fallbackImage;
-          }
-          return null;
-        },
-      );
-    }
-  }
-
-  Future<void> _launchPriceHistory(String carId) async {
-    final url = 'https://ddm999.github.io/gt7info/cars/prices_$carId.png';
-    try {
-      await launchUrl(Uri.parse(url));
-    } catch (e) {
-      debugPrint('Error launching URL: $e');
-    }
-  }
-
-  String _formatMiles(int days) {
-    return (days * 1000).toString();
-  }
-}
-
-class CustomDecoration extends Decoration {
-  final Color? backgroundColor;
-  final double frameSFactor;
-  //defalut padding _Need to check
-  final double gap;
-
-  const CustomDecoration({
-    this.backgroundColor = Colors.transparent,
-    required this.frameSFactor,
-    required this.gap,
-  });
-  @override
-  BoxPainter createBoxPainter([VoidCallback? onChanged]) {
-    return CustomDecorationPainter(
-      backgroundColor: backgroundColor!,
-      frameSFactor: frameSFactor,
-      padding: gap,
+          ),
+        );
+      },
     );
   }
 }
 
-class CustomDecorationPainter extends BoxPainter {
-  final Color backgroundColor;
-  final double frameSFactor;
-  final double padding;
-
-  CustomDecorationPainter({
-    this.backgroundColor = Colors.transparent,
-    this.frameSFactor = .06,
-    required this.padding,
-  });
+class _CollectionCorners extends CustomPainter {
+  const _CollectionCorners(this.color);
+  final Color color;
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = color
+      ..strokeWidth = .7
+      ..style = PaintingStyle.stroke;
+    const length = 9.0;
+    for (final corner in [
+      Offset.zero,
+      Offset(size.width, 0),
+      Offset(0, size.height),
+      Offset(size.width, size.height),
+    ]) {
+      final dx = corner.dx == 0 ? length : -length;
+      final dy = corner.dy == 0 ? length : -length;
+      canvas.drawPath(
+        Path()
+          ..moveTo(corner.dx + dx, corner.dy)
+          ..lineTo(corner.dx, corner.dy)
+          ..lineTo(corner.dx, corner.dy + dy),
+        paint,
+      );
+    }
+  }
 
   @override
-  void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
-    final Rect bounds = offset & configuration.size!;
-    final frameHWidth = configuration.size!.width * frameSFactor;
-
-    Paint paint = Paint()
-      ..color = backgroundColor
-      ..strokeCap = StrokeCap.round
-      ..style = PaintingStyle.fill
-      ..strokeWidth = 1;
-
-    /// background
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(bounds, Radius.circular(0.8)),
-      paint..color,
-    );
-
-    paint.color = Colors.grey;
-
-    /// top left
-    canvas.drawLine(
-      bounds.topLeft + Offset(padding, padding),
-      Offset(bounds.topLeft.dx + frameHWidth, bounds.topLeft.dy) +
-          Offset(padding, padding),
-      paint,
-    );
-    canvas.drawLine(
-      bounds.topLeft + Offset(padding, padding),
-      Offset(bounds.topLeft.dx, bounds.topLeft.dy + frameHWidth) +
-          Offset(padding, padding),
-      paint,
-    );
-
-    //top Right
-    canvas.drawLine(
-      Offset(bounds.topRight.dx - padding, bounds.topRight.dy + padding),
-      Offset(
-        bounds.topRight.dx - padding - frameHWidth,
-        bounds.topRight.dy + padding,
-      ),
-      paint,
-    );
-    canvas.drawLine(
-      Offset(bounds.topRight.dx - padding, bounds.topRight.dy + padding),
-      Offset(
-        bounds.topRight.dx - padding,
-        bounds.topRight.dy + padding + frameHWidth,
-      ),
-      paint..color,
-    );
-
-    //bottom Right
-    canvas.drawLine(
-      Offset(bounds.bottomRight.dx - padding, bounds.bottomRight.dy - padding),
-      Offset(
-        bounds.bottomRight.dx - padding,
-        bounds.bottomRight.dy - padding - frameHWidth,
-      ),
-      paint,
-    );
-    canvas.drawLine(
-      Offset(bounds.bottomRight.dx - padding, bounds.bottomRight.dy - padding),
-      Offset(
-        bounds.bottomRight.dx - padding - frameHWidth,
-        bounds.bottomRight.dy - padding,
-      ),
-      paint,
-    );
-    //bottom Left
-    canvas.drawLine(
-      Offset(bounds.bottomLeft.dx + padding, bounds.bottomLeft.dy - padding),
-      Offset(
-        bounds.bottomLeft.dx + padding,
-        bounds.bottomLeft.dy - padding - frameHWidth,
-      ),
-      paint,
-    );
-    canvas.drawLine(
-      Offset(bounds.bottomLeft.dx + padding, bounds.bottomLeft.dy - padding),
-      Offset(
-        bounds.bottomLeft.dx + padding + frameHWidth,
-        bounds.bottomLeft.dy - padding,
-      ),
-      paint,
-    );
-  }
+  bool shouldRepaint(_CollectionCorners oldDelegate) =>
+      oldDelegate.color != color;
 }

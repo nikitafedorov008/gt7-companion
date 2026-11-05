@@ -1,3 +1,4 @@
+import '../widgets/gt_loading_indicator.dart';
 import 'package:gt7_companion/widgets/window_navigation_safe_area.dart';
 import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'dart:async';
@@ -713,7 +714,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const CircularProgressIndicator(color: Color(0xFF00D1E8)),
+              const GtLoadingIndicator(),
               const SizedBox(height: 20),
               Text(
                 context.tr(_status),

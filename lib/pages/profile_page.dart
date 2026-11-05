@@ -1,3 +1,4 @@
+import '../widgets/gt_loading_indicator.dart';
 import 'package:gt7_companion/widgets/window_navigation_safe_area.dart';
 import 'package:gt7_companion/l10n/ui_messages.dart';
 import 'package:auto_route/annotations.dart';
@@ -353,9 +354,7 @@ class _Gt7ProfileHeader extends StatelessWidget {
 
         // Loading indicator
         if (isLoading && profile == null)
-          const Positioned.fill(
-            child: Center(child: CircularProgressIndicator()),
-          ),
+          const Positioned.fill(child: Center(child: GtLoadingIndicator())),
       ],
     );
   }
@@ -513,7 +512,7 @@ class _RacesSection extends StatelessWidget {
                 ),
                 loading: () => const Padding(
                   padding: EdgeInsets.all(24),
-                  child: Center(child: CircularProgressIndicator()),
+                  child: Center(child: GtLoadingIndicator()),
                 ),
                 error: (message) => Text(
                   context.tr('Error: $message'),

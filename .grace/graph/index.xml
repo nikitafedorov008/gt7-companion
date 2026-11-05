@@ -14,11 +14,13 @@
         <M-REPO-SPORT />
         <M-MODEL-DAILY />
         <M-WIDGET-DAILY />
+        <M-TRACK-ARTWORK />
         <M-SERVICE-GT7INFO />
         <M-SERVICE-GTDB />
+        <M-CARD-ARTWORK />
         <M-REPO-CAR />
         <M-MODEL-CAR />
-        <M-WIDGET-CAR-DEALER />
+        <M-DEALER-CATALOG/><M-REPO-WISHLIST/><M-WIDGET-CAR-DEALER />
         <M-MODEL-GT-AUTO />
         <M-WIDGET-GT-AUTO />
         <M-SERVICE-GT7-AUTH />

@@ -11,6 +11,7 @@ import 'package:gt7_companion/l10n/ui_messages.dart';
 // scales its type from its own width, so one widget covers a phone column and
 // a desktop row of three without a second layout.
 import 'package:flutter/material.dart';
+import 'track_artwork.dart';
 
 import '../../models/dg_edge/dg_edge_daily_race.dart';
 import '../../models/daily_races/daily_race.dart';
@@ -153,10 +154,11 @@ class _Hero extends StatelessWidget {
       fit: StackFit.expand,
       children: [
         if (background != null)
-          Image.network(
-            background,
+          TrackArtwork(
+            url: background,
+            trackId: race.dgEdge?.trackId,
+            role: 'background',
             fit: BoxFit.cover,
-            errorBuilder: (_, __, ___) => const SizedBox.shrink(),
           )
         else
           Container(color: Colors.white10),
@@ -182,11 +184,12 @@ class _Hero extends StatelessWidget {
             child: FractionallySizedBox(
               widthFactor: 0.55,
               heightFactor: 0.72,
-              child: Image.network(
-                race.trackImage!,
+              child: TrackArtwork(
+                url: race.trackImage!,
+                trackId: race.dgEdge?.trackId,
+                role: 'track',
                 key: ValueKey('track-${race.trackName ?? ''}'),
                 fit: BoxFit.contain,
-                errorBuilder: (_, __, ___) => const SizedBox.shrink(),
               ),
             ),
           ),

@@ -1,6 +1,7 @@
 // Models for DG-Edge daily races
 
 import 'dart:convert';
+import '../daily_races/track_image_assets.dart';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
@@ -343,13 +344,14 @@ class DgEdgeDailyRace {
   final String id; // numeric id or slug from URL (e.g. "505")
   final String title;
   final String? thumbnailUrl; // small thumbnail shown in list
+  final String? trackLogotypeUrl;
   final String? trackImageUrl; // image of the track (larger)
   final String?
   backgroundImageUrl; // optional background image (card background)
   final String?
   backgroundImageLoaded; // URL of the loaded background image (null when not loaded)
   final String? shortDescription;
-  final String? eventName; // explicit '.event-name' when present
+  final String? eventName; // explicit '.event-name, .ev-title' when present
   final String?
   eventTime; // explicit '.event-time.mb-0' when present (raw string)
   final String? trackName; // track name (e.g. <h4>Tsukuba Circuit</h4>)
@@ -438,6 +440,7 @@ class DgEdgeDailyRace {
     required this.url,
     this.thumbnailUrl,
     this.trackImageUrl,
+    this.trackLogotypeUrl,
     this.backgroundImageUrl,
     this.backgroundImageLoaded,
     this.shortDescription,
@@ -508,6 +511,7 @@ class DgEdgeDailyRace {
     url: j['url'] as String,
     thumbnailUrl: j['thumbnailUrl'] as String?,
     trackImageUrl: j['trackImageUrl'] as String?,
+    trackLogotypeUrl: j['trackLogotypeUrl'] as String?,
     backgroundImageUrl: j['backgroundImageUrl'] as String?,
     backgroundImageLoaded: j['backgroundImageLoaded'] as String?,
     shortDescription: j['shortDescription'] as String?,
@@ -576,6 +580,7 @@ class DgEdgeDailyRace {
     'url': url,
     'thumbnailUrl': thumbnailUrl,
     'trackImageUrl': trackImageUrl,
+    'trackLogotypeUrl': trackLogotypeUrl,
     'backgroundImageUrl': backgroundImageUrl,
     'backgroundImageLoaded': backgroundImageLoaded,
     'shortDescription': shortDescription,
@@ -621,17 +626,26 @@ class DgEdgeDailyRace {
     'votesPercent': votesPercent,
   };
 
-  String? get trackImage => trackId != null
-      ? 'https://data.dg-edge.com/images/tracks/$trackId/thumbs/Track${_getDisplayTrackId(trackId!)}.webp'
-      : null;
+  String? get trackImage =>
+      trackImageUrl ??
+      bundledTrackArtworkUrls[trackId]?['track'] ??
+      (trackId != null
+          ? 'https://data.dg-edge.com/images/tracks/$trackId/thumbs/Track${_getDisplayTrackId(trackId!)}.webp'
+          : null);
 
-  String? get trackBackgroundImage => trackId != null
-      ? 'https://data.dg-edge.com/images/tracks/$trackId/Back${_getDisplayTrackId(trackId!)}.webp'
-      : null;
+  String? get trackBackgroundImage =>
+      backgroundImageUrl ??
+      bundledTrackArtworkUrls[trackId]?['background'] ??
+      (trackId != null
+          ? 'https://data.dg-edge.com/images/tracks/$trackId/Back${_getDisplayTrackId(trackId!)}.webp'
+          : null);
 
-  String? get trackLogotype => trackId != null
-      ? 'https://data.dg-edge.com/images/tracks/$trackId/thumbs/Logo${_getDisplayTrackId(trackId!)}.webp'
-      : null;
+  String? get trackLogotype =>
+      trackLogotypeUrl ??
+      bundledTrackArtworkUrls[trackId]?['logo'] ??
+      (trackId != null
+          ? 'https://data.dg-edge.com/images/tracks/$trackId/thumbs/Logo${_getDisplayTrackId(trackId!)}.webp'
+          : null);
 
   @override
   String toString() => 'DgEdgeDailyRace($id, $title)';
@@ -645,6 +659,15 @@ class DgEdgeDailyRace {
   /// and friends. Those are read first because they are already normalised;
   /// the visible markup is only consulted for the handful of figures that have
   /// no attribute (laps, refuels, tyre sets, tyre code, car class).
+  static int? _visibleLapTime(String? text) {
+    if (text == null) return null;
+    final match = RegExp(r'^(\d+):(\d{2})\.(\d{3})$').firstMatch(text.trim());
+    if (match == null) return null;
+    return int.parse(match[1]!) * 60000 +
+        int.parse(match[2]!) * 1000 +
+        int.parse(match[3]!);
+  }
+
   static DgEdgeDailyRace? fromListElement(
     dom.Element el, {
     required String baseUrl,
@@ -677,7 +700,9 @@ class DgEdgeDailyRace {
 
       // Ids: the URL is authoritative, `externalid` covers unlinked cards.
       final id =
-          RegExp(r'/events/dailies/([\w-]+)').firstMatch(href)?.group(1) ??
+          RegExp(
+            r'/events/dailies/(?:[\w-]+/)?(\d+)(?:[/?#]|$)',
+          ).firstMatch(href)?.group(1) ??
           attr('externalid') ??
           baseUrl;
 
@@ -699,15 +724,18 @@ class DgEdgeDailyRace {
             r'Daily\s+([A-Z])\b',
             caseSensitive: false,
           ).firstMatch(metaTitle ?? '')?.group(1) ??
-          card.querySelector('.event-type .badge')?.text.trim().replaceFirst(
-            RegExp(r'^Daily\s*', caseSensitive: false),
-            '',
-          );
+          card
+              .querySelector('.event-type .badge')
+              ?.text
+              .trim()
+              .replaceFirst(RegExp(r'^Daily\s*', caseSensitive: false), '');
 
       // Visible week block: two spans, "Week 33/2026" then the date range.
-      final timeSpans =
-          card.querySelectorAll('.event-time span').map((e) => e.text.trim())
-              .where((t) => t.isNotEmpty).toList();
+      final timeSpans = card
+          .querySelectorAll('.event-time span, .ev-kicker span')
+          .map((e) => e.text.trim())
+          .where((t) => t.isNotEmpty)
+          .toList();
       final weekLabel = timeSpans.isNotEmpty
           ? timeSpans.first
           : RegExp(
@@ -717,9 +745,17 @@ class DgEdgeDailyRace {
 
       // The track name moved into `.event-name`; the leading segment of
       // metadescription says the same thing and survives markup changes.
-      final trackName =
-          card.querySelector('.event-name')?.text.trim() ??
-          metaDescription?.split(' - ').first.trim();
+      final baseTrack = card
+          .querySelector('.event-name, .ev-title')
+          ?.text
+          .trim();
+      final variant = card.querySelector('.ev-variant')?.text.trim();
+      final trackName = baseTrack == null
+          ? metaDescription?.split(' - ').first.trim()
+          : [
+              baseTrack,
+              if (variant != null && variant.isNotEmpty) variant,
+            ].join(' - ');
 
       final title = [
         if (raceLetter != null) 'Daily $raceLetter',
@@ -728,7 +764,9 @@ class DgEdgeDailyRace {
 
       // Car class or, for one-make races, the car model.
       final carTypeVal = card
-          .querySelector('.event-car-type, .car-type span')
+          .querySelector(
+            '.event-car-type, .car-type span, .ev-body > .ev-row > .ev-fact',
+          )
           ?.text
           .trim();
       final parsedCarType = CarTypeX.parse(carTypeVal);
@@ -748,7 +786,8 @@ class DgEdgeDailyRace {
         return m == null ? null : int.tryParse(m.group(1)!);
       }
 
-      final votesText = card.querySelector('.event-votes')?.text ?? '';
+      final votesText =
+          card.querySelector('.event-votes, .ev-votes')?.text ?? '';
       final votesPercent = int.tryParse(
         RegExp(r'(\d+)\s*%').firstMatch(votesText)?.group(1) ?? '',
       );
@@ -757,7 +796,7 @@ class DgEdgeDailyRace {
         id: id,
         title: title.isEmpty ? (metaTitle ?? '(no title)') : title,
         url: uri,
-        eventName: card.querySelector('.event-name')?.text.trim(),
+        eventName: card.querySelector('.event-name, .ev-title')?.text.trim(),
         eventTime: card.querySelector('.event-time')?.text.trim(),
         trackName: trackName,
         laps: iconValue('flag-checkered', expectMultiplier: false),
@@ -774,10 +813,17 @@ class DgEdgeDailyRace {
         externalId: attr('externalid'),
         rankingId: attr('rankingid'),
         trackId: attr('trackid'),
+        trackImageUrl: card.querySelector('.ev-map[src]')?.attributes['src'],
+        trackLogotypeUrl: card
+            .querySelector('.ev-logo[src]')
+            ?.attributes['src'],
+        backgroundImageUrl: attr('ogimage'),
         status: attr('status'),
         // `is-active` on the card is the reliable live marker; the `isactive`
         // attribute is not always present.
-        isActive: card.classes.contains('is-active'),
+        isActive:
+            (card.classes.contains('is-active') ||
+            card.classes.contains('ev-live')),
         isEnded: attr('isended') == 'true',
         totalPages: intAttr('totalpages'),
         lastUpdate: DateTime.tryParse(attr('lastupdate') ?? ''),
@@ -787,12 +833,25 @@ class DgEdgeDailyRace {
         raceLetter: raceLetter,
         weekLabel: weekLabel,
         dateRange: dateRange,
-        playersCount: intAttr('playerscount'),
+        playersCount:
+            intAttr('playerscount') ??
+            int.tryParse(
+              card
+                      .querySelector('.ev-foot-item[title="Drivers"] b')
+                      ?.text
+                      .replaceAll(',', '')
+                      .trim() ??
+                  '',
+            ),
         wheelCount: intAttr('wheelcount'),
         padCount: intAttr('padcount'),
         vrCount: intAttr('vrcount'),
         tmCount: intAttr('tmcount'),
-        leadTimeMs: intAttr('leadtime'),
+        leadTimeMs:
+            intAttr('leadtime') ??
+            _visibleLapTime(
+              card.querySelector('.ev-foot-item[title="Fastest time"] b')?.text,
+            ),
         top100TimeMs: intAttr('top100time'),
         top1000TimeMs: intAttr('top1000time'),
         ratingsMatrix: _matrixAttribute(card, 'ratingsmatrix'),
